@@ -1,46 +1,49 @@
 # Parameters and Levers Affecting Operator and Delegator Incentives
 
-This table gathers the main protocol parameters and design levers that shape reward and delegation incentives in Cardano. It is built from the reference set in [References/readme.md](References/readme.md) and the repo’s reward-system analysis. Its purpose is to make the incentive consequences explicit: not only the original design role of each lever, but also its effects on viability, yield differentiation, concentration, sustainability, and non-participation.
+This table is based on the uploaded original-design papers and reports in [References/papers](References/papers) and [References/reports](References/reports), rather than later repo summaries. It focuses on the symbols and definitions that appear directly in those source documents: pool stake, pledge, saturation, reward-bearing capacity, and reward funding.
 
-The table uses the notation that appears in the reward formulas or proposal documents. The first column gives the symbol, the second names the parameter or lever, and the following columns explain its intended role, how it behaves when moved up or down, and the broader incentive side effects discussed in the references.
+The most explicit definitions come from the CIP-50 report, which states that for pool $i$, $p_i$ is the declared pledge, $\sigma_i$ is the total stake, $z_0 = T/k$ is the saturation point, $\tilde{\sigma}_i = \min(\sigma_i, z_0)$ is reward-bearing stake, $\tilde{p}_i = \min(p_i, z_0)$ is reward-bearing pledge, $R$ is the reward pot, and $a_0$ is the pledge influence parameter. The reward-sharing paper uses a generic reward function $r(\sigma, \lambda)$, while the 2024 paper defines $\beta_j$, $\lambda_j$, and $\sigma_j$ for pool $j$.
 
 ## Parameter table
 
-| Symbol | Parameter / lever | Definition | Main reason it exists in the original design | How it behaves in the original design | Secondary incentive effects in the references | Current value / status |
-| --- | --- | --- | --- | --- | --- | --- |
-| `c_i` | `minPoolCost` | Minimum fixed cost that a pool must be able to cover before it can receive rewards | Ensure a minimum operator income and cover fixed costs | Raising it increases the minimum viable pool income and makes small pools less competitive; lowering it improves the net rewards available to smaller pools | Can act as a small-pool pull effect, but it does not by itself solve viability if larger pools remain more profitable | Current protocol floor; typically 340 ADA (340,000,000 lovelace) |
-| `m_i` | Margin / operator fee rate | Portion of rewards paid to the operator as a fee | Let operators earn income from service and fund infrastructure | Raising it increases operator revenue and reduces the portion left for delegators; lowering it improves comparability for delegators but weakens operator income | Mainly redistributes rewards between operators and delegators and affects visible yield, but it does not fix the deeper viability problem unless delegation also moves toward smaller pools | Variable; no single fixed value |
-| `π_i` | Effective pledge / pledge ratio | The economic pledge attached to a pool relative to its reward-eligible stake | Signal skin in the game and increase commitment | More pledge strengthens the commitment signal and can improve the pool’s reward position; less pledge weakens the signal and may leave the pledge budget unused | Changes whether pledge is attractive enough to matter and whether the pledge budget is activated rather than returned to reserve | Variable; no single fixed value |
-| `a0` | Pledge-weight parameter `a0` | Weight that balances size-based rewards against pledge-based rewards | Keep the reward envelope from being dominated by raw size alone | A higher `a0` increases the relative role of pledge and favors well-pledged pools; a lower `a0` makes size more dominant and weakens the pledge signal | Changes the relative position of pools with different pledge profiles, but its effect depends on the shape of the pledge-bonus function and on whether the pool system can absorb the reallocation | Current protocol parameter; part of the reward formula rather than a market price |
-| `λ_size` | Size-weight parameter `lambda_size` | Weight on pool size in the reward envelope | Reward participation and pool growth | Higher `lambda_size` strengthens the advantage of large pools and favors raw size; lower values reduce that advantage and make the reward distribution less size-dominated | Shapes the trade-off between participation and decentralization and can crowd out the pledge signal if set too high | Design weight; not a single market value |
-| `λ_pledge` | Pledge-weight parameter `lambda_pledge` | Weight on pledge in the reward envelope | Make pledge a meaningful economic signal | Higher `lambda_pledge` strengthens the pledge signal and can help well-pledged pools; lower values leave pledge economically weak | Affects whether pledge can support a healthy operator population and whether the pledge budget remains unused | Design weight; not a single market value |
-| `A(ν, π)` | Pledge-bonus curve `A(nu, pi)` | The nonlinear function that maps stake and pledge into the pledge bonus | Make pledge matter in a structured way rather than as a flat reward term | A more favorable curve can improve the value of pledge for smaller pools; a weaker or badly shaped curve can punish small pools or leave the pledge budget underused | Shapes whether small pools are helped or hurt, whether under-commitment is rewarded in some regions, and whether the system can sustain a viable small-operator base | Current protocol curve; its shape is the relevant policy object |
-| `k` | Target pool count / saturation parameter `k` | Controls the target number of pools and the pool-size saturation point | Keep the network from over-concentrating stake in too few pools | Higher `k` lowers the saturation size and tends to favor smaller and medium pools; lower `k` pushes the system toward larger average pool sizes | Can help small and medium pools gain stake, but the effect depends on market conditions and on whether delegation actually migrates | Current protocol parameter; `k = 500` |
-| `ρ` | Monetary expansion parameter `rho` | The reserve expansion rate that funds the epoch reward pot | Fund rewards from reserve expansion and bootstrap staking | Higher `ρ` increases reward funding in the short run; lower `ρ` reduces reward generosity and can make the system depend more heavily on fees | Changes operator revenue and delegator yield, but it does not repair the underlying reward structure and can simply defer reserve depletion | Current protocol parameter; part of the funding layer |
-| `τ` | Treasury cut parameter `tau` | The share of the epoch pot that goes to the treasury rather than to pools | Split the epoch pot between pools and treasury | Higher `τ` reduces the pool reward budget and increases treasury capture; lower `τ` leaves more reward available to pools | Strongly shapes reward generosity and long-run sustainability, especially when the reserve is the main funding source | Current protocol parameter; part of the funding layer |
-| `λ_viability` / `b0` | Viability-support slice `lambda_viability` / `b0` | A separate viability channel or slice inside the reward formula | Support genuinely small but productive pools | A larger viability slice increases support for small productive pools; a smaller one leaves them dependent on the main reward split | A direct viability lever that helps solve the “productive but not viable” problem without relying only on `minPoolCost` or margins | Proposal / design parameter rather than a current mainnet parameter |
-| `μ` | Alternative viability-share parameter `mu` | A separate share devoted to viability support rather than the main reward split | Provide an explicit viability channel instead of overloading the existing reward split | A larger `μ` share makes viability support more prominent; a smaller share leaves viability to be handled indirectly | Can strengthen small-pool entry while preserving a clearer distinction between reward-sharing and viability support | Proposal / design parameter |
-| `L` | Leverage parameter in CIP-50 | The leverage factor that determines how strongly pledge-linked reward capacity is amplified | Make pledge binding on reward-eligible stake and translate pledge into meaningful reward capacity | Higher `L` increases the effect of pledge and can make reward capacity more responsive to pledge; lower `L` can leave the mechanism too weak to change pool positioning | The relevant effect is not on `a0` directly but on how much the pledge structure can actually change pool outcomes; it also determines whether transition pressure becomes too severe | CIP-50 design lever; not a single fixed value in this note |
-| fee-layer rules | Fee-layer levers from CIP-0023 / CIP-0082 | Rules that govern fee floors, fee composition, and fee-layer fairness | Improve fairness in the fee layer and reduce exploitative pricing | More restrictive fee-layer rules improve comparability and reduce unfair pricing; looser rules allow more market differentiation | Useful as a downstream tool, but they do not by themselves resolve the underlying reward-surface and concentration problems | Variable; governed by protocol and governance rules |
+| Symbol | Parameter / lever | Definition as used in the source papers | Where it appears in the uploaded PDFs | Why it matters |
+| --- | --- | --- | --- | --- |
+| $\sigma_i$ | Stake delegated to pool $i$ | Total stake associated with pool $i$ | CIP-50 report; 2024 balancing paper | This is the pool’s stake base and the main input for reward-bearing capacity. |
+| $\beta_j$ | External stake delegated to pool $j$ | Stake delegated to pool $j$ from outside the operator | 2024 balancing paper | Distinguishes operator pledge from delegated stake. |
+| $\lambda_j$ | Operator pledge of pool $j$ | The pledge contributed by the pool operator | 2024 balancing paper | This is the pool-level pledge variable used in the pool reward model. |
+| $\sigma_j = \lambda_j + \beta_j$ | Total stake of pool $j$ | Sum of operator pledge and delegated stake | 2024 balancing paper | This is the full pool stake variable used in the reward-sharing model. |
+| $T$ | Total circulation supply | Total ADA supply in the system | CIP-50 report; Beccuti reports | It sets the scale of the saturation point and the reward-bearing quantities. |
+| $S$ | Total stake | Total stake that is actively participating in staking | Beccuti reports | It is used to compare total supply and active participation. |
+| $k$ | Target pool count / saturation parameter | The intended number of pools and the parameter that determines saturation | CIP-50 report; Beccuti reports | A higher $k$ lowers the saturation point and changes pool competitiveness. |
+| $z_0 = T/k$ | Saturation point | The common reward-bearing stake cap per pool | CIP-50 report | It is the key cap that determines how much stake per pool can earn rewards. |
+| $p_i$ | Declared pledge | The pledge declared by pool $i$ | CIP-50 report | It is the commitment amount that the design uses as the starting point for pledge-based rewards. |
+| $\tilde{\sigma}_i = \min(\sigma_i, z_0)$ | Reward-bearing stake / effective delegation | The portion of pool stake that remains reward-bearing after the saturation cap | CIP-50 report | This is the effective delegated stake that can actually earn rewards. |
+| $\tilde{p}_i = \min(p_i, z_0)$ | Reward-bearing pledge / effective pledge | The portion of declared pledge that is reward-bearing after the saturation cap | CIP-50 report | This is the effective pledge that matters for the reward function. |
+| $R$ | Reward pot | The total reward budget available in the epoch | CIP-50 report | It scales the gross reward assigned to each pool. |
+| $a_0$ | Pledge influence parameter | The parameter that governs how strongly pledge affects reward | CIP-50 report | It directly changes the reward advantage of well-pledged pools. |
+| $q_i$ | Effective reward-bearing quota | The effective quota that determines how much of the pool’s reward-bearing stake is eligible | CIP-50 report | This is the pool-specific reward-bearing capacity term in the reward formula. |
+| $L$ | Leverage parameter | The parameter that determines how strongly pledge-linked reward capacity is amplified under CIP-50 | CIP-50 report | It governs the transition pressure and feasibility of the reform. |
+| $r(\sigma, \lambda)$ | Generic pool reward function | A reward function that maps pool stake and pledged stake into pool rewards | 2020 reward-sharing schemes paper | This is the general reward-sharing abstraction used in the paper. |
 
-## Secondary effects that the repo highlights repeatedly
+## Symbols that are not present verbatim in the uploaded PDFs
 
-The repo’s discussion is broader than “does this deter Sybil behavior?” It repeatedly emphasizes the following side effects:
+The following symbols are mentioned in later repo summaries and in the broader Cardano reward discussion, but they are not present as literal notation in the uploaded original-design PDFs:
 
-- Viability and entry: some parameters affect whether small productive operators can survive, not merely whether they can be rewarded at all.
-- Delegator differentiation: parameters change whether delegators can see meaningful differences between pools, which matters because the repo says delegation often follows visibility and brand rather than small yield differences.
-- Concentration: parameters can either reinforce or soften the concentration of rewards in MPO fleets or large entities.
-- Funding sustainability: parameters affect how much of the reward budget is paid out, how much is returned to reserve, and whether the system is moving toward self-sufficiency.
-- Non-participation: some levers can help re-engage ADA that is currently outside delegation, but others mostly redistribute rewards among existing participants.
+- $\lambda_{size}$ and $\lambda_{pledge}$
+- $A(\nu, \pi)$
+- $\lambda_{viability}$
 
-## Main takeaway
+The closest source material in the uploaded set is the generic reward function $r(\sigma, \lambda)$ in the 2020 reward-sharing paper, together with the explicit CIP-50 definitions of $\sigma_i$, $p_i$, $z_0$, $\tilde{\sigma}_i$, $\tilde{p}_i$, $R$, $a_0$, and $L$.
 
-The key lesson from the repo is that these parameters are not only “security tools.” They are also structural levers for:
+## Why this matters
 
-- the shape of the operator population;
-- the distribution of rewards between operators and delegators;
-- the strength of the pledge signal;
-- the sustainability of the reward budget; and
-- the extent of concentration and non-participation.
+The original-design papers do not just discuss general incentives. They also define the core state variables of the system:
 
-So a parameter landscape should evaluate them along these dimensions, not only along a narrow anti-Sybil axis.
+- how much stake a pool has;
+- how much of that stake is reward-bearing;
+- how much pledge the pool declares;
+- how much of that pledge is reward-bearing;
+- what the total supply and the saturation level are; and
+- how the reward pot is distributed across pools.
+
+That is why any serious parameter landscape has to start from these variables before moving to later policy levers such as viability support or fee-layer reform.
