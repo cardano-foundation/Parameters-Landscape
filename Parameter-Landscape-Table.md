@@ -1,10 +1,19 @@
-# Parameters and Levers Affecting Operator and Delegator Incentives
+# Parameters Affecting Operator and Delegator Incentives
 
-This table is based on the uploaded original-design papers and reports in [References/papers](References/papers) and [References/reports](References/reports), rather than later repo summaries. It focuses on the symbols and definitions that appear directly in those source documents: pool stake, pledge, saturation, reward-bearing capacity, and reward funding.
+This file present a table of the key parameters affecting incentives. It is based on the uploaded original-design papers and reports in [References/papers](References/papers) and [References/reports](References/reports).
 
-The most explicit definitions come from the CIP-50 report, which states that for pool $i$, $p_i$ is the declared pledge, $\sigma_i$ is the total stake, $z_0 = T/k$ is the saturation point, $\tilde{\sigma}_i = \min(\sigma_i, z_0)$ is reward-bearing stake, $\tilde{p}_i = \min(p_i, z_0)$ is reward-bearing pledge, $R$ is the reward pot, and $a_0$ is the pledge influence parameter. The reward-sharing paper uses a generic reward function $r(\sigma, \lambda)$, while the 2024 paper defines $\beta_j$, $\lambda_j$, and $\sigma_j$ for pool $j$.
+Notation has not been consistent for some parametes accross different papers and reports. In this case, the table will be explicit about this issue, showing the different notations.
 
-## Parameter table
+Before introducing the table, we present the main formulas that drives incentives and from where we extract the key parameters.
+
+<!-- The most explicit definitions come from the CIP-50 report, which states that for pool $i$, $p_i$ is the declared pledge, $\sigma_i$ is the total stake, $z_0 = T/k$ is the saturation point, $\tilde{\sigma}_i = \min(\sigma_i, z_0)$ is reward-bearing stake, $\tilde{p}_i = \min(p_i, z_0)$ is reward-bearing pledge, $R$ is the reward pot, and $a_0$ is the pledge influence parameter. The reward-sharing paper uses a generic reward function $r(\sigma, \lambda)$, while the 2024 paper defines $\beta_j$, $\lambda_j$, and $\sigma_j$ for pool $j$. -->
+
+## Reserves, treasury, and reward pot
+
+## Reward function
+
+
+## Parameters table
 
 | Symbol | Parameter / lever | Definition as used in the source papers | Where it appears in the uploaded PDFs | Why it matters |
 | --- | --- | --- | --- | --- |
