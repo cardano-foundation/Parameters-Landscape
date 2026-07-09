@@ -62,7 +62,7 @@ Notation is not fully standardized across the literature. In particular, pledge 
 | \(R\) | Reward pot | Total rewards available in an epoch. | Scales gross rewards to pools, operators, and delegators. |
 | \(T\) | Total ADA supply | Measures all ADA in circulation + unclaimed rewards + deposits + fees + treasury  | Reference ADA base used to normalize stake variables. |
 | \(S\) | Active stake | Total ADA actively delegated or pledged. | Measures staking participation. |
-| \(S/T\) | Staking participation rate | Share of total supply participating in staking. | Captures the incentive to stake rather than remain liquid. |
+| \(S/T\) | Staking participation rate | Share of total supply participating in staking. | Captures effectivness of the incentive to stake rather than remain liquid. |
 
 ### 2. Protocol parameters
 
@@ -70,9 +70,8 @@ Notation is not fully standardized across the literature. In particular, pledge 
 | --- | --- | --- | --- |
 | \(k\) | Target pool count | Intended number of saturated pools. | Higher \(k\) lowers saturation and changes pool competitiveness. |
 | \(z_0 = 1/k\) | Saturation threshold | Maximum reward-bearing stake per pool, as a fraction of \(T\). | Caps the stake that can earn rewards in one pool. |
-| \(Z_0 = T/k\) | ADA saturation threshold | Maximum reward-bearing stake per pool, measured in ADA. | ADA version of the saturation cap. |
 | \(a_0\) | Pledge influence | Strength of pledge in the reward formula. | Higher \(a_0\) favors high-pledge pools. |
-| \(c_{\min}\) | Minimum fixed cost | Minimum fixed fee a pool operator must charge. | Affects small-pool viability and delegator returns. |
+| \(c_{\min}\) | Minimum fixed cost | Minimum fixed fee a pool operator can charge. | Affects small-pool viability and delegator returns. |
 | \(\tau\) | Treasury share | Fraction of rewards allocated to the treasury. | Trades off staking rewards against ecosystem funding. |
 | \(\rho\) | Reserve decay rate | Rate at which reserves are released into rewards. | Affects long-run reward sustainability. |
 
@@ -81,8 +80,8 @@ Notation is not fully standardized across the literature. In particular, pledge 
 | Symbol | Parameter | Definition | Why it matters |
 | --- | --- | --- | --- |
 | \(\sigma_i\) | Pool stake | Total stake assigned to pool \(i\), as a fraction of \(T\). | Main input for pool rewards and saturation. |
-| \(\hat p_i\) | Active operator pledge | Actual operator-controlled stake delegated to pool \(i\). | Determines whether the declared pledge is honored. |
 | \(p_i\) | Declared pledge | Pledge declared by the pool operator. | Enters the pool reward formula. |
+| \(\hat p_i\) | Active operator pledge | Actual operator-controlled stake delegated to pool \(i\). | Determines whether the declared pledge is honored. |
 | \(\beta_i\) | External delegation | Stake delegated by non-operator delegators. | Measures dependence on outside delegators. |
 | \(\sigma_i = \hat p_i + \beta_i\) | Pool stake identity | Total pool stake equals operator pledge plus external delegation. | Links pledge, delegation, and pool size. |
 
@@ -94,7 +93,6 @@ Notation is not fully standardized across the literature. In particular, pledge 
 | \(\bar p_i = \min\{p_i,z_0\}\) | Effective pledge | Reward-bearing pledge after the saturation cap. | Pledge above saturation does not further increase rewards. |
 | \(f(\sigma_i,p_i)\) | Pool reward function | Gross reward assigned to pool \(i\). | Central link between parameters and incentives. |
 | \(f(\sigma_i,p_i)=0\) if \(\hat p_i < p_i\) | Pledge constraint | Pool receives no rewards if active pledge is below declared pledge. | Makes pledge declarations incentive-relevant. |
-
 
 ### 5. Pool fees and reward sharing
 
