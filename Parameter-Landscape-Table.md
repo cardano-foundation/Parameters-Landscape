@@ -41,61 +41,83 @@ $$
 
 The expressions above inform how the current design rewards operators and delegators based on stake and pledge.
 
-## Notation and normalization
+### Notation and normalization
 
-Unless stated otherwise, stake variables are measured as fractions of total ADA supply \(T\).
-
+Unless stated otherwise, stake variables are measured as fractions of total ADA supply ($T$).
 Thus,
 
-\[
-\sigma_i = \frac{\text{pool } i \text{ stake in ADA}}{T},
-\qquad
-p_i = \frac{\text{pool } i \text{ pledge in ADA}}{T},
-\qquad
-z_0 = \frac{1}{k}.
-\]
+$$\sigma_i = \frac{\text{pool } i \text{ stake in ADA}}{T}, \qquad p_i = \frac{\text{pool } i \text{ pledge in ADA}}{T}, \qquad z_0 = \frac{1}{k}.$$
 
-If variables are measured directly in ADA, use the ADA-denominated versions:
+If variables are measured directly in ADA, we use the ADA-denominated versions, e.g., with some abuse of notation, $z_0=\frac{T}{k}$.  
 
-\[
-Z_0 = \frac{T}{k},
-\qquad
-\Sigma_i = T\sigma_i,
-\qquad
-P_i = Tp_i,
-\qquad
-\Beta_i = T\beta_i.
-\]
-
-In that case, saturation is written as:
-
-\[
-\bar{\Sigma}_i = \min\{\Sigma_i,Z_0\},
-\qquad
-\bar{P}_i = \min\{P_i,Z_0\}.
-\]
-
-Notation is not fully standardized across the literature. In particular, pledge is sometimes denoted by \(p_i\), \(\lambda_i\), or \(s_i\). Here we use \(p_i\) for declared pledge.
+Notation is not fully standardized across the literature. In particular, pledge is sometimes denoted by $p_i$, $\lambda_i$, or $s_i$. Here we use $p_i$ for declared pledge.
 
 
+## Parameters tables
 
-## Parameters table
+### 1. System-wide variables
 
-| Symbol | Parameter | Definition  | Why it matters |
+| Symbol | Parameter | Definition | Why it matters |
 | --- | --- | --- | --- |
-| $R$ | Reward pot | The total reward budget available in the epoch |  It scales the gross reward assigned to each pool. |
-| $T$ | Total circulation supply | Total ADA supply in the system |  It sets the scale of the saturation point and the reward-bearing quantities. |
-| $S$ | Total stake | Total stake that is actively participating in staking |  It is used to compare total supply vs. active participation. |
-| $k$ | Target pool count / saturation parameter | The intended number of pools in equilibrium and the parameter that determines saturation |  The parameter determines the saturation point given $T$. A higher $k$ lowers the saturation point and changes pool competitiveness. |
-| $z_0 = 1/k$ | Saturation point measured as a fraction of $T$ (measured in ADA is $z_0=T/k$ | The common reward-bearing stake cap per pool | It is the key cap that determines how much stake per pool can earn rewards. |
-| $\sigma_i$ | Stake delegated to pool $i$ as a fraction of $T$ | Total stake associated with pool $i$ | This is the pool’s stake base and the main input for reward-bearing capacity. |
-| $\bar{\sigma}_i=\min\\{\sigma_i,z_0\\}$ | Reward-bearing / effective delegation on pool $i$ as a fraction of $T$ | The portion of pool stake that remains reward-bearing after the saturation cap | This is the effective delegated stake that can actually earn rewards. |
-| $p_i$ | Operator declared pledge of pool $i$ as a fraction of $T$ (sometimes denoted by $\lambda_i$) | The pledge declared by the pool operator |  This is the pool-level pledge variable used in the pool reward model. |
-| $\bar{p}_i=\min\\{p_i,z_0\\}$ | Reward-bearing pledge / effective pledge | The portion of declared pledge that is reward-bearing after the saturation cap |  This is the effective pledge that matters for the reward function. |
-| $\hat{p}_i$ | Operator active pledge of pool $i$  as a fraction of $T$ | This is the ``self-delegation'' by the pool operator. It takes into account declared pledge |  This is used to calculate how much of the rewards to split among delegators corresponds to the pool operator. A pool with $\hat{p}_i<p_i$ gets $f(\sigma_i,p_i)=0$. |
-| $\beta_i$ | External sum of stake delegated to pool $i$. | Total stake delegated to pool $i$ from outside the operator |  Distinguishes operator pledge from delegated stake. |
-| $\sigma_i = \hat{p}_i + \beta_i$ | Total stake of pool $j$ | Sum of operator pledge and delegated stake | This is the full pool stake variable used in the reward-sharing model. |
-| $a_0$ | Pledge influence parameter | The parameter that governs how strongly pledge affects reward |  It directly changes the reward advantage of well-pledged pools. |
+| \(R\) | Reward pot | Total rewards available in an epoch. | Scales gross rewards to pools, operators, and delegators. |
+| \(T\) | Total ADA supply | Measures all ADA in circulation + unclaimed rewards + deposits + fees + treasury  | Reference ADA base used to normalize stake variables. |
+| \(S\) | Active stake | Total ADA actively delegated or pledged. | Measures staking participation. |
+| \(S/T\) | Staking participation rate | Share of total supply participating in staking. | Captures the incentive to stake rather than remain liquid. |
+
+### 2. Protocol parameters
+
+| Symbol | Parameter | Definition | Why it matters |
+| --- | --- | --- | --- |
+| \(k\) | Target pool count | Intended number of saturated pools. | Higher \(k\) lowers saturation and changes pool competitiveness. |
+| \(z_0 = 1/k\) | Saturation threshold | Maximum reward-bearing stake per pool, as a fraction of \(T\). | Caps the stake that can earn rewards in one pool. |
+| \(Z_0 = T/k\) | ADA saturation threshold | Maximum reward-bearing stake per pool, measured in ADA. | ADA version of the saturation cap. |
+| \(a_0\) | Pledge influence | Strength of pledge in the reward formula. | Higher \(a_0\) favors high-pledge pools. |
+| \(c_{\min}\) | Minimum fixed cost | Minimum fixed fee a pool operator must charge. | Affects small-pool viability and delegator returns. |
+| \(\tau\) | Treasury share | Fraction of rewards allocated to the treasury. | Trades off staking rewards against ecosystem funding. |
+| \(\rho\) | Reserve decay rate | Rate at which reserves are released into rewards. | Affects long-run reward sustainability. |
+
+### 3. Pool-level stake and pledge variables
+
+| Symbol | Parameter | Definition | Why it matters |
+| --- | --- | --- | --- |
+| \(\sigma_i\) | Pool stake | Total stake assigned to pool \(i\), as a fraction of \(T\). | Main input for pool rewards and saturation. |
+| \(\hat p_i\) | Active operator pledge | Actual operator-controlled stake delegated to pool \(i\). | Determines whether the declared pledge is honored. |
+| \(p_i\) | Declared pledge | Pledge declared by the pool operator. | Enters the pool reward formula. |
+| \(\beta_i\) | External delegation | Stake delegated by non-operator delegators. | Measures dependence on outside delegators. |
+| \(\sigma_i = \hat p_i + \beta_i\) | Pool stake identity | Total pool stake equals operator pledge plus external delegation. | Links pledge, delegation, and pool size. |
+
+### 4. Effective reward-bearing variables
+
+| Symbol | Parameter | Definition | Why it matters |
+| --- | --- | --- | --- |
+| \(\bar{\sigma}_i = \min\{\sigma_i,z_0\}\) | Effective pool stake | Reward-bearing pool stake after the saturation cap. | Stake above saturation does not increase pool rewards. |
+| \(\bar p_i = \min\{p_i,z_0\}\) | Effective pledge | Reward-bearing pledge after the saturation cap. | Pledge above saturation does not further increase rewards. |
+| \(f(\sigma_i,p_i)\) | Pool reward function | Gross reward assigned to pool \(i\). | Central link between parameters and incentives. |
+| \(f(\sigma_i,p_i)=0\) if \(\hat p_i < p_i\) | Pledge constraint | Pool receives no rewards if active pledge is below declared pledge. | Makes pledge declarations incentive-relevant. |
+
+
+### 5. Pool fees and reward sharing
+
+| Symbol | Parameter | Definition | Why it matters |
+| --- | --- | --- | --- |
+| \(c_i\) | Fixed pool cost | Fixed ADA amount retained by the operator before margin sharing. | Reduces rewards available to delegators. |
+| \(m_i\) | Pool margin | Percentage fee charged by the operator after fixed cost. | Splits residual rewards between operator and delegators. |
+| \(\mathrm{ROS}_i\) | Delegator return | Net return received by delegators in pool \(i\). | Main variable guiding delegation choices. |
+| \(\Pi_i\) | Operator profit | Net reward retained by pool operator \(i\). | Determines pool entry, exit, and survival. |
+
+### 6. Incentive and decentralization outcomes
+
+| Symbol | Outcome | Definition | Why it matters |
+| --- | --- | --- | --- |
+| \(\mathrm{APR}\) | Network staking return | Average annualized staking return. | Affects the incentive to stake. |
+| \(\sigma_i/z_0\) | Saturation ratio | Pool stake relative to the saturation threshold. | Measures whether a pool is under-, near-, or over-saturated. |
+| \(N_{\mathrm{active}}\) | Active pool count | Number of pools with positive active stake. | Basic measure of pool participation. |
+| \(N_{\mathrm{viable}}\) | Viable pool count | Number of pools with enough stake/profit to remain competitive. | Better measure of effective decentralization. |
+| \(H\) | Stake concentration | Concentration of stake across pools or operators. | Captures decentralization risk. |
+| \(\beta_i/p_i\) | Pledge leverage | External delegation attracted per unit of pledge. | Measures how strongly pledge attracts outside stake. |
+| \(M_i\) | Multi-pool footprint | Number of pools controlled by operator \(i\). | Captures pool-splitting incentives. |
+
+
 
 ## Symbols that are not present verbatim in the uploaded PDFs
 
