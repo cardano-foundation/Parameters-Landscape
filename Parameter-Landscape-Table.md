@@ -92,7 +92,7 @@ Notation is not fully standardized across the literature. In particular, pledge 
 | $\bar{\sigma}_i = \min\\{\sigma_i,z_0\\}$ | Effective pool stake | Reward-bearing pool stake after the saturation cap. | Stake above saturation does not increase pool rewards. |
 | $\bar p_i = \min\\{p_i,z_0\\}$ | Effective pledge | Reward-bearing pledge after the saturation cap. | Pledge above saturation does not further increase rewards. |
 | $f(\sigma_i,p_i)$ | Pool reward function | Gross reward assigned to pool $i$. | Central link between parameters and incentives. |
-| $f(\sigma_i,p_i)=0\) if \hat{p}_i < p_i$ | Pledge constraint | Pool receives no rewards if active pledge is below declared pledge. | Makes pledge declarations incentive-relevant. |
+| $f(\sigma_i,p_i)=0\)$ if $\hat{p}_i < p_i$ | Pledge constraint | Pool receives no rewards if active pledge is below declared pledge. | Makes pledge declarations incentive-relevant. |
 
 ### 5. Pool fees and reward sharing
 
