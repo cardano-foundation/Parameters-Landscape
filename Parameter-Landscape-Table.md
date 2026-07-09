@@ -115,27 +115,17 @@ Notation is not fully standardized across the literature. In particular, pledge 
 | \(\beta_i/p_i\) | Pledge leverage | External delegation attracted per unit of pledge. | Measures how strongly pledge attracts outside stake. |
 | \(M_i\) | Multi-pool footprint | Number of pools controlled by operator \(i\). | Captures pool-splitting incentives. |
 
+## Incentive-channel
+
+| Parameter change | Mechanical effect | Delegator incentive | SPO incentive | Decentralization effect |
+| --- | --- | --- | --- | --- |
+| Increase \(k\) | Lowers \(z_0\). | Move away from saturated pools. | Smaller pools become more competitive. | May reduce concentration, but can increase pool splitting. |
+| Decrease \(k\) | Raises \(z_0\). | More stake can remain in large pools. | Large pools become more attractive. | May increase concentration. |
+| Increase \(a_0\) | Raises pledge premium. | Prefer high-pledge pools. | Operators need more pledge. | May favor capital-rich operators. |
+| Decrease \(a_0\) | Lowers pledge premium. | Pledge matters less for returns. | Easier entry for low-pledge pools. | May improve entry but weaken skin-in-the-game. |
+| Increase \(c_{\min}\) | Raises minimum operator fee. | Lowers returns in small pools. | Protects operator revenue. | May hurt small-pool competitiveness. |
+| Increase \(\tau\) | Reduces staking rewards. | Lower incentive to stake. | Lower pool profitability. | May reduce participation. |
+| Increase \(\rho\) | Releases reserves faster. | Higher short-run staking rewards. | Higher short-run pool profitability. | Improves short-run incentives but weakens long-run sustainability. |
 
 
-## Symbols that are not present verbatim in the uploaded PDFs
 
-The following symbols are mentioned in later repo summaries and in the broader Cardano reward discussion, but they are not present as literal notation in the uploaded original-design PDFs:
-
-- $\lambda_{size}$ and $\lambda_{pledge}$
-- $A(\nu, \pi)$
-- $\lambda_{viability}$
-
-The closest source material in the uploaded set is the generic reward function $r(\sigma, \lambda)$ in the 2020 reward-sharing paper, together with the explicit CIP-50 definitions of $\sigma_i$, $p_i$, $z_0$, $\tilde{\sigma}_i$, $\tilde{p}_i$, $R$, $a_0$, and $L$.
-
-## Why this matters
-
-The original-design papers do not just discuss general incentives. They also define the core state variables of the system:
-
-- how much stake a pool has;
-- how much of that stake is reward-bearing;
-- how much pledge the pool declares;
-- how much of that pledge is reward-bearing;
-- what the total supply and the saturation level are; and
-- how the reward pot is distributed across pools.
-
-That is why any serious parameter landscape has to start from these variables before moving to later policy levers such as viability support or fee-layer reform.
