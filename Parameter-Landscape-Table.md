@@ -6,23 +6,15 @@ Before introducing the table, we present the main formulas that drives incentive
 
 ## Reserves, treasury, and reward pot
 
-Cardano has a reserve of tokens —difference between the maximum supply (45B ADA) and the total supply in circulation— with a predifined monetary expansion accross time. Each epoch, a certain amount $\rho$ of the reserve is taken for rewarding pool operators and fund the tresury.
+Cardano has a reserve of tokens—the difference between the maximum supply (45B ADA) and the total supply in circulation—with a predefined monetary expansion across time. Each epoch, a certain amount of the reserve $\rho$ (currently 0.3%) is taken to reward pool operators and fund the treasury.
 
-epoch reward pot ($R$) is determined. Before individual pool rewards are calculated, a total amount of rewards available for the epoch is established. This pot is sourced from transaction fees collected during the epoch ($\text{fees}$) and a percentage ($\rho$) of the remaining ADA in the reserves ($\text{reserves}$). 
+The fraction of that amount that goes to the treasury is denoted by $\tau$ and is currently set to $\tau=20\%$. Hence, the remaining $80\%$ goes to the reward pot. Additionally, the reward pot for epoch $t$ is populated with the transaction fees collected during the same epoch. However, because the network needs a full epoch to safely calculate everything, this pot is distributed at the start of epoch $t+2$.
 
-The calculation proceeds by first determining the monetary expansion, which is defined as:
-
-$$\text{Monetary Expansion} = \rho \cdot \text{reserves}$$
-
-Next, the total potential rewards are calculated using the following relation:
-
-$$\text{Total Potential Pot} = \text{fees} + (\rho \cdot \text{reserves})$$
-
-Finally, the final reward pot ($R$) is established as:
+Hence, the final reward pot ($R$) available is:
 
 $$R = (1 - \tau) \cdot (\text{fees} + \rho \cdot \text{reserves})$$
 
-This value $R$ represents the total ADA available to be shared among all stake pools in a given epoch, where $\tau$ is the treasury cut and $\rho$ is the monetary expansion rate.
+Not all of the pot is actually paid out. Rewards are only paid on active, staked ADA. If less than 100% of the circulating supply is staked, a portion goes unearned. The leftovers are automatically sent back to the reserves.
 
 ## Reward function
 
