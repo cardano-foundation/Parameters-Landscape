@@ -1,15 +1,28 @@
 # Parameters Affecting Operator and Delegator Incentives
 
-This file present a table of the key parameters affecting incentives. It is based on the uploaded original-design papers and reports in [References/papers](References/papers) and [References/reports](References/reports).
-
-Notation has not been consistent for some parametes accross different papers and reports. In this case, the table will be explicit about this issue, showing the different notations.
+This file present tables of the key parameters affecting the reward scheme and the agents incentives. It is based on the uploaded original-design papers and reports in [References/papers](References/papers) and [References/reports](References/reports).
 
 Before introducing the table, we present the main formulas that drives incentives and from where we extract the key parameters.
 
-<!-- The most explicit definitions come from the CIP-50 report, which states that for pool $i$, $p_i$ is the declared pledge, $\sigma_i$ is the total stake, $z_0 = T/k$ is the saturation point, $\tilde{\sigma}_i = \min(\sigma_i, z_0)$ is reward-bearing stake, $\tilde{p}_i = \min(p_i, z_0)$ is reward-bearing pledge, $R$ is the reward pot, and $a_0$ is the pledge influence parameter. The reward-sharing paper uses a generic reward function $r(\sigma, \lambda)$, while the 2024 paper defines $\beta_j$, $\lambda_j$, and $\sigma_j$ for pool $j$. -->
-
 ## Reserves, treasury, and reward pot
 
+Cardano has a reserve of tokens —difference between the maximum supply (45B ADA) and the total supply in circulation— with a predifined monetary expansion accross time. Each epoch, a certain amount $\rho$ of the reserve is taken for rewarding pool operators and fund the tresury.
+
+epoch reward pot ($R$) is determined. Before individual pool rewards are calculated, a total amount of rewards available for the epoch is established. This pot is sourced from transaction fees collected during the epoch ($\text{fees}$) and a percentage ($\rho$) of the remaining ADA in the reserves ($\text{reserves}$). 
+
+The calculation proceeds by first determining the monetary expansion, which is defined as:
+
+$$\text{Monetary Expansion} = \rho \cdot \text{reserves}$$
+
+Next, the total potential rewards are calculated using the following relation:
+
+$$\text{Total Potential Pot} = \text{fees} + (\rho \cdot \text{reserves})$$
+
+Finally, the final reward pot ($R$) is established as:
+
+$$R = (1 - \tau) \cdot (\text{fees} + \rho \cdot \text{reserves})$$
+
+This value $R$ represents the total ADA available to be shared among all stake pools in a given epoch, where $\tau$ is the treasury cut and $\rho$ is the monetary expansion rate.
 
 ## Reward function
 
