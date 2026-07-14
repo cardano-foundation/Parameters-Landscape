@@ -3,7 +3,7 @@ This section covers comparative statics, specifically analyzing how changes in k
 
 # Increment in k
 
-![](output_plots/plot.png)
+![Reward function when k changes](output_plots/heatmap_reward_function_k_cases.png)
 
 
 An increase in **k** lowers the saturation threshold, which has several key implications. First, smaller or newer pools require less pledge and delegation to reach maximum reward, making it easier and less costly to compete with established, large pools. However, a lower saturation threshold also caps the maximum rewards a single pool can earn. As a result, while small pools improve their competitivness for delegators (that do not want to leave the ecosystem), the lower reward ceiling may make the overall ecosystem less appealing to investors looking to maximize their staking returns.
