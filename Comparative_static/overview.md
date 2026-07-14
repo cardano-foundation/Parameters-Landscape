@@ -2,10 +2,10 @@
 This section covers comparative statics, specifically analyzing how changes in key parameters affect operator and delegator rewards.
 
 # Preliminaries
-Although the following was already introduce in other files of this report, we repeat it here to make this section selfcontent.
+While the following mechanisms were detailed in other sections, they are restated below to ensure this section remains standalone.
 
 ## Reward function
-The gross reward of pool $i$ can be written as:
+The reward function for pool $i$ is defined as:
 
 $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right].$$
 
