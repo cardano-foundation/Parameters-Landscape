@@ -1,4 +1,4 @@
-# Goal:
+# Goal
 Build a comprehensive parameter landscape to model how adjustments to key parameters influence system incentives and user behavior.
 
 # Methodology
