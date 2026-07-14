@@ -2,7 +2,7 @@
 This section covers comparative statics, specifically analyzing how changes in key parameters affect operator and delegator rewards.
 
 # Preliminaries
-While the following mechanisms were detailed in other sections, they are restated below to ensure this section remains standalone.
+While the following formulas were detailed in other sections, they are restated below to ensure this section remains standalone.
 
 ## Reward function
 The reward function for pool $i$ is defined as:
@@ -59,6 +59,7 @@ Because the protocol reimburses operators for their declared fixed costs ($c_i$)
 
 
 # Increment in $c_{min}$
+This parameter acts as a lower bound on the fixed costs an operator can declare for their pool(s). That is, while $c_{\min}$ may change, each operator $i$ ultimately decides whether to update their declared fixed cost $c_i$ (this is particularly true if the $c_{min}$ is reduced, while operators may need to update if the $c_{min}$). In this subsection, we assume operators always set their fixed costs equal to $c_{\min}$.
 
 ## Impact over operators
 ![Heatmap Operator Reward when c changes](output_plots/heatmap_operator_reward_c_cases.png)
@@ -70,8 +71,11 @@ Because the protocol reimburses operators for their declared fixed costs ($c_i$)
 # Increment in $a_0$
 
 ## Impact over operators
+![Heatmap Operator Reward when a0 changes](output_plots/heatmap_operator_reward_a0_cases.png)
 
 ## Impact over delegators
+![Heatmap Delegator Reward when a0 changes](output_plots/heatmap_delegator_reward_a0_cases.png)
+
 
 # Discussion
 A lower saturation threshold when $k$ raises has several key implications. First, smaller or newer pools require less pledge and delegation to reach maximum reward, making it easier and less costly to compete with established, large pools. However, a lower saturation threshold also caps the maximum rewards a single pool can earn. As a result, while small pools improve their competitivness for delegators (that do not want to leave the ecosystem), the lower reward ceiling may make the overall ecosystem less appealing to investors looking to maximize their staking returns.
