@@ -13,7 +13,7 @@ This reward is then adjusted for a pool's performance factor that we denote here
 
 $$\lambda_i f(\sigma_i,p_i).$$
 
-Assume $\lambda_i = 1$, let $c_i\ge 0$ denote the fixed cost charged by the pool and $m_i\in[0,1)$ its margin. For pool $i$, the protocol first pays the fixed cost $c_i$ whenever $f(\sigma_i,p_i) > c_i$. The remaining amount, $\bigl[f(\sigma_i,p_i)-c_i\bigr]_+$, is then allocated as follows: a fraction $m_i$ is taken by the operator as the pool margin, that is, as a commission on delegation rewards, and the residual fraction $(1-m_i)$ is distributed proportionally among all stake delegated to the pool, including the operator's own pledged stake. Thus, the pool operator gets:
+Assume $\lambda_i = 1$, let $c_i\ge 0$ denote the fixed cost charged by the pool and $m_i\in[0,1)$ its margin. For pool $i$, the protocol first pays the fixed cost $c_i$ whenever $f(\sigma_i,p_i) > c_i$. The remaining amount, $\bigl[f(\sigma_i,p_i)-c_i\bigr]_+$, is then allocated as follows: a fraction $m_i$ is taken by the operator as the pool margin, that is, as a commission on delegation rewards, and the residual fraction $(1-m_i)$ is distributed proportionally among all stake delegated to the pool, including the operator's own pledged stake. Thus, **the pool operator gets**:
 
 $$
 \begin{cases}
@@ -22,7 +22,7 @@ f(\sigma_i,p_i), & \text{otherwise}
 \end{cases}
 $$
 
-where $\hat{p}_i$ denotes the operator's active pledge, and a delegator $d$ with stake $\sigma_d$ receives:
+where $\hat{p}_i$ denotes the operator's active pledge, and **a delegator $d$ with stake $\sigma_d$ receives**:
 
 $$
 \begin{cases}
@@ -30,8 +30,6 @@ $$
 0, & \text{otherwise}
 \end{cases}
 $$
-
-The expressions above inform how the current design rewards operators and delegators based on stake and pledge.
 
 ### Notation and normalization
 Unless stated otherwise, stake variables are measured as fractions of total ADA supply ($T$).
