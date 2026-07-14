@@ -6,7 +6,7 @@ This section covers comparative statics, specifically analyzing how changes in k
 The direct effect ot an increment in **k** is to reduce the saturation threshold **$z_0$** and, hence, the maximum reward a pool can reach.
 The following plots show its consequence in the reward formula **$f()$**. From the plot illustrtating the difference, it is clear that large pools will be negatively affected since their rewards are capped a a lower threshold (see the figure below). On the other hand, after the increment in **k**, medium-size pools become closer to the new saturation thershold where their rewards are maximized.
 ![Heatmap Reward function when k changes](output_plots/heatmap_reward_function_k_cases.png)
-
+![Reward function when k changes](output_plots/Reward_function_vs_sigma.png){width=50%}
 
 
 A lower saturation threshold when **k** raises has several key implications. First, smaller or newer pools require less pledge and delegation to reach maximum reward, making it easier and less costly to compete with established, large pools. However, a lower saturation threshold also caps the maximum rewards a single pool can earn. As a result, while small pools improve their competitivness for delegators (that do not want to leave the ecosystem), the lower reward ceiling may make the overall ecosystem less appealing to investors looking to maximize their staking returns.
