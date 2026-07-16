@@ -44,32 +44,58 @@ If variables are measured directly in ADA, we use the ADA-denominated versions, 
 Notation is not fully standardized across the literature. In particular, pledge is sometimes denoted by $p_i$, $\lambda_i$, or $s_i$. Here we use $p_i$ for declared pledge.
 
 # Change in k
-(describe parameter role by design)
+(ToDo: describe and elaborate on the intended design role of the parameter.)
 
 ## Increment in k
+The direct effect of increasing $k$ is a reduction in the saturation threshold, $z_0$, which consequently lowers the maximum reward: 
+
+$$f(\sigma_i,p_i;z_0)>f(\sigma_i,p_i;z_0')\quad \text{for any} \quad z_0>z_0'.$$ 
+
 ### Impact over operators
-The direct effect of increasing $k$ is a reduction in the saturation threshold, $z_0$, which consequently lowers the maximum reward a pool can achieve. The following plots illustrate this impact on the reward function, $f(\sigma_i,p_i;z_0)$. As shown in the difference plot below, larger pools are negatively affected because their rewards are capped at a lower threshold. On the other hand, after the increase in $k$, medium-sized pools stay closer to the new saturation point where their rewards are maximized.
+Let us first consider the impact of an increase in $k$ on operators prior to any behavioral response—that is, the isolated effect of the change, holding all else constant ($ceteris\ paribus$). Indeed, any subsequent operator response will be driven by how this initial change affects their current state.
+
+The following plots illustrate this impact on the reward function, $f(\sigma_i,p_i;z_0)$. As expected, larger pools are negatively affected since their rewards are capped at a lower threshold. On the other hand, medium-sized pools closer to the new saturation point are now near the range where their rewards are maximized.
 ![Heatmap Reward function when k changes](output_plots/heatmap_reward_function_k_cases.png)
 <p align="center">
   <img src="output_plots/Reward_function_vs_sigma.png" alt="Reward function when k changes" width="60%">
 </p>
 
-Note that this formula presents an incomplete picture, as an operator's total reward must also account for their declared fixed costs. The following plots illustrate the operator rewards when their fixed cost is $c_i=170$ ADA and the margin (the commision retained to delegators) is $m_i=5\\%$. 
+The previous plots present an incomplete picture, as an operator's total reward must also account for their declared fixed costs. The following plots illustrate the operator rewards when their fixed cost is $c_i=170$ ADA and the margin (the commision retained to delegators) is $m_i=5\\%$. 
 ![Heatmap Operator Reward when k changes](output_plots/heatmap_operator_reward_k_cases.png)
 
-Because the protocol reimburses operators for their declared fixed costs ($c_i$), incorporating fixed-cost income mitigates the impact of increasing $k$, particularly for pools with low pledge. The latter occurs because fixed costs are deducted from the total pool rewards before remaining returns are distributed to delegators—effectively reducing the delegators' share of pool rewards, which are given by $f(\sigma_i, p_i; z_0) - c_i$. Hence, pools with lower pledge (and higher proportion of third-party delegations) redirect a larger relative portion of delegator returns toward the operator.
+Because the protocol reimburses operators for their declared fixed costs ($c_i$), incorporating fixed-cost income mitigates the impact of increasing $k$, particularly for pools with low pledge, even if the pool becomes oversaturated. This mitigation occurs because fixed costs are deducted from the total pool rewards before remaining returns are distributed to delegators—effectively reducing the delegators' share of pool rewards, which are given by $f(\sigma_i, p_i; z_0) - c_i$. Hence, pools with lower pledge (and higher proportion of third-party delegations) redirect a larger relative portion of delegator returns toward the operator.
 
 ### Impact over delegators
 Shifting the focus to delegator returns, the following charts illustrate how rewards per unit of stake change before delegators take action (e.g., migrating from an oversaturated, post-$k$-increment pool to a newly saturated pool). The interpretation of these plots follows directly from our previous formulas. Delegators remaining in now-oversaturated pools suffer immediate yield losses. Conversely, those who happen to be aligned with pools that have newly reached the lower saturation threshold experience yield gains, particularly if those pools feature high operator pledge.
 ![Heatmap Delegator Reward when k changes](output_plots/heatmap_delegator_reward_k_cases.png)
 
-## Disucssion
-A lower saturation threshold when $k$ raises has several key implications. First, smaller or newer pools require less pledge and delegation to reach maximum reward, making it easier and less costly to compete with established, large pools....(incomplete)
+## Discussion
+A lower saturation threshold resulting from an increase in $k$ has several key implications. First, smaller or newer pools require less pledge and delegation to reach maximum rewards, lowering the cost to compete with large, established pools. Additionally, previous plots might suggest that large pools are invariably harmed by the change. However, fully evaluating this parameter change requires analyzing how pools adjust their strategies, as well as how delegators react to these new incentives.
+
+### Pool splitting 
+A larger pool that faces its reward negatively affected by the increment in $k$ may split into smaller pools. By doing this, it may achieve, at least, the same reward. To see this, suppose a change that doubles the value of $k$. Before the increment, 
+
+$$f(\sigma_i,p_i;z_0)=\frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right],$$
+
+where we assume $\tilde{\sigma}_i=\sigma_i$ and $\tilde{p}_i=p_i$. 
+
+After doubling $k$, the new saturation threshold becomes $z_0/2$. Suppose an operator responds by splitting their existing pool into two identical pools, each allocated half of the initial stake ($\sigma_i/2$) and pledge ($p_i/2$). Then, in each of these two pools:
+
+$$
+\begin{aligned}
+f\left(\frac{\sigma_i}{2},\frac{p_i}{2};\frac{z_0}{2}\right) &= \frac{R}{1+a_0} \left[ \frac{\sigma_i}{2} + a_0\frac{p_i}{2} \frac{\frac{\sigma_i}{2}-\frac{p_i}{2}\frac{\frac{z_0}{2}-\frac{\sigma_i}{2}}{\frac{z_0}{2}}}{\frac{z_0}{2}} \right], \\
+f\left(\frac{\sigma_i}{2},\frac{p_i}{2};\frac{z_0}{2}\right) &= \frac{f(\sigma_i,p_i;z_0)}{2}.
+\end{aligned}
+$$
+
+This calculation does not yet account for fixed costs. Managing two separate pools enables the operator to collect fixed fee revenues twice, increasing their total revenues as seen in the following plot:
+
+
 
 
 
 # Change in $c_{min}$
-(describe parameter role by design)
+(ToDo: Describe and elaborate on the intended design role of the parameter.)
 
 ## Increment in $c_{min}$
 This parameter acts as a lower bound on the fixed costs an operator can declare for their pool(s). That is, while $c_{\min}$ may change, each operator $i$ ultimately decides whether to update their declared fixed cost $c_i$ (this is particularly true if the $c_{min}$ is reduced, while operators may need to update if the $c_{min}$). In this subsection, we assume operators always set their fixed costs equal to $c_{\min}$.
@@ -81,7 +107,7 @@ This parameter acts as a lower bound on the fixed costs an operator can declare 
 ![Heatmap Delegator Reward when c changes](output_plots/heatmap_delegator_reward_c_cases.png)
 
 # Change in $a_0$
-(describe parameter role by design)
+(ToDo: Describe and elaborate on the intended design role of the parameter.)
 
 ## Increment in $a_0$
 Increasing $a_0$ directly reduces the rewards assigned to a given pool by the protocol through $f()$. For a fixed level of pledge, this negative impact is more significant for larger pools (left plot). However, right plot suggest that an operator can mitigate this effect by replacing delegations with operator pledge. We will see that the latter is not the case. 
