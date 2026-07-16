@@ -121,7 +121,10 @@ $$
 \end{aligned}
 $$ 
 
-2. **Incentives to split after a change in $k$.** A change in $k$ does not increase or decrease the extra revenues that the operator may achieve by splitting the pool.
+2. **Incentives to split after a change in $k$.** A change in $k$ does not increase or decrease the extra revenues that the operator may achieve by splitting the pool, as the following plot shows
+    <p align="center">
+    <img src="output_plots/operator_reward_vs_sigma_split_same_k_both.png" alt="Operator Reward when split under different k" width="60%">
+    </p>
 
 3. **Small pools competitivness:** Since the operator of a large pool increase their overall returns by splitting into two identical pools, this operator could reduce $m_i$ and/or $c_i$ (whenever feasible) to become more competitive. This raises a critical question: to what extent does an increase in $k$ truly improve the competitiveness of small pools?
 
