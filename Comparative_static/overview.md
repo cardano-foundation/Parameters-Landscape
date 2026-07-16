@@ -96,12 +96,19 @@ This calculation does not yet account for fixed costs. Managing two separate poo
 
 All these open some questions and comments:
 1. **Incentive to split under constant $k$:** The previous observation raises the question of whether a large pools operator may find it profitbale to split pools even when there is no change in $k$.
-
 By comparing only $f(\sigma_i,p_i;z_0)$ with $f\left(\frac{\sigma_i}{2},\frac{p_i}{2};z_0\right)$, it is direct to show that 
 
 $$f(\sigma_i,p_i;z_0)$ >2*f\left(\frac{\sigma_i}{2},\frac{p_i}{2};z_0\right).$$
 
 However, again the income coming from the fixed cost has something to say. By splitting into two identical pools, 
+<p align="center">
+  <img src="output_plots/operator_reward_vs_sigma_split_same_k.png" alt="Operator Reward when split same k" width="60%">
+</p>
+
+This may explain the prevalence of medium-sized multi-pool operators (MPOs) alongside the relative scarcity of fully saturated (or near-saturated) pools.
+
+Note that this analysis and previous plots focus on gross revenues rather than net profits, which must account for operational expenditures. Under the assumption of incentive compatibility, operators truth-tell by declaring their actual fixed costs; consequently, fixed-cost fee revenues would yield zero economic profit and play no role in an operator's strategic decisions. Under these conditions, an operator remains indifferent between managing a single large pool and two smaller, identical pools.
+
 
 2. **Small pools competitivness:** Since the operator of a large pool increase their overall returns by splitting into two identical pools, this operator could reduce $m_i$ and/or $c_i$ (whenever feasible) to become more competitive. This raises a critical question: to what extent does an increase in $k$ truly improve the competitiveness of small pools?
 
