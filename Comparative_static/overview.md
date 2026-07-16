@@ -1,6 +1,8 @@
 # Goal
 This section covers comparative statics, specifically analyzing how changes in key parameters affect operator and delegator rewards.
 
+Generally, a parameter change can directly affect one type of actor, prompting a reaction that propagates through the network and influences other agents. For example, a change impacting operators may provoke a strategic response that subsequently affects other operators and delegators. While we discuss these broader feedback dynamics where relevant, this section focuses primarily on the direct impact of parameter changes on a given agent type.
+
 # Preliminaries
 While the following formulas were detailed in other sections, they are restated below to ensure this section remains standalone.
 
