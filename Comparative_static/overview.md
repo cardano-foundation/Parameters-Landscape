@@ -96,20 +96,28 @@ This calculation does not yet account for fixed costs. Managing two separate poo
 
 All these open some questions and comments:
 1. **Incentive to split under constant $k$:** The previous observation raises the question of whether a large pools operator may find it profitbale to split pools even when there is no change in $k$.
-By comparing only $f(\sigma_i,p_i;z_0)$ with $f\left(\frac{\sigma_i}{2},\frac{p_i}{2};z_0\right)$, it is direct to show that 
+Comparing $f(\sigma_i,p_i;z_0)$ directly with $f\left(\frac{\sigma_i}{2},\frac{p_i}{2};z_0\right)$ shows that
 
-    $$f(\sigma_i,p_i;z_0) >2*f\left(\frac{\sigma_i}{2},\frac{p_i}{2};z_0\right).$$
+    $$f(\sigma_i,p_i;z_0) >2*f\left(\frac{\sigma_i}{2},\frac{p_i}{2};z_0\right),$$
+
+holds whenever total delegation is less than or equal to $z_0$ (more strictly, there exists a threshold $\sigma_i^* > z_0$ such that the inequality holds for all $\sigma_i < \sigma_i^*$). Conversely, the inequality reverses when delegation exceeds this threshold. Consequently, pool splitting (or creating an additional pool) is beneficial strictly for oversaturated pools—a result that was intentionally design.
 
     However, again the income coming from the fixed cost has something to say. By splitting into two identical pools, 
     <p align="center">
     <img src="output_plots/operator_reward_vs_sigma_split_same_k.png" alt="Operator Reward when split same k"    width="60%">
     </p>
-    The plot compares the total revenue of a single pool operator across varying delegation levels against the revenue achieved by splitting the stake into two identical pools. The curves are plotted starting from $\sigma_i \ge p_i = 700\text{k}$ ADA. Notably, once the single pool reaches or exceeds the saturation threshold, splitting becomes strictly advantageous, as neither of the two smaller sub-pools suffers from the saturation cap.
+    The plot compares the total revenue of a single pool operator across varying delegation levels against the revenue achieved by splitting the stake into two identical pools. The curves are plotted starting from $\sigma_i \ge p_i = 700\text{k}$ ADA. Again once the single pool reaches or exceeds the saturation threshold, splitting becomes more advantageous, as neither of the two smaller sub-pools suffers from the saturation cap.
     
     These observations may explain the prevalence of medium-sized multi-pool operators (MPOs) alongside the relative scarcity of fully saturated (or near-saturated) pools.
 
-   Note that this analysis and previous plots focus on gross revenues rather than net profits, which must account for operational expenditures. Under the assumption of incentive compatibility, operators truth-tell by declaring their actual fixed costs; consequently, fixed-cost fee revenues would yield zero economic profit and play no role in an operator's strategic decisions. Under these conditions, an operator remains indifferent between managing a single large pool and two smaller, identical pools.
-
+   Note that the current analysis focus on gross revenues rather than net profits. The latter must account for operational expenditures. Under the assumption of incentive compatibility, operators truth-tell by declaring their actual fixed costs, offsetting the positive impact of the fixed-cost fee over operators revenues since the profit function becomes:
+   
+$$
+    \begin{aligned}
+    \Pi_i &= c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right]-c_i, \\
+     &= (f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right].
+    \end{aligned}
+$$
 
 3. **Small pools competitivness:** Since the operator of a large pool increase their overall returns by splitting into two identical pools, this operator could reduce $m_i$ and/or $c_i$ (whenever feasible) to become more competitive. This raises a critical question: to what extent does an increase in $k$ truly improve the competitiveness of small pools?
 
