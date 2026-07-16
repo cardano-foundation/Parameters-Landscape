@@ -94,7 +94,7 @@ This calculation does not yet account for fixed costs. Managing two separate poo
   <img src="output_plots/operator_reward_vs_sigma_k_split.png" alt="Operator Reward when split" width="60%">
 </p>
 
-All these open some questions and comments:
+All these open some questions and comments: (ToDo: once finished, reorder from most relevant)
 1. **Incentive to split under constant $k$:** The previous observation raises the question of whether a large pools operator may find it profitbale to split pools even when there is no change in $k$.
     Comparing $f(\sigma_i,p_i;z_0)$ directly with $f\left(\frac{\sigma_i}{2},\frac{p_i}{2};z_0\right)$ shows that
 
