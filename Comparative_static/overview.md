@@ -105,6 +105,8 @@ However, again the income coming from the fixed cost has something to say. By sp
   <img src="output_plots/operator_reward_vs_sigma_split_same_k.png" alt="Operator Reward when split same k" width="60%">
 </p>
 
+(ToDo: explain plot)
+
 This may explain the prevalence of medium-sized multi-pool operators (MPOs) alongside the relative scarcity of fully saturated (or near-saturated) pools.
 
 Note that this analysis and previous plots focus on gross revenues rather than net profits, which must account for operational expenditures. Under the assumption of incentive compatibility, operators truth-tell by declaring their actual fixed costs; consequently, fixed-cost fee revenues would yield zero economic profit and play no role in an operator's strategic decisions. Under these conditions, an operator remains indifferent between managing a single large pool and two smaller, identical pools.
