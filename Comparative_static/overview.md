@@ -90,7 +90,20 @@ $$
 
 This calculation does not yet account for fixed costs. Managing two separate pools enables the operator to collect fixed fee revenues twice, increasing their total revenues as seen in the following plot:
 
+<p align="center">
+  <img src="output_plots/operator_reward_vs_sigma_k_split.png" alt="Operator Reward when split" width="60%">
+</p>
 
+All these open some questions and comments:
+1. **Incentive to split under constant $k$:** The previous observation raises the question of whether a large pools operator may find it profitbale to split pools even when there is no change in $k$.
+
+By comparing only $f(\sigma_i,p_i;z_0)$ with $f\left(\frac{\sigma_i}{2},\frac{p_i}{2};z_0\right)$, it is direct to show that 
+
+$$f(\sigma_i,p_i;z_0)$ >2*f\left(\frac{\sigma_i}{2},\frac{p_i}{2};z_0\right).$$
+
+However, again the income coming from the fixed cost has something to say. By splitting into two identical pools, 
+
+2. **Small pools competitivness:** Since the operator of a large pool increase their overall returns by splitting into two identical pools, this operator could reduce $m_i$ and/or $c_i$ (whenever feasible) to become more competitive. This raises a critical question: to what extent does an increase in $k$ truly improve the competitiveness of small pools?
 
 
 
