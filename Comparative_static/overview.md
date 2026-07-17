@@ -1,5 +1,5 @@
 # Goal
-This section covers comparative statics, specifically analyzing how changes in key parameters affect operator and delegator rewards.
+This section uses comparative statics to analyze how varying parameter values affects key protocol outcomes—such as operator and delegator rewards, decentralization, etc—while **keeping the underlying design fixed**. Structural changes—such as introducing new parameters or varying `minPoolCost` across pool sizes—are addressed in a separate section.
 
 Generally, a parameter change can directly affect one type of actor, prompting a reaction that propagates through the network and influences other agents. For example, a change impacting operators may provoke a strategic response that subsequently affects other operators and delegators. While we discuss these broader feedback dynamics where relevant, this section focuses primarily on the direct impact of parameter changes on a given agent type.
 
