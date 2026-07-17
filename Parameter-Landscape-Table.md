@@ -113,17 +113,6 @@ Notation is not fully standardized across the literature. In particular, pledge 
 | $\beta_i/p_i$ | Pledge leverage | External delegation attracted per unit of pledge. | Measures how strongly pledge attracts outside stake. |
 | $M_i$ | Multi-pool footprint | Number of pools controlled by operator $i$. | Captures pool-splitting incentives. |
 
-## Incentive-channel
-
-| Parameter change | Mechanical effect | Delegator incentive | SPO incentive | Decentralization effect |
-| --- | --- | --- | --- | --- |
-| Increase $k$ | Lowers $z_0$. | Move away from saturated pools. | Operator of saturated pools may open new pools and ((ideally) redistribute delegation and pledge. Can this make smaller pools become more competitive? | Does this reduce concentration? |
-| Decrease $k$ | Raises $z_0$. | More stake can remain in large pools. | Large pools become more attractive? | May increase concentration? |
-| Increase $a_0$ | Raises pledge premium. | Prefer high-pledge pools. | Operators need more pledge. | May favor capital-rich operators. |
-| Decrease $a_0$ | Lowers pledge premium. | Pledge matters less for returns. | Easier entry for low-pledge pools. | May improve entry but weaken skin-in-the-game. |
-| Increase $c_{\min}$ | Raises minimum operator fee. | Lowers returns in small pools. | Protects operator revenue. | May hurt small-pool competitiveness. |
-| Increase $\tau$ | Reduces staking rewards. | Lower incentive to stake. | Lower pool profitability. | May reduce participation. |
-| Increase $\rho$ | Releases reserves faster. | Higher short-run staking rewards. | Higher short-run pool profitability. | Improves short-run incentives but weakens long-run sustainability. |
 
 
 
