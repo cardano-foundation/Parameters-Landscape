@@ -71,14 +71,14 @@ Notation is not fully standardized across the literature. In particular, pledge 
 
 ### 2. Protocol parameters
 
-| Symbol | Parameter | Definition | Role / Why it matters |
-| --- | --- | --- | --- |
-| $k$ | Target pool count | Intended number of saturated pools. | Higher $k$ lowers saturation. It may change pools competitiveness. |
-| $z_0 = 1/k$ | Saturation threshold | Maximum reward-bearing stake per pool, as a fraction of $T$. | Caps the stake that can earn rewards in one pool. |
-| $a_0$ | Pledge influence | Strength of pledge in the reward formula. | Higher $a_0$ favors high-pledge pools. Desincentivize Sybil behavior. |
-| $c_{\min}$ | Minimum fixed cost (`minPoolCost`)| Minimum fixed fee a pool operator can charge. | Affects small-pool viability and delegator returns. |
-| $\tau$ | Treasury share | Fraction of rewards allocated to the treasury. | Trades off staking rewards against ecosystem funding. |
-| $\rho$ | Reserve decay rate | Rate at which reserves are deployed into rewards. | Main contributor to operators and delegators rewards. Affects long-run reward sustainability. |
+| Symbol | Parameter Definition | Current value | Role / Why it matters | Comments |
+| --- | --- | --- |  --- | --- |
+| $k$ | Target number of stake pools | 500 | Sets the saturation threshold. <br> Determines how many pools are expected to attract delegation. <br> Affects the scale of pool rewards. <br> Decentralization-design parameter | It does not impose a limit on the number of pools. Its role in the reward function is to induce an equilibrium with nearly k economically relevant pools. |
+| $z_0 = 1/k$ | Saturation threshold. Maximum reward-bearing stake per pool, as a fraction of $T$. | 1/500 | Caps the stake that can earn rewards in one pool. | --- |
+| $a_0$ | Pledge influence. Strength of pledge in the reward formula. | 0.3 | Higher $a_0$ favors high-pledge pools. Desincentivize Sybil behavior. | --- |
+| $c_{\min}$ | Minimum fixed cost (`minPoolCost`). Minimum fixed fee a pool operator can charge. | 170 ADA | Affects small-pool viability and delegator returns. | --- |
+| $\tau$ | Treasury share. Fraction of rewards allocated to the treasury. | 20% | Trades off staking rewards against ecosystem funding. | --- |
+| $\rho$ | Reserve decay rate. Rate at which reserves are deployed into rewards. | 0.3%  | Main contributor to operators and delegators rewards. Affects long-run reward sustainability. | --- |
 
 ### 3. Operators and delegators choices
 
