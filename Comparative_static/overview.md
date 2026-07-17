@@ -6,9 +6,9 @@ Generally, a parameter change can directly affect one type of actor, prompting a
 # Summary of incentive-channel findings
 (ToDo: update table based on the results and findings)
 
-| Parameter Change | Mechanical Effect | Delegator Incentive | SPO Incentive | Decentralization Effect | Others |
+| Parameter Change | Mechanical Effect | Delegator Incentive | Operator Incentive | Decentralization Effect | Comments |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Increase $k$** | Lowers $z_0$. | Shift away from oversaturated pools. | - Oversaturated SPOs may split pledge and open new pools. <br> - Does this measure improve small pool competitiveness? | Does it reduce stake concentration? | Does it lower efficiency? (More pools $\rightarrow$ higher fixed costs $\rightarrow$ greater reward dilution). |
+| **Increase $k$** | Lowers $z_0$. | Shift away from oversaturated pools. | - Operator of oversaturated pools may open new pools and redistribute delegation (whenever possible) and pledge. <br> - Does this measure improve small pool competitiveness? | Does it reduce stake concentration? | Does it lower efficiency? (More pools $\rightarrow$ higher fixed costs $\rightarrow$ greater reward dilution). |
 | **Decrease $k$** | Raises $z_0$. | Stake can remain in larger pools. | Large pools gain appeal. | May increase concentration? | — |
 | **Increase $a_0$** | Increases pledge premium. | Prefer high-pledge pools. | Operators need higher pledge to compete. | May favor capital-rich operators. | — |
 | **Decrease $a_0$** | Lowers pledge premium. | Pledge impacts returns less. | Lowers entry barrier for low-pledge pools. | May improve entry, but weakens skin-in-the-game. | — |
