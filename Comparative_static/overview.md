@@ -58,7 +58,29 @@ If variables are measured directly in ADA, we use the ADA-denominated versions, 
 Notation is not fully standardized across the literature. In particular, pledge is sometimes denoted by $p_i$, $\lambda_i$, or $s_i$. Here we use $p_i$ for declared pledge.
 
 # Change in k
-(ToDo: describe and elaborate on the intended design role of the parameter.)
+(ToDo: better describe and elaborate on the intended design role of the parameter.)
+
+## Design
+**$k$** indicates the desired or target number of stake pools. It is not a hard limit on how many pools may be registered. Instead, it is a parameter of the reward function intended to make an equilibrium with approximately k economically relevant pools attractive. 
+
+A design where pools receive rewards proportionally to their stake $σ$, tends to produce centralization. This is due to the presence of fixed operating costs. A large pool dilutes its cost over more delegatation, so its return to delegators tends to be better than that of a small pool. Delegators therefore keep moving toward larger pools. The following plot illustrate this
+
+(here plot of delegator rewards per unit of stake as a function of $sigma$)
+
+**$k$** is introduced in the reward formula to break this increasing-returns mechanism. Pool rewards increase with stake only until the pool reaches $z_0=1/k$, the saturation cap. This brings two incentives:
+1. Below saturation, joining a pool is beneficial because it helps dilute the pool’s fixed operating cost.
+2. Above saturation, further concentration is discouraged because extra delegated stake does not generate additional pool rewards.
+
+Choosing an appropriate **$k$** matters because the protocol must balance:
+1. having enough independently operated pools to avoid excessive centralization; and
+2. ensuring that operating a pool remains economically viable after paying its fixed costs.
+
+
+
+
+
+
+
 
 ## Increment in k
 The direct effect of increasing $k$ is a reduction in the saturation threshold, $z_0$, which consequently lowers the maximum reward: 
