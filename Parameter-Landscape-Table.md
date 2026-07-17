@@ -73,7 +73,7 @@ Notation is not fully standardized across the literature. In particular, pledge 
 
 | Symbol | Parameter Definition | Current value | Role / Why it matters | Comments |
 | --- | --- | --- |  --- | --- |
-| $k$ | Target number of stake pools | 500 | Sets the saturation threshold. <br> Determines how many pools are expected to attract delegation. <br> Affects the scale of pool rewards. <br> Decentralization-design parameter | It does not impose a limit on the number of pools. Its role in the reward function is to induce an equilibrium with nearly k economically relevant pools. |
+| $k$ | Target number of stake pools | 500 | Sets the saturation threshold. <br> Determines how many pools are expected to attract delegation. <br> Affects the scale of pool rewards. <br> Decentralization-design parameter. | It does not impose a limit on the number of pools. Its role in the reward function is to induce an equilibrium with nearly k economically relevant pools. |
 | $z_0 = 1/k$ | Saturation threshold. Maximum reward-bearing stake per pool, as a fraction of $T$. | 1/500 | Caps the stake that can earn rewards in one pool. | --- |
 | $a_0$ | Pledge influence. Strength of pledge in the reward formula. | 0.3 | Higher $a_0$ favors high-pledge pools. Desincentivize Sybil behavior. | --- |
 | $c_{\min}$ | Minimum fixed cost (`minPoolCost`). Minimum fixed fee a pool operator can charge. | 170 ADA | Affects small-pool viability and delegator returns. | --- |
