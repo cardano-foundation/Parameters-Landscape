@@ -1,6 +1,8 @@
 # Goal
 This section uses comparative statics to analyze how varying parameter values affects key protocol outcomes—such as operator and delegator rewards, decentralization, etc—while **keeping the underlying design fixed**. Structural changes—such as introducing new parameters or varying `minPoolCost` across pool sizes—are addressed in a separate section.
 
+Besides the design analysis, we also aim to evaluate—where relevant—the impact of parameter adjustments under current network conditions, which may differ from original design assumptions.
+
 Generally, a parameter change can directly affect one type of actor, prompting a reaction that propagates through the network and influences other agents. For example, a change impacting operators may provoke a strategic response that subsequently affects other operators and delegators. While we discuss these broader feedback dynamics where relevant, this section focuses primarily on the direct impact of parameter changes on a given agent type.
 
 # Summary of incentive-channel findings
@@ -61,25 +63,27 @@ Notation is not fully standardized across the literature. In particular, pledge 
 (ToDo: better describe and elaborate on the intended design role of the parameter.)
 
 ## Design
-**$k$** indicates the desired or target number of stake pools. It is not a hard limit on how many pools may be registered. Instead, it is a parameter of the reward function intended to make an equilibrium with approximately k economically relevant pools attractive. 
 
-A design where pools receive rewards proportionally to their stake $σ$, tends to produce centralization. This is due to the presence of fixed operating costs. A large pool dilutes its cost over more delegatation, so its return to delegators tends to be better than that of a small pool. Delegators therefore keep moving toward larger pools. The following plot illustrate this
+**$k$** denotes the desired or target number of economically relevant stake pools. It is not a hard cap on the number of pools that may be registered. Instead, it enters the reward function to make an equilibrium with approximately $k$ competitive pools attractive.
 
-(here plot of delegator rewards per unit of stake as a function of $sigma$)
+A reward scheme in which pools are compensated proportionally to their stake, $\sigma$, tends to encourage centralization. Because pool operating costs are largely fixed, larger pools can spread these costs over more delegated stake and offer higher rewards per unit of stake. Delegators therefore have an incentive to move toward already large pools.
 
-**$k$** is introduced in the reward formula to break this increasing-returns mechanism. Pool rewards increase with stake only until the pool reaches $z_0=1/k$, the saturation cap. This brings two incentives:
-1. Below saturation, joining a pool is beneficial because it helps dilute the pool’s fixed operating cost.
-2. Above saturation, further concentration is discouraged because extra delegated stake does not generate additional pool rewards.
+> *Insert plot of delegator rewards per unit of stake as a function of $\sigma$.*
 
-Choosing an appropriate **$k$** matters because the protocol must balance:
-1. having enough independently operated pools to avoid excessive centralization; and
-2. ensuring that operating a pool remains economically viable after paying its fixed costs.
+The parameter **$k$** is introduced to limit this increasing-returns mechanism. It determines the saturation threshold
 
+$$
+z_0 = \frac{1}{k},
+$$
 
+up to which pool rewards increase with stake. This creates two complementary incentives:
 
+1. **Below saturation**, additional delegation helps spread the pool's fixed operating cost.
+2. **Above saturation**, additional stake does not increase the pool's gross reward, discouraging further concentration.
 
+Choosing $k$ therefore involves a trade-off between decentralization and economic viability. A higher $k$ lowers the saturation threshold and creates room for more competitive pools, but reduces the economic scale available to each pool. A lower $k$ makes it easier for pools to cover their operating costs, but allows stake to concentrate among fewer operators.
 
-
+Thus, $k$ defines the protocol's decentralization target by jointly determining the saturation threshold, the expected number of competitive pools, and the economic scale at which those pools operate.
 
 
 ## Increment in k
