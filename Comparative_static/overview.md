@@ -1,8 +1,6 @@
 # Goal
 This section uses comparative statics to analyze how varying parameter values affects key protocol outcomes—such as operator and delegator rewards, decentralization, etc—while **keeping the underlying design fixed**. Structural changes—such as introducing new parameters or varying `minPoolCost` across pool sizes—are addressed in a separate section.
 
-Besides the design analysis, we also aim to evaluate—where relevant—the impact of parameter adjustments under current network conditions, which may differ from original design assumptions.
-
 Generally, a parameter change can directly affect one type of actor, prompting a reaction that propagates through the network and influences other agents. For example, a change impacting operators may provoke a strategic response that subsequently affects other operators and delegators. While we discuss these broader feedback dynamics where relevant, this section focuses primarily on the direct impact of parameter changes on a given agent type.
 
 # Summary of incentive-channel findings
@@ -168,7 +166,6 @@ $$
 
 3. **Small pools competitivness:** Since the operator of a large pool increase their overall returns by splitting into two identical pools, this operator could reduce $m_i$ and/or $c_i$ (whenever feasible) to become more competitive. This raises a critical question: to what extent does an increase in $k$ truly improve the competitiveness of small pools?
 4. 
-
 
 
 
