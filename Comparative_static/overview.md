@@ -58,7 +58,6 @@ If variables are measured directly in ADA, we use the ADA-denominated versions, 
 Notation is not fully standardized across the literature. In particular, pledge is sometimes denoted by $p_i$, $\lambda_i$, or $s_i$. Here we use $p_i$ for declared pledge.
 
 # Change in k
-(ToDo: better describe and elaborate on the intended design role of the parameter.)
 
 ## Design
 
