@@ -116,7 +116,7 @@ $$f(\sigma_i,p_i;z_0)=\frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \
 
 where we assume $\tilde{\sigma}_i=\sigma_i$ and $\tilde{p}_i=p_i$. 
 
-(ToDo: what happens if the k is not double ($2x$) but increased in $1.5x$ or another non-integer value?)
+(ToDo: what happens if the k is not double ($2x$) but increased in $1.5x$ or another non-integer value? Prove that the operator can keep the same total $f()$ if he splits in such a way of have one full saturated pool, with the new $z_0$, and all the pledge there, while having another pool with the residual delegation. In the latter case, would delegators accept that new pool without pledge?)
 
 After doubling $k$, the new saturation threshold becomes $z_0/2$. Suppose an operator responds by splitting their existing pool into two identical pools, each allocated half of the initial stake ($\sigma_i/2$) and pledge ($p_i/2$). Then, in each of these two pools:
 
