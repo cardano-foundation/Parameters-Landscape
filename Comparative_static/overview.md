@@ -168,7 +168,7 @@ $$
 Since the operator of a large pool increase their overall returns by splitting into two identical pools, this operator could reduce $m_i$ and/or $c_i$ (whenever feasible) to become more competitive. This raises a critical question: to what extent does an increase in $k$ truly improve the competitiveness of small pools?
 
 ### The pledge bonus:
-The report The Holistic Reading about SPO incentives identify that the [pledge bonus is inoperative](https://input-output-hk.github.io/spo-incentives/diagnostic.html#:~:text=AT%20REALISTIC%20SCALE-,The,-23%25%20allocated%20to). The report shows that, given a total amount of ADA (e.g., $\sigma_i=20M$ ADA), it is more profitable for the operator to have a "balanced" strategy (e.g., $50\%$ self-delegated and $50\%$ pledge) than being fully pledge. (ToDo: How come?? the reward function does not distibguish between self-delegation and pledge)
+The report The Holistic Reading about SPO incentives identify that the [pledge bonus is inoperative](https://input-output-hk.github.io/spo-incentives/diagnostic.html#:~:text=AT%20REALISTIC%20SCALE-,The,-23%25%20allocated%20to). The report shows that, given a total amount of ADA (e.g., $\sigma_i=20M$ ADA), it is more profitable for the operator to have a "balanced" strategy (e.g., $50\%$ self-delegated and $50\%$ pledge) than being fully pledge. 
 
 
 
