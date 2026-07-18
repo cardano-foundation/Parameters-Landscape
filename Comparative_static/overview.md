@@ -116,6 +116,8 @@ $$f(\sigma_i,p_i;z_0)=\frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \
 
 where we assume $\tilde{\sigma}_i=\sigma_i$ and $\tilde{p}_i=p_i$. 
 
+(ToDo: what happens if the k is not double ($2x$) but increased in $1.5x$ or another non-integer value?)
+
 After doubling $k$, the new saturation threshold becomes $z_0/2$. Suppose an operator responds by splitting their existing pool into two identical pools, each allocated half of the initial stake ($\sigma_i/2$) and pledge ($p_i/2$). Then, in each of these two pools:
 
 $$
