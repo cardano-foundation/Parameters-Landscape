@@ -73,6 +73,8 @@ Notation is not fully standardized across the literature. In particular, pledge 
 
 A reward scheme in which pools are compensated proportionally to their stake, $\sigma$, tends to encourage centralization. If pool operating costs are largely fixed, larger pools can spread these costs over more delegated stake and offer higher rewards per unit of stake. Delegators therefore have an incentive to move toward already large pools.
 
+> move the following chart to another section
+
 <p align="center">
   <img src="output_plots/delegator_reward_per_unit_vs_sigma.png" alt="Reward function per unit of stake" width="60%">
 
@@ -85,7 +87,7 @@ $$
 
 up to which pool rewards increase with stake. This cap introduces the following forces and incentives:
 
-1. **Below saturation**, additional delegation increases what a delegator achieves ($\partial U_d/\partial \sigma_d >0$) and helps spread the pool's fixed operating cost.
+1. **Below saturation**, additional delegation increases a delegator's net return ($\partial U_d/\partial \sigma_d > 0$). A larger delegated stake $\sigma_d$ increases the pool's reward function $f(\cdot)$ while distributing the fixed operating cost across a larger capital base. This virtuous cycle creates an incentive for pool operators to maintain a high active pledge—particularly during initial stages when attracting delegation is critical.
 3. **Above saturation**, additional stake does not increase the pool's gross reward ($f()$), discouraging further concentration.
 
 Choosing $k$ therefore involves a trade-off between decentralization and economic viability. A higher $k$ lowers the saturation threshold and creates room for more competitive pools, but reduces the economic scale available to each pool. A lower $k$ makes it easier for pools to cover their operating costs, but allows stake to concentrate among fewer operators.
