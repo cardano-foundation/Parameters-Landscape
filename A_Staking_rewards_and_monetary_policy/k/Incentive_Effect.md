@@ -66,6 +66,13 @@ Because the protocol reimburses operators for their declared fixed costs ($c_i$)
 
 
 - **Delegator return per unit of stake**
+Shifting the focus to delegator returns, the following plot illustrates how rewards per unit of stake change before delegators take action (e.g., migrating from an oversaturated, post-$k$-increment pool to a newly saturated pool). The interpretation of these plots follows directly from our previous formulas. Delegators remaining in now-oversaturated pools suffer immediate yield losses. Conversely, those who happen to be aligned with pools that have newly reached the lower saturation threshold experience yield gains, particularly if those pools feature high operator pledge.
+
+<p align="center">
+  <img src="plots/heatmap_delegator_reward_k_cases.png" alt="Heatmap Delegator Reward when k changes" width="80%">
+</p>
+
+
 
 - **Oversaturated stake**
 
