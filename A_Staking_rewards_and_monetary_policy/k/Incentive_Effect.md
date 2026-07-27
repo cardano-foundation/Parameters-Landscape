@@ -35,7 +35,19 @@ In this section we consider the direct effects of changing the parameter while h
 
 - **Gross pool rewards**
 
-The following plots illustrate the impact of the increment in $k$ on the reward function, $f(\sigma_i,p_i;z_0)$. The plot illustrates the case for an increment from $k=500$ to $k=1000$. As expected, larger pools are negatively affected since their rewards are capped at a lower threshold. On the other hand, medium-sized pools closer to the new saturation point are now near the range where their rewards are maximized.
+The following plots illustrate the impact of the increment in $k$ on the reward function, 
+
+
+$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right].$$
+
+where
+
+$$\begin{align}
+\tilde{\sigma}_i&=\min\\{\sigma_i,z_0\\},\\
+\tilde{p}_i&=\min\\{p_i,z_0\\}.
+\end{align}$$
+
+The plot illustrates the case for an increment from $k=500$ to $k=1000$. Larger pools are negatively affected since their rewards are capped at a lower threshold. On the other hand, medium-sized pools closer to the new saturation point are now near the range where their rewards are maximized.
 
 
 <p align="center">
