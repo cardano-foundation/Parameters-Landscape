@@ -63,20 +63,20 @@ Notation is not fully standardized across the literature. In particular, pledge 
 
 **$k$** denotes the desired or target number of economically relevant stake pools. It is not a hard cap on the number of pools that may be registered. Instead, it enters the reward function to make an equilibrium with approximately $k$ competitive pools attractive.
 
-A reward scheme in which pools are compensated proportionally to their stake, $\sigma$, tends to encourage centralization. Because pool operating costs are largely fixed, larger pools can spread these costs over more delegated stake and offer higher rewards per unit of stake. Delegators therefore have an incentive to move toward already large pools.
+A reward scheme in which pools are compensated proportionally to their stake, $\sigma$, tends to encourage centralization. If pool operating costs are largely fixed, larger pools can spread these costs over more delegated stake and offer higher rewards per unit of stake. Delegators therefore have an incentive to move toward already large pools.
 
 > *Insert plot of delegator rewards per unit of stake as a function of $\sigma$.*
 
-The parameter **$k$** is introduced to limit this increasing-returns mechanism. It determines the saturation threshold
+The parameter **$k$** is introduced to limit this increasing-returns mechanism by determining the saturation threshold
 
 $$
 z_0 = \frac{1}{k},
 $$
 
-up to which pool rewards increase with stake. This creates two complementary incentives:
+up to which pool rewards increase with stake. This cap introduces the following forces and incentives:
 
-1. **Below saturation**, additional delegation helps spread the pool's fixed operating cost.
-2. **Above saturation**, additional stake does not increase the pool's gross reward, discouraging further concentration.
+1. **Below saturation**, additional delegation increases what a delegator achieves ($(1-m_i)(f(\sigma_i,p_i)-c_i)\frac{\sigma_d}{\sigma_i}$) and helps spread the pool's fixed operating cost.
+2. **Above saturation**, additional stake does not increase the pool's gross reward ($f()$), discouraging further concentration.
 
 Choosing $k$ therefore involves a trade-off between decentralization and economic viability. A higher $k$ lowers the saturation threshold and creates room for more competitive pools, but reduces the economic scale available to each pool. A lower $k$ makes it easier for pools to cover their operating costs, but allows stake to concentrate among fewer operators.
 
@@ -150,15 +150,6 @@ All these open some questions and comments: (ToDo: once finished, reorder from m
     The plot compares the total revenue of a single pool operator across varying delegation levels against the revenue achieved by splitting the stake into two identical pools. The curves are plotted starting from $\sigma_i \ge p_i = 700\text{k}$ ADA. Again once the single pool reaches or exceeds the saturation threshold, splitting becomes more advantageous, as neither of the two smaller sub-pools suffers from the saturation cap.
 
     These observations may explain the prevalence of medium-sized multi-pool operators (MPOs) alongside the relative scarcity of fully saturated (or near-saturated) pools.
-
-    Note that the current analysis focus on gross revenues rather than net profits. The latter must account for operational expenditures. Under the assumption of incentive compatibility, operators truth-tell by declaring their actual fixed costs, offsetting the positive impact of the fixed-cost fee over operators revenues since the profit function becomes:
-
-$$
-\begin{aligned}
-\Pi_i &= c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right]-c_i, \\
-&= (f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right].
-\end{aligned}
-$$ 
 
 2. **Incentives to split after a change in $k$.** A change in $k$ does not increase or decrease the extra revenues that the operator may achieve by splitting the pool, as the following plot shows
     <p align="center">
