@@ -1,5 +1,16 @@
 # Incentive effects of changing k
-For numercial analysis in this section, we use the following values of parameters unless stated the contrary.
+For the numerical analysis in this section, we use the following parameter values unless stated otherwise.
+
+| Symbol | Parameter | Value |
+| --- | --- | --- | 
+| $R$ | Reward pot | $15.6M$ ADA| 
+| $T$ | Total ADA supply | $38.5B$ ADA | 
+| $k$ | Target number of stake pools | 500 | 
+| $a_0$ | Pledge influence. Strength of pledge in the reward formula. | 0.3 | 
+| $c_{\min}$ | Minimum fixed cost (`minPoolCost`). Minimum fixed fee a pool operator can charge. | 170 ADA |
+| $m_i$ | Operator margin/commission deducted from delegator rewards. | 5%  |
+| $\rho$ | Reserve decay rate. Rate at which reserves are deployed into rewards. | 0.3%  |
+| $\tau$ | Treasury share. Fraction of rewards allocated to the treasury. | 20% | 
 
 
 
