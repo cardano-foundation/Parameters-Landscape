@@ -1,4 +1,7 @@
 # Incentive effects of changing k
+For numercial analysis in this section, we use the following values of parameters unless stated the contrary.
+
+
 
 ## Design
 
@@ -21,12 +24,11 @@ In this section we consider the direct effects of changing the parameter while h
 
 - **Gross pool rewards**
 
-<p align="center">
-  <img src="output_plots/Reward_function_vs_sigma.png" alt="Reward function when k changes" width="60%">
-</p>
+The following plots illustrate the impact of the increment in $k$ on the reward function, $f(\sigma_i,p_i;z_0)$. The plot illustrates the case for an increment from $k=500$ to $k=1000$. As expected, larger pools are negatively affected since their rewards are capped at a lower threshold. On the other hand, medium-sized pools closer to the new saturation point are now near the range where their rewards are maximized.
+
 
 <p align="center">
-  <img src="output_plots/heatmap_reward_function_k_cases.png" alt="Heatmap Reward function when k changes">
+  <img src="plots/heatmap_reward_function_k_cases.png" alt="Heatmap Reward function when k changes" width="80%">
 </p>
 
 - **Operator gross revenue**
