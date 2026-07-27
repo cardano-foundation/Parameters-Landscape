@@ -14,9 +14,28 @@ The motivation is to limit the increasing-returns pattern that appears when rewa
 
 The parameter change considered here is an increase in $k$, which lowers the saturation threshold and therefore changes the reward profile before any behavioral response occurs.
 
-## 6. Incentive-Effect Methodology
+## 6. Incentive Effects
 
-### 6.1 Direct mechanical effects (ceteris paribus)
+### 6.1 Direct mechanical effects 
+In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus).
+
+- **Gross pool rewards**
+
+<p align="center">
+  <img src="output_plots/Reward_function_vs_sigma.png" alt="Reward function when k changes" width="60%">
+</p>
+
+<p align="center">
+  <img src="output_plots/heatmap_reward_function_k_cases.png" alt="Heatmap Reward function when k changes">
+</p>
+
+- **Operator gross revenue**
+
+- **Delegator return per unit of stake**
+
+- **Oversaturated stake**
+
+- **Reward-pot and treasury flows**
 
 The direct mechanical effect of increasing $k$ is to lower the saturation threshold, $z_0$, and thereby reduce the maximum reward that a pool can receive at a given stake level:
 
