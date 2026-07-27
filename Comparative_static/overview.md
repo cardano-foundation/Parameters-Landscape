@@ -74,7 +74,7 @@ Notation is not fully standardized across the literature. In particular, pledge 
 A reward scheme in which pools are compensated proportionally to their stake, $\sigma$, tends to encourage centralization. If pool operating costs are largely fixed, larger pools can spread these costs over more delegated stake and offer higher rewards per unit of stake. Delegators therefore have an incentive to move toward already large pools.
 
 <p align="center">
-  <img src="output_plots/Reward_function_vs_sigma.png" alt="Reward function per unit of stake" width="60%">
+  <img src="output_plots/delegator_reward_per_unit_vs_sigma.png" alt="Reward function per unit of stake" width="60%">
 
 
 The parameter **$k$** is introduced to limit this increasing-returns mechanism by determining the saturation threshold
