@@ -51,7 +51,7 @@ f(\sigma_i,p_i)-\hat{c}_i, & \text{otherwise}
 \end{cases}
 $$
 
-where $\hat{p}_i$ denotes the operator's active pledge. Under the assumption of incentive compatibility (see ), operators truth-tell by declaring their actual fixed costs, offsetting the positive impact of the fixed-cost fee over operators revenues. Most of the analysis regarding operators' incentives focuses on **Operator gross revenues** rather than net profits.
+where $\hat{p}_i$ denotes the operator's active pledge. Under the assumption of incentive compatibility (see [Reward Sharing Schemes](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf)), operators truth-tell by declaring their actual fixed costs, offsetting the positive impact of the fixed-cost fee over operators revenues. Most of the analysis regarding operators' incentives focuses on **Operator gross revenues** rather than net profits.
 
 On the other hand **a delegator $d$ with stake $\sigma_d$ achieves**:
 
