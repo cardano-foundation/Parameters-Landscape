@@ -89,7 +89,8 @@ Notation is not fully standardized across the literature. In particular, pledge 
 | $\hat p_i$ | Active operator pledge | Actual operator-controlled stake delegated to pool $i$. | Determines whether the declared pledge is honored. |
 | $\beta_i$ | External delegation | Stake delegated by non-operator delegators. | Measures dependence on outside delegators. |
 | $\sigma_i = \hat p_i + \beta_i$ | Pool stake identity | Total pool stake equals operator pledge plus external delegation. | Links pledge, delegation, and pool size. |
-| $c_i$ | Fixed pool cost | Fixed ADA amount retained by the operator before margin sharing. | Reduces rewards available to delegators. |
+| $c_i$ | Fixed declared pool cost | Fixed ADA amount retained by the operator before margin sharing. | Reduces rewards available to delegators. |
+| $\hat{c}_i$ | Real fixed pool cost | Operating cost faced by the pool operator | Declared and real operating costs may differ, affecting the operator's profit. |
 | $m_i$ | Pool margin | Percentage fee charged by the operator after fixed cost. | Splits residual rewards between operator and delegators. |
 
 ### 4. Effective reward-bearing variables
