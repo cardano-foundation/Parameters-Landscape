@@ -20,11 +20,19 @@ Not all of the pot is actually paid out. Rewards are only paid on active, staked
 
 ## Reward function
 
-The gross reward of pool $i$ can be written as:
+The gross reward of pool $i$ is given by:
 
-$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right].$$
+$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right],$$
 
-This reward is then adjusted for a pool's performance factor that we denote here with $\lambda_i$. Then, the realized gross reward is
+where
+ 
+  $$\tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\}.$$
+
+See the tables below for a definition and description of each of the parameters and variables entering the equation. 
+
+> **Note:** The parameter $z_0$, and variables $\sigma_i$ and $p_i$ enter the formula as relative fractions of the total supply $T$ (for example, $z_0 = T/k$ simplifies to $1/k$ when normalized), whereas $R$ is measured in absolute ADA. With a slight abuse of notation, we use the same symbols regardless of whether these values are normalized. Consequently, the formula yields the fraction of the reward pot $R$ awarded to pool $i$ in that epoch. A pool whose active pledge falls below its declared pledge receives $f(\sigma_i, p_i) = 0$.
+
+The reward is then adjusted for a pool's performance factor that we denote here with $\lambda_i$. Then, the realized gross reward is
 
 $$\lambda_i f(\sigma_i,p_i).$$
 
