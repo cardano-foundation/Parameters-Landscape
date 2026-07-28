@@ -26,23 +26,31 @@ This reward is then adjusted for a pool's performance factor that we denote here
 
 $$\lambda_i f(\sigma_i,p_i).$$
 
-Assume $\lambda_i = 1$, let $c_i\ge 0$ denote the fixed cost charged by the pool and $m_i\in[0,1)$ its margin. For pool $i$, the protocol first pays the fixed cost $c_i$ whenever $f(\sigma_i,p_i) > c_i$. The remaining amount, $\bigl[f(\sigma_i,p_i)-c_i\bigr]_+$, is then allocated as follows: a fraction $m_i$ is taken by the operator as the pool margin, that is, as a commission on delegation rewards, and the residual fraction $(1-m_i)$ is distributed proportionally among all stake delegated to the pool, including the operator's own pledged stake. Thus, the pool operator gets:
+Assume $\lambda_i = 1$, let $c_i\ge 0$ denote the fixed cost charged by the pool and $m_i\in[0,1)$ its margin. For pool $i$, the protocol first pays the fixed cost $c_i$ whenever $f(\sigma_i,p_i) > c_i$. The remaining amount, $\bigl[f(\sigma_i,p_i)-c_i\bigr]_+$, is then allocated as follows: a fraction $m_i$ is taken by the operator as the pool margin, that is, as a commission on delegation rewards, and the residual fraction $(1-m_i)$ is distributed proportionally among all stake delegated to the pool, including the operator's own pledged stake. Thus, **the pool operator $i$ gets** an utility:
 
 $$
+U_i=
 \begin{cases}
 c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if } f(\sigma_i,p_i)>c_i, \\
 f(\sigma_i,p_i), & \text{otherwise}
 \end{cases}
 $$
 
-where $\hat{p}_i$ denotes the operator's active pledge, and a delegator $d$ with stake $\sigma_d$ receives:
+where $\hat{p}_i$ denotes the operator's active pledge, and **a delegator $d$ with stake $\sigma_d$ achieves**:
 
 $$
+U_d=
 \begin{cases}
 (1-m_i)(f(\sigma_i,p_i)-c_i)\frac{\sigma_d}{\sigma_i}, & \text{if } f(\sigma_i,p_i)>c_i, \\
-0, & \text{otherwise}
+0, & \text{otherwise},
 \end{cases}
 $$
+
+with 
+
+$$\sigma_i=\hat{p}_i + \sum_{j=1}^{D_i}\sigma_j$$  
+
+and where $D_i$ denotes the set of delegators delegating to pool $i$. 
 
 The expressions above inform how the current design rewards operators and delegators based on stake and pledge.
 
