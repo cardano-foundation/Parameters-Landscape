@@ -38,17 +38,22 @@ $$\lambda_i f(\sigma_i,p_i).$$
 
 > **Assumption:** Unless stated otherwise, the following analysis assumes that block performance and missed blocks do not affect rewards (i.e., $\lambda_i = 1$) and that pools fully meet their declared pledge. An unmet pledge in a given epoch results in zero rewards for that pool.
 
-Let $c_i\ge 0$ denote the fixed cost charged by the pool and $m_i\in[0,1)$ its margin. For pool $i$, the protocol first pays the fixed cost $c_i$ whenever $f(\sigma_i,p_i) > c_i$. The remaining amount, $\bigl[f(\sigma_i,p_i)-c_i\bigr]_+$, is then allocated as follows: a fraction $m_i$ is taken by the operator as the pool margin, that is, as a commission on delegation rewards, and the residual fraction $(1-m_i)$ is distributed proportionally among all stake delegated to the pool, including the operator's own pledged stake. Thus, **the pool operator $i$ gets** an utility:
+Each pool has to declared their operating fixed cost $c_i\ge c_{min}=170$ ADA. This declaration may be equal or different to the real operating fixed cost $\hat{c}_i$.
+
+Additionally, each pool sets the margin or commission $m_i\in[0,1)$. For pool $i$, the protocol first pays the fixed cost $c_i$ whenever $f(\sigma_i,p_i) > c_i$. The remaining amount, $\bigl[f(\sigma_i,p_i)-c_i\bigr]_+$, is then allocated as follows: a fraction $m_i$ is taken by the operator as the pool margin, that is, as a commission on delegation rewards, and the residual fraction $(1-m_i)$ is distributed proportionally among all stake delegated to the pool, including the operator's own pledged stake. Thus, **the pool operator $i$ gets** an utility:
+
 
 $$
 U_i=
 \begin{cases}
-c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if } f(\sigma_i,p_i)>c_i, \\
-f(\sigma_i,p_i), & \text{otherwise}
+\underbrace{c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right]}_{\text{Operator gross revenue}}-\hat{c}_i, & \text{if } f(\sigma_i,p_i)>c_i, \\
+f(\sigma_i,p_i)-\hat{c}_i, & \text{otherwise}
 \end{cases}
 $$
 
-where $\hat{p}_i$ denotes the operator's active pledge, and **a delegator $d$ with stake $\sigma_d$ achieves**:
+where $\hat{p}_i$ denotes the operator's active pledge. Under the assumption of incentive compatibility (see ), operators truth-tell by declaring their actual fixed costs, offsetting the positive impact of the fixed-cost fee over operators revenues. Most of the analysis regarding operators' incentives focuses on **Operator gross revenues** rather than net profits.
+
+On the other hand **a delegator $d$ with stake $\sigma_d$ achieves**:
 
 $$
 U_d=
