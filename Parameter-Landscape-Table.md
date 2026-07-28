@@ -16,6 +16,8 @@ $$R = (1 - \tau) \cdot (\text{fees} + \rho \cdot \text{reserves})$$
 
 Not all of the pot is actually paid out. Rewards are only paid on active, staked ADA. If less than 100% of the circulating supply is staked, a portion goes unearned. The leftovers are automatically sent back to the reserves.
 
+> **Note:** Most of the analysis presented in this document assumes a static environment, omitting the dynamic, inter-epoch feedback effects of return flows to the reserves. While return flows can be evaluated statically for a given state, fully dynamic feedback scenarios will be explicitly indicated.
+
 ## Reward function
 
 The gross reward of pool $i$ can be written as:
@@ -26,7 +28,9 @@ This reward is then adjusted for a pool's performance factor that we denote here
 
 $$\lambda_i f(\sigma_i,p_i).$$
 
-Assume $\lambda_i = 1$, let $c_i\ge 0$ denote the fixed cost charged by the pool and $m_i\in[0,1)$ its margin. For pool $i$, the protocol first pays the fixed cost $c_i$ whenever $f(\sigma_i,p_i) > c_i$. The remaining amount, $\bigl[f(\sigma_i,p_i)-c_i\bigr]_+$, is then allocated as follows: a fraction $m_i$ is taken by the operator as the pool margin, that is, as a commission on delegation rewards, and the residual fraction $(1-m_i)$ is distributed proportionally among all stake delegated to the pool, including the operator's own pledged stake. Thus, **the pool operator $i$ gets** an utility:
+> **Assumption:** Unless stated otherwise, the following analysis assumes that block performance and missed blocks do not affect rewards (i.e., $\lambda_i = 1$) and that pools fully meet their declared pledge. An unmet pledge in a given epoch results in zero rewards for that pool.
+
+Let $c_i\ge 0$ denote the fixed cost charged by the pool and $m_i\in[0,1)$ its margin. For pool $i$, the protocol first pays the fixed cost $c_i$ whenever $f(\sigma_i,p_i) > c_i$. The remaining amount, $\bigl[f(\sigma_i,p_i)-c_i\bigr]_+$, is then allocated as follows: a fraction $m_i$ is taken by the operator as the pool margin, that is, as a commission on delegation rewards, and the residual fraction $(1-m_i)$ is distributed proportionally among all stake delegated to the pool, including the operator's own pledged stake. Thus, **the pool operator $i$ gets** an utility:
 
 $$
 U_i=
