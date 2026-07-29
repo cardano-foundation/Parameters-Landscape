@@ -21,7 +21,7 @@ Generally, a parameter change can directly affect one type of actor, prompting a
 (ToDo: Describe and elaborate on the intended design role of the parameter.)
 
 ## Increment in $c_{min}$
-This parameter acts as a lower bound on the fixed costs an operator can declare for their pool(s). That is, while $c_{min}$ may change, each operator $i$ ultimately decides whether to update their declared fixed cost $c_i$ (this is particularly true if the $c_{min}$ is reduced, while operators may need to update if the $c_{min}$). In this subsection, we assume operators always set their fixed costs equal to $c_{\min}$.
+This parameter acts as a lower bound on the fixed costs an operator can declare for their pool(s). That is, while $c_{min}$ may change, each operator $i$ ultimately decides whether to update their declared fixed cost $c_i$ (this is particularly true if the $c_{min}$ is reduced, while operators may need to update if the $c_{min}$). In this subsection, we assume operators always set their fixed costs equal to $c_{min}$.
 
 ### Impact over operators
 ![Heatmap Operator Reward when c changes](output_plots/heatmap_operator_reward_c_cases.png)
@@ -54,11 +54,11 @@ Raising $a_0$ has two effects:
 
 It is easy to see that this function is more increasing in $p_i$ when $a_0$ growth.
 
-When we check the **operator reward**, the operator receives approximately
+When we check the **operator gross reward**, the operator receives
 
-$$\Pi_i=s_i\cdot(f-c_i),\quad where \quad s_i=m_i+(1-m_i)\frac{p_i}{\sigma_i}.$$
+$$\Pi_i=c_i+s_i\cdot(f-c_i),\quad where \quad s_i=m_i+(1-m_i)\frac{p_i}{\sigma_i}.$$
 
-Hence, the change in the **operator reward** ($\Delta\Pi$) is approximately:
+Hence, the change in the **operator gross reward** ($\Delta \Pi_i$) is:
 
 $$s_i\cdot\Delta f()$$
 
