@@ -99,10 +99,32 @@ In this section we consider the direct effects of changing the parameter while h
 
 - **Reward-pot and treasury flows**
 
+    Raising $k$ does not have a direct mechanical effect in the total size of the reward pot or the treasury's share. It only changes how the rewards are split among pools, which may affect (due to second order effects, like changes in the staking level) how much is actually paid out.
 
 ### Behavioral and equilibrium effects
 
+    Currently, this section only identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions. To provide a clearer breakdown, the section below adopts a more granular approach rather than relying on these two broad categories.
+    
+- **Delegators moving stake**
 
+    Yield-sensitive delegators typically leave oversaturated pools for those with available capacity. However, a mechanical increase in oversaturation does not guarantee an immediate or equivalent outflow. A slightly oversaturated pool can remain appealing if it offers lower reward variance, better fixed-cost dilution, or a strong reputation. Furthermore, identifying alternative pools requires effort: spare capacity is often fragmented across many operators, introducing search and coordination friction. Additional barriers—such as switching costs, rational inattention, or brand loyalty—can further delay adjustments, leading to persistent mild oversaturation and herding toward a small subset of pools. 
+  
+- **Operators changing pledge, margin, or declared fixed cost**
+
+    Margin fees ($m_i$) and declared fixed costs ($c_i$) may face downward pressure, as pools have less stake over which to spread these costs. The impact on declared pledge ($p_i$) is more ambiguous: while an existing pledge becomes larger relative to the lower $z_0$—requiring less total pledge to reach the new saturation point—operators expanding into multi-pool operations will have to split their pledge across multiple pools.
+  
+- **Entry or exit of pools**
+
+    A higher $k$ creates room for more pools, but also reduces maximum revenue per pool.
+    
+- **Pool splitting by multi-pool operators**
+
+    MPOs can split stake across additional pools to remain below the new $z_0$. This may increase the pool count without materially reducing operator-level concentration. Splitting is favored by economies of scope, brand portability, and the possibility of collecting fixed cost in several pools; it is constrained by additional real costs and pledge dilution
+    
+- **Changes in staking participation**
+
+     Increasing k does not create a direct incentive for currently unstaked ADA to enter staking. It mainly changes the allocation of stake across pools by lowering the saturation threshold. Therefore, its expected effect on aggregate staking participation is small, while its effect on redelegation patterns may be substantial.
+    
 
 ## Discussion and open questions
 
