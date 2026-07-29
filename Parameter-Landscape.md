@@ -51,7 +51,15 @@ f(\sigma_i,p_i)-\hat{c}_i, & \text{otherwise}
 \end{cases}
 $$
 
-where $\hat{p}_i$ denotes the operator's active pledge. Assuming incentive compatibility (IC)—a property proven by [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) within the context of their game-theoretic model—operators declare their actual fixed costs ($c_i = \hat{c}_i$). This implies that incentive analysis should focus on net profits, $(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right]$. However, our analysis focuses instead on **operator gross revenues**, $c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right]$. There are several market conditions (beyond the assumptions about perfectly rational delegators and frictionless markets) that support this approach. For instance, some studies has shown evidence that delegators exhibit inertia or rational ignorance: they do not re-delegate immediately when an operator changes margins and/or there are other operators with better returns (e.g., see [Competition in Crypto Staking](https://www.youtube.com/watch?v=GrZ6R_Ozds0) ). Additionally, many real-world pool operators run nodes on pre-existing infrastructure or home hardware where real operational costs are negligible. For these operators, the declared fixed cost acts almost entirely as guaranteed net revenue rather than an expense reimbursement. 
+where $\hat{p}_i$ denotes the operator's active pledge. Assuming incentive compatibility (IC)—a property proven by [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) within the context of their game-theoretic model—operators declare their actual fixed costs ($c_i = \hat{c}_i$). This implies that incentive analysis should focus on net profits, 
+
+$$(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right].$$ 
+
+However, our analysis focuses instead on **operator gross revenues**, 
+
+$$c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right].$$
+
+There are several market conditions (beyond the assumptions about perfectly rational delegators and frictionless markets) that support this approach. For instance, some studies has shown evidence that delegators exhibit inertia or rational ignorance: they do not re-delegate immediately when an operator changes margins and/or there are other operators with better returns (e.g., see [Competition in Crypto Staking](https://www.youtube.com/watch?v=GrZ6R_Ozds0) ). Additionally, many real-world pool operators run nodes on pre-existing infrastructure or home hardware where real operational costs are negligible. For these operators, the declared fixed cost acts almost entirely as guaranteed net revenue rather than an expense reimbursement. 
 
 On the other hand **a delegator $d$ with stake $\sigma_d$ achieves**:
 
