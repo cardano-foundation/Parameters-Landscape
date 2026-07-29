@@ -97,21 +97,23 @@ Notation is not fully standardized across the literature. For instance, pledge i
 
 ## Parameters tables
 
+Snapshot source: [mainnet-parameter-snapshot-2026-07-29.md](mainnet-parameter-snapshot-2026-07-29.md) (mainnet, epoch 646).
+
 ### 1. System-wide variables
 
-| Symbol | Parameter | Definition | Role / Why it matters |
-| --- | --- | --- | --- |
-| $R$ | Reward pot | Total rewards available in an epoch. | Scales gross rewards to pools, operators, and delegators. |
-| $T$ | Total ADA supply | Measures all ADA in circulation + unclaimed rewards + deposits + fees + treasury  | Reference ADA base used to normalize stake variables. |
-| $S$ | Active stake | Total ADA actively delegated or pledged. | Measures staking participation. |
-| $S/T$ | Staking participation rate | Share of total supply participating in staking. | Captures effectivness of the incentive to stake rather than remain liquid. |
+| Symbol | Parameter | Current snapshot value | Definition | Role / Why it matters |
+| --- | --- | --- | --- | --- |
+| $R$ | Reward pot | 14,921,070.26 ADA | Total rewards available in an epoch (using the simplified expression in this repository). | Scales gross rewards to pools, operators, and delegators. |
+| $T$ | Total ADA supply | 38,783,811,807.09 ADA | Measures all ADA in circulation + unclaimed rewards + deposits + fees + treasury. | Reference ADA base used to normalize stake variables. |
+| $S$ | Active stake | 21,399,489,281.18 ADA | Total ADA actively delegated or pledged. | Measures staking participation. |
+| $S/T$ | Staking participation rate | 55.18% | Share of total supply participating in staking. | Captures effectivness of the incentive to stake rather than remain liquid. |
 
 ### 2. Protocol parameters
 
 | Symbol | Parameter Definition | Current value | Role / Why it matters | Comments |
 | --- | --- | --- |  --- | --- |
 | $k$ | Target number of stake pools | 500 | Sets the saturation threshold $z_0$. <br> Determines how many pools are expected to attract delegation. <br> Affects the scale of pool rewards. <br> Decentralization-design parameter. | It does not impose a limit on the number of pools. Its role in the reward function is to induce an equilibrium with nearly k economically relevant pools. |
-| $z_0 = 1/k$ | Saturation threshold. Maximum reward-bearing stake per pool, as a fraction of $T$. | 1/500 | Caps the stake that can earn rewards in one pool. | --- |
+| $z_0 = 1/k$ | Saturation threshold. Maximum reward-bearing stake per pool, as a fraction of $T$. | 1/500 (0.002) | Caps the stake that can earn rewards in one pool. | --- |
 | $a_0$ | Pledge influence. Strength of pledge in the reward formula. | 0.3 | Higher $a_0$ favors high-pledge pools. Desincentivize Sybil behavior. | --- |
 | $c_{min}$ | Minimum fixed cost (`minPoolCost`). Minimum fixed fee a pool operator can charge. | 170 ADA | Affects small-pool viability and delegator returns. | --- |
 | $\tau$ | Treasury share. Fraction of rewards allocated to the treasury. | 20% | Trades off staking rewards against ecosystem funding. | --- |
