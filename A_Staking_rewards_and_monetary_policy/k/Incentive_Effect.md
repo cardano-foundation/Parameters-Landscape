@@ -70,6 +70,33 @@ In this section we consider the direct effects of changing the parameter while h
 
 - **Oversaturated stake**
 
+    This part is built on per-pool data of epoch 616. To be consistent, it should be done with the the same data of the snapshot reported in [Parameter-Landscape.md](../../Parameter-Landscape.md). However, there should not be important changes with respect to the figures presented below.
+
+  Denote the per-pool saturation point as $z_0(k) = \frac{T}{k},$ and the saturation level as
+
+  $$s_i(k) = \frac{\sigma_i}{z_0(k)} = \frac{\sigma_i k}{T}.$$
+
+    Pool $i$ is oversaturated if $s_i(k)>1$, i.e., $\sigma_i>z_0(k)$. The aggregate stake/delegation above saturation is calculated with
+  
+  $$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
+
+  The tables below summarize how doubling $k$ drives oversaturation, quantifying both the affected pool count and the aggregate delegation impacted by the change.
+  
+    | Quantity | Value |
+    | :--- | ---: |
+    | $T$  | $38.5B$ ADA |
+    | $S$  | $21.6B$ ADA|
+    | $S / T$ | 56.0% |
+    | Pools with $\sigma_i>0$ | 2,717 |
+
+    | Quantity | $k=500$ | $k=1000$ | 
+    | :--- | ---: | ---: | 
+    | $z_0(k)$ (M ADA) | 77.00 | 38.50 |
+    | Oversaturated pools (count) | 8 | 212 | 
+    | Oversaturated pools (% of pools) | 0.29% | 7.80% | 
+    | $E(k)$ - Stake above saturation (B ADA) | 0.17 | 4.92 | 
+    | $E(k)$ (% of $S$) | 0.77% | 22.79% | 
+
 - **Reward-pot and treasury flows**
 
 
