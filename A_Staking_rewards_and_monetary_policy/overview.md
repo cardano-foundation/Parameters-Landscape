@@ -12,67 +12,16 @@ Generally, a parameter change can directly affect one type of actor, prompting a
 | **Decrease $k$** | Raises $z_0$. | Stake can remain in larger pools. | Large pools gain appeal. | May increase concentration? | — |
 | **Increase $a_0$** | Increases pledge premium. | Prefer high-pledge pools. | Operators need higher pledge to compete. | May favor capital-rich operators. | — |
 | **Decrease $a_0$** | Lowers pledge premium. | Pledge impacts returns less. | Lowers entry barrier for low-pledge pools. | May improve entry, but weakens skin-in-the-game. | — |
-| **Increase $c_{\min}$** | Raises minimum operator fee. | Lowers net returns in small pools. | Protects minimum operator revenue. | May hurt small-pool competitiveness. | — |
+| **Increase $c_{min}$** | Raises minimum operator fee. | Lowers net returns in small pools. | Protects minimum operator revenue. | May hurt small-pool competitiveness. | — |
 | **Increase $\tau$** | Reduces staking reward pot. | Lowers staking yields. | Reduces pool profitability. | May reduce overall participation. | — |
 | **Increase $\rho$** | Releases reserves faster. | Boosts short-term staking yields. | Boosts short-term pool profitability. | Improves immediate incentives, but risks long-term sustainability. | — |
-
-
-# Preliminaries
-While the following formulas were detailed in other sections, they are restated below to ensure this section remains standalone.
-
-## Reward function
-The reward function for pool $i$ is defined as:
-
-$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right].$$
-
-This reward is then adjusted for a pool's performance factor that we denote here with $\lambda_i$. Then, the realized gross reward is
-
-$$\lambda_i f(\sigma_i,p_i).$$
-
-Assume $\lambda_i = 1$, let $c_i\ge 0$ denote the fixed cost charged by the pool and $m_i\in[0,1)$ its margin. For pool $i$, the protocol first pays the fixed cost $c_i$ whenever $f(\sigma_i,p_i) > c_i$. The remaining amount, $\bigl[f(\sigma_i,p_i)-c_i\bigr]_+$, is then allocated as follows: a fraction $m_i$ is taken by the operator as the pool margin, that is, as a commission on delegation rewards, and the residual fraction $(1-m_i)$ is distributed proportionally among all stake delegated to the pool, including the operator's own pledged stake. Thus, **the pool operator $i$ gets** an utility:
-
-$$
-U_i=
-\begin{cases}
-c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if } f(\sigma_i,p_i)>c_i, \\
-f(\sigma_i,p_i), & \text{otherwise}
-\end{cases}
-$$
-
-where $\hat{p}_i$ denotes the operator's active pledge, and **a delegator $d$ with stake $\sigma_d$ achieves**:
-
-$$
-U_d=
-\begin{cases}
-(1-m_i)(f(\sigma_i,p_i)-c_i)\frac{\sigma_d}{\sigma_i}, & \text{if } f(\sigma_i,p_i)>c_i, \\
-0, & \text{otherwise},
-\end{cases}
-$$
-
-with 
-
-$$\sigma_i=\hat{p}_i + \sum_{j=1}^{D_i}\sigma_j$$  
-
-and where $D_i$ denotes the set of delegators delegating to pool $i$. 
-
-### Notation and normalization
-Unless stated otherwise, stake variables are measured as fractions of total ADA supply ($T$).
-Thus,
-
-$$\sigma_i = \frac{\text{pool } i \text{ stake in ADA}}{T}, \qquad p_i = \frac{\text{pool } i \text{ pledge in ADA}}{T}, \qquad z_0 = \frac{1}{k}.$$
-
-If variables are measured directly in ADA, we use the ADA-denominated versions, e.g., with some abuse of notation, $z_0=\frac{T}{k}$.  
-
-Notation is not fully standardized across the literature. In particular, pledge is sometimes denoted by $p_i$, $\lambda_i$, or $s_i$. Here we use $p_i$ for declared pledge.
-
-
 
 
 # Change in $c_{min}$
 (ToDo: Describe and elaborate on the intended design role of the parameter.)
 
 ## Increment in $c_{min}$
-This parameter acts as a lower bound on the fixed costs an operator can declare for their pool(s). That is, while $c_{\min}$ may change, each operator $i$ ultimately decides whether to update their declared fixed cost $c_i$ (this is particularly true if the $c_{min}$ is reduced, while operators may need to update if the $c_{min}$). In this subsection, we assume operators always set their fixed costs equal to $c_{\min}$.
+This parameter acts as a lower bound on the fixed costs an operator can declare for their pool(s). That is, while $c_{min}$ may change, each operator $i$ ultimately decides whether to update their declared fixed cost $c_i$ (this is particularly true if the $c_{min}$ is reduced, while operators may need to update if the $c_{min}$). In this subsection, we assume operators always set their fixed costs equal to $c_{\min}$.
 
 ### Impact over operators
 ![Heatmap Operator Reward when c changes](output_plots/heatmap_operator_reward_c_cases.png)
