@@ -18,6 +18,9 @@ Not all of the pot is actually paid out. Rewards are only paid on active, staked
 
 > **Note:** Most of the analysis presented in this document assumes a static environment, omitting the dynamic, inter-epoch feedback effects of return flows to the reserves. While return flows can be evaluated statically for a given state, fully dynamic feedback scenarios will be explicitly indicated.
 
+
+> **Note:** By design, the final reward pot ($R$) also includes the non-refundable portion of deposits. This component is currently inactive in the implemented reward scheme. In addition, the monetary-expansion term ($\rho \cdot \text{reserves}$) is adjusted by a performance factor. For simplicity, that factor is omitted here and discussed separately below.
+
 ## Reward function
 
 The gross reward of pool $i$ is given by:
