@@ -11,8 +11,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-R = 15.6e6
-T = 38.5e9
+R = 14.9e6
+T = 38.8e9
 k = 500
 k_alt = 1000
 a0 = 0.3

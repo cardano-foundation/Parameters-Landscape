@@ -22,8 +22,8 @@ HEATMAP_CMAP_DIFF = LinearSegmentedColormap.from_list(
     ["#d73027", "#fc8d59", "#ffffbf", "#1a9850", "#2166ac"],
 )
 
-R = 15.6e6
-T = 38.5e9
+R = 14.9e6
+T = 38.8e9
 a0 = 0.3
 k = 500
 k_alt = 1000
