@@ -7,7 +7,7 @@ For the numerical analysis in this section, we use the following parameter value
 | $T$ | Total ADA supply | $38.5B$ ADA | 
 | $k$ | Target number of stake pools | 500 | 
 | $a_0$ | Pledge influence. | 0.3 | 
-| $c_{\min}$ | Minimum fixed cost (`minPoolCost`). | 170 ADA |
+| $c_{min}$ | Minimum fixed cost (`minPoolCost`). | 170 ADA |
 | $m_i$ | Operator margin/commission deducted from delegator rewards. | 5%  |
 | $\rho$ | Reserve decay rate.  | 0.3%  |
 | $\tau$ | Treasury share.| 20% | 
