@@ -1,5 +1,5 @@
 # Incentive effects of changing k
-For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state: we vary one parameter at a time while holding the others fixed at that baseline.
+For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
 
 | Symbol | Parameter | Value |
 | --- | --- | --- | 
