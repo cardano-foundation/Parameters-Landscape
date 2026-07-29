@@ -97,6 +97,7 @@ In this section we consider the direct effects of changing the parameter while h
     | $E(k)$ - Stake above saturation (B ADA) | 0.17 | 4.92 | 
     | $E(k)$ (% of $S$) | 0.77% | 22.79% | 
 
+
 - **Reward-pot and treasury flows**
 
     Raising $k$ does not have a direct mechanical effect in the total size of the reward pot or the treasury's share. It only changes how the rewards are split among pools, which may affect (due to second order effects, like changes in the staking level) how much is actually paid out.
@@ -104,6 +105,7 @@ In this section we consider the direct effects of changing the parameter while h
 ### Behavioral and equilibrium effects
 
     Currently, this section only identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions. To provide a clearer breakdown, the section below adopts a more granular approach rather than relying on these two broad categories.
+
     
 - **Delegators moving stake**
 
