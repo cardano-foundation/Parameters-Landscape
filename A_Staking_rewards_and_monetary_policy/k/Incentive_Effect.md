@@ -3,8 +3,8 @@ For the numerical analysis in this section, we use the parameter values below un
 
 | Symbol | Parameter | Value |
 | --- | --- | --- | 
-| $R$ | Reward pot | $15.6M$ ADA| 
-| $T$ | Total ADA supply | $38.5B$ ADA | 
+| $R$ | Reward pot | $14.9M$ ADA| 
+| $T$ | Total ADA supply | $38.8B$ ADA | 
 | $k$ | Target number of stake pools | 500 | 
 | $a_0$ | Pledge influence. | 0.3 | 
 | $c_{min}$ | Minimum fixed cost (`minPoolCost`). | 170 ADA |
