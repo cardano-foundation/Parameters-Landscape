@@ -101,7 +101,7 @@ Snapshot source: [mainnet-parameter-snapshot-2026-07-29.md](mainnet-parameter-sn
 
 ### 1. System-wide variables
 
-| Symbol | Parameter | Current snapshot value | Definition | Role / Why it matters |
+| Symbol | Parameter | Snapshot value (2026-07-29) | Definition | Role / Why it matters |
 | --- | --- | --- | --- | --- |
 | $R$ | Reward pot | 14.92M ADA | Total rewards available in an epoch (using the simplified expression in this repository). | Scales gross rewards to pools, operators, and delegators. |
 | $T$ | Total ADA supply | 38.78B ADA | Measures all ADA in circulation + unclaimed rewards + deposits + fees + treasury. | Reference ADA base used to normalize stake variables. |
@@ -110,7 +110,7 @@ Snapshot source: [mainnet-parameter-snapshot-2026-07-29.md](mainnet-parameter-sn
 
 ### 2. Protocol parameters
 
-| Symbol | Parameter Definition | Current value | Role / Why it matters | Comments |
+| Symbol | Parameter Definition | Snapshot value (2026-07-29) | Role / Why it matters | Comments |
 | --- | --- | --- |  --- | --- |
 | $k$ | Target number of stake pools | 500 | Sets the saturation threshold $z_0$. <br> Determines how many pools are expected to attract delegation. <br> Affects the scale of pool rewards. <br> Decentralization-design parameter. | It does not impose a limit on the number of pools. Its role in the reward function is to induce an equilibrium with nearly k economically relevant pools. |
 | $z_0 = 1/k$ | Saturation threshold. Maximum reward-bearing stake per pool, as a fraction of $T$. | 1/500 (0.002) | Caps the stake that can earn rewards in one pool. | --- |
