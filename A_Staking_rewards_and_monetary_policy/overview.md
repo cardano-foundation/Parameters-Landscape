@@ -58,7 +58,7 @@ When we check the **operator gross revenue**, the operator receives
 
 $$\Pi_i=c_i+s_i\cdot(f-c_i),\quad where \quad s_i=m_i+(1-m_i)\frac{p_i}{\sigma_i}.$$
 
-Hence, the change in the **operator gross revenue** (or, equivalently, the change in the operator utility/profit) is:
+Hence, the change in the **operator gross revenue** (or, equivalently, the change in the operator utility/profit if $c_i$ and $\hat{c}_i$ remain constant after the parameter change) is:
 
 $$\Delta \Pi_i=s_i\cdot\Delta f()=\Delta U_i$$
 
