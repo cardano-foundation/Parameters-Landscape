@@ -103,9 +103,9 @@ Snapshot source: [mainnet-parameter-snapshot-2026-07-29.md](mainnet-parameter-sn
 
 | Symbol | Parameter | Current snapshot value | Definition | Role / Why it matters |
 | --- | --- | --- | --- | --- |
-| $R$ | Reward pot | 14,921,070.26 ADA | Total rewards available in an epoch (using the simplified expression in this repository). | Scales gross rewards to pools, operators, and delegators. |
-| $T$ | Total ADA supply | 38,783,811,807.09 ADA | Measures all ADA in circulation + unclaimed rewards + deposits + fees + treasury. | Reference ADA base used to normalize stake variables. |
-| $S$ | Active stake | 21,399,489,281.18 ADA | Total ADA actively delegated or pledged. | Measures staking participation. |
+| $R$ | Reward pot | 14.92M ADA | Total rewards available in an epoch (using the simplified expression in this repository). | Scales gross rewards to pools, operators, and delegators. |
+| $T$ | Total ADA supply | 38.78B ADA | Measures all ADA in circulation + unclaimed rewards + deposits + fees + treasury. | Reference ADA base used to normalize stake variables. |
+| $S$ | Active stake | 21.40B ADA | Total ADA actively delegated or pledged. | Measures staking participation. |
 | $S/T$ | Staking participation rate | 55.18% | Share of total supply participating in staking. | Captures effectivness of the incentive to stake rather than remain liquid. |
 
 ### 2. Protocol parameters
