@@ -54,11 +54,11 @@ Raising $a_0$ has two effects:
 
 It is easy to see that this function is more increasing in $p_i$ when $a_0$ growth.
 
-When we check the **operator gross reward**, the operator receives
+When we check the **operator gross revenue**, the operator receives
 
 $$\Pi_i=c_i+s_i\cdot(f-c_i),\quad where \quad s_i=m_i+(1-m_i)\frac{p_i}{\sigma_i}.$$
 
-Hence, the change in the **operator gross reward** ($\Delta \Pi_i$) is:
+Hence, the change in the **operator gross revenue** ($\Delta \Pi_i$) is:
 
 $$s_i\cdot\Delta f()$$
 
