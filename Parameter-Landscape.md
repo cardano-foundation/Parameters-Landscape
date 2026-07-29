@@ -46,7 +46,7 @@ Additionally, each pool sets the margin or commission $m_i\in[0,1)$. For pool $i
 $$
 U_i=
 \begin{cases}
-\underbrace{c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right]}_{\text{Operator gross revenue}}-\hat{c}_i, & \text{if } f(\sigma_i,p_i)>c_i, \\
+\underbrace{c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right]}_{\Pi_i=\text{Operator gross revenue}}-\hat{c}_i, & \text{if } f(\sigma_i,p_i)>c_i, \\
 f(\sigma_i,p_i)-\hat{c}_i, & \text{otherwise}
 \end{cases}
 $$
@@ -138,6 +138,7 @@ Notation is not fully standardized across the literature. For instance, pledge i
 | Symbol | Outcome | Definition | Why it matters |
 | --- | --- | --- | --- |
 | $\mathrm{ROS}_i$ | Delegator return | Net return received by delegators in pool $i$. | Main variable guiding delegation choices. |
+| $\Pi_i$ | Operator gross revenue | Total rewards obtained by pool operator $i$. | Determines pool profits. |
 | $U_i$ | Operator utility/profit | Net reward retained by pool operator $i$. | Determines pool entry, exit, and survival. |
 | $\mathrm{APR}$ | Network staking return | Average annualized staking return. | Affects the incentive to stake. |
 | $\sigma_i/z_0$ | Saturation ratio | Pool stake relative to the saturation threshold. | Measures whether a pool is under-, near-, or over-saturated. |
