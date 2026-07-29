@@ -58,9 +58,9 @@ When we check the **operator gross revenue**, the operator receives
 
 $$\Pi_i=c_i+s_i\cdot(f-c_i),\quad where \quad s_i=m_i+(1-m_i)\frac{p_i}{\sigma_i}.$$
 
-Hence, the change in the **operator gross revenue** ($\Delta \Pi_i$) is:
+Hence, the change in the **operator gross revenue** (or, equivalently, the change in the operator utility/profit) is:
 
-$$s_i\cdot\Delta f()$$
+$$\Delta \Pi_i=s_i\cdot\Delta f()=\Delta U_i$$
 
 As pledge rises, $s_i$ rises toward $1$. Even if $|\Delta f|$ shrinks, the operator’s **share** of that loss grows. So, $\Delta\Pi_i$ can become **more negative** even while $\Delta f$ becomes **less negative**. Away from saturation (e.g. $\sigma=50$M), $\Delta f()$ never fully recovers, so $\Delta\Pi$ can stay more negative all the way up the pledge axis.
 
