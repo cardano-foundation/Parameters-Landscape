@@ -87,41 +87,29 @@ In this section we consider the direct effects of changing the parameter while h
 
 - **Delegator return per unit of stake**
 
-    The following heatmaps show the return received by delegators per unit of delegated stake. Total pool stake $\sigma_i$ is displayed on the $x$-axis and operator pledge $p_i$ on the $y$-axis, while the grey region represents the infeasible domain $p_i>\sigma_i$. The left and center panels report delegator returns under $a_0=0.3$ and $a_0=0.6$, respectively. The right panel shows the direct change resulting from the increase in $a_0$. Red regions indicate a reduction in delegator returns, with darker shades representing larger losses.
+    The following heatmaps show the return received by delegators per unit of stake. Total pool stake $\sigma_i$ is displayed on the $x$-axis and operator pledge $p_i$ on the $y$-axis, while the grey region represents the infeasible domain $p_i > \sigma_i$. The left and center panels report delegator returns under $a_0 = 0.3$ and $a_0 = 0.6$, respectively. The right panel shows the direct change resulting from the increase in $a_0$. Red regions indicate a reduction in delegator returns, with darker shades representing larger losses.
 
     ![Heatmap Delegator Reward when a0 changes](plots/heatmap_delegator_reward_a0_cases.png)
 
-    After deducting the declared fixed cost and the operator margin, the total amount distributed to delegators is
+    The heatmap shows that increasing $a_0$ generally reduces delegator returns per unit of stake, but that this negative effect becomes smaller as pledge increases. This contrasts with the result for operator gross revenue, since the change in the delegator return per unit of stake depends only in the changes on $f(\sigma_i,p_i)$.
 
-    $$
-    (1-m_i) \left( 1-\frac{p_i}{\sigma_i} \right) \left( f(\sigma_i,p_i)-c_i \right).
-    $$
+    This can be seen analytically. After deducting the declared fixed cost and the operator margin, the return received by delegators per unit of stake is
 
-    Since delegated stake is equal to $\sigma_i-p_i$, the delegator return per unit of stake is
+$$ r_i^{D} = (1-m_i) \frac{\max\left\\{f(\sigma_i,p_i)-c_i, 0\right\\}}{\sigma_i},$$
 
-    $$
-    r_i^D = \frac{(1-m_i)\left(1-\frac{p_i}{\sigma_i}\right)\left(f(\sigma_i,p_i)-c_i\right)}{\sigma_i-p_i} = \frac{(1-m_i)\left(f(\sigma_i,p_i)-c_i\right)}{\sigma_i}.
-    $$
+and, when $a_0$ changes, the direct change in the delegator return is
 
-    Holding $\sigma_i$, $m_i$, and $c_i$ constant, the direct effect of changing $a_0$ is therefore
+$$ \Delta r_i^{D} = \frac{1-m_i}{\sigma_i} \Delta f(\sigma_i,p_i).$$
 
-    $$
-    \Delta r_i^D = \frac{1-m_i}{\sigma_i}\Delta f(\sigma_i,p_i).
-    $$
+Consequently, higher pledge mitigates the negative effect of an increase in $a_0$ on delegator returns, even though it may amplify the reduction in operator gross revenue.
 
-    The heatmap shows that increasing $a_0$ generally reduces delegator returns per unit of stake, but that this negative effect becomes smaller as pledge increases. A larger pledge cushions the decline in the pool reward function, so $\Delta f(\sigma_i,p_i)$ becomes less negative as $p_i$ rises. Because the change in the delegator return per unit of stake is directly proportional to $\Delta f(\sigma_i,p_i)$, the corresponding loss for delegators also becomes smaller.
-
-    This contrasts with the result for operator gross revenue. A higher pledge increases the operator's share of pool rewards and therefore the fraction of the reward reduction borne by the operator. For delegators, there is no analogous increase in exposure: when total delegator rewards are divided by delegated stake, the pledge-share terms cancel. Consequently, higher pledge mitigates the negative effect on delegator returns per unit of stake, even though it may amplify the reduction in operator gross revenue.
-
-    When $p_i=\sigma_i$, the pool is fully pledged and has no delegators. The expression should therefore be interpreted as the limiting return as delegated stake approaches zero.
-    
 - **Oversaturated stake**
 
     Since $a_0$ does not have a direct effect over $z_0$, there is no direct change on oversaturated stakes.
   
 - **Reward-pot and treasury flows**
 
-
+    In process, collecting data of epoch644 to measure how much we "save" of $f()$ in each pool if we increase $a_0$ by $1\\%$
 
 
 
