@@ -49,39 +49,39 @@ In this section we consider the direct effects of changing the parameter while h
 
 - **Operator gross revenue**
 
-    From the previous plots, we could expect that a pool with larger pledge can mitigate the negative effect of the increment of $a_0$ by replacing delegations with pledge. However, the previous plots only illustrate the effect over the **reward function $f()$** while to address the effect over the operator we have to check the **operator rewards**.
+    Analyzing the pool reward function $f(\sigma_i,p_i) $ in isolation gives an incomplete picture of an operator’s position. While a larger pledge might appear to cushion the impact of increasing $a_0$ by substituting delegation with pledge, this smoothing applies only to **gross pool rewards $f(\sigma_i,p_i) $**. To assess the true direct mechanical impact on pool operators, we must instead evaluate **operator gross revenue ($\Pi_i$)**.
+
+    The following heatmaps illustrate this dynamic. Total pool stake $\sigma_i$ is mapped along the $x$-axis and operator pledge $p_i$ along the $y$-axis, with the grey region indicating the infeasible domain ($p_i > \sigma_i$). The left and center panels show operator revenue $\Pi_i$ under $a_0 = 0.3$ and $a_0 = 0.6$, respectively (evaluated at $k=500$, $c_i=170\text{ ADA}$, and $m_i=5\%$), while the right panel highlights the direct net change ($\Delta \Pi_i = \Pi_i\vert{}_{a_0=0.6} - \Pi_i\vert{}_{a_0=0.3}$). In this difference plot, red gradients signify a net reduction in operator revenue ($\Delta \Pi_i < 0$), with darker shades marking larger absolute losses.
 
     ![Heatmap Operator Reward when a0 changes](plots/heatmap_operator_reward_a0_cases.png)
 
-    To see the aparent discrepancy between the two plots, let's consider the case of $\sigma=z_0$ in $f()$:
+    The difference heatmap shows that in a broad range of staking level, increasing the pledge does not compensate for the the increment in $a_0$. To see the reason, let's consider a simple case in which $\sigma=z_0$ in $f(\sigma_i,p_i) $:
 
-    $$ f=\frac{R}{1+a_0}\bigl(z_0+a_0 p_i\bigr).$$
+    $$f(\sigma_i,p_i) = \frac{R}{1+a_0}\bigl(z_0+a_0 p_i\bigr).$$
 
-    Raising $a_0$ has two effects:
-    1. the factor $1/(1+a_0)$ shrinks the reward, and
-    2. the $a_0 p_i$ term rewards pledge more.
-
-    It is easy to see that this function is more increasing in $p_i$ when $a_0$ growth.
+    Increasing $a_0$ introduces two competing mechanical forces on $f(\sigma_i,p_i) $:
+    * The scaling factor $\frac{1}{1+a_0}$ reduces baseline rewards across all pools.
+    * The $a_0 p_i$ term strengthens the weight of pledge, mitigating the contraction as $p_i$ increases.
 
     When we check the **operator gross revenue**, the operator receives
 
-    $$\Pi_i=c_i+s_i\cdot(f-c_i),\quad where \quad s_i=m_i+(1-m_i)\frac{p_i}{\sigma_i}.$$
+    $$\Pi_i=c_i+s_i\cdot(f(\sigma_i,p_i) -c_i),\quad \text{where} \quad s_i=m_i+(1-m_i)\frac{p_i}{\sigma_i}.$$
 
     Hence, the change in the **operator gross revenue** (or, equivalently, the change in the operator utility/profit if $c_i$ and $\hat{c}_i$ remain constant after the parameter change) is:
 
-    $$\Delta \Pi_i=s_i\cdot\Delta f()=\Delta U_i$$
-
-    As pledge rises, $s_i$ rises toward $1$. Even if $|\Delta f|$ shrinks, the operator’s **share** of that loss grows. So, $\Delta\Pi_i$ can become **more negative** even while $\Delta f$ becomes **less negative**. Away from saturation (e.g. $\sigma=50$M), $\Delta f()$ never fully recovers, so $\Delta\Pi$ can stay more negative all the way up the pledge axis.
+    $$\Delta \Pi_i=s_i\cdot\Delta f(\sigma_i,p_i) =\Delta U_i$$
+    
+    As pledge rises, $s_i$ rises toward $1$. Even if $|\Delta f|$ shrinks, the operator’s **share** of that loss grows. So, $\Delta\Pi_i$ can become **more negative** even while $\Delta f$ becomes **less negative**. Away from saturation (e.g. $\sigma=50$M), $\Delta f$ never fully recovers, so $\Delta\Pi$ can stay more negative all the way up the pledge axis.
 
     As an example, let $\sigma_i=50M$ ADA, $k=500$, $c_i=170$, and $m_i=5\\%$. Suppose $a_0$ increases from $0.3$ to $0.6$:
 
-    | $p_i/\sigma_i$ | $\Delta f(\cdot)$ | $\Delta\Pi_i$ |
+    | $p_i/\sigma_i$ | $\Delta f$ | $\Delta\Pi_i$ |
     |---|---|---|
     | $0$ | $-2922$ | $-146$ |
     | $0.5$ | $-2140$ | $-1123$ |
     | $1$ | $-1690$ | $-1690$ |
 
-    Bottom line: Higher pledge cushions the reward function $f()$ under a larger $a_0$. For the **operator**, it also means owning a larger slice of a still-smaller pie, so the operator comparison can look worse when pledge is very high.
+     Bottom line: Higher pledge cushions the reward function $f(\sigma_i,p_i) $ under a larger $a_0$. However, for the **operator**, a larger $a_0$ also means owning a larger slice of a still-smaller pie, so the operator comparison can look worse when pledge is very high.
 
 - **Delegator return per unit of stake**
 - **Oversaturated stake**
