@@ -1,4 +1,18 @@
-# Change in $a_0$
+# Incentive effects of changing $a_0$
+For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
+
+| Symbol | Parameter | Value |
+| --- | --- | --- | 
+| $R$ | Reward pot | $14.9M$ ADA| 
+| $T$ | Total ADA supply | $38.8B$ ADA | 
+| $k$ | Target number of stake pools | 500 | 
+| $a_0$ | Pledge influence. | 0.3 | 
+| $c_{min}$ | Minimum fixed cost (`minPoolCost`). | 170 ADA |
+| $m_i$ | Operator margin/commission deducted from delegator rewards. | 5%  |
+| $\rho$ | Reserve decay rate.  | 0.3%  |
+| $\tau$ | Treasury share.| 20% | 
+
+# Design
 (ToDo: Describe and elaborate on the intended design role of the parameter.)
 
 ## Increment in $a_0$
