@@ -49,21 +49,21 @@ In this section we consider the direct effects of changing the parameter while h
 
 - **Operator gross revenue**
 
-    Analyzing the pool reward function $f(\sigma_i,p_i) $ in isolation gives an incomplete picture of an operator’s position. While a larger pledge might appear to cushion the impact of increasing $a_0$ by substituting delegation with pledge, this smoothing applies only to **gross pool rewards $f(\sigma_i,p_i) $**. To assess the true direct mechanical impact on pool operators, we must instead evaluate **operator gross revenue ($\Pi_i$)**.
+    Analyzing the pool reward function $f(\sigma_i,p_i)$ in isolation gives an incomplete picture of an operator’s position. While a larger pledge might appear to cushion the impact of increasing $a_0$ by substituting delegation with pledge, this smoothing applies only to **gross pool rewards $f(\sigma_i,p_i)$**. To assess the true direct mechanical impact on pool operators, we must instead evaluate **operator gross revenue ($\Pi_i$)**.
 
-    The following heatmaps illustrate this dynamic. Total pool stake $\sigma_i$ is mapped along the $x$-axis and operator pledge $p_i$ along the $y$-axis, with the grey region indicating the infeasible domain ($p_i > \sigma_i$). The left and center panels show operator revenue $\Pi_i$ under $a_0 = 0.3$ and $a_0 = 0.6$, respectively (evaluated at $k=500$, $c_i=170\text{ ADA}$, and $m_i=5\%$), while the right panel highlights the direct net change ($\Delta \Pi_i = \Pi_i\vert{}_{a_0=0.6} - \Pi_i\vert{}_{a_0=0.3}$). In this difference plot, red gradients signify a net reduction in operator revenue ($\Delta \Pi_i < 0$), with darker shades marking larger absolute losses.
+    The following heatmaps illustrate this dynamic. Total pool stake $\sigma_i$ is mapped along the $x$-axis and operator pledge $p_i$ along the $y$-axis, with the grey region indicating the infeasible domain ($p_i > \sigma_i$). The left and center panels show operator revenue $\Pi_i$ under $a_0 = 0.3$ and $a_0 = 0.6$, respectively (evaluated at $k=500$, $c_i=170\text{ ADA}$, and $m_i=5\%$), while the right panel highlights the direct net change ( $\Delta \Pi_i = \Pi_i(a_0=0.6) - \Pi_i(a_0=0.3)$ ). In this difference plot, red gradients signify a net reduction in operator revenue ($\Delta \Pi_i < 0$), with darker shades marking larger absolute losses.
 
     ![Heatmap Operator Reward when a0 changes](plots/heatmap_operator_reward_a0_cases.png)
 
-    The difference heatmap shows that in a broad range of staking level, increasing the pledge does not compensate for the the increment in $a_0$. To see the reason, let's consider a simple case in which $\sigma=z_0$ in $f(\sigma_i,p_i) $:
+    The difference heatmap shows that, over a broad range of stake levels, increasing pledge does not compensate for the increase in ($a_0$). To understand why, first consider a saturated pool, ($\sigma_i=z_0$):
+  
+    $$f(z_0,p_i) = \frac{R}{1+a_0}\bigl(z_0+a_0 p_i\bigr).$$
 
-    $$f(\sigma_i,p_i) = \frac{R}{1+a_0}\bigl(z_0+a_0 p_i\bigr).$$
+    Increasing $a_0$ introduces two competing mechanical forces on $f(z_0,p_i)$:
+    1. The scaling factor $\frac{1}{1+a_0}$ reduces baseline rewards.
+    2. The term $a_0p_i$ gives greater weight to pledge, mitigating this reduction as $p_i$ increases and fully offsetting it when $p_i=z_0$.
 
-    Increasing $a_0$ introduces two competing mechanical forces on $f(\sigma_i,p_i) $:
-    * The scaling factor $\frac{1}{1+a_0}$ reduces baseline rewards across all pools.
-    * The $a_0 p_i$ term strengthens the weight of pledge, mitigating the contraction as $p_i$ increases.
-
-    When we check the **operator gross revenue**, the operator receives
+    When we check any **operator gross revenue**, the operator receives
 
     $$\Pi_i=c_i+s_i\cdot(f(\sigma_i,p_i) -c_i),\quad \text{where} \quad s_i=m_i+(1-m_i)\frac{p_i}{\sigma_i}.$$
 
@@ -71,9 +71,11 @@ In this section we consider the direct effects of changing the parameter while h
 
     $$\Delta \Pi_i=s_i\cdot\Delta f(\sigma_i,p_i) =\Delta U_i$$
     
-    As pledge rises, $s_i$ rises toward $1$. Even if $|\Delta f|$ shrinks, the operator’s **share** of that loss grows. So, $\Delta\Pi_i$ can become **more negative** even while $\Delta f$ becomes **less negative**. Away from saturation (e.g. $\sigma=50$M), $\Delta f$ never fully recovers, so $\Delta\Pi$ can stay more negative all the way up the pledge axis.
+    As pledge rises, $s_i$ rises toward $1$. Thus, even though the absolute reduction in pool gross rewards, $|\Delta f|$, becomes smaller, the operator bears a larger share of that reduction. Consequently, $\Delta\Pi_i$ can become more negative even while $\Delta f$ becomes less negative.
 
-    As an example, let $\sigma_i=50M$ ADA, $k=500$, $c_i=170$, and $m_i=5\\%$. Suppose $a_0$ increases from $0.3$ to $0.6$:
+   Away from saturation—for example, when $\sigma_i=50\text{M ADA}$—the decline in $f$ is never fully offset as pledge increases. As a result, $\Delta\Pi_i$ may remain increasingly negative throughout the pledge range.
+
+    As an example, let $\sigma_i = 50M$ ADA, $k=500$, $c_i=170$, and $m_i=5\\%$. Suppose $a_0$ increases from $0.3$ to $0.6$:
 
     | $p_i/\sigma_i$ | $\Delta f$ | $\Delta\Pi_i$ |
     |---|---|---|
@@ -81,9 +83,11 @@ In this section we consider the direct effects of changing the parameter while h
     | $0.5$ | $-2140$ | $-1123$ |
     | $1$ | $-1690$ | $-1690$ |
 
-     Bottom line: Higher pledge cushions the reward function $f(\sigma_i,p_i) $ under a larger $a_0$. However, for the **operator**, a larger $a_0$ also means owning a larger slice of a still-smaller pie, so the operator comparison can look worse when pledge is very high.
+     Bottom line: Higher pledge cushions the decline in the pool gross reward function $f(\sigma_i,p_i)$ following an increase in $a_0$. For the operator, however, higher pledge also means bearing a larger share of the remaining reward reduction. Operator gross revenue can therefore fall by more at high pledge, even though the decline in total pool rewards is smaller.
 
 - **Delegator return per unit of stake**
+
+  
 - **Oversaturated stake**
 - **Reward-pot and treasury flows**
 
