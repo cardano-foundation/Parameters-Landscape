@@ -20,12 +20,22 @@ Without a pledge incentive, an operator with little capital could attract large 
 
 The main trade-off is between Sybil resistance and accessibility. A higher $a_0$ discourages highly leveraged and multi-pool strategies, but it also favors wealthy operators and makes it harder for operators with limited capital to compete. A lower $a_0$ reduces barriers to entry and allows competition to depend more on performance, costs, and margins, but provides weaker protection against operators controlling large amounts of delegated stake with little pledge.
 
-## Increment in $a_0$
+## Effects of change in $a_0$
+
+
+### Direct mechanical effects 
+In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus). Mathematicaly, this is study using the partial derivative. The partial derivative $\frac{\partial f(\sigma_i,p_i)}{\partial a_0}$ measures how $f$ changes when $a_0$ changes, holding all other variables constant.
+
+
+Since, 
+
+$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
+
+then
+
+$$\frac{\partial f(\sigma_i,p_i)}{\partial a_0} = 
 
 Increasing $a_0$ directly reduces the rewards assigned to a given pool by the protocol through $f(\sigma_i,p_i)$, 
-
-$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\}.$$
-
 
 For a fixed level of pledge, this negative impact is more significant for larger pools (left plot). However, right plot suggest that an operator can mitigate this effect by replacing delegations with operator pledge. We will see that the latter is not the case. 
 
@@ -33,6 +43,9 @@ For a fixed level of pledge, this negative impact is more significant for larger
   <img src="plots/Reward_function_vs_sigma_a0_cases.png" alt="Reward function when a0 changes versus delegation" width="48%">
   <img src="plots/Reward_function_vs_pledge_a0_cases.png" alt="Reward function when a0 changes versus pledge" width="48%">
 </p>
+
+ 
+
 
 ### Impact over operators
 From the previous plots, we could expect that a pool with larger pledge can mitigate the negative effect of the increment of $a_0$ by replacing delegations with pledge. However, the previous plots only illustrate the effect over the **reward function $f()$** while to address the effect over the operator we have to check the **operator rewards**.
