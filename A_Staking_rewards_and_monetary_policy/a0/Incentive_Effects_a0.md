@@ -33,11 +33,13 @@ $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \fr
 
 then
 
-$$\frac{\partial f(\sigma_i,p_i)}{\partial a_0} = 
+$$\frac{\partial f}{\partial a_0} = -\frac{R}{(1+a_0)^2} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right] + \frac{R}{1+a_0} \left[ \tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right]\leq 0,$$
 
-Increasing $a_0$ directly reduces the rewards assigned to a given pool by the protocol through $f(\sigma_i,p_i)$, 
+with equality when $\tilde{p}_i = \tilde{\sigma}_i = z_0$.
 
-For a fixed level of pledge, this negative impact is more significant for larger pools (left plot). However, right plot suggest that an operator can mitigate this effect by replacing delegations with operator pledge. We will see that the latter is not the case. 
+Increasing $a_0$ reduces total rewards for pools that rely primarily on external delegation rather than operator pledge, as $a_0$ penalizes low-pledge pools relative to high-pledge ones.
+
+For a fixed level of pledge, this negative impact is more significant for larger pools (left plot). However, right plot shows that an operator can mitigate this effect by replacing delegations with operator pledge. We will see that the latter is not the case. 
 
 <p align="center">
   <img src="plots/Reward_function_vs_sigma_a0_cases.png" alt="Reward function when a0 changes versus delegation" width="48%">
