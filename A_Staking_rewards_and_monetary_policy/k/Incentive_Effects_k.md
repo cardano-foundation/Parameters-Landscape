@@ -44,7 +44,7 @@ In this section we consider the direct effects of changing the parameter while h
  
   $$\tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\}.$$
   
-  The plot illustrates the case for an increment from $k=500$ to $k=1000$. Larger pools are negatively affected since their rewards are capped at a lower threshold. On the other hand, medium-sized pools closer to the new saturation point are now near the range where their rewards are maximized.
+   The figure illustrates the impact of increasing $k$ from $500$ (left) to $1000$ (center), with the net difference shown on the right. Each heatmap displays the gross reward $f(\sigma_i, p_i)$ for a pool as a function of its delegation ($x$-axis) and pledge ($y$-axis), where darker green indicates higher rewards. Doubling $k$ halves the saturation threshold from $z_0 = 77\text{M ADA}$ to $z_0 = 38.5\text{M ADA}$ (marked by the vertical line in the center plot). Consequently, rewards for pools exceeding $38.5\text{M ADA}$ decrease—reflected in the muted green tones—because their rewards are capped earlier. The difference plot on the right highlights this shift: while larger pools experience reduced yields, medium-sized pools operating near the new $z_0$ now occupy the optimal reward band.
   
 <p align="center">
   <img src="plots/heatmap_reward_function_k_cases.png" alt="Heatmap Reward function when k changes" width="80%">
@@ -52,7 +52,7 @@ In this section we consider the direct effects of changing the parameter while h
 
 - **Operator gross revenue**
 
-    The previous plots present an incomplete picture, as an operator's total reward must also account for their declared fixed costs.     The following plots illustrate the operator rewards when their fixed cost is $c_i=170$ ADA and the margin (the commission retained to delegators) is $m_i=5\\%$. 
+    While gross rewards provide a baseline, a pool operator's actual earnings depend on their specific fee structure. To capture this, the following figure plots net operator rewards under a fixed cost of $c_i = 170\text{ ADA}$ and a margin of $m_i = 5\%$. As in the previous figure, the panels compare $k = 500$ (left) and $k = 1000$ (center) across total delegation ($x$-axis) and pledge ($y$-axis), with the rightmost panel showing the net change between the two scenarios. 
 
     <p align="center">
   <img src="plots/heatmap_operator_reward_k_cases.png" alt="Heatmap Operator Reward when k changes" width="80%">
@@ -63,7 +63,7 @@ In this section we consider the direct effects of changing the parameter while h
 
 - **Delegator return per unit of stake**
 
-    Shifting the focus to delegator returns, the following plot illustrates how rewards per unit of stake change before delegators take action (e.g., migrating from an oversaturated, post-$k$-increment pool to a newly saturated pool). The interpretation of these plots follows directly from our previous formulas. Delegators remaining in now-oversaturated pools suffer immediate yield losses. Conversely, those who happen to be aligned with pools that have newly reached the lower saturation threshold experience yield gains, particularly if those pools feature high operator pledge.
+    Maintaining the same delegation ($x$-axis) and pledge ($y$-axis) layout as the previous figures, the following plot maps the immediate shift in delegator yield per unit of stake prior to any behavioral rebalancing (such as stake migration). As predicted by our analytical model, delegators remaining in now-oversaturated pools—those to the right of the vertical $z_0 = 38.5\text{M ADA}$ threshold—suffer immediate yield losses. Conversely, delegators aligned with pools operating near the new saturation boundary experience yield gains, with the most pronounced improvements concentrated in the high-pledge region along the upper area of the plot.
 
     <p align="center">
   <img src="plots/heatmap_delegator_reward_k_cases.png" alt="Heatmap Delegator Reward when k changes" width="80%">
