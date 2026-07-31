@@ -95,13 +95,13 @@ In this section we consider the direct effects of changing the parameter while h
 
     This can be seen analytically. After deducting the declared fixed cost and the operator margin, the return received by delegators per unit of stake is
 
-$$ r_i^{D} = (1-m_i) \frac{\max\left\\{f(\sigma_i,p_i)-c_i, 0\right\\}}{\sigma_i},$$
+    $$r_i^{D} = (1-m_i) \frac{\max\left\\{f(\sigma_i,p_i)-c_i, 0\right\\}}{\sigma_i},$$
 
-and, when $a_0$ changes, the direct change in the delegator return is
+    and, when $a_0$ changes, the direct change in the delegator return is
 
-$$ \Delta r_i^{D} = \frac{1-m_i}{\sigma_i} \Delta f(\sigma_i,p_i).$$
+    $$\Delta r_i^{D} = \frac{1-m_i}{\sigma_i} \Delta f(\sigma_i,p_i).$$
 
-Consequently, higher pledge mitigates the negative effect of an increase in $a_0$ on delegator returns, even though it may amplify the reduction in operator gross revenue.
+    Consequently, higher pledge mitigates the negative effect of an increase in $a_0$ on delegator returns, even though it may amplify the reduction in operator gross revenue.
 
 - **Oversaturated stake**
 
@@ -109,8 +109,9 @@ Consequently, higher pledge mitigates the negative effect of an increase in $a_0
   
 - **Reward-pot and treasury flows**
 
-    In process, collecting data of epoch644 to measure how much we "save" of $f()$ in each pool if we increase $a_0$ by $1\\%$
+    The parameter $a_0$ does affect the reward-pot and treasury flows. In particular, this parameter normalizes the reward $R$ to be distributed among pools by the factor $1+a_0$. That is, the larger the parameter $a_0$, the lower the amount of $R$ to be distributed among pools. The remaining fraction returns to the reserve. an increase in $a_0$ causes more rewards to remain in the reserves, reducing reserve depletion. Since future epochs 
 
+    The follo
 
 
 # Discussion
