@@ -93,17 +93,13 @@ It follows that the operator's profit drops with a lower $c_i$. A potential cons
 
 ### Decentralization
 
-### 
 
 
 ### Interaction effects
 
-### 
 
 
-------
-Increment in $c_{min}$
-This parameter acts as a lower bound on the fixed costs an operator can declare for their pool(s). That is, while $c_{min}$ may change, each operator $i$ ultimately decides whether to update their declared fixed cost $c_i$ (this is particularly true if the $c_{min}$ is reduced, while operators may need to update if the $c_{min}$). In this subsection, we assume operators always set their fixed costs equal to $c_{min}$.
+
 
 
 
