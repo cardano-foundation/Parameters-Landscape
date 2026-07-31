@@ -1,3 +1,17 @@
+# Incentive effects of changing `minPoolCost` ($c_{min}$)
+For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
+
+| Symbol | Parameter | Value |
+| --- | --- | --- | 
+| $R$ | Reward pot | $14.9M$ ADA| 
+| $T$ | Total ADA supply | $38.8B$ ADA | 
+| $k$ | Target number of stake pools | 500 | 
+| $a_0$ | Pledge influence. | 0.3 | 
+| $c_{min}$ | Minimum fixed cost (`minPoolCost`). | 170 ADA |
+| $m_i$ | Operator margin/commission deducted from delegator rewards. | 5%  |
+| $\rho$ | Reserve decay rate.  | 0.3%  |
+| $\tau$ | Treasury share.| 20% |
+
 ## Design
 
 The parameter $c_{\min}$ sets the minimum fixed cost that a stake pool operator may declare. It does not affect the pool's gross reward. Instead, the declared fixed cost is paid to the operator before the remaining rewards are divided between the operator and delegators.
@@ -13,6 +27,9 @@ $$
 A higher $c_{\min}$ can therefore protect operator revenues and discourage small, undercapitalized Sybil pools, but it also reduces the competitiveness of small and new pools and may push delegation toward larger pools. A lower $c_{\min}$ facilitates entry and improves small-pool returns, but may intensify fee competition and make it easier for multi-pool operators to expand.
 
 The appropriate level of $c_{\min}$ therefore balances operator viability and Sybil resistance against entry, competition, and decentralization.
+
+
+
 
 
 ------
