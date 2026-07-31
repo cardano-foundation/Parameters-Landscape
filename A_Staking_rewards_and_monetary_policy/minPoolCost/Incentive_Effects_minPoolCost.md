@@ -52,9 +52,9 @@ where it is assume that the  operator's active pledge is equal to its declared p
     
 Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost`. Next plot shows the effect of this change in the pool operator gross reward.
 
-    <p align="center">
-    <img src="plots/heatmap_operator_reward_c_cases.png" alt="Heatmap Operator Reward when c changes" width="80%">
-    </p>
+<p align="center">
+<img src="plots/heatmap_operator_reward_c_cases.png" alt="Heatmap Operator Reward when c changes" width="80%">
+</p>
 
 The plot shows that a reduction in the declared fixed cost, holding everything else constant reduces pool operator revenues, with the effect being particularly strong for small pools. This is because the fixed cost plays an important role in operator's revenues. To see this, take
 
