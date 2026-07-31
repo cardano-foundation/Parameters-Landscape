@@ -109,9 +109,12 @@ In this section we consider the direct effects of changing the parameter while h
   
 - **Reward-pot and treasury flows**
 
-    The parameter $a_0$ does affect the reward-pot and treasury flows. In particular, this parameter normalizes the reward $R$ to be distributed among pools by the factor $\\sim 1+a_0$. That is, the larger the parameter $a_0$, the lower the amount of $R$ to be distributed among pools. The remaining fraction returns to the reserve. an increase in $a_0$ causes more rewards to remain in the reserves, reducing reserve depletion and improving long-run reward sustainability.
+    The parameter $a_0$ directly influences reward pot dynamics and treasury flows. In particular, it normalizes the total reward $R$ distributed among pools by a factor of roughly $1 + a_0$. Consequently, larger values of $a_0$ reduce the overall amount of $R$ paid out to pools, directing the remaining fraction back to the reserve. By allowing more rewards to remain unspent, an increase in $a_0$ slows reserve depletion and enhances the long-term sustainability of the reward model.
 
-    The following plot illustrates how much of the rewards pot for epoch 644 would be "saved" for different values of $a_0$. The impact is almost linear with a saving of $\\sim 0.2\\%$ for each increment of $1\\%$ of a_0.
+    An analysis of epoch 644 demonstrates how varying $a_0$ influences reserve reward retention during that specific period. The analysis considers the actual distribution of stake and pledge across the different pools (see ), and calculates the gross reward per each pool for different values of $a_0$ (see ). The effect exhibits slight concavity: for small adjustments, each $1\%$ increase in $a_0$ yields a reward savings of roughly $0.1\%$.
 
-    ![Saving R when a0 changes](plots/savings_pct_of_R_vs_a0_epoch_644.png)
+    <p align="center">
+  <img src="plots/savings_pct_of_R_vs_a0_epoch_644.png" alt="Saving R when a0 changes" width="80%">
+    </p>
+
 
