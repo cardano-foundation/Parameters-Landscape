@@ -73,9 +73,7 @@ In this section we consider the direct effects of changing the parameter while h
 
 - **Oversaturated stake**
 
-    This part is built on per-pool data of epoch 616. To be consistent, it should be done with the the same data of the snapshot reported in [Parameter-Landscape.md](../../Parameter-Landscape.md). However, there should not be important changes with respect to the figures presented below.
-
-  Denote the per-pool saturation point as $z_0(k) = \frac{T}{k},$ and the saturation level as
+    Denote the per-pool saturation point as $z_0(k) = \frac{T}{k},$ and the saturation level as
 
   $$s_i(k) = \frac{\sigma_i}{z_0(k)} = \frac{\sigma_i k}{T}.$$
 
@@ -87,18 +85,18 @@ In this section we consider the direct effects of changing the parameter while h
   
     | Quantity | Value |
     | :--- | ---: |
-    | $T$  | $38.5B$ ADA |
-    | $S$  | $21.6B$ ADA|
-    | $S / T$ | 56.0% |
-    | Pools with $\sigma_i>0$ | 2,717 |
+    | $T$  | $38.8B$ ADA |
+    | $S$  | $21.4B$ ADA|
+    | $S / T$ | 55.2% |
+    | Pools with $\sigma_i>0$ | 2,694 |
 
     | Quantity | $k=500$ | $k=1000$ | 
     | :--- | ---: | ---: | 
-    | $z_0(k)$ (M ADA) | 77.00 | 38.50 |
-    | Oversaturated pools (count) | 8 | 212 | 
-    | Oversaturated pools (% of pools) | 0.29% | 7.80% | 
-    | $E(k)$ - Stake above saturation (B ADA) | 0.17 | 4.92 | 
-    | $E(k)$ (% of $S$) | 0.77% | 22.79% | 
+    | $z_0(k)$ (M ADA) | 77.5 | 38.8 |
+    | Oversaturated pools (count) | 7 | 211 | 
+    | Oversaturated pools (% of pools) | 0.26% | 7.8% | 
+    | $E(k)$ - Stake above saturation (B ADA) | 0.08 | 4.79 | 
+    | $E(k)$ (% of $S$) | 0.4% | 22.4% | 
 
 
 - **Reward-pot and treasury flows**
@@ -131,7 +129,8 @@ In this section we consider the direct effects of changing the parameter while h
      Increasing k does not create a direct incentive for currently unstaked ADA to enter staking. It mainly changes the allocation of stake across pools by lowering the saturation threshold. Therefore, its expected effect on aggregate staking participation is small, while its effect on redelegation patterns may be substantial.
     
 
-## Discussion and open questions
+### Behavioral and equilibrium effects
 
+### Decentralization
 
 
