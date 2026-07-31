@@ -38,18 +38,64 @@ In this section we consider the direct effects of changing the parameter while h
 
     The gross pool reward function does not depend on $c_{min}$:
 
+     $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
+
   
 - **Operator gross revenue**
 
-  ![Heatmap Operator Reward when c changes](plots/heatmap_operator_reward_c_cases.png)
+    The pool operator gross revenue function is:
+  
+    \begin{align*}
+        &\left\{
+        \begin{array}{ll}
+            c_i+(f(\sigma_i,p_i)-c_i)[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}],\quad  &                       \text{if}\quad f(\sigma_i,p_i)>c_i,\\
+            f(\sigma_i,p_i),\quad &   \text{otherwise}
+        \end{array}
+        \right.,
+    \end{align*}
+
+    where it is assume that the  operator's active pledge is equal to its declared pledge, $\hat{p}_i=p_i$.
+
+
+    Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost`. Next plot shows the effect of this change in the pool operator gross reward.
+
+    ![Heatmap Operator Reward when c changes](plots/heatmap_operator_reward_c_cases.png)
+
+      The plot shows that a reduction in the declared fixed cost, holding everything else constant reduces pool operator revenues, with the effect being particularly strong for small pools. This is because the fixed cost plays an important role in operator's revenues. To see this, take
+
+    \begin{align*}
+    \Pi_i= c_i+(f(\sigma_i,p_i)-c_i)[m_i +(1-m_i)\frac{p_i}{\sigma_i}],\quad \text{if}\quad             f(\sigma_i,p_i)>c_i,
+    \end{align*}
+
+    and define $s=[m_i +(1-m_i)\frac{p_i}{\sigma_i}]$. Hence, we can rewrite
+
+    $\Pi_i=sf(\sigma_i,p_i)+(1-s)c_i$, with $\partial \Pi_i/\partial c_i=(1-s)\geq 0 $.
+
+    It is direct to see that the operator's profit drops with a lower $c_i$. A potential consequence is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. 
+  
   
 - **Delegator return per unit of stake**
 
-  ![Heatmap Delegator Reward when c changes](plots/heatmap_delegator_reward_c_cases.png)
-  
-- **Oversaturated stake**
-- **Reward-pot and treasury flows**
+    Reducing the fixed cost increases the net reward that a pool can distribute among its delegators. This is a clear direct effect over \emph{all} pools that decide to reduce their fixed cost. Figure \ref{fig:net_rewards_differentCost_k500} illustrate this benefit comparing the net rewards per unit of stake for different fixed costs and a fixed $k$. For that comparison, let's first define the net rewards per unit of stake:
 
+\begin{align*}
+\frac{f(\sigma_i,p_i)-c_i}{\sigma_i}, \quad \text{where} \quad f(\sigma_i,p_i)
+=
+\frac{R}{1+a_0}
+\left[
+\tilde{\sigma}_i
++
+a_0\tilde{p}_i
+\frac{\tilde{\sigma}_i-\tilde{p}_i\frac{\tilde{z}_0-\tilde{\sigma}_i}{\tilde{z}_0}}{\tilde{z}_0}
+\right],
+\end{align*}
+
+    ![Delegator Reward per unit of stake when c changes](plots/delegator_reward_per_unit_vs_sigma_c_cases.png)
+  
+
+    The incentive structure suggests that cost reductions have a more significant positive impact on the competitiveness of small pools than on that of large ones. Nevertheless, large pools may still remain more attractive for delegators.
+
+    ![Heatmap Delegator Reward when c changes](plots/heatmap_delegator_reward_c_cases.png)
 
 
 ### Behavioral and equilibrium effects
