@@ -35,6 +35,10 @@ The appropriate level of $c_{\min}$ therefore balances operator viability and Sy
 In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus). 
 
 - **Gross pool rewards**
+
+    The gross pool reward function does not depend on $c_{min}$:
+
+  
 - **Operator gross revenue**
 
   ![Heatmap Operator Reward when c changes](plots/heatmap_operator_reward_c_cases.png)
