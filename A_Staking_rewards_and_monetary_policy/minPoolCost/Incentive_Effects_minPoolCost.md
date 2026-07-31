@@ -37,11 +37,11 @@ In this section we consider the direct effects of changing the parameter while h
 - **Gross pool rewards**
 - **Operator gross revenue**
 
-  ![Heatmap Operator Reward when c changes](output_plots/heatmap_operator_reward_c_cases.png)
+  ![Heatmap Operator Reward when c changes](plots/heatmap_operator_reward_c_cases.png)
   
 - **Delegator return per unit of stake**
 
-  ![Heatmap Delegator Reward when c changes](output_plots/heatmap_delegator_reward_c_cases.png)
+  ![Heatmap Delegator Reward when c changes](plots/heatmap_delegator_reward_c_cases.png)
   
 - **Oversaturated stake**
 - **Reward-pot and treasury flows**
