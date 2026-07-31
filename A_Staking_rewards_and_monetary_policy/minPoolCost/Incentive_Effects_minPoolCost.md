@@ -32,7 +32,7 @@ The appropriate level of $c_{\min}$ therefore balances operator viability and Sy
 
 
 ### Direct mechanical effects 
-In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus). 
+In this section we consider the direct effects of **reducing** `minPoolCost` while holding everything else equal (ceteris paribus). 
 
 - **Gross pool rewards**
 
@@ -56,7 +56,7 @@ Consider a reduction in `minPoolCost` and that the operator declares this `minPo
 <img src="plots/heatmap_operator_reward_c_cases.png" alt="Heatmap Operator Reward when c changes" width="80%">
 </p>
 
-The plot shows that a reduction in the declared fixed cost, holding everything else constant reduces pool operator revenues, with the effect being particularly strong for small pools. This is because the fixed cost plays an important role in operator's revenues. To see this, take
+The plot shows that a reduction in the declared fixed cost (from $170$ ADA to $75$ ADA) reduces pool operator revenues, with the effect being particularly strong for small pools. This is because the fixed cost plays an important role in operator's revenues. To see this, take
 
 $$
 \Pi_i = c_i+(f(\sigma_i,p_i)-c_i)\underbrace{[m_i +(1-m_i)\frac{p_i}{\sigma_i}]}_{s\in[0,1]},
