@@ -45,17 +45,16 @@ In this section we consider the direct effects of changing the parameter while h
 
     The pool operator gross revenue function is
 
-$$\begin{cases}
-c_i + (f(\sigma_i,p_i)-c_i) \left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if }  f(\sigma_i,p_i)>c_i, \\
-f(\sigma_i,p_i), & \text{otherwise}
-\end{cases}
-$$
+$$\begin{cases} c_i + (f(\sigma_i,p_i)-c_i) \left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if }  f(\sigma_i,p_i)>c_i, \\ 
+f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
 where it is assume that the  operator's active pledge is equal to its declared pledge, $\hat{p}_i=p_i$.
     
 Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost`. Next plot shows the effect of this change in the pool operator gross reward.
 
-![Heatmap Operator Reward when c changes](plots/heatmap_operator_reward_c_cases.png)
+    <p align="center">
+    <img src="plots/heatmap_operator_reward_c_cases.png" alt="Heatmap Operator Reward when c changes" width="80%">
+    </p>
 
 The plot shows that a reduction in the declared fixed cost, holding everything else constant reduces pool operator revenues, with the effect being particularly strong for small pools. This is because the fixed cost plays an important role in operator's revenues. To see this, take
 
@@ -74,17 +73,20 @@ It follows that the operator's profit drops with a lower $c_i$. A potential cons
 
     Reducing the fixed cost increases the net reward that a pool can distribute among its delegators since
 
-$$
-\frac{f(\sigma_i,p_i)-c_i}{\sigma_i},
-$$
+    $$\frac{f(\sigma_i,p_i)-c_i}{\sigma_i},$$
 
     Next plot illustrates this benefit comparing the net rewards per unit of stake for different $c_i$. For that comparison, let's first define the net rewards per unit of stake:
 
-![Delegator Reward per unit of stake when c changes](plots/delegator_reward_per_unit_vs_sigma_c_cases.png)
-  
-The plot suggests that cost reductions have a more significant positive impact on the competitiveness of small pools than on that of large ones. Nevertheless, large pools may still remain more attractive for delegators.
+    <p align="center">
+    <img src="plots/delegator_reward_per_unit_vs_sigma_c_cases.png" alt="Delegator Reward per unit of stake when c changes" width="80%">
+    </p>
 
-![Heatmap Delegator Reward when c changes](plots/heatmap_delegator_reward_c_cases.png)
+  
+    The plot suggests that cost reductions have a more significant positive impact on the competitiveness of small pools than on that of large ones. Nevertheless, large pools may still remain more attractive for delegators.
+
+    <p align="center">
+    <img src="plots/heatmap_delegator_reward_c_cases.png" alt="Heatmap Delegator Reward when c changes" width="80%">
+    </p>
 
 
 ### Behavioral and equilibrium effects
