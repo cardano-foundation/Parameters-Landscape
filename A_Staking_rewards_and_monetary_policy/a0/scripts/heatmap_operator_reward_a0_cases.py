@@ -131,13 +131,24 @@ def draw_panel(
     cbar = plt.colorbar(im, ax=ax)
     cbar.set_label(cbar_label, fontsize=FONT_SIZE)
     cbar.ax.tick_params(labelsize=FONT_SIZE)
+    if diverging and vmin is not None and vmax is not None:
+        ticks = np.linspace(vmin, vmax, 5)
+        cbar.set_ticks(ticks)
+        cbar.set_ticklabels([f"{int(t)}%" for t in ticks])
+
+
+def pct_diff(new: np.ndarray, base: np.ndarray) -> np.ndarray:
+    out = np.full_like(base, np.nan, dtype=float)
+    ok = np.abs(base) > 1e-12
+    out[ok] = 100.0 * (new[ok] - base[ok]) / base[ok]
+    return out
 
 
 def main() -> None:
     S, P = sigma_p_grids()
     vals_base = operator_grid(S, P, z0, r_over_t, a0, c_i, m_i)
     vals_new = operator_grid(S, P, z0, r_over_t, a0_alt, c_i, m_i)
-    vals_diff = vals_new - vals_base
+    vals_pct = pct_diff(vals_new, vals_base)
     vmax = max(finite_max(vals_base, S, P), finite_max(vals_new, S, P))
 
     fig, axes = plt.subplots(1, 3, figsize=(17, 5.5), constrained_layout=True)
@@ -154,10 +165,12 @@ def main() -> None:
         vmin=0.0, vmax=vmax,
     )
     draw_panel(
-        axes[2], S, P, vals_diff, z0,
-        title=rf"Difference: $a_0={a0_alt}$ minus $a_0={a0}$",
-        cbar_label=r"$\Delta\Pi_i$ (ADA)",
+        axes[2], S, P, vals_pct, z0,
+        title=rf"Percentage difference: $a_0={a0_alt}$ vs $a_0={a0}$",
+        cbar_label=r"Percentage difference (%)",
         diverging=True,
+        vmin=-20.0,
+        vmax=20.0,
     )
     fig.suptitle(
         "Operator rewards when $a_0$ changes\n"
