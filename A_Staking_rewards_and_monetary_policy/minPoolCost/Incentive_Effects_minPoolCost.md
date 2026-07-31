@@ -44,17 +44,19 @@ In this section we consider the direct effects of changing the parameter while h
 - **Operator gross revenue**
 
     The pool operator gross revenue function is:
-  
-    \begin{align*}
-        &\left\{
-        \begin{array}{ll}
-            c_i+(f(\sigma_i,p_i)-c_i)[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}],\quad  &                       \text{if}\quad f(\sigma_i,p_i)>c_i,\\
-            f(\sigma_i,p_i),\quad &   \text{otherwise}
-        \end{array}
-        \right.,
-    \end{align*}
 
-    where it is assume that the  operator's active pledge is equal to its declared pledge, $\hat{p}_i=p_i$.
+    $$
+    \begin{cases}
+    c_i + (f(\sigma_i,p_i)-c_i) \left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if } f(\sigma_i,p_i)>c_i, \\
+    f(\sigma_i,p_i), & \text{otherwise}
+    \end{cases}
+    $$
+  
+
+
+
+
+where it is assume that the  operator's active pledge is equal to its declared pledge, $\hat{p}_i=p_i$.
 
 
     Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost`. Next plot shows the effect of this change in the pool operator gross reward.
