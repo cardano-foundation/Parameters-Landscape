@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Operator reward heatmaps: reported c=170 vs c=340 (+ difference)."""
+"""Operator reward heatmaps: reported c=170 vs c=75 (+ difference)."""
 
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ T = 38.8e9
 a0 = 0.3
 k = 500
 c_i = 170.0
-c_i_alt = 340.0
+c_i_alt = 75.0
 m_i = 0.05
 N_HEATMAP = 280
 Z0_EPSILON_FRAC = 0.05
