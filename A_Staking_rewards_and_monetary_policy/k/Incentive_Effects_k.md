@@ -234,8 +234,13 @@ Delegators may make decisions using the initial value of $q_j$, but simultaneous
 - unused capacity in less visible pools;
 - temporary oscillations around the saturation threshold.
 
-A natural extension is a search-and-congestion model in which delegators sample a limited number of pools and each pool becomes less attractive (in terms of available capacity) as more stake moves toward it. However, a pool with more stakes is more attractive in terms of gross rewards $f()$. This creates a trade-off.
+A natural extension is a search-and-capacity model in which delegators sample a limited number of pools. Below saturation, inflows can increase a pool’s attractiveness through better fixed-cost dilution, but they simultaneously reduce its remaining capacity. Once inflows push the pool above saturation, additional stake reduces the return per unit of stake. This can generate congestion, overshooting, and repeated reallocation around the saturation threshold.
 
+For an incoming delegation \(x_d\), the relevant return should therefore be evaluated at the post-delegation stake:
+
+$$ y_j(\sigma_j+x_d) = (1-m_j) \frac{ \frac{f()}{\sigma_i}\min\{\sigma_j+x_d,z_0\}-c_j}{\sigma_j+x_d}.$$
+
+A pool close to saturation may be highly attractive for a small delegator but unattractive—or unable to accommodate the delegation without oversaturation—for a large delegator.
 
 **3. Switching costs, rational inattention, and brand loyalty.**
 
