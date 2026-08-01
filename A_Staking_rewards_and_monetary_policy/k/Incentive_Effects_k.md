@@ -106,7 +106,48 @@ In this section we consider the direct effects of changing the parameter while h
 ### Behavioral and equilibrium effects
 
     Currently, this section only identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions. To provide a clearer breakdown, the section below adopts a more granular approach rather than relying on these two broad categories.
+    
+- **Rational behavior**
 
+    Assuming **forward-looking, non-myopic rational players**—the equilibrium concept used by Brünjes et al.—increasing \(k\) from \(500\) to \(1000\) halves the saturation threshold:
+
+$$
+z_0:\frac{1}{500}\longrightarrow\frac{1}{1000}.
+$$
+    Pools above the new saturation threshold lose delegation, while additional operators enter or previously marginal pools become competitive.
+
+    Provided that operating $1000$ pools remains profitable, stake reallocates toward a new equilibrium with $1000$ saturated pools, each with total stake
+
+$$
+\sigma_i=\frac{1}{1000}.
+$$
+
+    Total pool stake includes both the operator's pledge and outside delegation:
+
+$$
+\sigma_i=p_i+\text{delegation}_i.
+$$
+
+    The selected pool leaders commit their available stake to their pools, while delegators fill the remaining capacity. These pools are therefore saturated in total stake, but they are not generally fully pledged.
+
+    The pool leaders are the $1000$ players with the highest profit,
+
+$$
+P_i=r\left(\frac{1}{1000},s_i\right)-c_i,
+$$
+
+and each leader chooses the highest margin $m_i$ that keeps the pool among the $1000$ most desirable pools.
+
+**Discussion**
+
+    The outcome would probably be less clean. Current evidence shows that with $k=500$, there are $\sim 2'600$ pools, most of them far away from saturation levels. Moreover, the actual staking level could saturate only $\sim 275$ pools.
+
+- The maximum gross reward per fully saturated pool falls from $R/500$ to $R/1000$, while operating costs do not fall proportionally. Therefore, the condition under which pools are profitable may be affected.
+- As a response, some incumbents would reduce margins, adjust pledge, or open additional pools. Multi-pool operators with shared operating costs would have a particularly strong incentive to split.
+- Delegation would not necessarily leave newly oversaturated pools one-for-one. Large pools may remain attractive because they dilute fixed costs better and have established reputations or lower perceived reward variance.
+- Consequently, the likely equilibrium is **more pools near the lower saturation threshold, but not necessarily $1000$ independent operators**. It may include persistent oversaturation, operator entry and exit, and substantial pool splitting by existing multi-pool operators.
+
+Thus, increasing $k$ should decentralize **stake across pool registrations**, but its effect on **independent operator concentration** is theoretically ambiguous. Total staking participation may remain approximately unchanged.
     
 - **Delegators moving stake**
 
