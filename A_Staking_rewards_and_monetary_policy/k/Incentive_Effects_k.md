@@ -157,9 +157,9 @@ Yield-sensitive delegators typically leave oversaturated pools for those with av
 
 Consider a simplified capped-gross-reward approximation (ignoring pledge and performance differences):
 
-$$g_i(\sigma_i)=\bar{R} \min\{\sigma_i,z_0\},$$
+$$g_i(\sigma_i)=\bar{R} \min\\{\sigma_i,z_0\\},$$
 
-where $\bar{R}>0$ is a constant gross reward rate per unit of reward-bearing stake. In this reduced-form approximation, $\bar{R}$ plays the role of $f(\sigma_i,p_i)/\sigma_i$ for a sub-saturated pool when pledge and performance are held fixed, but it is not an exact identity of the full reward function. The delegator net return per unit stake is
+where $\bar{R}>0$ is a constant gross reward rate per unit of reward-bearing stake. In this reduced-form approximation, $\bar{R}$ plays the role of $f(\sigma_i,p_i)/\sigma_i$ for a sub-saturated pool when pledge and performance are held fixed. The delegator net return per unit stake is
 
 $$y_i(\sigma_i)=(1-m_i) \frac{\big[g_i(\sigma_i)-c_i\big]_+}{\sigma_i}.$$
 
@@ -171,7 +171,7 @@ so returns rise with size because fixed cost is diluted. When the pool is above 
 
 $$y_i(\sigma_i)=(1-m_i)\left(\frac{\bar{R}z_0-c_i}{\sigma_i}\right),$$
 
-so returns decline with additional stake because gross rewards are capped at $\bar{R}z_0$. Therefore, a *slightly* oversaturated pool can still dominate a much smaller unsaturated one if fixed-cost dilution and reputation/variance effects remain favorable.
+so returns decline with additional stake because gross rewards are capped at $\bar{R}z_0$. Therefore, a *slightly* oversaturated pool can still dominate a much smaller unsaturated one if fixed-cost dilution and reputation/variance effects remain favorable. The next plot shows this case:
 
 
 ![A slightly oversaturated pool can remain preferred](oversaturated_pool_utility.png)
