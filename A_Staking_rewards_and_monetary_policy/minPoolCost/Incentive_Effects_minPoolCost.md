@@ -34,16 +34,16 @@ The appropriate level of $c_{\min}$ therefore balances operator viability and Sy
 ### Direct mechanical effects 
 In this section we consider the direct effects of **reducing** `minPoolCost` while holding everything else equal (ceteris paribus). 
 
-- **Gross pool rewards**
+####Gross pool rewards
 
-    The gross pool reward function does not depend on $c_{min}$:
+The gross pool reward function does not depend on $c_{min}$:
 
-     $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
+$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
 
   
-- **Operator gross revenue**
+####Operator gross revenue
 
-    The pool operator gross revenue function is
+The pool operator gross revenue function is
 
 $$\begin{cases} c_i + (f(\sigma_i,p_i)-c_i) \left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if }  f(\sigma_i,p_i)>c_i, \\ 
 f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
@@ -68,25 +68,25 @@ $$\Pi_i=sf(\sigma_i,p_i)+(1-s)c_i$, \quad \text{and} \quad $\partial \Pi_i/\part
 
 It follows that the operator's profit drops with a lower $c_i$. A potential consequence is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. 
   
+
+####Delegator return per unit of stake
+
+Reducing the fixed cost increases the net reward that a pool can distribute among its delegators since
+
+$$\frac{f(\sigma_i,p_i)-c_i}{\sigma_i},$$
+
+Next plot illustrates this benefit comparing the net rewards per unit of stake for different $c_i$. For that comparison, let's first define the net rewards per unit of stake:
+
+<p align="center">
+<img src="plots/delegator_reward_per_unit_vs_sigma_c_cases.png" alt="Delegator Reward per unit of stake when c changes" width="80%">
+</p>
+
   
-- **Delegator return per unit of stake**
+The plot suggests that cost reductions have a more significant positive impact on the competitiveness of small pools than on that of large ones. Nevertheless, large pools may still remain more attractive for delegators.
 
-    Reducing the fixed cost increases the net reward that a pool can distribute among its delegators since
-
-    $$\frac{f(\sigma_i,p_i)-c_i}{\sigma_i},$$
-
-    Next plot illustrates this benefit comparing the net rewards per unit of stake for different $c_i$. For that comparison, let's first define the net rewards per unit of stake:
-
-    <p align="center">
-    <img src="plots/delegator_reward_per_unit_vs_sigma_c_cases.png" alt="Delegator Reward per unit of stake when c changes" width="80%">
-    </p>
-
-  
-    The plot suggests that cost reductions have a more significant positive impact on the competitiveness of small pools than on that of large ones. Nevertheless, large pools may still remain more attractive for delegators.
-
-    <p align="center">
-    <img src="plots/heatmap_delegator_reward_c_cases.png" alt="Heatmap Delegator Reward when c changes" width="80%">
-    </p>
+<p align="center">
+<img src="plots/heatmap_delegator_reward_c_cases.png" alt="Heatmap Delegator Reward when c changes" width="80%">
+</p>
 
 
 ### Behavioral and equilibrium effects
