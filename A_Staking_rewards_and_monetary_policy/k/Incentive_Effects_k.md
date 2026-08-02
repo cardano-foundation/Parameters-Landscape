@@ -311,19 +311,17 @@ $$
 f_i=f(\sigma_i,p_i),
 $$
 
-and define the operator capture share
-
-$$
-\omega_i = m_i + (1-m_i)\frac{\hat p_i}{\sigma_i},
-$$
-
 where $\hat p_i$ is active operator pledge. If $f_i>c_i$, operator gross revenue is
 
 $$
-G_i = c_i + (f_i-c_i)\omega_i,
+\Pi_i = c_i + (f_i-c_i)\left[m_i + (1-m_i)\frac{\hat p_i}{\sigma_i}\right],
 $$
 
-and profit is $\Pi_i=G_i-\hat c_i$.
+and operator utility/profit is
+
+$$
+U_i = \Pi_i - \hat c_i.
+$$
 
 This makes the main strategic margins explicit:
 
@@ -337,18 +335,20 @@ Hence, after a $k$ increase, we expect heterogeneous operator responses: some po
 
 A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$ in the $500\rightarrow1000$ case. Entry is therefore more likely for low-cost operators (or operators with shared infrastructure), while high-cost marginal pools face higher exit risk.
 
-Using $f_i=f(\sigma_i,p_i)$ and $\omega_i=m_i+(1-m_i)\hat p_i/\sigma_i$ from the previous subsection, we can summarize entry/exit with an operator participation constraint.
+Using $f_i=f(\sigma_i,p_i)$, we summarize entry/exit with an operator participation constraint.
 
-If $f_i>c_i$, operator profit is
-
-$$
-\Pi_i = c_i + (f_i-c_i)\omega_i - \hat c_i,
-$$
-
-and pool $i$ remains active when $\Pi_i\geq 0$. Equivalently,
+If $f_i>c_i$, operator gross revenue is
 
 $$
-f_i\geq f_i^E\equiv c_i+\frac{\hat c_i-c_i}{\omega_i}.
+\Pi_i = c_i + (f_i-c_i)\left[m_i + (1-m_i)\frac{\hat p_i}{\sigma_i}\right],
+$$
+
+and utility is $U_i=\Pi_i-\hat c_i$. Pool $i$ remains active when $U_i\geq 0$, equivalently when $\Pi_i\geq \hat c_i$.
+
+This implies
+
+$$
+f_i\geq f_i^E\equiv c_i+\frac{\hat c_i-c_i}{\left[m_i + (1-m_i)\frac{\hat p_i}{\sigma_i}\right]}.
 $$
 
 Hence, $f_i^E$ is the minimum gross reward required for viability.
@@ -376,13 +376,13 @@ can be viable under $k=500$ but not under $k=1000$, even if saturated.
 This ceiling effect is not the full story, because delegation reallocates after the shock. Let $\sigma_i^*(k)$ be post-adjustment stake. Then
 
 $$
-\Pi_i^*(k)=c_i+\left[f\big(\sigma_i^*(k),p_i\big)-c_i\right]\omega_i^*(k)-\hat c_i,
+\Pi_i^*(k)=c_i+\left[f\big(\sigma_i^*(k),p_i\big)-c_i\right]\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i^*(k)}\right],
 $$
 
-where
+and therefore
 
 $$
-\omega_i^*(k)=m_i+(1-m_i)\frac{\hat p_i}{\sigma_i^*(k)}.
+U_i^*(k)=\Pi_i^*(k)-\hat c_i.
 $$
 
 For weak subsaturated pools, incoming delegation can improve viability while $\partial f_i/\partial\sigma_i>0$. Once saturated, $\partial f_i/\partial\sigma_i=0$, so extra stake no longer relaxes the participation constraint.
@@ -390,7 +390,7 @@ For weak subsaturated pools, incoming delegation can improve viability while $\p
 At equilibrium, if $A(k)$ is the active set,
 
 $$
-\Pi_i^*(k)\geq 0\;\;\text{for }i\in A(k),
+U_i^*(k)\geq 0\;\;\text{for }i\in A(k),
 $$
 
 and non-active pools cannot profitably enter under their best response. The central prediction is therefore: **more active pools, but less than a proportional increase in $k$**, with entry concentrated among low-cost and shared-infrastructure operators rather than necessarily among new independent operators.
