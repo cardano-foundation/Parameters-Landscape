@@ -108,44 +108,40 @@ This section identifies potential behavioral (or second-order) effects—primari
     
 #### Rational behavior
 
-Assuming **forward-looking, non-myopic rational players**—the equilibrium concept used by Brünjes et al.—increasing \(k\) from \(500\) to \(1000\) halves the saturation threshold:
+Assuming **forward-looking, non-myopic rational players**—the equilibrium concept in Brünjes et al. (2020)—raising $k$ from $500$ to $1000$ halves saturation:
 
-$$z_0 = \frac{1}{500}\longrightarrow\frac{1}{1000}.$$
+$$z_0(k)=\frac{1}{k}:\quad \frac{1}{500}\rightarrow\frac{1}{1000}\quad (\text{or }\; T/500\rightarrow T/1000\;\text{in ADA units}).$$
 
-Pools above the new saturation threshold lose delegation, while additional operators enter or previously marginal pools become competitive.
-
-Provided that operating $1000$ pools remains profitable, stake reallocates toward a new equilibrium with $1000$ saturated pools, each with total stake
+In the stylized RSS equilibrium (full active stake, frictionless adjustment), the target becomes $k$ saturated pools of size
 
 $$
-\sigma_i=\frac{1}{1000}.
+\sigma_i^*=z_0(1000)=\frac{1}{1000}, \qquad \sigma_i=p_i+\text{delegation}_i,
 $$
 
-Total pool stake includes both the operator's pledge and outside delegation:
+with pool leaders selected by potential profit ranking,
 
 $$
-\sigma_i=p_i+\text{delegation}_i.
+P_i(1000)=r\big(z_0(1000),s_i\big)-c_i,
 $$
 
-The selected pool leaders commit their available stake to their pools, while delegators fill the remaining capacity. These pools are therefore saturated in total stake, but they are not generally fully pledged.
-
-The pool leaders are the $1000$ players with the highest profit,
-
-$$
-P_i=r\left(\frac{1}{1000},s_i\right)-c_i,
-$$
-
-and each leader chooses the highest margin $m_i$ that keeps the pool among the $1000$ most desirable pools.
+and margins set at the highest level compatible with remaining in the top-$k$ desirability set.
 
 **Discussion**
 
-The outcome would probably be less clean. Current evidence shows that with $k=500$, there are $\sim 2'600$ pools, most of them far away from saturation levels. Moreover, the actual staking level could saturate only $\sim 275$ pools.
+In the real system, this benchmark is constrained by participation and transition frictions. With current active stake $S\approx 21.4$B ADA and $T\approx 38.8$B ADA, the maximum number of simultaneously saturated pools is bounded by
 
-- The maximum gross reward per fully saturated pool falls from $R/500$ to $R/1000$, while operating costs do not fall proportionally. Therefore, the condition under which pools are profitable may be affected.
-- As a response, some incumbents would reduce margins, adjust pledge, or open additional pools. Multi-pool operators with shared operating costs would have a particularly strong incentive to split.
-- Delegation would not necessarily leave newly oversaturated pools one-for-one. Large pools may remain attractive because they dilute fixed costs better and have established reputations or lower perceived reward variance.
-- Consequently, the likely equilibrium is **more pools near the lower saturation threshold, but not necessarily $1000$ independent operators**. It may include persistent oversaturation, operator entry and exit, and substantial pool splitting by existing multi-pool operators.
+$$
+N_{\text{sat}}^{\max}(k)=\frac{S}{T/k}=\frac{S}{T}k\approx 0.552\,k,
+$$
 
-Thus, increasing $k$ should decentralize **stake across pool registrations**, but its effect on **independent operator concentration** is theoretically ambiguous. Total staking participation may remain approximately unchanged.
+which is about $276$ for $k=500$ and about $552$ for $k=1000$ (not $1000$).
+
+- The per-pool reward ceiling falls from about $R/500$ to $R/1000$, while fixed operating costs do not scale down proportionally, so marginal pools can become unprofitable.
+- Operators with shared infrastructure may respond by pool splitting and margin repricing, increasing the number of registrations faster than the number of independent operators.
+- Delegation reallocation is path-dependent: some oversaturated pools can retain stake if delegators value lower variance, reputation, or search-cost savings.
+- Therefore, the most likely outcome is **more competition around a lower $z_0$ and a larger set of economically relevant pools, but not a clean $1000$-pool independent-operator equilibrium**.
+
+So, increasing $k$ should improve stake dispersion across pool registrations, while its effect on independent-operator concentration remains theoretically ambiguous.
     
 #### Delegators moving stake
 
@@ -153,25 +149,23 @@ Yield-sensitive delegators typically leave oversaturated pools for those with av
 
 **1. Why a slightly oversaturated pool may remain attractive** (based on CIP-50 report)
 
-Consider the simplified capped reward function
+Consider a simplified capped-gross-reward approximation (ignoring pledge and performance differences):
 
-$$r_i(\sigma_i)=\frac{f()}{\sigma_i}\min\\{\sigma_i,z_0\\},$$
+$$g_i(\sigma_i)=\bar{R}\,\min\{\sigma_i,z_0\},$$
 
-where $\frac{f()}{\sigma_i}$ is the gross reward generated per unit of stake. Ignoring pledge for simplicity, the expected delegator return per unit of stake is
+where $\bar{R}>0$ is a constant gross reward rate per unit of reward-bearing stake. The delegator net return per unit stake is
 
-$$y_i(\sigma_i) = (1-m_i) \frac{r_i(\sigma_i)-c_i}{\sigma_i},$$
+$$y_i(\sigma_i)=(1-m_i)\,\frac{\big[g_i(\sigma_i)-c_i\big]_+}{\sigma_i}.$$
 
-provided that $r_i(\sigma_i)>c_i$.
+When the pool is below saturation ($\sigma_i<z_0$),
 
-Below saturation,
+$$y_i(\sigma_i)=(1-m_i)\left(\bar{R}-\frac{c_i}{\sigma_i}\right),$$
 
-$$y_i(\sigma_i) = (1-m_i) \left(\frac{f()}{\sigma_i}-\frac{c_i}{\sigma_i} \right),\qquad \sigma_i < z_0.$$
+so returns rise with size because fixed cost is diluted. When the pool is above saturation ($\sigma_i>z_0$),
 
-Returns increase with pool size because the fixed cost is distributed across more stake. Above saturation,
+$$y_i(\sigma_i)=(1-m_i)\left(\frac{\bar{R}z_0-c_i}{\sigma_i}\right),$$
 
-$$y_i(\sigma_i) = (1-m_i) \frac{\frac{f()}{\sigma_i} z_0-c_i}{\sigma_i}, \qquad \sigma_i > z_0.$$
-
-Returns then decrease because additional stake no longer increases the pool's gross reward. A pool slightly above $z_0$ may still offer a higher return than a much smaller unsaturated pool because the former not only have a larger gross reward but also continues to dilute its fixed cost more effectively.
+so returns decline with additional stake because gross rewards are capped at $\bar{R}z_0$. Therefore, a *slightly* oversaturated pool can still dominate a much smaller unsaturated one if fixed-cost dilution and reputation/variance effects remain favorable.
 
 
 ![A slightly oversaturated pool can remain preferred](oversaturated_pool_utility.png)
@@ -234,11 +228,11 @@ Delegators may make decisions using the initial value of $q_j$, but simultaneous
 - unused capacity in less visible pools;
 - temporary oscillations around the saturation threshold.
 
-A natural extension is a search-and-capacity model in which delegators sample a limited number of pools. Below saturation, inflows can increase a pool’s attractiveness through better fixed-cost dilution, but they simultaneously reduce its remaining capacity. Once inflows push the pool above saturation, additional stake reduces the return per unit of stake. This can generate congestion, overshooting, and repeated reallocation around the saturation threshold.
+A natural extension is a search-and-capacity model in which delegators sample a limited number of pools. Below saturation, inflows can increase a pool's attractiveness through better fixed-cost dilution, but they simultaneously reduce remaining capacity. Once inflows push the pool above saturation, additional stake reduces return per unit of stake. This can generate congestion, overshooting, and repeated reallocation around the saturation threshold.
 
 For an incoming delegation \(x_d\), the relevant return should therefore be evaluated at the post-delegation stake:
 
-$$ y_j(\sigma_j+x_d) = (1-m_j) \frac{ \frac{f()}{\sigma_i}\min\{\sigma_j+x_d,z_0\}-c_j}{\sigma_j+x_d}.$$
+$$ y_j(\sigma_j+x_d) = (1-m_j)\,\frac{\big[\bar{R}\min\{\sigma_j+x_d,z_0\}-c_j\big]_+}{\sigma_j+x_d}. $$
 
 A pool close to saturation may be highly attractive for a small delegator but unattractive—or unable to accommodate the delegation without oversaturation—for a large delegator.
 
@@ -254,37 +248,37 @@ The delegator switches only when
 
 $$\Delta_d > \kappa_d,$$
 
-where $\kappa_d$ denotes the switching cost (cost of acquiring and processing information about alternative pools, brand loyalty, etc). Thus, when $\kappa_d>0$, small return improvements do not justify moving
+where $\kappa_d$ denotes switching costs (information, processing, loyalty, and coordination). Thus, when $\kappa_d>0$, small return improvements do not justify moving.
 
 
 If $\kappa_d$ is heterogeneous across delegators with cumulative distribution $F_\kappa$, the fraction willing to switch for a gain $\Delta_d$ is $F_\kappa$.
 
-Suppose that $a_d\in[0,1]$ denotes the probability that delegator $d$ notices and evaluates the change. This is a simplistic model of assuming inattention: when $a_d<1\$, some delegators do not reconsider their delegetion . The probability of switching is then
+Suppose that $a_d\in[0,1]$ denotes the probability that delegator $d$ notices and evaluates the change. This is a simple inattention model: when $a_d<1$, some delegators do not reconsider their delegation. The probability of switching is then
 
-$$P_d(\text{switch}) = a_dF_\kappa.$$
+$$P_d(\text{switch}\mid\Delta_d)=a_d\,F_\kappa(\Delta_d).$$
 
 Aggregate stake leaving pool $A$ is
 
-$$M_A = \sum_{d\in A} \sigma_d\,a_dF_T(\Delta_d).$$
+$$M_A = \sum_{d\in A} \sigma_d\,a_dF_\kappa(\Delta_d).$$
 
 This simple model explains why a mechanical increase in oversaturation does not produce an equivalent outflow. Heterogeneous thresholds generate gradual rather than immediate adjustment, and/or loyalty and reputation can make the current delegation better even when another pool offers a slightly higher monetary return.
 
   
 #### Operators changing pledge, margin, or declared fixed cost
 
-Margin fees ($m_i$) and declared fixed costs ($c_i$) may face downward pressure, as pools have less stake over which to spread these costs. The impact on declared pledge ($p_i$) is more ambiguous: while an existing pledge becomes larger relative to the lower $z_0$—requiring less total pledge to reach the new saturation point—operators expanding into multi-pool operations will have to split their pledge across multiple pools.
+After a rise in $k$, pools near or above the new $z_0$ face lower reward per unit of stake at the margin, which increases fee competition. This tends to put downward pressure on $m_i$ and on declared fixed costs $c_i$ (when operators can sustain lower real costs). The effect on declared pledge $p_i$ is ambiguous: a lower $z_0$ reduces pledge needed for one pool to be competitive, but operators expanding to multiple pools must split pledge across a larger pool set.
   
 #### Entry or exit of pools
 
-A higher $k$ creates room for more pools, but also reduces maximum revenue per pool.
+A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$ in the $500\rightarrow1000$ case. Entry is therefore more likely for low-cost operators (or operators with shared infrastructure), while high-cost marginal pools face higher exit risk.
     
 #### Pool splitting by multi-pool operators
 
-MPOs can split stake across additional pools to remain below the new $z_0$. This may increase the pool count without materially reducing operator-level concentration. Splitting is favored by economies of scope, brand portability, and the possibility of collecting fixed cost in several pools; it is constrained by additional real costs and pledge dilution
+MPOs can split stake across additional pools to keep each pool closer to the new, lower $z_0$. This can increase pool count without proportionally reducing operator-level concentration. Splitting is favored by economies of scope, brand portability, and repeated fixed-cost collection, but constrained by extra operating complexity, pledge dilution across pools, and delegator-side search/coordination frictions.
     
 #### Changes in staking participation
 
-Increasing k does not create a direct incentive for currently unstaked ADA to enter staking. It mainly changes the allocation of stake across pools by lowering the saturation threshold. Therefore, its expected effect on aggregate staking participation is small, while its effect on redelegation patterns may be substantial.
+Increasing $k$ does not create a direct incentive for currently unstaked ADA to enter staking. It mainly changes the allocation of stake across pools by lowering the saturation threshold. Therefore, its expected effect on aggregate staking participation is small, while its effect on redelegation patterns may be substantial.
     
 
 
