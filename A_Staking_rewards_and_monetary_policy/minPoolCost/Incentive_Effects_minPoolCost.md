@@ -91,6 +91,162 @@ The plot suggests that cost reductions have a more significant positive impact o
 
 ### Behavioral and equilibrium effects
 
+Changing $c_{\min}$ does not modify gross rewards $f(\sigma_i,p_i)$ directly, but it changes feasible declared costs $c_i$, which feed into pool desirability, operator revenue, and participation constraints. The equilibrium forces are therefore mostly mediated by redelegation and strategic pool-level adjustments.
+
+#### Rational behavior
+
+We start from a frictionless non-myopic benchmark (consistent with the reward-sharing game): forward-looking delegators and operators, truthful cost declaration ($c_i=\hat c_i$), and binding floor $c_i\ge c_{\min}$.
+
+For competitive ranking, use
+
+$$
+P_i(c_{\min})=f(z_0,p_i)-c_i,
+\qquad
+D_i(c_{\min})=(1-m_i)\,[P_i(c_{\min})]_+.
+$$
+
+If the floor binds for pool $i$ (that is, $c_i=c_{\min}$), then
+
+$$
+\frac{\partial P_i}{\partial c_{\min}}=-1,
+\qquad
+\frac{\partial D_i}{\partial c_{\min}}=-(1-m_i)\,\mathbf 1\{P_i>0\},
+$$
+
+so increasing $c_{\min}$ directly lowers desirability for floor-binding pools.
+
+##### Delegators moving stake
+
+Delegators allocate by expected net return per unit stake,
+
+$$
+r_i^D=(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i}.
+$$
+
+With a floor change, a simple reallocation equation is
+
+$$
+\Delta\sigma_i^D=\eta\,\sigma_i\big(r_i^D-\bar r^D\big),
+\qquad
+\sigma_i'=\sigma_i+\Delta\sigma_i^D.
+$$
+
+Hence, raising $c_{\min}$ tends to push stake away from small/floor-binding pools (where $c_i/\sigma_i$ is large), while reducing $c_{\min}$ relaxes that pressure.
+
+##### Operators changing pledge, margin, or declared fixed cost
+
+Operator utility remains
+
+$$
+U_i=\Pi_i-\hat c_i,
+\qquad
+\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
+$$
+
+with feasibility $c_i\ge c_{\min}$. A reduced-form best response is
+
+$$
+(c_i^*,m_i^*,\hat p_i^*)\in\arg\max_{c_i,m_i,\hat p_i}\;U_i\big(c_{\min},\sigma_i'(c_i,m_i,\hat p_i),c_i,m_i,\hat p_i\big)
+\quad\text{s.t. }c_i\ge c_{\min}.
+$$
+
+When the floor is lowered, some operators use lower $c_i$ to recover delegation; when the floor rises, margin and pledge become relatively more important strategic levers.
+
+##### Entry or exit of pools
+
+Participation constraints should be evaluated at post-redelegation stake:
+
+$$
+U_i\big(c_{\min},\sigma_i'\big)\ge 0,
+\qquad
+U_i^{\text{entry}}\big(c_{\min},\sigma_i'\big)-F_i\ge 0.
+$$
+
+This captures both channels: the direct effect of $c_{\min}$ through feasible $c_i$ and the indirect effect through redelegation ($\sigma_i'$). A higher floor may support incumbent revenue per pool but can tighten entry conditions for small newcomers if delegator net returns fall enough.
+
+##### Pool splitting by multi-pool operators
+
+For an MPO controlling $n$ pools,
+
+$$
+\Pi^{\text{MPO}}(n)=\sum_{j=1}^{n}\Pi_j\big(c_{\min},\sigma_j',\hat p_j,m_j,c_j\big),
+\qquad c_j\ge c_{\min}.
+$$
+
+Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{\min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{\min}$ does the opposite.
+
+##### Changes in staking participation
+
+Let total active stake be $S=\sum_i\sigma_i$. A reduced-form aggregate response is
+
+$$
+\Delta S=\chi\,\big(\bar r_{\text{exp}}(c_{\min})-r_{\text{alt}}\big),
+$$
+
+where $\bar r_{\text{exp}}$ is expected network staking return net of fee/cost pass-through. Because $c_{\min}$ is mostly redistributive within staking, first-order effects are on allocation across pools, with aggregate participation moving mainly through perceived net-return changes.
+
+#### Behavioral deviations from the rational benchmark
+
+We now keep the same five channels but allow market frictions, bounded rationality, and coordination limits.
+
+##### Delegators moving stake
+
+With search and attention frictions, observed migration is dampened:
+
+$$
+\Delta\sigma_i^{\text{obs}}=\lambda_i\,\Delta\sigma_i^D,
+\qquad 0<\lambda_i<1.
+$$
+
+Under this friction, even large changes in $c_{\min}$ can translate into slow redelegation if delegators are inert.
+
+##### Operators changing pledge, margin, or declared fixed cost
+
+Rather than jumping to the optimum, operators partially adjust controls:
+
+$$
+c_{i,t+1}=\max\{c_{\min},\;c_{i,t}+\rho_c(c_i^*-c_{i,t})\},
+$$
+$$
+m_{i,t+1}=m_{i,t}+\rho_m(m_i^*-m_{i,t}),
+\qquad
+\hat p_{i,t+1}=\hat p_{i,t}+\rho_p(\hat p_i^*-\hat p_{i,t}),
+$$
+
+with $0<\rho_c,\rho_m,\rho_p\le 1$. This generates transitional dynamics and temporary mispricing after a floor change.
+
+##### Entry or exit of pools
+
+Inertia can be represented by hysteresis thresholds around participation:
+
+$$
+U_i(c_{\min},\sigma_i')<-H_i^{\text{exit}},
+\qquad
+U_i^{\text{entry}}(c_{\min},\sigma_i')>H_i^{\text{entry}},
+$$
+
+with $H_i^{\text{entry}},H_i^{\text{exit}}>0$. This allows weak pools to remain active and viable entrants to delay launch, even when rational static constraints indicate immediate adjustment.
+
+##### Pool splitting by multi-pool operators
+
+Include organizational frictions in expansion value:
+
+$$
+V^{\text{split}}(n)=\Pi^{\text{MPO}}(n)-K(n),
+$$
+
+where $K(n)$ is increasing and convex. A lower floor may still fail to induce extra splits for operators with high coordination costs.
+
+##### Changes in staking participation
+
+If delegators overweight short-run payout changes, participation reacts to a salience-weighted objective:
+
+$$
+\Delta S_t=\chi_s\big(r_t-r_{\text{alt},t}\big)+\chi_l\,\mathbb E_t\!\left[\sum_{h\ge 1}\beta^h\big(r_{t+h}-r_{\text{alt},t+h}\big)\right],
+$$
+
+with $\chi_s>\chi_l$ under short-term salience. This can amplify short-run participation responses to changes in $c_{\min}$ even when long-run effects are limited.
+
 ### Decentralization
 
 
