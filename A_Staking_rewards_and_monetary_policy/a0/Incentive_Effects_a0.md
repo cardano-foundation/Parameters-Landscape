@@ -129,82 +129,89 @@ Changing $a_0$ can affect not only current rewards but also the rank of pools, h
     
 #### Rational behavior
 
-**Changes in pool desirability and redistribution of delegation**
+We start from a frictionless baseline consistent with the reward-sharing analysis: forward-looking (non-myopic) players, truthful fixed-cost declaration ($c_i=\hat c_i$), and no strategic changes in declared cost after the parameter shock ($dc_i=0$).
 
-In the non-myopic reward-sharing view ([Brünjes et al. (2020)](../../References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf)), pool ranking depends on expected saturated outcomes, not only on current stake. A useful saturated-pool proxy is
+Under this baseline, ranking for competitive pools is driven by expected saturated outcomes. A convenient proxy is
 
 $$
 P_i(a_0)=f(z_0,p_i)-c_i,
-$$
-
-and delegator-facing desirability is
-
-$$
-D_i(a_0)=(1-m_i)\,[P_i(a_0)]_+,
 \qquad
-r_i^{D,\text{sat}}(a_0)=\frac{D_i(a_0)}{z_0}.
+D_i(a_0)=(1-m_i)\,[P_i(a_0)]_+.
 $$
 
-For saturated pools, the reward term is
+For saturated pools,
 
 $$
-f(z_0,p_i)=\frac{R}{1+a_0}\,(z_0+a_0p_i),
+f(z_0,p_i)=\frac{R}{1+a_0}(z_0+a_0p_i),
+\qquad
+\frac{\partial f(z_0,p_i)}{\partial a_0}=\frac{R(p_i-z_0)}{(1+a_0)^2}\le 0.
 $$
 
-so
+Hence, increasing $a_0$ usually lowers absolute rewards, but less so for high-pledge pools. Relative ordering shifts according to
 
 $$
-\frac{\partial f(z_0,p_i)}{\partial a_0}=\frac{R\,(p_i-z_0)}{(1+a_0)^2}\le 0,
+P_i(a_0)-P_j(a_0)=\frac{Ra_0}{1+a_0}(p_i-p_j)-(c_i-c_j),
 $$
 
-with equality only when $p_i=z_0$. Hence, raising $a_0$ usually lowers absolute rewards, but it lowers them less for high-pledge pools. Relative ranking shifts can be seen from
+so pledge differences receive more weight relative to cost differences.
+
+##### Delegators moving stake
+
+Delegators reallocate toward pools with higher expected return per unit stake,
 
 $$
-P_i(a_0)-P_j(a_0)=\frac{Ra_0}{1+a_0}(p_i-p_j)-(c_i-c_j).
+r_i^D=(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i}.
 $$
 
-Therefore, increasing $a_0$ increases the weight of pledge differences relative to cost differences in competitive ranking.
+After an increase in $a_0$, high-pledge pools become relatively more attractive ceteris paribus, so the rational benchmark predicts net delegation inflows to them.
 
-Behaviorally, this implies: (i) delegation tends to move toward higher-pledge pools ceteris paribus; (ii) low-pledge pools can still defend delegation through lower margins/fixed costs or stronger non-price attributes (performance, reputation, lower perceived variance); and (iii) equilibrium selection shifts toward stronger Sybil resistance but also toward greater capital intensity in pool competition.
+##### Operators changing pledge, margin, or declared fixed cost
 
-    
-#### Delegators moving stake
-
-Delegators respond to expected net return per unit of stake,
-
-$$
-r_i^D=(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i},
-$$
-
-not to pledge in isolation. Increasing $a_0$ shifts this return schedule in favor of higher-pledge pools (all else equal), but realized migration is gradual because of search costs, inertia, and heterogeneous risk preferences. Therefore, we should expect partial reallocation rather than one-for-one stake movement in the short run.
-
-
-  
-#### Operators changing pledge, margin, or declared fixed cost
-
-Operators jointly adjust $\hat p_i$, $m_i$, and $c_i$ to preserve utility,
+With costs treated as truthful and fixed in this baseline, operators mainly adjust $\hat p_i$ and $m_i$ to preserve utility,
 
 $$
 U_i=\Pi_i-\hat c_i,
-\quad
+\qquad
 \Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right].
 $$
 
-After an increase in $a_0$, low-pledge operators face stronger pressure to either increase pledge or improve non-pledge competitiveness (e.g., lower margins/costs). High-pledge operators may absorb part of their pledge advantage as higher margins, depending on competitive pressure from nearby pools.
+Low-pledge operators are pushed to either increase pledged capital or reduce margins to retain delegation. High-pledge operators may preserve competitiveness with smaller margin cuts.
 
-  
-#### Entry or exit of pools
+##### Entry or exit of pools
 
-Entry and survival depend on whether operators can keep $U_i\ge 0$ after reallocation. A higher $a_0$ tends to improve relative viability for high-pledge pools and reduce it for highly leveraged low-pledge pools. As a result, entry is more likely among operators able to commit pledge, while marginal low-pledge pools face higher exit risk unless they compensate through fees, performance, or brand/reputation.
+Pools remain active when $U_i\ge 0$. Since higher $a_0$ penalizes low-pledge reward profiles more strongly, marginal low-pledge pools face higher exit pressure, while high-pledge pools improve relative survival probability.
 
-    
-#### Pool splitting by multi-pool operators
+##### Pool splitting by multi-pool operators
 
-A higher $a_0$ weakens pure pool-splitting incentives when split pools cannot sustain sufficient pledge each. For an MPO, distributing stake across additional pools also dilutes pledge per pool, which reduces desirability unless additional pledged capital is committed. Hence, increasing $a_0$ does not eliminate MPO strategies, but it raises their capital requirement and reduces the attractiveness of low-pledge expansion.
+Higher $a_0$ increases the capital requirement of splitting: stake can still be split, but pledge must also be split (or increased) to keep each pool attractive. Therefore, pure low-pledge MPO expansion becomes less effective.
 
-#### Changes in staking participation
+##### Changes in staking participation
 
-The direct effect of $a_0$ is primarily redistributive across pools, not an immediate change in total staked ADA. Indirectly, however, $a_0$ affects long-run participation through net return paths: higher $a_0$ can reduce current payouts while increasing reserve retention, which may support future rewards. The net effect on participation is therefore ambiguous and depends on delegator time horizon and the pace of behavioral adjustment.
+In the rational benchmark, the first-order effect of $a_0$ is reallocative (across pools), not necessarily a large immediate change in total staked ADA.
+
+#### Behavioral deviations from the rational benchmark
+
+We now introduce frictions that can change the speed and shape of the same five channels.
+
+##### Delegators moving stake
+
+Search costs, inattention, and brand/reputation effects slow migration, so realized flows are typically smaller and slower than the frictionless benchmark.
+
+##### Operators changing pledge, margin, or declared fixed cost
+
+With bounded rationality and strategic experimentation, operators may adjust margins first and pledge later, producing transitional pricing cycles. Some operators may keep declared costs unchanged even when margins move.
+
+##### Entry or exit of pools
+
+Operational inertia and uncertainty can delay both entry and exit. Pools that are weak in the rational model can persist for long periods if delegator loyalty is strong.
+
+##### Pool splitting by multi-pool operators
+
+MPOs with stronger infrastructure and coordination capacity may still split effectively under higher $a_0$, especially when they can move stake internally faster than retail delegators can respond.
+
+##### Changes in staking participation
+
+Participation can diverge from the rational baseline when short-run payout reductions are salient to delegators. Conversely, narratives around long-run reserve sustainability can partially offset this effect.
 
 
 
