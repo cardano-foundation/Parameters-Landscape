@@ -178,7 +178,7 @@ $$y_i(\sigma_i)=(1-m_i)\left(\frac{\bar{R}z_0-c_i}{\sigma_i}\right),$$
 so returns decline with additional stake because gross rewards are capped at $\bar{R}z_0$. Therefore, a *slightly* oversaturated pool can still dominate a much smaller unsaturated one if fixed-cost dilution and reputation/variance effects remain favorable. The next plot shows this case:
 
 <p align="center">
-<img src="plots/slightly_oversaturated_vs_small_pool.png" alt="A slightly oversaturated pool can remain preferred" width="80%">
+<img src="plots/slightly_oversaturated_vs_small_pool.png" alt="A slightly oversaturated pool can remain preferred" width="62%">
 </p>
 
 
