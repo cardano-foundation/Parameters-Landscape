@@ -108,7 +108,7 @@ This section identifies potential behavioral (or second-order) effects—primari
     
 #### Rational behavior
 
-Assuming **forward-looking, non-myopic rational players**—the equilibrium concept in Brünjes et al. (2020)—raising $k$ from $500$ to $1000$ halves saturation:
+Assuming **forward-looking, non-myopic rational players**—the equilibrium concept in [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf)—raising $k$ from $500$ to $1000$ halves saturation:
 
 $$z_0(k)=\frac{1}{k}:\quad \frac{1}{500}\rightarrow\frac{1}{1000}\quad (\text{or } T/500\rightarrow T/1000\text{ in ADA units}).$$
 
@@ -135,34 +135,33 @@ and margins set at the highest level compatible with remaining in the top-$k$ de
 
 **Discussion**
 
-In the real system, this benchmark is constrained by participation and transition frictions. With current active stake $S\approx 21.4$B ADA and $T\approx 38.8$B ADA, the maximum number of simultaneously saturated pools is bounded by
+In the reality, this benchmark is constrained by participation and transition frictions. With current active stake $S\approx 21.4$B ADA and $T\approx 38.8$B ADA, the maximum number of simultaneously saturated pools is bounded by
 
 $$
-N_{\text{sat}}^{\max}(k)=\frac{S}{T/k}=\frac{S}{T}k\approx 0.552\,k,
+N_{\text{sat}}^{\max}(k)=\frac{S}{T/k}=\frac{S}{T}k\approx 0.552 k,
 $$
 
 which is about $276$ for $k=500$ and about $552$ for $k=1000$ (not $1000$).
 
+- Delegation reallocation is path-dependent: some oversaturated pools can retain stake if delegators value lower variance, reputation, or search-cost savings.
 - The per-pool reward ceiling falls from about $R/500$ to $R/1000$, while fixed operating costs do not scale down proportionally, so marginal pools can become unprofitable.
 - Operators with shared infrastructure may respond by pool splitting and margin repricing, increasing the number of registrations faster than the number of independent operators.
-- Delegation reallocation is path-dependent: some oversaturated pools can retain stake if delegators value lower variance, reputation, or search-cost savings.
-- Therefore, the most likely outcome is **more competition around a lower $z_0$ and a larger set of economically relevant pools, but not a clean $1000$-pool independent-operator equilibrium**.
 
-So, increasing $k$ should improve stake dispersion across pool registrations, while its effect on independent-operator concentration remains theoretically ambiguous.
+So, increasing $k$ should improve stake ditribution across pool, while its effect on independent-operator concentration remains theoretically ambiguous.
     
 #### Delegators moving stake
 
 Yield-sensitive delegators typically leave oversaturated pools for those with available capacity. However, a mechanical increase in oversaturation does not guarantee an immediate or equivalent outflow. A slightly oversaturated pool can remain appealing if it offers lower reward variance, better fixed-cost dilution, or a strong reputation. Furthermore, identifying alternative pools requires effort: spare capacity is often fragmented across many operators, introducing search and coordination friction. Additional barriers—such as switching costs, rational inattention, or brand loyalty—can further delay adjustments, leading to persistent mild oversaturation and herding toward a small subset of pools.
 
-**1. Why a slightly oversaturated pool may remain attractive** (based on CIP-50 report)
+**1. Why a slightly oversaturated pool may remain attractive**
 
 Consider a simplified capped-gross-reward approximation (ignoring pledge and performance differences):
 
-$$g_i(\sigma_i)=\bar{R}\,\min\{\sigma_i,z_0\},$$
+$$g_i(\sigma_i)=\bar{R} \min\{\sigma_i,z_0\},$$
 
 where $\bar{R}>0$ is a constant gross reward rate per unit of reward-bearing stake. The delegator net return per unit stake is
 
-$$y_i(\sigma_i)=(1-m_i)\,\frac{\big[g_i(\sigma_i)-c_i\big]_+}{\sigma_i}.$$
+$$y_i(\sigma_i)=(1-m_i) \frac{\big[g_i(\sigma_i)-c_i\big]_+}{\sigma_i}.$$
 
 When the pool is below saturation ($\sigma_i<z_0$),
 
