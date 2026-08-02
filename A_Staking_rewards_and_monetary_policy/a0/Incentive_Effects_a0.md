@@ -27,9 +27,9 @@ The main trade-off is between Sybil resistance and accessibility. A higher $a_0$
 In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus). 
 
 
-####Gross pool rewards
+#### Gross pool rewards
 
-This is study using the partial derivative which measures how $f(\sigma_i,p_i)$ changes when $a_0$ changes, holding all other variables constant. Since, 
+We study this using the partial derivative, which measures how $f(\sigma_i,p_i)$ changes when $a_0$ changes while all other variables are held constant. Since
 
 $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
 
@@ -41,14 +41,14 @@ with equality when $\tilde{p}_i = \tilde{\sigma}_i = z_0$.
 
 Increasing $a_0$ reduces total rewards for pools that rely primarily on external delegation rather than operator pledge, as $a_0$ penalizes low-pledge pools relative to high-pledge ones.
 
-For a fixed level of pledge, this negative impact is more significant for larger pools (left plot). However, right plot shows that an operator can mitigate this effect by replacing delegations with operator pledge. We will see that the latter is not the case. 
+For a fixed level of pledge, this negative impact is more significant for larger pools (left plot). At first glance, the right plot may suggest that an operator can mitigate this effect by replacing delegations with operator pledge, but the operator-revenue analysis below shows that this mitigation is generally incomplete.
 
 <p align="center">
   <img src="plots/Reward_function_vs_sigma_a0_cases.png" alt="Reward function when a0 changes versus delegation" width="48%">
   <img src="plots/Reward_function_vs_pledge_a0_cases.png" alt="Reward function when a0 changes versus pledge" width="48%">
 </p>
 
-####Operator gross revenue
+#### Operator gross revenue
 
 Analyzing the pool reward function $f(\sigma_i,p_i)$ in isolation gives an incomplete picture of an operator’s position. While a larger pledge might appear to cushion the impact of increasing $a_0$ by substituting delegation with pledge, this smoothing applies only to **gross pool rewards $f(\sigma_i,p_i)$**. To assess the true direct mechanical impact on pool operators, we must instead evaluate **operator gross revenue ($\Pi_i$)**.
 
@@ -56,7 +56,7 @@ The following heatmaps illustrate this dynamic. Total pool stake $\sigma_i$ is m
 
 ![Heatmap Operator Reward when a0 changes](plots/heatmap_operator_reward_a0_cases.png)
 
-The difference heatmap shows that, over a broad range of stake levels, increasing pledge does not compensate for the increase in ($a_0$). To understand why, first consider a saturated pool, ($\sigma_i=z_0$):
+The difference heatmap shows that, over a broad range of stake levels, increasing pledge does not fully compensate for an increase in $a_0$. To understand why, first consider a saturated pool ($\sigma_i=z_0$):
   
 $$f(z_0,p_i) = \frac{R}{1+a_0}\bigl(z_0+a_0 p_i\bigr).$$
 
@@ -64,21 +64,23 @@ Increasing $a_0$ introduces two competing mechanical forces on $f(z_0,p_i)$:
 1. The scaling factor $\frac{1}{1+a_0}$ reduces baseline rewards.
 2. The term $a_0p_i$ gives greater weight to pledge, mitigating this reduction as $p_i$ increases and fully offsetting it when $p_i=z_0$.
 
-When we check any **operator gross revenue**, the operator receives
+For operator gross revenue, we have
 
-$$\Pi_i=c_i+s_i\cdot(f(\sigma_i,p_i) -c_i),\quad \text{where} \quad s_i=m_i+(1-m_i)\frac{p_i}{\sigma_i}.$$
+$$\Pi_i=c_i+\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right]\cdot(f(\sigma_i,p_i)-c_i).$$
 
-Hence, the change in the **operator gross revenue** (or, equivalently, the change in the operator utility/profit if $c_i$ and $\hat{c}_i$ remain constant after the parameter change) is:
+where $\hat p_i$ is active operator pledge (under full-pledge compliance, $\hat p_i=p_i$).
 
-$$\Delta \Pi_i=s_i\cdot\Delta f(\sigma_i,p_i) =\Delta U_i$$
+Hence, the change in **operator gross revenue** (and, equivalently, in operator utility/profit if $c_i$ and $\hat{c}_i$ remain constant after the parameter change) is:
+
+$$\Delta \Pi_i=\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right]\Delta f(\sigma_i,p_i)=\Delta U_i.$$
     
-As pledge rises, $s_i$ rises toward $1$. Thus, even though the absolute reduction in pool gross rewards, $|\Delta f|$, becomes smaller, the operator bears a larger share of that reduction. Consequently, $\Delta\Pi_i$ can become more negative even while $\Delta f$ becomes less negative.
+As active operator pledge rises, the operator capture share $m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}$ rises toward $1$. Thus, even though the absolute reduction in pool gross rewards, $|\Delta f|$, becomes smaller, the operator bears a larger share of that reduction. Consequently, $\Delta\Pi_i$ can become more negative even while $\Delta f$ becomes less negative.
 
 Away from saturation—for example, when $\sigma_i=50\text{M ADA}$—the decline in $f$ is never fully offset as pledge increases. As a result, $\Delta\Pi_i$ may remain increasingly negative throughout the pledge range.
 
 As an example, let $\sigma_i = 50M$ ADA, $k=500$, $c_i=170$, and $m_i=5\\%$. Suppose $a_0$ increases from $0.3$ to $0.6$:
 
-| $p_i/\sigma_i$ | $\Delta f$ | $\Delta\Pi_i$ |
+| $\hat p_i/\sigma_i$ | $\Delta f$ | $\Delta\Pi_i$ |
 |---|---|---|
 | $0$ | $-2922$ | $-146$ |
 | $0.5$ | $-2140$ | $-1123$ |
@@ -86,13 +88,13 @@ As an example, let $\sigma_i = 50M$ ADA, $k=500$, $c_i=170$, and $m_i=5\\%$. Sup
 
 Bottom line: Higher pledge cushions the decline in the pool gross reward function $f(\sigma_i,p_i)$ following an increase in $a_0$. For the operator, however, higher pledge also means bearing a larger share of the remaining reward reduction. Operator gross revenue can therefore fall by more at high pledge, even though the decline in total pool rewards is smaller.
 
-####Delegator return per unit of stake
+#### Delegator return per unit of stake
 
 The following heatmaps show the return received by delegators per unit of stake. Total pool stake $\sigma_i$ is displayed on the $x$-axis and operator pledge $p_i$ on the $y$-axis, while the grey region represents the infeasible domain $p_i > \sigma_i$. The left and center panels report delegator returns under $a_0 = 0.3$ and $a_0 = 0.6$, respectively. The right panel shows the direct change resulting from the increase in $a_0$. Red regions indicate a reduction in delegator returns, with darker shades representing larger losses.
 
 ![Heatmap Delegator Reward when a0 changes](plots/heatmap_delegator_reward_a0_cases.png)
 
-    The heatmap shows that increasing $a_0$ generally reduces delegator returns per unit of stake, but that this negative effect becomes smaller as pledge increases. This contrasts with the result for operator gross revenue, since the change in the delegator return per unit of stake depends only in the changes on $f(\sigma_i,p_i)$.
+The heatmap shows that increasing $a_0$ generally reduces delegator returns per unit of stake, but that this negative effect becomes smaller as pledge increases. This contrasts with operator gross revenue, because the change in delegator return per unit of stake depends only on the change in $f(\sigma_i,p_i)$.
 
 This can be seen analytically. After deducting the declared fixed cost and the operator margin, the return received by delegators per unit of stake is
 
@@ -104,11 +106,11 @@ $$\Delta r_i^{D} = \frac{1-m_i}{\sigma_i} \Delta f(\sigma_i,p_i).$$
 
 Consequently, higher pledge mitigates the negative effect of an increase in $a_0$ on delegator returns, even though it may amplify the reduction in operator gross revenue.
 
-####Oversaturated stake
+#### Oversaturated stake
 
-Since $a_0$ does not have a direct effect over $z_0$, there is no direct change on oversaturated stakes.
+Since $a_0$ does not directly affect $z_0$, there is no direct change in oversaturated stake.
   
-####Reward-pot and treasury flows
+#### Reward-pot and treasury flows
 
 The parameter $a_0$ directly influences reward pot dynamics and treasury flows. In particular, it normalizes the total reward $R$ distributed among pools by a factor of roughly $1 + a_0$. Consequently, larger values of $a_0$ reduce the overall amount of $R$ paid out to pools, directing the remaining fraction back to the reserve. By allowing more rewards to remain unspent, an increase in $a_0$ slows reserve depletion and enhances the long-term sustainability of the reward model.
 
@@ -129,90 +131,80 @@ Changing $a_0$ can affect not only current rewards but also the rank of pools, h
 
 **Changes in pool desirability and redistribution of delegation**
 
-For a pool expected to reach saturation, a simplified measure of operator potential is
+In the non-myopic reward-sharing view ([Brünjes et al. (2020)](../../References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf)), pool ranking depends on expected saturated outcomes, not only on current stake. A useful saturated-pool proxy is
 
 $$
-U_i(a_0)=\frac{R}{1+a_0}\left(z_0+a_0p_i\right)-\hat{c}_i,
+P_i(a_0)=f(z_0,p_i)-c_i,
 $$
 
-In the reward-sharing model of CITATION HERE, this potential-profit measure helps determine which operators can lead competitive pools.
-
-For two prospective operators $i$ and $j$, the difference in potential profit is
+and delegator-facing desirability is
 
 $$
-P_i(a_0)-P_j(a_0) = \frac{Ra_0}{1+a_0}\left(p_i-p_j\right) - \left( \hat{c}_i-\hat{c}_j\right).
+D_i(a_0)=(1-m_i)\,[P_i(a_0)]_+,
+\qquad
+r_i^{D,\text{sat}}(a_0)=\frac{D_i(a_0)}{z_0}.
 $$
 
-An increase in $a_0$ therefore gives more weight to differences in pledge relative to differences in operating costs. When $a_0=0$, operators are primarily ranked by their costs: lower-cost operators have greater potential profit. As $a_0$ rises, high-pledge operators improve their relative position and may displace lower-cost but less-capitalized operators from the set of competitive pools.
-
-This captures the main efficiency--Sybil-resistance trade-off. A stronger pledge influence makes it more difficult for operators with little capital to control large amounts of delegated stake or operate several competitive pools. However, it may also weaken the selection of operators based on cost efficiency by favoring operators with greater wealth.
-
-Importantly, a high-pledge operator may improve its **relative position** even though its absolute potential profit falls. Differentiating with respect to $a_0$ gives
+For saturated pools, the reward term is
 
 $$
-\frac{\partial P_i(a_0)}{\partial a_0} = \frac{R\left(p_i-z_0\right)}{\left(1+a_0\right)^2} \leq 0,
+f(z_0,p_i)=\frac{R}{1+a_0}\,(z_0+a_0p_i),
 $$
 
-because $p_i\leq z_0$ for a saturated pool. Except for a fully pledged saturated pool, increasing $a_0$ reduces potential profit. High-pledge pools are favored only in relative terms because their potential profit falls by less than that of low-pledge pools.
+so
 
-Delegators choose among pools according to the return they expect to receive, rather than according to the operator's underlying profitability. For a pool with stake $\sigma_i$, pledge $p_i$, declared fixed cost $c_i$, and margin $m_i$, the delegator return per unit of stake is
-
-(1-m_i)
-\frac{
-\max\left{f(\sigma_i,p_i;a_0)-c_i,,0\right}
-}{
-\sigma_i
-}.
+$$
+\frac{\partial f(z_0,p_i)}{\partial a_0}=\frac{R\,(p_i-z_0)}{(1+a_0)^2}\le 0,
 $$
 
-In the non-myopic framework of the paper, delegators evaluate a pool according to the return it would offer if it became successful and reached its expected equilibrium size. For a pool expected to become saturated, its desirability can therefore be represented as
+with equality only when $p_i=z_0$. Hence, raising $a_0$ usually lowers absolute rewards, but it lowers them less for high-pledge pools. Relative ranking shifts can be seen from
 
-(1-m_i)
-\frac{
-\max\left{f(z_0,p_i;a_0)-c_i,,0\right}
-}{
-z_0
-}.
+$$
+P_i(a_0)-P_j(a_0)=\frac{Ra_0}{1+a_0}(p_i-p_j)-(c_i-c_j).
 $$
 
-Holding the declared fixed cost and margin constant, an increase in $a_0$ generally reduces pool desirability. However, the reduction becomes smaller as pledge increases because higher pledge cushions the decline in the pool reward function. For a saturated pool,
+Therefore, increasing $a_0$ increases the weight of pledge differences relative to cost differences in competitive ranking.
 
-\frac{R}{1+a_0}
-\left(
-z_0+a_0p_i
-\right),
-$$
-
-and
-
-\frac{R(p_i-z_0)}
-{(1+a_0)^2}
-\leq 0.
-$$
-
-Thus, although an increase in $a_0$ may reduce the expected return offered by most pools, it reduces it by less for pools with higher pledge. Other things equal, high-pledge pools therefore improve their desirability relative to low-pledge pools and may attract delegation away from them.
-
-The actual redistribution of delegation also depends on differences in margins, declared fixed costs, performance, pool size, and delegator inertia. A low-pledge pool may remain attractive by charging a lower margin or fixed cost, while a high-pledge pool may use part of its pledge advantage to charge a higher margin. Nevertheless, increasing $a_0$ shifts the delegation incentive in favor of higher-pledge pools, holding these other characteristics constant.
+Behaviorally, this implies: (i) delegation tends to move toward higher-pledge pools ceteris paribus; (ii) low-pledge pools can still defend delegation through lower margins/fixed costs or stronger non-price attributes (performance, reputation, lower perceived variance); and (iii) equilibrium selection shifts toward stronger Sybil resistance but also toward greater capital intensity in pool competition.
 
     
 #### Delegators moving stake
 
+Delegators respond to expected net return per unit of stake,
+
+$$
+r_i^D=(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i},
+$$
+
+not to pledge in isolation. Increasing $a_0$ shifts this return schedule in favor of higher-pledge pools (all else equal), but realized migration is gradual because of search costs, inertia, and heterogeneous risk preferences. Therefore, we should expect partial reallocation rather than one-for-one stake movement in the short run.
 
 
   
 #### Operators changing pledge, margin, or declared fixed cost
 
+Operators jointly adjust $\hat p_i$, $m_i$, and $c_i$ to preserve utility,
+
+$$
+U_i=\Pi_i-\hat c_i,
+\quad
+\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right].
+$$
+
+After an increase in $a_0$, low-pledge operators face stronger pressure to either increase pledge or improve non-pledge competitiveness (e.g., lower margins/costs). High-pledge operators may absorb part of their pledge advantage as higher margins, depending on competitive pressure from nearby pools.
 
   
 #### Entry or exit of pools
 
+Entry and survival depend on whether operators can keep $U_i\ge 0$ after reallocation. A higher $a_0$ tends to improve relative viability for high-pledge pools and reduce it for highly leveraged low-pledge pools. As a result, entry is more likely among operators able to commit pledge, while marginal low-pledge pools face higher exit risk unless they compensate through fees, performance, or brand/reputation.
 
     
 #### Pool splitting by multi-pool operators
 
+A higher $a_0$ weakens pure pool-splitting incentives when split pools cannot sustain sufficient pledge each. For an MPO, distributing stake across additional pools also dilutes pledge per pool, which reduces desirability unless additional pledged capital is committed. Hence, increasing $a_0$ does not eliminate MPO strategies, but it raises their capital requirement and reduces the attractiveness of low-pledge expansion.
 
 #### Changes in staking participation
 
+The direct effect of $a_0$ is primarily redistributive across pools, not an immediate change in total staked ADA. Indirectly, however, $a_0$ affects long-run participation through net return paths: higher $a_0$ can reduce current payouts while increasing reserve retention, which may support future rewards. The net effect on participation is therefore ambiguous and depends on delegator time horizon and the pace of behavioral adjustment.
 
 
 
