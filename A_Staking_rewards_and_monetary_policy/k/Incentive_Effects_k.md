@@ -103,38 +103,19 @@ Raising $k$ does not have a direct mechanical effect in the total size of the re
 
 ### Past Evidence
 
-We analyze stake-pool snapshots from two specific epochs ($228$ and $616$). Throughout this analysis, we hold the observed stake distribution $\{\sigma_i\}$ for each epoch fixed and vary only the protocol parameter $k$.
+We use two snapshots (epochs $228$ and $616$) and, for each one, keep the observed stake distribution $\{\sigma_i\}$ fixed while varying only $k$.
 
-\paragraph{Goal.} We compare the previous increase in $k$ with the current proposal to increase $k$ from $500$ to $1000$. For context, the previous change was announced in epoch $228$ and took effect in epoch $234$, raising $k$ from $150$ to $500$ (a $3.33\times$ increase). Our objective is to show how much stake was affected by that past change versus how much stake would be affected by the new proposal. To provide a fair comparison, we also calculate the affected stake under hypothetical scenarios where both increases have the same magnitude (either a $2\times$ increase for both epochs, or a $3.33\times$ increase for both epochs).
+**Goal.** We use past evidence to calibrate expectations for the current proposal ($k:500\rightarrow1000$). Specifically, we compare:
 
-An important caveat to this comparison is that a large portion of the affected stake may belong to whales or centralized exchanges (CeXs). Consequently, this stake might not migrate from large pools to smaller ones. Instead, these large holders might open new pools to reallocate their stake or, in the worst-case scenario, partially or fully exit the staking ecosystem.
+- the realized historical jump ($150\rightarrow500$, i.e., $3.33\times$) around epoch $228$;
+- the current proposal ($500\rightarrow1000$, i.e., $2\times$) at epoch $616$;
+- scale-matched hypotheticals ($2\times$ in epoch $228$ and $3.33\times$ in epoch $616$).
 
-The figures reported here are intended solely to inform the community and do not imply any recommendation.
+We report oversaturated-pool counts and stake above saturation $E(k)$ using the same definitions introduced in **Oversaturated stake** above (no new formulas here).
 
+A caveat is that a nontrivial part of affected stake may be controlled by whales/CeXs, so adjustment can occur via MPO pool creation or internal reallocation rather than one-for-one migration to smaller pools.
 
-\paragraph{Formulas.}
-The per-pool saturation \emph{point} is
-\begin{equation}
-  z_0(k) \;=\; \frac{T}{k},
-  \label{eq:z0}
-\end{equation}
-where $T$ denotes the total supply. The saturation \emph{level} is
-\begin{equation}
-  s_i(k) \;=\; \frac{\sigma_i}{z_0(k)} \;=\; \frac{\sigma_i\,k}{T},
-  \label{eq:si}
-\end{equation}
-where $\sigma_i$ is the ADA staked at pool $i$.
-
-Pool $i$ is \textbf{oversaturated} if $s_i(k)>1$, i.e.\ $\sigma_i>z_0(k)$.
-Stake above saturation (aggregated over pools in the file) is
-\begin{equation}
-  E(k) \;=\; \sum_{i\,:\,\sigma_i>0} \max\{\sigma_i - z_0(k),\,0\}.
-  \label{eq:excess}
-\end{equation}
-We report $E(k)$ as a percentage of $T$ and, separately, of $S$ (total stakes).
-
-
-\section{Epoch 228}
+#### Epoch 228 (historical change)
 
 \begin{table}[H]
   \centering
@@ -170,8 +151,14 @@ We report $E(k)$ as a percentage of $T$ and, separately, of $S$ (total stakes).
   \end{tabular}
 \end{table}
 
+Main observations from epoch $228$:
 
-\section{Epoch 616}
+- Before the change ($k=150$), oversaturation was effectively zero in this snapshot.
+- The historical $3.33\times$ jump to $k=500$ moved the system to $109$ oversaturated pools and $E(k)=6.14$B ADA ($35.71\%$ of $S$).
+- Under a $2\times$ counterfactual ($k=300$), pressure is materially lower: $69$ oversaturated pools and $E(k)=2.73$B ADA ($15.88\%$ of $S$).
+
+
+#### Epoch 616 (current baseline)
 
 \begin{table}[H]
   \centering
@@ -206,6 +193,17 @@ We report $E(k)$ as a percentage of $T$ and, separately, of $S$ (total stakes).
     \bottomrule
   \end{tabular}
 \end{table}
+
+Main observations from epoch $616$:
+
+- The current baseline ($k=500$) already has some oversaturation ($8$ pools; $E(k)=0.17$B ADA, $0.77\%$ of $S$).
+- Moving to $k=1000$ ($2\times$) implies a large increase in affected stake: $212$ oversaturated pools and $E(k)=4.92$B ADA ($22.79\%$ of $S$).
+- A $3.33\times$ scenario ($k=1667$) is substantially tighter: $344$ oversaturated pools and $E(k)=9.29$B ADA ($43.07\%$ of $S$).
+
+Cross-epoch takeaway:
+
+- The current proposal ($2\times$) is less severe than the historical $3.33\times$ jump in relative terms.
+- But if scaled to the same magnitude, today’s system would show higher affected stake shares than the epoch $228$ case.
 
 
 
