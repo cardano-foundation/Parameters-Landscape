@@ -226,7 +226,11 @@ $$q_j^{\mathrm{remaining}} = q_j-\sum_{d\in D_j}x_d,$$
 
 where $D_j$ is the set of delegators moving to pool $j$.
 
-Delegators may make decisions using the initial value of $q_j$, but simultaneous inflows can eliminate the available capacity or push the receiving pool above saturation. This can generate:
+Delegators may make decisions using the initial value of $q_j$. For an incoming delegation \(x_d\), the relevant return should therefore be evaluated at the post-delegation stake:
+
+$$ y_j(\sigma_j+x_d) = (1-m_j)\,\frac{\big[\bar{R}\min\{\sigma_j+x_d,z_0\}-c_j\big]_+}{\sigma_j+x_d}. $$
+
+However, simultaneous inflows can eliminate the available capacity or push the receiving pool above saturation. This can generate:
 
 - herding toward well-known pools;
 - overshooting;
@@ -234,40 +238,30 @@ Delegators may make decisions using the initial value of $q_j$, but simultaneous
 - unused capacity in less visible pools;
 - temporary oscillations around the saturation threshold.
 
-A natural extension is a search-and-capacity model in which delegators sample a limited number of pools. Below saturation, inflows can increase a pool's attractiveness through better fixed-cost dilution, but they simultaneously reduce remaining capacity. Once inflows push the pool above saturation, additional stake reduces return per unit of stake. This can generate congestion, overshooting, and repeated reallocation around the saturation threshold.
-
-For an incoming delegation \(x_d\), the relevant return should therefore be evaluated at the post-delegation stake:
-
-$$ y_j(\sigma_j+x_d) = (1-m_j)\,\frac{\big[\bar{R}\min\{\sigma_j+x_d,z_0\}-c_j\big]_+}{\sigma_j+x_d}. $$
-
-A pool close to saturation may be highly attractive for a small delegator but unattractive—or unable to accommodate the delegation without oversaturation—for a large delegator.
+Hence, a pool close to saturation may be highly attractive for a small delegator but unattractive—or unable to accommodate the delegation without oversaturation—for a large delegator or when many small delegators arrive simultaneously to the same pool.
 
 **3. Switching costs, rational inattention, and brand loyalty.**
 
 Let
 
-$$\Delta_d = \max_j U_{dj}-U_{dA}$$
+$$\Delta_d = \max_j U_{dj}-U_{di}$$
 
-denote the utility gain available to delegator $d$ from leaving their current pool $A$.
+denote the maximum utility gain available to delegator $d$ from leaving their current pool $i$ and migrating to the pool $j$.
 
-The delegator switches only when
-
-$$\Delta_d > \kappa_d,$$
-
-where $\kappa_d$ denotes switching costs (information, processing, loyalty, and coordination). Thus, when $\kappa_d>0$, small return improvements do not justify moving.
+The delegator switches only when $\Delta_d > \kappa_d,$ where $\kappa_d$ denotes switching costs . Thus, when $\kappa_d>0$, small return improvements do not justify moving.
 
 
-If $\kappa_d$ is heterogeneous across delegators with cumulative distribution $F_\kappa$, the fraction willing to switch for a gain $\Delta_d$ is $F_\kappa$.
+If $\kappa_d$ is heterogeneous across delegators with cumulative distribution $F_\kappa$, the fraction willing to switch for a gain $\Delta_d$ is $F_\kappa(\Delta_d)$.
 
-Suppose that $a_d\in[0,1]$ denotes the probability that delegator $d$ notices and evaluates the change. This is a simple inattention model: when $a_d<1$, some delegators do not reconsider their delegation. The probability of switching is then
+Suppose that $a_d\in[0,1]$ denotes the probability that delegator $d$ notices and evaluates the change. Thus, when $a_d<1$, some delegators do not reconsider their delegation. The probability of switching is then
 
-$$P_d(\text{switch}\mid\Delta_d)=a_d\,F_\kappa(\Delta_d).$$
+$$P_d(\text{switch}\mid\Delta_d)=a_d F_\kappa(\Delta_d).$$
 
-Aggregate stake leaving pool $A$ is
+Aggregate stake leaving pool $i$ is
 
-$$M_A = \sum_{d\in A} \sigma_d\,a_dF_\kappa(\Delta_d).$$
+$$M_i = \sum_{d\in i} \sigma_d a_dF_\kappa(\Delta_d),$$
 
-This simple model explains why a mechanical increase in oversaturation does not produce an equivalent outflow. Heterogeneous thresholds generate gradual rather than immediate adjustment, and/or loyalty and reputation can make the current delegation better even when another pool offers a slightly higher monetary return.
+and a mechanical increase in oversaturation will not produce an equivalent outflow. 
 
   
 #### Operators changing pledge, margin, or declared fixed cost
