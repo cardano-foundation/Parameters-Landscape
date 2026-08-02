@@ -305,314 +305,95 @@ and a mechanical increase in oversaturation will not produce an equivalent outfl
   
 #### Operators changing pledge, margin, or declared fixed cost
 
-After a rise in $k$, pools near or above the new $z_0$ face lower reward per unit of stake at the margin, which increases fee competition. This tends to put downward pressure on $m_i$ and on declared fixed costs $c_i$ (when operators can sustain lower real costs). The effect on declared pledge $p_i$ is ambiguous: a lower $z_0$ reduces pledge needed for one pool to be competitive, but operators expanding to multiple pools must split pledge across a larger pool set.
+After a rise in $k$, pools near or above the new $z_0$ face lower reward per unit of stake at the margin, which intensifies fee competition. To organize operator incentives, let
+
+$$
+f_i=f(\sigma_i,p_i),
+$$
+
+and define the operator capture share
+
+$$
+\omega_i = m_i + (1-m_i)\frac{\hat p_i}{\sigma_i},
+$$
+
+where $\hat p_i$ is active operator pledge. If $f_i>c_i$, operator gross revenue is
+
+$$
+G_i = c_i + (f_i-c_i)\omega_i,
+$$
+
+and profit is $\Pi_i=G_i-\hat c_i$.
+
+This makes the main strategic margins explicit:
+
+- **Margin ($m_i$):** holding stake fixed, higher $m_i$ raises operator revenue but reduces delegator return $y_i=(1-m_i)(f_i-c_i)/\sigma_i$. So margin helps short-run extraction but weakens delegation demand.
+- **Declared fixed cost ($c_i$):** higher $c_i$ mechanically raises operator take from rewarded pools, but also lowers delegator returns and competitiveness.
+- **Pledge ($p_i$, $\hat p_i$):** a higher pledge share increases operator capture ceteris paribus, but under higher $k$ the effective pledge choice is constrained by pool splitting: one pool needs less pledge to be competitive, while multi-pool expansion requires pledge to be spread across more pools.
+
+Hence, after a $k$ increase, we expect heterogeneous operator responses: some pools cut margins/costs to defend delegation, while others increase extraction and accept smaller delegated stake.
   
 #### Entry or exit of pools
 
 A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$ in the $500\rightarrow1000$ case. Entry is therefore more likely for low-cost operators (or operators with shared infrastructure), while high-cost marginal pools face higher exit risk.
 
-1. Operator participation constraint
+Using $f_i=f(\sigma_i,p_i)$ and $\omega_i=m_i+(1-m_i)\hat p_i/\sigma_i$ from the previous subsection, we can summarize entry/exit with an operator participation constraint.
 
-Let
-
-$$
-f_i=f(\sigma_i,p_i;k)
-$$
-
-denote pool \(i\)'s gross reward. Define
+If $f_i>c_i$, operator profit is
 
 $$
-\omega_i
-=
-m_i+(1-m_i)\frac{p_i}{\sigma_i}.
+\Pi_i = c_i + (f_i-c_i)\omega_i - \hat c_i,
 $$
 
-Assuming \(f_i>c_i\), the operator's gross revenue is
+and pool $i$ remains active when $\Pi_i\geq 0$. Equivalently,
 
 $$
-G_i
-=
-c_i+(f_i-c_i)\omega_i.
+f_i\geq f_i^E\equiv c_i+\frac{\hat c_i-c_i}{\omega_i}.
 $$
 
-Let \(\hat c_i\) denote the operator's actual economic cost, including any relevant opportunity cost. Operator profit is
+Hence, $f_i^E$ is the minimum gross reward required for viability.
+
+The direct effect of increasing $k$ comes from the reward ceiling. With $z_0(k)=1/k$ (or $T/k$ in ADA units), a useful upper bound is
 
 $$
-\Pi_i
-=
-c_i+(f_i-c_i)\omega_i-\hat c_i.
+\bar f(k)\approx\frac{R}{k}.
 $$
 
-Pool \(i\) remains active if
+So a necessary viability condition is $R/k\geq f_i^E$, and a pool-specific limit is
 
 $$
-\Pi_i\geq 0.
+k_i^{\max}=\frac{R}{f_i^E}.
 $$
 
-Equivalently, its gross reward must satisfy the following **minimum entry threshold criterion**:
+Pools with
 
 $$
-f_i
-\geq
-f_i^{E}
-\equiv
-c_i+\frac{\hat c_i-c_i}{\omega_i}.
+\frac{R}{1000}<f_i^E\leq\frac{R}{500}
 $$
 
-Thus, \(f_i^E\) is the minimum gross pool reward required to cover the operator's actual cost.
+can be viable under $k=500$ but not under $k=1000$, even if saturated.
 
-If \(c_i=\hat c_i\), this reduces to
-
-$$
-f_i\geq c_i.
-$$
-
-A nontrivial threshold can still arise by interpreting \(\hat c_i\) as including the operator's outside option or required minimum profit.
-
----
-
-2. Direct effect of increasing \(k\)
-
-Let
+This ceiling effect is not the full story, because delegation reallocates after the shock. Let $\sigma_i^*(k)$ be post-adjustment stake. Then
 
 $$
-z_0(k)=\frac{1}{k}.
-$$
-
-The largest gross reward available to any pool is approximately
-
-$$
-\bar f(k)=\frac{R}{k}.
-$$
-
-A necessary condition for pool \(i\) to be viable is therefore
-
-$$
-\frac{R}{k}\geq f_i^E.
-$$
-
-Equivalently, define the largest target pool count that pool \(i\) can sustain as
-
-$$
-k_i^{\max}
-=
-\frac{R}{f_i^E}.
-$$
-
-Pool \(i\) cannot remain viable when
-
-$$
-k>k_i^{\max}.
-$$
-
-For a change from \(k=500\) to \(k=1000\), pools satisfying
-
-$$
-\frac{R}{1000}
-<
-f_i^E
-\leq
-\frac{R}{500}
-$$
-
-could be viable under \(k=500\) but cannot cover their costs under \(k=1000\), even if they become fully saturated.
-
-This identifies the pools with the greatest direct exit risk: operators with high actual costs, low margins, or a low pledge share.
-
----
-
-3. Delegation redistribution
-
-The ceiling condition captures only the direct effect. Increasing \(k\) also changes the equilibrium allocation of delegation.
-
-Let the post-adjustment stake of pool \(i\) be
-
-$$
-\sigma_i^*(k).
-$$
-
-The relevant participation condition becomes
-
-$$
-\Pi_i^*(k)
-=
-c_i+
-\left[
-f\left(\sigma_i^*(k),p_i;k\right)-c_i
-\right]
-\left[
-m_i+(1-m_i)\frac{p_i}{\sigma_i^*(k)}
-\right]
--\hat c_i
-\geq 0.
-$$
-
-A small pool may receive delegation released by pools that become oversaturated. This increases \(f_i\) while the pool remains below the new saturation threshold and can therefore compensate for the lower reward ceiling.
-
-The effect of additional delegation on operator profit is
-
-$$
-\frac{\partial \Pi_i}{\partial \sigma_i}
-=
-\omega_i\frac{\partial f_i}{\partial \sigma_i}
--
-(f_i-c_i)(1-m_i)\frac{p_i}{\sigma_i^2}.
-$$
-
-There are two opposing effects:
-
-1. **Reward effect:** additional delegation raises \(f_i\) below saturation.
-2. **Pledge-dilution effect:** additional delegation reduces the operator's pledge share \(p_i/\sigma_i\).
-
-Additional delegation improves viability whenever
-
-$$
-\omega_i\frac{\partial f_i}{\partial \sigma_i}
->
-(f_i-c_i)(1-m_i)\frac{p_i}{\sigma_i^2}.
-$$
-
-For a weak subsaturated pool, the reward effect may dominate. Once the pool is saturated, however,
-
-$$
-\frac{\partial f_i}{\partial \sigma_i}=0,
-$$
-
-so additional stake no longer helps its participation constraint and may reduce the operator's proportional pledge reward.
-
----
-
-4. Margin adjustment
-
-Holding stake fixed, a higher margin raises operator revenue:
-
-$$
-\frac{\partial \Pi_i}{\partial m_i}
-=
-(f_i-c_i)
-\left(
-1-\frac{p_i}{\sigma_i}
-\right)
->0.
-$$
-
-However, the delegator return is
-
-$$
-y_i
-=
-(1-m_i)\frac{f_i-c_i}{\sigma_i},
-$$
-
-and therefore
-
-$$
-\frac{\partial y_i}{\partial m_i}
-=
--\frac{f_i-c_i}{\sigma_i}
-<0.
-$$
-
-A higher margin relaxes the operator's participation constraint directly but makes the pool less attractive to delegators. The equilibrium margin solves
-
-$$
-m_i^*(k)
-\in
-\arg\max_{m_i}
-\Pi_i\left(
-k,m_i,\sigma_i(m_i;k)
-\right),
+\Pi_i^*(k)=c_i+\left[f\big(\sigma_i^*(k),p_i\big)-c_i\right]\omega_i^*(k)-\hat c_i,
 $$
 
 where
 
 $$
-\frac{\partial \sigma_i}{\partial m_i}<0.
+\omega_i^*(k)=m_i+(1-m_i)\frac{\hat p_i}{\sigma_i^*(k)}.
 $$
 
-A marginal pool may therefore face a difficult trade-off:
+For weak subsaturated pools, incoming delegation can improve viability while $\partial f_i/\partial\sigma_i>0$. Once saturated, $\partial f_i/\partial\sigma_i=0$, so extra stake no longer relaxes the participation constraint.
 
-- reducing its margin helps it attract the delegation needed to remain viable;
-- increasing its margin allows it to retain a larger share of a smaller reward.
-
-In the idealized reward-sharing equilibrium, active operators choose the highest margin that keeps them among the \(k\) most desirable pools. Increasing \(k\) changes both the pool's potential profit and the identity of the marginal competitor, so the equilibrium effect on margins is ambiguous.
-
-5. Declared fixed cost
-
-Holding stake and gross rewards fixed,
+At equilibrium, if $A(k)$ is the active set,
 
 $$
-\frac{\partial \Pi_i}{\partial c_i}
-=
-1-\omega_i
->0.
+\Pi_i^*(k)\geq 0\;\;\text{for }i\in A(k),
 $$
 
-A higher declared fixed cost therefore raises operator revenue mechanically. But it reduces delegator returns:
-
-$$
-\frac{\partial y_i}{\partial c_i}
-=
--\frac{1-m_i}{\sigma_i}
-<0.
-$$
-
-Declared cost creates the same strategic trade-off as margin: greater extraction versus weaker delegation demand.
-
-A simple version of the model could impose
-
-$$
-c_i=\hat c_i,
-$$
-
-following the truthful-cost equilibrium studied in the reward-sharing paper. A more realistic extension can allow \(c_i\neq\hat c_i\) and model declared cost as a strategic choice.
-
----
-
-6. Equilibrium entry and exit
-
-Let \(A(k)\) denote the set of active pools after the adjustment. An equilibrium satisfies
-
-$$
-\Pi_i^*(k)\geq 0
-\qquad
-\text{for every }i\in A(k),
-$$
-
-and
-
-$$
-\max_{m_i,c_i,p_i}
-\Pi_i^*(k)\leq 0
-\qquad
-\text{for every }i\notin A(k).
-$$
-
-The change in pool profitability can be decomposed as
-
-$$
-\frac{d\Pi_i^*}{dk}
-=
-\underbrace{\frac{\partial\Pi_i}{\partial k}}_{\text{lower reward ceiling}}
-+
-\underbrace{\frac{\partial\Pi_i}{\partial\sigma_i}
-\frac{d\sigma_i^*}{dk}}_{\text{delegation redistribution}}
-+
-\underbrace{\frac{\partial\Pi_i}{\partial m_i}
-\frac{dm_i^*}{dk}}_{\text{margin response}}
-+
-\underbrace{\frac{\partial\Pi_i}{\partial c_i}
-\frac{dc_i^*}{dk}}_{\text{declared-cost response}}
-+
-\underbrace{\frac{\partial\Pi_i}{\partial p_i}
-\frac{dp_i^*}{dk}}_{\text{pledge response}}.
-$$
-
-This gives the central prediction:
-
-> Increasing \(k\) directly raises exit pressure by reducing the maximum reward available per pool. However, low-cost subsaturated pools may survive or enter if they attract delegation released by newly oversaturated pools. High-cost marginal pools remain vulnerable, while multi-pool operators with shared infrastructure may enter more easily because their effective operating cost \(\hat c_i\) is lower.
-
-The likely equilibrium is therefore **more active pools, but less than a proportional increase in \(k\)**, with entry concentrated among low-cost operators and multi-pool operators rather than necessarily among new independent operators.
+and non-active pools cannot profitably enter under their best response. The central prediction is therefore: **more active pools, but less than a proportional increase in $k$**, with entry concentrated among low-cost and shared-infrastructure operators rather than necessarily among new independent operators.
     
 #### Pool splitting by multi-pool operators
 
