@@ -115,13 +115,20 @@ $$z_0(k)=\frac{1}{k}:\quad \frac{1}{500}\rightarrow\frac{1}{1000}\quad (\text{or
 In the stylized RSS equilibrium (full active stake, frictionless adjustment), the target becomes $k$ saturated pools of size
 
 $$
-\sigma_i^*=z_0(1000)=\frac{1}{1000}, \qquad \sigma_i=p_i+\text{delegation}_i,
+\sigma_i^*=z_0(1000)=\frac{1}{1000}\;\;\text{(normalized by }T\text{)},\qquad
+\sigma_i^*=\frac{T}{1000}\;\;\text{(in ADA units)},
+$$
+
+and total pool stake is written consistently as
+
+$$
+\sigma_i=\hat{p}_i+\sum_{j=1}^{D_i}\sigma_j,
 $$
 
 with pool leaders selected by potential profit ranking,
 
 $$
-P_i(1000)=r\big(z_0(1000),s_i\big)-c_i,
+P_i(1000)=f\big(z_0(1000),p_i\big)-c_i,
 $$
 
 and margins set at the highest level compatible with remaining in the top-$k$ desirability set.
