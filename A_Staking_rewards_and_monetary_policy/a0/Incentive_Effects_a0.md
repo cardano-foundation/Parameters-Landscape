@@ -186,7 +186,7 @@ $$
 Given expected redelegation, operators solve a reduced-form best response
 
 $$
-(\hat p_i^*,m_i^*)\in\arg\max_{\hat p_i,m_i}\;U_i\big(a_0,\sigma_i'(\hat p_i,m_i),\hat p_i,m_i\big),
+(\hat{p}_i^{\*},m_i^{\*})\in\arg\max_{\hat p_i,m_i}\;U_i\big(a_0,\sigma_i'(\hat p_i,m_i),\hat p_i,m_i\big),
 $$
 
 which captures that pricing and pledge choices are made jointly with their induced stake response. Low-pledge operators are pushed to increase pledged capital and/or reduce margins to retain delegation.
@@ -245,9 +245,9 @@ so realized reallocations are a scaled-down version of the rational benchmark.
 With bounded rationality and experimentation, operators may only partially adjust each epoch:
 
 $$
-m_{i,t+1}=m_{i,t}+\rho_m\big(m_i^*-m_{i,t}\big),
+m_{i,t+1}=m_{i,t}+\rho_m\big(m_i^{\*}-m_{i,t}\big),
 \qquad
-\hat p_{i,t+1}=\hat p_{i,t}+\rho_p\big(\hat p_i^*-\hat p_{i,t}\big),
+\hat p_{i,t+1}=\hat p_{i,t}+\rho_p\big(\hat{p}_i^{\*}-\hat p_{i,t}\big),
 $$
 
 with $0<\rho_m,\rho_p\le 1$. If $\rho_p<\rho_m$, margins move faster than pledge, generating transitional pricing cycles.
