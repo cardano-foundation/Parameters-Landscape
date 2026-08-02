@@ -159,7 +159,7 @@ Consider a simplified capped-gross-reward approximation (ignoring pledge and per
 
 $$g_i(\sigma_i)=\bar{R} \min\{\sigma_i,z_0\},$$
 
-where $\bar{R}>0$ is a constant gross reward rate per unit of reward-bearing stake. The delegator net return per unit stake is
+where $\bar{R}>0$ is a constant gross reward rate per unit of reward-bearing stake. In this reduced-form approximation, $\bar{R}$ plays the role of $f(\sigma_i,p_i)/\sigma_i$ for a sub-saturated pool when pledge and performance are held fixed, but it is not an exact identity of the full reward function. The delegator net return per unit stake is
 
 $$y_i(\sigma_i)=(1-m_i) \frac{\big[g_i(\sigma_i)-c_i\big]_+}{\sigma_i}.$$
 
