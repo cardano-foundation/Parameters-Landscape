@@ -119,10 +119,103 @@ An analysis of epoch 644 demonstrates how varying $a_0$ influences reserve rewar
 </p>
 
 
-changing a
-0
-	​
 
- can affect not only current rewards but also which operators lead pools, how much pledge they commit, how they set fees, and where delegation ultimately concentrates.
+### Behavioral and equilibrium effects
+
+Changing $a_0$ can affect not only current rewards but also the rank of pools, how much pledge they commit, how they set fees, and where delegation ultimately concentrates.
+
+    
+#### Rational behavior
+
+**Changes in pool desirability and redistribution of delegation**
+
+For a pool expected to reach saturation, a simplified measure of operator potential is
+
+$$
+U_i(a_0)=\frac{R}{1+a_0}\left(z_0+a_0p_i\right)-\hat{c}_i,
+$$
+
+In the reward-sharing model of CITATION HERE, this potential-profit measure helps determine which operators can lead competitive pools.
+
+For two prospective operators $i$ and $j$, the difference in potential profit is
+
+$$
+P_i(a_0)-P_j(a_0) = \frac{Ra_0}{1+a_0}\left(p_i-p_j\right) - \left( \hat{c}_i-\hat{c}_j\right).
+$$
+
+An increase in $a_0$ therefore gives more weight to differences in pledge relative to differences in operating costs. When $a_0=0$, operators are primarily ranked by their costs: lower-cost operators have greater potential profit. As $a_0$ rises, high-pledge operators improve their relative position and may displace lower-cost but less-capitalized operators from the set of competitive pools.
+
+This captures the main efficiency--Sybil-resistance trade-off. A stronger pledge influence makes it more difficult for operators with little capital to control large amounts of delegated stake or operate several competitive pools. However, it may also weaken the selection of operators based on cost efficiency by favoring operators with greater wealth.
+
+Importantly, a high-pledge operator may improve its **relative position** even though its absolute potential profit falls. Differentiating with respect to $a_0$ gives
+
+$$
+\frac{\partial P_i(a_0)}{\partial a_0} = \frac{R\left(p_i-z_0\right)}{\left(1+a_0\right)^2} \leq 0,
+$$
+
+because $p_i\leq z_0$ for a saturated pool. Except for a fully pledged saturated pool, increasing $a_0$ reduces potential profit. High-pledge pools are favored only in relative terms because their potential profit falls by less than that of low-pledge pools.
+
+Delegators choose among pools according to the return they expect to receive, rather than according to the operator's underlying profitability. For a pool with stake $\sigma_i$, pledge $p_i$, declared fixed cost $c_i$, and margin $m_i$, the delegator return per unit of stake is
+
+(1-m_i)
+\frac{
+\max\left{f(\sigma_i,p_i;a_0)-c_i,,0\right}
+}{
+\sigma_i
+}.
+$$
+
+In the non-myopic framework of the paper, delegators evaluate a pool according to the return it would offer if it became successful and reached its expected equilibrium size. For a pool expected to become saturated, its desirability can therefore be represented as
+
+(1-m_i)
+\frac{
+\max\left{f(z_0,p_i;a_0)-c_i,,0\right}
+}{
+z_0
+}.
+$$
+
+Holding the declared fixed cost and margin constant, an increase in $a_0$ generally reduces pool desirability. However, the reduction becomes smaller as pledge increases because higher pledge cushions the decline in the pool reward function. For a saturated pool,
+
+\frac{R}{1+a_0}
+\left(
+z_0+a_0p_i
+\right),
+$$
+
+and
+
+\frac{R(p_i-z_0)}
+{(1+a_0)^2}
+\leq 0.
+$$
+
+Thus, although an increase in $a_0$ may reduce the expected return offered by most pools, it reduces it by less for pools with higher pledge. Other things equal, high-pledge pools therefore improve their desirability relative to low-pledge pools and may attract delegation away from them.
+
+The actual redistribution of delegation also depends on differences in margins, declared fixed costs, performance, pool size, and delegator inertia. A low-pledge pool may remain attractive by charging a lower margin or fixed cost, while a high-pledge pool may use part of its pledge advantage to charge a higher margin. Nevertheless, increasing $a_0$ shifts the delegation incentive in favor of higher-pledge pools, holding these other characteristics constant.
+
+    
+#### Delegators moving stake
+
+
+
+  
+#### Operators changing pledge, margin, or declared fixed cost
+
+
+  
+#### Entry or exit of pools
+
+
+    
+#### Pool splitting by multi-pool operators
+
+
+#### Changes in staking participation
+
+
+
+
+### Decentralization
 
 
