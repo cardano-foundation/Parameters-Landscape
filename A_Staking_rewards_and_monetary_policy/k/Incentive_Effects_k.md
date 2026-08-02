@@ -212,11 +212,11 @@ This quantity may be much smaller than aggregate capacity $Q$. Spare capacity ma
 - have high reward variance;
 - are difficult to discover.
 
-Suppose that a fraction $\pi_d$ of the pools inspected by delegator \(d\) are acceptable. After inspecting $n$ pools, the probability of finding at least one acceptable alternative is
+Suppose that a fraction $\alpha_d$ of the pools inspected by delegator \(d\) are acceptable. After inspecting $n$ pools, the probability of finding at least one acceptable alternative is
 
-$$P_d(n) = 1-(1-\pi_d)^n.$$
+$$P_d(n) = 1-(1-\alpha_d)^n,$$
 
-When spare capacity is highly fragmented, $\pi_d$ is small, and the delegator must inspect many pools before finding a suitable alternative.
+which is increasing in $n$. When spare capacity is highly fragmented, $\alpha_d$ is small, and the delegator must inspect many pools before finding a suitable alternative. However, inspecting/searching is costly.
 
 **Coordination friction**
 
