@@ -117,39 +117,25 @@ A caveat is that a nontrivial part of affected stake may be controlled by whales
 
 #### Epoch 228 (historical change)
 
-\begin{table}[H]
-  \centering
-  \caption{Epoch 228 totals.}
-  \label{tab:228-totals}
-  \begin{tabular}{lr}
-    \toprule
-    Quantity & Value \\
-    \midrule
-    $T$ (B ADA)     & \num{32.03} \\
-    $S$ (B ADA) & \num{17.21} \\
-    $S / T$ & \pct{53.7} \\
-    Pools with $\sigma_i>0$                 & \poolcount{1062} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+Epoch 228 totals.
 
-\begin{table}[H]
-  \centering
-  \caption{Epoch 228 scenarios}
-  \label{tab:228}
-  \begin{tabular}{lrrr}
-    \toprule
-    Quantity & Previous  & After & Hypothetical \\
-             & ($k=150$) & ($k=500$, $3.33\times $) & ($k=300$, $2\times $) \\
-    \midrule
-    $z_0(k)$ (M ADA) & \num{213.53} & \num{64.06} & \num{106.77} \\
-    Oversaturated pools (count)             & \poolcount{0}   & \poolcount{109} & \poolcount{69} \\
-    Oversaturated pools (\% of pools)       & \pct{0.00}      & \pct{10.26} & \pct{6.50} \\
-    $E(k)$ - Stake above saturation (B ADA)                    & \num{0.00}      & \num{6.14} & \num{2.73} \\
-    $E(k)$ (\% of $S$)     & \pct{0.00}      & \pct{35.71} & \pct{15.88} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+| Quantity | Value |
+| --- | ---: |
+| $T$ (B ADA) | 32.03 |
+| $S$ (B ADA) | 17.21 |
+| $S / T$ | 53.7% |
+| Pools with $\sigma_i>0$ | 1062 |
+
+Epoch 228 scenarios.
+
+| Quantity | Previous | After | Hypothetical |
+| --- | ---: | ---: | ---: |
+|  | ($k=150$) | ($k=500$, $3.33\times$) | ($k=300$, $2\times$) |
+| $z_0(k)$ (M ADA) | 213.53 | 64.06 | 106.77 |
+| Oversaturated pools (count) | 0 | 109 | 69 |
+| Oversaturated pools (% of pools) | 0.00% | 10.26% | 6.50% |
+| $E(k)$ - Stake above saturation (B ADA) | 0.00 | 6.14 | 2.73 |
+| $E(k)$ (% of $S$) | 0.00% | 35.71% | 15.88% |
 
 Main observations from epoch $228$:
 
@@ -160,39 +146,25 @@ Main observations from epoch $228$:
 
 #### Epoch 616 (current baseline)
 
-\begin{table}[H]
-  \centering
-  \caption{Epoch 616 totals.}
-  \label{tab:616-totals}
-  \begin{tabular}{lr}
-    \toprule
-    Quantity & Value \\
-    \midrule
-    $T$ (B ADA)     & \num{38.50} \\
-    $S$ (B ADA) & \num{21.57} \\
-    $S / T$ & \pct{56.0} \\
-    Pools with $\sigma_i>0$                 & \poolcount{2717} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+Epoch 616 totals.
 
-\begin{table}[H]
-  \centering
-  \caption{Epoch 616 scenarios}
-  \label{tab:616}
-  \begin{tabular}{lrrr}
-    \toprule
-    Quantity & Previous & After & Hypothetical  \\
-             & ($k=500$) & ($k=1000$, $2\times$) & ($k=1667$, $3.33\times$) \\
-    \midrule
-    $z_0(k)$ (M ADA) & \num{77.00} & \num{38.50} & \num{23.10} \\
-    Oversaturated pools (count)             & \poolcount{8}   & \poolcount{212} & \poolcount{344} \\
-    Oversaturated pools (\% of pools)       & \pct{0.29}      & \pct{7.80} & \pct{12.66} \\
-    $E(k)$ - Stake above saturation (B ADA)                    & \num{0.17}      & \num{4.92} & \num{9.29} \\
-    $E(k)$ (\% of $S$)     & \pct{0.77}      & \pct{22.79} & \pct{43.07} \\
-    \bottomrule
-  \end{tabular}
-\end{table}
+| Quantity | Value |
+| --- | ---: |
+| $T$ (B ADA) | 38.50 |
+| $S$ (B ADA) | 21.57 |
+| $S / T$ | 56.0% |
+| Pools with $\sigma_i>0$ | 2717 |
+
+Epoch 616 scenarios.
+
+| Quantity | Previous | After | Hypothetical |
+| --- | ---: | ---: | ---: |
+|  | ($k=500$) | ($k=1000$, $2\times$) | ($k=1667$, $3.33\times$) |
+| $z_0(k)$ (M ADA) | 77.00 | 38.50 | 23.10 |
+| Oversaturated pools (count) | 8 | 212 | 344 |
+| Oversaturated pools (% of pools) | 0.29% | 7.80% | 12.66% |
+| $E(k)$ - Stake above saturation (B ADA) | 0.17 | 4.92 | 9.29 |
+| $E(k)$ (% of $S$) | 0.77% | 22.79% | 43.07% |
 
 Main observations from epoch $616$:
 
