@@ -110,13 +110,13 @@ This section identifies potential behavioral (or second-order) effects—primari
 
 Assuming **forward-looking, non-myopic rational players**—the equilibrium concept in Brünjes et al. (2020)—raising $k$ from $500$ to $1000$ halves saturation:
 
-$$z_0(k)=\frac{1}{k}:\quad \frac{1}{500}\rightarrow\frac{1}{1000}\quad (\text{or }\; T/500\rightarrow T/1000\;\text{in ADA units}).$$
+$$z_0(k)=\frac{1}{k}:\quad \frac{1}{500}\rightarrow\frac{1}{1000}\quad (\text{or } T/500\rightarrow T/1000\text{ in ADA units}).$$
 
 In the stylized RSS equilibrium (full active stake, frictionless adjustment), the target becomes $k$ saturated pools of size
 
 $$
-\sigma_i^*=z_0(1000)=\frac{1}{1000}\;\;\text{(normalized by }T\text{)},\qquad
-\sigma_i^*=\frac{T}{1000}\;\;\text{(in ADA units)},
+\sigma_i^* = z_0(1000)=\frac{1}{1000} \quad \text{(normalized by }T\text{)},\qquad
+\sigma_i^* = \frac{T}{1000} \quad \text{(in ADA units)},
 $$
 
 and total pool stake is written consistently as
