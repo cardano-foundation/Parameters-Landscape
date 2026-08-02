@@ -163,7 +163,15 @@ $$
 r_i^D=(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i}.
 $$
 
-After an increase in $a_0$, high-pledge pools become relatively more attractive ceteris paribus, so the rational benchmark predicts net delegation inflows to them.
+Let the post-shock delegation update be
+
+$$
+\Delta \sigma_i^D=\eta\,\sigma_i\big(r_i^D-\bar r^D\big),
+\qquad
+\sigma_i'=\sigma_i+\Delta \sigma_i^D,
+$$
+
+with $\bar r^D$ the stake-weighted market benchmark. After an increase in $a_0$, high-pledge pools tend to have higher relative $r_i^D$, so they receive positive net flows in this benchmark.
 
 ##### Operators changing pledge, margin, or declared fixed cost
 
@@ -175,19 +183,47 @@ U_i=\Pi_i-\hat c_i,
 \Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right].
 $$
 
-Low-pledge operators are pushed to either increase pledged capital or reduce margins to retain delegation. High-pledge operators may preserve competitiveness with smaller margin cuts.
+Given expected redelegation, operators solve a reduced-form best response
+
+$$
+(\hat p_i^*,m_i^*)\in\arg\max_{\hat p_i,m_i}\;U_i\big(a_0,\sigma_i'(\hat p_i,m_i),\hat p_i,m_i\big),
+$$
+
+which captures that pricing and pledge choices are made jointly with their induced stake response. Low-pledge operators are pushed to increase pledged capital and/or reduce margins to retain delegation.
 
 ##### Entry or exit of pools
 
-Pools remain active when $U_i\ge 0$. Since higher $a_0$ penalizes low-pledge reward profiles more strongly, marginal low-pledge pools face higher exit pressure, while high-pledge pools improve relative survival probability.
+Entry and survival follow participation constraints evaluated at post-redelegation stake:
+
+$$
+U_i\big(a_0,\sigma_i'\big)\ge 0,
+\qquad
+U_i^{\text{entry}}\big(a_0,\sigma_i'\big)-F_i\ge 0,
+$$
+
+where $\sigma_i'=\sigma_i+\Delta\sigma_i^D$ and $F_i$ is setup/friction cost. This combines the direct impact of $a_0$ through $f(\cdot)$ and the indirect impact through redelegation from previous channels.
 
 ##### Pool splitting by multi-pool operators
 
-Higher $a_0$ increases the capital requirement of splitting: stake can still be split, but pledge must also be split (or increased) to keep each pool attractive. Therefore, pure low-pledge MPO expansion becomes less effective.
+For an MPO operating $n$ pools with total pledge $P$, a simple feasibility condition is
+
+$$
+\hat p_j=\frac{P}{n},
+\qquad
+\Pi^{\text{MPO}}(n)=\sum_{j=1}^{n}\Pi_j\big(a_0,\hat p_j,\sigma_j'\big),
+$$
+
+and splitting is attractive only if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Higher $a_0$ makes low $\hat p_j$ more costly in ranking terms, raising the capital requirement for expansion.
 
 ##### Changes in staking participation
 
-In the rational benchmark, the first-order effect of $a_0$ is reallocative (across pools), not necessarily a large immediate change in total staked ADA.
+Let total staking participation be $S=\sum_i\sigma_i$. A compact reduced-form response is
+
+$$
+\Delta S=\chi\,\big(\bar r_{\text{exp}}-r_{\text{alt}}\big),
+$$
+
+where $\bar r_{\text{exp}}$ is expected aggregate staking return after the policy change and $r_{\text{alt}}$ is the outside option return. This clarifies that the first-order effect of $a_0$ is mostly reallocative, with aggregate participation changing only if expected net returns versus alternatives move enough.
 
 #### Behavioral deviations from the rational benchmark
 
@@ -195,23 +231,58 @@ We now introduce frictions that can change the speed and shape of the same five 
 
 ##### Delegators moving stake
 
-Search costs, inattention, and brand/reputation effects slow migration, so realized flows are typically smaller and slower than the frictionless benchmark.
+Search costs, inattention, and brand/reputation effects slow migration. One simple frictional law of motion is
+
+$$
+\Delta \sigma_i^{\text{obs}}=\lambda_i\,\Delta \sigma_i^D,
+\qquad 0<\lambda_i<1,
+$$
+
+so realized reallocations are a scaled-down version of the rational benchmark.
 
 ##### Operators changing pledge, margin, or declared fixed cost
 
-With bounded rationality and strategic experimentation, operators may adjust margins first and pledge later, producing transitional pricing cycles. Some operators may keep declared costs unchanged even when margins move.
+With bounded rationality and experimentation, operators may only partially adjust each epoch:
+
+$$
+m_{i,t+1}=m_{i,t}+\rho_m\big(m_i^*-m_{i,t}\big),
+\qquad
+\hat p_{i,t+1}=\hat p_{i,t}+\rho_p\big(\hat p_i^*-\hat p_{i,t}\big),
+$$
+
+with $0<\rho_m,\rho_p\le 1$. If $\rho_p<\rho_m$, margins move faster than pledge, generating transitional pricing cycles.
 
 ##### Entry or exit of pools
 
-Operational inertia and uncertainty can delay both entry and exit. Pools that are weak in the rational model can persist for long periods if delegator loyalty is strong.
+Operational inertia and uncertainty can be represented with hysteresis thresholds:
+
+$$
+U_i(a_0,\sigma_i')<-H_i^{\text{exit}},
+\qquad
+U_i^{\text{entry}}(a_0,\sigma_i')>H_i^{\text{entry}},
+$$
+
+with $H_i^{\text{entry}},H_i^{\text{exit}}>0$. This allows weak pools to persist and delays both entry and exit relative to the frictionless benchmark.
 
 ##### Pool splitting by multi-pool operators
 
-MPOs with stronger infrastructure and coordination capacity may still split effectively under higher $a_0$, especially when they can move stake internally faster than retail delegators can respond.
+If MPOs face coordination and infrastructure frictions, net expansion value can be written as
+
+$$
+V^{\text{split}}(n)=\Pi^{\text{MPO}}(n)-K(n),
+$$
+
+where $K(n)$ is increasing and convex. MPOs with lower marginal $K'(n)$ can still split effectively under higher $a_0$, especially when they reallocate internal stake quickly.
 
 ##### Changes in staking participation
 
-Participation can diverge from the rational baseline when short-run payout reductions are salient to delegators. Conversely, narratives around long-run reserve sustainability can partially offset this effect.
+Behavioral salience can be captured by weighting short-run and long-run returns differently:
+
+$$
+\Delta S_t=\chi_s\big(r_t-r_{\text{alt},t}\big)+\chi_l\,\mathbb E_t\!\left[\sum_{h\ge 1}\beta^h\big(r_{t+h}-r_{\text{alt},t+h}\big)\right],
+$$
+
+with $\chi_s>\chi_l$ under short-term salience. This yields participation responses that can be stronger in the short run than in the rational benchmark.
 
 
 
