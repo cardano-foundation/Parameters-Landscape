@@ -103,6 +103,110 @@ Raising $k$ does not have a direct mechanical effect in the total size of the re
 
 ### Past Evidence
 
+We analyze stake-pool snapshots from two specific epochs ($228$ and $616$). Throughout this analysis, we hold the observed stake distribution $\{\sigma_i\}$ for each epoch fixed and vary only the protocol parameter $k$.
+
+\paragraph{Goal.} We compare the previous increase in $k$ with the current proposal to increase $k$ from $500$ to $1000$. For context, the previous change was announced in epoch $228$ and took effect in epoch $234$, raising $k$ from $150$ to $500$ (a $3.33\times$ increase). Our objective is to show how much stake was affected by that past change versus how much stake would be affected by the new proposal. To provide a fair comparison, we also calculate the affected stake under hypothetical scenarios where both increases have the same magnitude (either a $2\times$ increase for both epochs, or a $3.33\times$ increase for both epochs).
+
+An important caveat to this comparison is that a large portion of the affected stake may belong to whales or centralized exchanges (CeXs). Consequently, this stake might not migrate from large pools to smaller ones. Instead, these large holders might open new pools to reallocate their stake or, in the worst-case scenario, partially or fully exit the staking ecosystem.
+
+The figures reported here are intended solely to inform the community and do not imply any recommendation.
+
+
+\paragraph{Formulas.}
+The per-pool saturation \emph{point} is
+\begin{equation}
+  z_0(k) \;=\; \frac{T}{k},
+  \label{eq:z0}
+\end{equation}
+where $T$ denotes the total supply. The saturation \emph{level} is
+\begin{equation}
+  s_i(k) \;=\; \frac{\sigma_i}{z_0(k)} \;=\; \frac{\sigma_i\,k}{T},
+  \label{eq:si}
+\end{equation}
+where $\sigma_i$ is the ADA staked at pool $i$.
+
+Pool $i$ is \textbf{oversaturated} if $s_i(k)>1$, i.e.\ $\sigma_i>z_0(k)$.
+Stake above saturation (aggregated over pools in the file) is
+\begin{equation}
+  E(k) \;=\; \sum_{i\,:\,\sigma_i>0} \max\{\sigma_i - z_0(k),\,0\}.
+  \label{eq:excess}
+\end{equation}
+We report $E(k)$ as a percentage of $T$ and, separately, of $S$ (total stakes).
+
+
+\section{Epoch 228}
+
+\begin{table}[H]
+  \centering
+  \caption{Epoch 228 totals.}
+  \label{tab:228-totals}
+  \begin{tabular}{lr}
+    \toprule
+    Quantity & Value \\
+    \midrule
+    $T$ (B ADA)     & \num{32.03} \\
+    $S$ (B ADA) & \num{17.21} \\
+    $S / T$ & \pct{53.7} \\
+    Pools with $\sigma_i>0$                 & \poolcount{1062} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Epoch 228 scenarios}
+  \label{tab:228}
+  \begin{tabular}{lrrr}
+    \toprule
+    Quantity & Previous  & After & Hypothetical \\
+             & ($k=150$) & ($k=500$, $3.33\times $) & ($k=300$, $2\times $) \\
+    \midrule
+    $z_0(k)$ (M ADA) & \num{213.53} & \num{64.06} & \num{106.77} \\
+    Oversaturated pools (count)             & \poolcount{0}   & \poolcount{109} & \poolcount{69} \\
+    Oversaturated pools (\% of pools)       & \pct{0.00}      & \pct{10.26} & \pct{6.50} \\
+    $E(k)$ - Stake above saturation (B ADA)                    & \num{0.00}      & \num{6.14} & \num{2.73} \\
+    $E(k)$ (\% of $S$)     & \pct{0.00}      & \pct{35.71} & \pct{15.88} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\section{Epoch 616}
+
+\begin{table}[H]
+  \centering
+  \caption{Epoch 616 totals.}
+  \label{tab:616-totals}
+  \begin{tabular}{lr}
+    \toprule
+    Quantity & Value \\
+    \midrule
+    $T$ (B ADA)     & \num{38.50} \\
+    $S$ (B ADA) & \num{21.57} \\
+    $S / T$ & \pct{56.0} \\
+    Pools with $\sigma_i>0$                 & \poolcount{2717} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \caption{Epoch 616 scenarios}
+  \label{tab:616}
+  \begin{tabular}{lrrr}
+    \toprule
+    Quantity & Previous & After & Hypothetical  \\
+             & ($k=500$) & ($k=1000$, $2\times$) & ($k=1667$, $3.33\times$) \\
+    \midrule
+    $z_0(k)$ (M ADA) & \num{77.00} & \num{38.50} & \num{23.10} \\
+    Oversaturated pools (count)             & \poolcount{8}   & \poolcount{212} & \poolcount{344} \\
+    Oversaturated pools (\% of pools)       & \pct{0.29}      & \pct{7.80} & \pct{12.66} \\
+    $E(k)$ - Stake above saturation (B ADA)                    & \num{0.17}      & \num{4.92} & \num{9.29} \\
+    $E(k)$ (\% of $S$)     & \pct{0.77}      & \pct{22.79} & \pct{43.07} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
 
 
 ### Behavioral and equilibrium effects
