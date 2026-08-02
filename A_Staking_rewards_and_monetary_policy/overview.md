@@ -4,15 +4,12 @@ This section analyzes how varying parameter values affects key protocol outcomes
 Generally, a parameter change can directly affect one type of actor, prompting a reaction that propagates through the network and influences other agents. For example, a change impacting operators may provoke a strategic response that subsequently affects other operators and delegators. While we discuss these broader feedback dynamics where relevant, this section focuses primarily on the direct impact of parameter changes on a given agent type.
 
 # Summary of incentive-channel findings
-(ToDo: update table based on the results and findings)
 
-| Parameter Change | Mechanical Effect | Delegator Incentive | Operator Incentive | Decentralization Effect | Comments |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Increase $k$** | Lowers $z_0$. | Shift away from oversaturated pools. | - Operator of oversaturated pools may open new pools and redistribute delegation (whenever possible) and pledge. <br> - Does this measure improve small pool competitiveness? | Does it reduce stake concentration? | Does it lower efficiency? (More pools $\rightarrow$ higher aggregate fixed costs $\rightarrow$ higher aggregate reward dilution). |
-| **Decrease $k$** | Raises $z_0$. | Stake can remain in larger pools. | Large pools gain appeal. | May increase concentration? | — |
-| **Increase $a_0$** | Increases pledge premium. | Prefer high-pledge pools. | Operators need higher pledge to compete. | May favor capital-rich operators. | — |
-| **Decrease $a_0$** | Lowers pledge premium. | Pledge impacts returns less. | Lowers entry barrier for low-pledge pools. | May improve entry, but weakens skin-in-the-game. | — |
-| **Increase $c_{min}$** | Raises minimum operator fee. | Lowers net returns in small pools. | Protects minimum operator revenue. | May hurt small-pool competitiveness. | — |
-| **Increase $\tau$** | Reduces staking reward pot. | Lowers staking yields. | Reduces pool profitability. | May reduce overall participation. | — |
-| **Increase $\rho$** | Releases reserves faster. | Boosts short-term staking yields. | Boosts short-term pool profitability. | Improves immediate incentives, but risks long-term sustainability. | — |
+The table below summarizes the core ideas in the three parameter folders. For each parameter, the opposite direction is generally interpreted as the inverse comparative-static effect unless explicitly noted in the linked section.
+
+| Parameter | Main ideas (keywords) | Equilibrium channels emphasized | Most robust non-inverse asymmetry | File |
+| :--- | :--- | :--- | :--- | :--- |
+| $k$ | Saturation threshold, stake reallocation, viable-pool count, concentration vs coordination costs. | Delegator migration around saturation; operator margin/pledge responses; entry-exit participation constraints; MPO splitting incentives; aggregate participation feedback. | Increasing $k$ raises coordination and operating complexity (more viable pools required). Decreasing $k$ is not a perfect inverse because consolidation and infrastructure downsizing are typically slower than expansion. | [k/Incentive_Effects_k.md](k/Incentive_Effects_k.md) |
+| $a_0$ | Pledge influence, Sybil resistance, capital intensity, desirability ranking, pledge-margin competition. | Reward-ranking shifts through the pledge term; redelegation toward high-pledge pools; operator responses in $\hat p_i$ and $m_i$; entry-exit via post-redelegation utility; MPO expansion under pledge constraints. | Increasing $a_0$ can create binding pledge constraints and capital-scarcity effects for low-pledge operators. Decreasing $a_0$ does not fully reverse these effects due to path-dependent capital and reputation adjustments. | [a0/Incentive_Effects_a0.md](a0/Incentive_Effects_a0.md) |
+| $c_{\min}$ (`minPoolCost`) | Fixed-cost floor, small-pool competitiveness, operator viability floor, fee pass-through, entry barrier. | Direct effect through feasible $c_i\ge c_{\min}$; indirect effect through redelegation; operator choice of $c_i,m_i,\hat p_i$; participation constraints for entry-exit; MPO split profitability with per-pool fixed costs. | Lowering $c_{\min}$ can rapidly intensify fee competition and splitting incentives. Raising $c_{\min}$ is not a full inverse because redelegation and pool entry-exit dynamics exhibit hysteresis. | [minPoolCost/Incentive_Effects_minPoolCost.md](minPoolCost/Incentive_Effects_minPoolCost.md) |
 
