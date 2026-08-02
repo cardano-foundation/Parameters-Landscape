@@ -103,17 +103,12 @@ Raising $k$ does not have a direct mechanical effect in the total size of the re
 
 ### Past Evidence
 
-We use two snapshots (epochs $228$ and $616$) and, for each one, keep the observed stake distribution $\{\sigma_i\}$ fixed while varying only $k$.
+As past evidence of a change in $k$, there is the realized historical jump ($150\rightarrow500$, i.e., $3.33\times$) around epoch $228$. This section collects data about the consequence of that change. It is important to note that the consequences and behaviors observed in that jump do not need to replicate in a new one, since market conditions and sentiments may differ. 
 
-**Goal.** We use past evidence to calibrate expectations for the current proposal ($k:500\rightarrow1000$). Specifically, we compare:
+Next, the section reports oversaturated-pool counts and stake above saturation $E(k)$ using the same definitions introduced in **Oversaturated stake** above:
 
-- the realized historical jump ($150\rightarrow500$, i.e., $3.33\times$) around epoch $228$;
-- the current proposal ($500\rightarrow1000$, i.e., $2\times$) at epoch $616$;
-- scale-matched hypotheticals ($2\times$ in epoch $228$ and $3.33\times$ in epoch $616$).
-
-We report oversaturated-pool counts and stake above saturation $E(k)$ using the same definitions introduced in **Oversaturated stake** above (no new formulas here).
-
-A caveat is that a nontrivial part of affected stake may be controlled by whales/CeXs, so adjustment can occur via MPO pool creation or internal reallocation rather than one-for-one migration to smaller pools.
+  
+$$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
 
 #### Epoch 228 (historical change)
 
@@ -139,44 +134,8 @@ Epoch 228 scenarios.
 
 Main observations from epoch $228$:
 
-- Before the change ($k=150$), oversaturation was effectively zero in this snapshot.
+- Before the change ($k=150$), oversaturation was effectively zero.
 - The historical $3.33\times$ jump to $k=500$ moved the system to $109$ oversaturated pools and $E(k)=6.14$B ADA ($35.71\%$ of $S$).
-- Under a $2\times$ counterfactual ($k=300$), pressure is materially lower: $69$ oversaturated pools and $E(k)=2.73$B ADA ($15.88\%$ of $S$).
-
-
-#### Epoch 616 (current baseline)
-
-Epoch 616 totals.
-
-| Quantity | Value |
-| --- | ---: |
-| $T$ (B ADA) | 38.50 |
-| $S$ (B ADA) | 21.57 |
-| $S / T$ | 56.0% |
-| Pools with $\sigma_i>0$ | 2717 |
-
-Epoch 616 scenarios.
-
-| Quantity | Previous | After | Hypothetical |
-| --- | ---: | ---: | ---: |
-|  | ($k=500$) | ($k=1000$, $2\times$) | ($k=1667$, $3.33\times$) |
-| $z_0(k)$ (M ADA) | 77.00 | 38.50 | 23.10 |
-| Oversaturated pools (count) | 8 | 212 | 344 |
-| Oversaturated pools (% of pools) | 0.29% | 7.80% | 12.66% |
-| $E(k)$ - Stake above saturation (B ADA) | 0.17 | 4.92 | 9.29 |
-| $E(k)$ (% of $S$) | 0.77% | 22.79% | 43.07% |
-
-Main observations from epoch $616$:
-
-- The current baseline ($k=500$) already has some oversaturation ($8$ pools; $E(k)=0.17$B ADA, $0.77\%$ of $S$).
-- Moving to $k=1000$ ($2\times$) implies a large increase in affected stake: $212$ oversaturated pools and $E(k)=4.92$B ADA ($22.79\%$ of $S$).
-- A $3.33\times$ scenario ($k=1667$) is substantially tighter: $344$ oversaturated pools and $E(k)=9.29$B ADA ($43.07\%$ of $S$).
-
-Cross-epoch takeaway:
-
-- The current proposal ($2\times$) is less severe than the historical $3.33\times$ jump in relative terms.
-- But if scaled to the same magnitude, today’s system would show higher affected stake shares than the epoch $228$ case.
-
 
 
 ### Behavioral and equilibrium effects
