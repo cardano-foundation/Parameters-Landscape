@@ -311,13 +311,13 @@ $$
 f_i=f(\sigma_i,p_i),
 $$
 
-where $\hat p_i$ is active operator pledge. If $f_i>c_i$, operator gross revenue is
+where $p_i$ is the declared pledge. If $f_i>c_i$, operator gross revenue is
 
 $$
 \Pi_i = c_i + (f_i-c_i)\left[m_i + (1-m_i)\frac{\hat p_i}{\sigma_i}\right],
 $$
 
-and operator utility/profit is
+where $\hat p_i$ is active operator pledge and operator utility/profit is
 
 $$
 U_i = \Pi_i - \hat c_i.
@@ -373,16 +373,16 @@ $$
 
 can be viable under $k=500$ but not under $k=1000$, even if saturated.
 
-This ceiling effect is not the full story, because delegation reallocates after the shock. Let $\sigma_i^*(k)$ be post-adjustment stake. Then
+This ceiling effect is not the full story, because delegation reallocates after the shock. Let $\sigma_i(k)$ be post-adjustment stake. Then
 
 $$
-\Pi_i^*(k)=c_i+\left[f\big(\sigma_i^*(k),p_i\big)-c_i\right]\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i^*(k)}\right],
+\Pi_i(k) = c_i + \left[f\big(\sigma_i(k),p_i\big)-c_i\right]\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i(k)}\right],
 $$
 
 and therefore
 
 $$
-U_i^*(k)=\Pi_i^*(k)-\hat c_i.
+U_i(k)=\Pi_i(k)-\hat c_i.
 $$
 
 For weak subsaturated pools, incoming delegation can improve viability while $\partial f_i/\partial\sigma_i>0$. Once saturated, $\partial f_i/\partial\sigma_i=0$, so extra stake no longer relaxes the participation constraint.
@@ -390,7 +390,7 @@ For weak subsaturated pools, incoming delegation can improve viability while $\p
 At equilibrium, if $A(k)$ is the active set,
 
 $$
-U_i^*(k)\geq 0\;\;\text{for }i\in A(k),
+U_i(k)\geq 0\quad\text{for }i\in A(k),
 $$
 
 and non-active pools cannot profitably enter under their best response. The central prediction is therefore: **more active pools, but less than a proportional increase in $k$**, with entry concentrated among low-cost and shared-infrastructure operators rather than necessarily among new independent operators.
