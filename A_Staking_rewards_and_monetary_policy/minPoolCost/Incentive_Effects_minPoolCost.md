@@ -197,9 +197,13 @@ where $\underline{U}_i$ denotes the outside option. For simplicity, let's assume
 
 Notice that if there is truthful cost reporting ($c_i=\hat c_i$)), then the previous condition becomes $f_i\ge c_i$. However, we have already argued that data do not suggests truthful reporting. 
 
-Using actual data from epoch 644, the following chart shows how many of the pools that produced a block during epoch 644 are on viability risk (note that taking only one epoch as data source may do not represent the actual state).
+Using actual data from epoch 644, the following chart shows how many of the pools that produced a block during epoch 644 are on viability risk (note that taking only one epoch as data source may do not represent the actual state). We assume that all pools face the same operation cost/expenditure ($C^*$) equal to $667$ USD per month (six epochs), and a token price of $0.15 USD/ADA$ giving 
 
+$$C^*=667/6/0.15 \text{USD per epoch}.$$
 
+<p align="center">
+<img src="plots/pool_viability_opex_epoch_644.png" alt="Pools viability versus OpCost" width="62%">
+</p>
 
 
 
