@@ -30,7 +30,7 @@ while $c_{\min}$ changes the feasible declared fixed cost $c_i$ and therefore th
 $$
 f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\tilde\sigma_i+a_0\tilde p_i\frac{\tilde\sigma_i-\tilde p_i\frac{z_0-\tilde\sigma_i}{z_0}}{z_0}\right],
 \qquad
-	ilde\sigma_i=\min\{\sigma_i,z_0\},\quad \tilde p_i=\min\{p_i,z_0\},
+	\tilde\sigma_i=\min\\{\sigma_i,z_0\\},\quad \tilde p_i=\min\\{p_i,z_0\\},
 $$
 
 but the delegator-facing return per unit stake is reduced by the fixed-cost floor,
