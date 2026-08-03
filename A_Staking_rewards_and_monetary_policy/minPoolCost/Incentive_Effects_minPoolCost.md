@@ -178,14 +178,16 @@ As an intriguing side note, in the preceding figures—[fixed cost versus stake 
 
 #### Entry or exit of pools
 
-Entry or exit can be analyzed in two layers: first, a direct viability threshold in expected rewards (or expected blocks), and second, the redelegation channel that shifts pools across that threshold.
+Entry or exit can be analyzed in two layers: direct viability thresholds, and then redelegation effects.
 
 Let
 
 $$
 U_i=\Pi_i-\hat c_i,
 \qquad
-\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right], \qquad s_i\equiv m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
+\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
+\qquad
+s_i\equiv m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
 $$
 
 For the region $f(\sigma_i,p_i)>c_i$, expected viability is
@@ -198,49 +200,17 @@ $$
 \frac{\hat c_i-(1-s_i)c_i}{s_i}.
 $$
 
-If we write expected gross reward as $\mathbb E[f_i]=\bar r_{\text{blk}} \lambda_i$ with $\lambda_i=\mathbb E[B_i]$ (expected blocks per epoch), then
+Under the rational benchmark used in this section (truthful costs, $c_i=\hat c_i$), this simplifies to
 
 $$
-\lambda_i\ge \lambda_i^{\star}
-\equiv
-\frac{\hat c_i-(1-s_i)c_i}{s_i\,\bar r_{\text{blk}}}.
+\mathbb E[f_i]\ge c_i.
 $$
 
-Under the rational benchmark used in this section (truthful costs, $c_i=\hat c_i$, and floor-binding pools $c_i=c_{\min}$), this simplifies to
+So viability must be evaluated with each pool's actual cost $c_i$ (equivalently $\hat c_i$ under truthful reporting), not by substituting $c_{\min}$.
 
-$$
-f_i^{\star}=c_i,
-\qquad
-\lambda_i^{\star}=\frac{c_i}{\bar r_{\text{blk}}}.
-$$
+The policy floor still matters through the feasibility constraint $c_i\ge c_{\min}$ and through strategic/cross-pool responses: lowering $c_{\min}$ relaxes the lower bound on feasible $c_i$, which can reduce break-even thresholds for pools that choose or can sustain lower costs, but the viability test itself remains pool-specific.
 
-Using values close to the examples in Lopez de Lara-style calibrations (as in this repository: $R\approx 15$--$16$M ADA, $k=500$, $a_0=0.3$), take an illustrative average reward per produced block of $\bar r_{\text{blk}}\approx 700$ ADA. Then, for a floor-binding truthful-cost pool:
-
-$$
-\lambda_i^{\star}(c_i=170)=\frac{170}{700}\approx 0.243
-\quad\text{blocks/epoch},
-$$
-
-$$
-\lambda_i^{\star}(c_i=75)=\frac{75}{700}\approx 0.107
-\quad\text{blocks/epoch}.
-$$
-
-So the direct threshold drops by about $56\%$ when $c_{\min}$ moves from $170$ to $75$ ADA. In pure threshold terms (holding stake fixed), this points to more entry / less exit.
-
-If we also map this to stake using $\lambda_i\approx N_{\text{blk}}\,\sigma_i/S$ with an illustrative $N_{\text{blk}}=21{,}600$ active slots/epoch and $S\approx 21.4$B ADA, the break-even stake moves from roughly
-
-$$
-\sigma_i^{\star}(170)\approx 0.243\cdot\frac{21.4\text{B}}{21{,}600}\approx 241\text{k ADA}
-$$
-
-to
-
-$$
-\sigma_i^{\star}(75)\approx 0.107\cdot\frac{21.4\text{B}}{21{,}600}\approx 106\text{k ADA}.
-$$
-
-So, holding delegation fixed, reducing $c_{\min}$ lowers the direct break-even threshold and should mechanically favor more entry / less exit.
+This threshold is written directly in terms of $\mathbb E[f_i]$ to avoid double counting: in this framework, expected block production is already implicit in expected rewards.
 
 Now include redelegation. Participation constraints should be evaluated at post-redelegation stake:
 
@@ -250,7 +220,7 @@ U_i\big(c_{\min},\sigma_i'\big)\ge 0,
 U_i^{\text{entry}}\big(c_{\min},\sigma_i'\big)-F_i\ge 0.
 $$
 
-Equivalently, with the block-based view, viability depends on $\lambda_i'$ after stake reallocation, not only on the direct change in $\lambda_i^{\star}$. Hence, a lower floor can reduce thresholds but still produce exits for pools that lose stake and drift below $\lambda_i^{\star}$, while attracting entry/survival for pools that gain stake. This is why the net entry-versus-exit prediction is ultimately an equilibrium question, even though the direct threshold effect of $c_{\min}\downarrow$ is entry-friendly under truthful-cost assumptions.
+Hence, a lower floor can reduce direct thresholds but still produce exits for pools that lose stake (and therefore expected rewards), while attracting entry/survival for pools that gain stake. This is why the net entry-versus-exit prediction is ultimately an equilibrium question, even though the direct threshold effect of $c_{\min}\downarrow$ is entry-friendly under truthful-cost assumptions.
 
 #### Pool splitting by multi-pool operators
 
