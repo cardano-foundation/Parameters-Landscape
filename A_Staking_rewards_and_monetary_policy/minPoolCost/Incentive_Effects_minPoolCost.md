@@ -180,18 +180,12 @@ As an intriguing side note, in the preceding figures—[fixed cost versus stake 
 
 Entry or exit can be analyzed in two layers: first, a direct viability threshold in expected rewards (or expected blocks), and second, the redelegation channel that shifts pools across that threshold.
 
-Using
+Let
 
 $$
 U_i=\Pi_i-\hat c_i,
 \qquad
-\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
-$$
-
-define
-
-$$
-s_i\equiv m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
+\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right], \qquad s_i\equiv m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
 $$
 
 For the region $f(\sigma_i,p_i)>c_i$, expected viability is
@@ -204,7 +198,7 @@ $$
 \frac{\hat c_i-(1-s_i)c_i}{s_i}.
 $$
 
-If we write expected gross reward as $\mathbb E[f_i]=\bar r_{\text{blk}}\,\lambda_i$ with $\lambda_i=\mathbb E[B_i]$ (expected blocks per epoch), then
+If we write expected gross reward as $\mathbb E[f_i]=\bar r_{\text{blk}} \lambda_i$ with $\lambda_i=\mathbb E[B_i]$ (expected blocks per epoch), then
 
 $$
 \lambda_i\ge \lambda_i^{\star}
