@@ -41,7 +41,9 @@ $$
 
 This creates a push-pull effect on delegation incentives. Lowering $c_{\min}$ increases the net reward available on the pools that choose to reduce their fixed cost $\frac{\partial r_i^D}{\partial c_i}<0$, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner, pushing out delegators. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools looking for better returns per unit of stake.
 
-At the operator level, the direct mechanical effect is negative on profitability for both policy changes:
+At the operator level, the direct mechanical effect is negative on operator gross revenues for both policy changes:
+
+$$\Pi_i = c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right].$$
 
 
 A lower $c_{\min}$ reduces operator revenue, and a higher $k$ lowers gross rewards for pools above the new saturation threshold. 
