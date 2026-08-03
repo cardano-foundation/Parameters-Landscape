@@ -36,7 +36,7 @@ $$
 but the delegator-facing return per unit stake is reduced by the fixed-cost floor,
 
 $$
-r_i^D(k,c_i)=(1-m_i)\frac{\max\{f(\sigma_i,p_i;k)-c_i,0\}}{\sigma_i}.
+r_i^D(k,c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
 $$
 
 This creates a push-pull effect. Lowering $c_{\min}$ improves the relative attractiveness of small pools by raising their net distributable reward, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools.
