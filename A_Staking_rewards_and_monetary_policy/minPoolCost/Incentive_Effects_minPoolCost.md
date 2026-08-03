@@ -220,6 +220,32 @@ f_i^{\star}=c_i,
 \lambda_i^{\star}=\frac{c_i}{\bar r_{\text{blk}}}.
 $$
 
+Using values close to the examples in Lopez de Lara-style calibrations (as in this repository: $R\approx 15$--$16$M ADA, $k=500$, $a_0=0.3$), take an illustrative average reward per produced block of $\bar r_{\text{blk}}\approx 700$ ADA. Then, for a floor-binding truthful-cost pool:
+
+$$
+\lambda_i^{\star}(c_i=170)=\frac{170}{700}\approx 0.243
+\quad\text{blocks/epoch},
+$$
+
+$$
+\lambda_i^{\star}(c_i=75)=\frac{75}{700}\approx 0.107
+\quad\text{blocks/epoch}.
+$$
+
+So the direct threshold drops by about $56\%$ when $c_{\min}$ moves from $170$ to $75$ ADA. In pure threshold terms (holding stake fixed), this points to more entry / less exit.
+
+If we also map this to stake using $\lambda_i\approx N_{\text{blk}}\,\sigma_i/S$ with an illustrative $N_{\text{blk}}=21{,}600$ active slots/epoch and $S\approx 21.4$B ADA, the break-even stake moves from roughly
+
+$$
+\sigma_i^{\star}(170)\approx 0.243\cdot\frac{21.4\text{B}}{21{,}600}\approx 241\text{k ADA}
+$$
+
+to
+
+$$
+\sigma_i^{\star}(75)\approx 0.107\cdot\frac{21.4\text{B}}{21{,}600}\approx 106\text{k ADA}.
+$$
+
 So, holding delegation fixed, reducing $c_{\min}$ lowers the direct break-even threshold and should mechanically favor more entry / less exit.
 
 Now include redelegation. Participation constraints should be evaluated at post-redelegation stake:
