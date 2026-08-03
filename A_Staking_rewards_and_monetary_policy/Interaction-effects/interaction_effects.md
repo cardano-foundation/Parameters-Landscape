@@ -25,34 +25,61 @@ $$
 z_0(k)=\frac{1}{k},
 $$
 
-while $c_{\min}$ changes the feasible declared fixed cost $c_i$ and therefore the net reward available to delegators. 
+while $c_{\min}$ changes the feasible declared fixed cost $c_i$. To keep the direct effects organized, we proceed in this order: gross pool rewards, operator gross revenues, and delegator returns.
+
+#### Gross pool rewards $f(\sigma_i,p_i)$
 
 Gross pool rewards are
 
 $$
-f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\tilde\sigma_i+a_0\tilde p_i\frac{\tilde\sigma_i-\tilde p_i\frac{z_0-\tilde\sigma_i}{z_0}}{z_0}\right],
+f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\frac{\widetilde{\sigma}_i-\widetilde{p}_i\frac{z_0-\widetilde{\sigma}_i}{z_0}}{z_0}\right],
 \qquad
-	ilde\sigma_i=\min\{\sigma_i,z_0\},\quad \tilde p_i=\min\{p_i,z_0\}.
+\widetilde{\sigma}_i=\min\{\sigma_i,z_0\},\quad \widetilde{p}_i=\min\{p_i,z_0\}.
 $$
 
-The [incentive effects of a change in k](k/Incentive_Effects_k.md) analysis shows that increasing $k$ may imply an increment or reduction in $f(\sigma_i,p_i)$ depending on the delegation and pledge of the pool considered.
+Directly, $c_{\min}$ does not enter $f(\cdot)$. The [incentive effects of a change in k](k/Incentive_Effects_k.md) analysis shows that increasing $k$ can increase or reduce $f(\sigma_i,p_i)$ depending on the pool's delegation and pledge (through the new saturation point).
 
-On the other hand, holding gross pool rewards fixed, a lower $c_i$ raises the delegator return per unit stake since the delegator-facing return per unit stake depends on both the gross pool reward and the fixed-cost,
+#### Operator gross revenue $\Pi_i$
+
+Operator gross revenue is
 
 $$
-r_i^D(k,c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
+\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
 $$
 
-A combined increment in $k$ and a reduction in `minPoolCost` creates a push-pull effect on delegation incentives. Lowering $c_{\min}$ increases the net reward available on the pools that choose to reduce their fixed cost since $\partial{r}_i^D / \partial c_i<0$, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner, pushing out delegators. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools looking for better returns per unit of stake.
+for the region where $f(\sigma_i,p_i)>c_i$. Defining
 
-At the operator level, the direct mechanical effect is negative on operator gross revenues for both policy changes:
+$$
+s_i=m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1],
+$$
 
-$$\Pi_i = c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], \qquad \partial \Pi_i/\partial c_i \geq 0.$$
+we can write
 
+$$
+\Pi_i=s_i f(\sigma_i,p_i)+(1-s_i)c_i,
+\qquad
+\frac{\partial \Pi_i}{\partial c_i}=1-s_i\ge 0.
+$$
 
-A lower $c_{\min}$ reduces operator revenue, and a higher $k$ lowers gross rewards for pools above the new saturation threshold. 
+So, mechanically, lowering $c_i$ (and therefore lowering the floor when binding) reduces operator gross revenue, while higher $k$ can also reduce $\Pi_i$ for pools whose gross reward falls after the saturation threshold change.
 
-Any improvement in the relative competitiveness of smaller pools comes form delegators and operators responding strategically.
+#### Delegator return per unit stake $r_i^D$
+
+Delegator-facing return per unit stake depends on both gross rewards and fixed costs,
+
+$$
+r_i^D(k,c_i)=(1-m_i)\frac{\max\{f(\sigma_i,p_i;k)-c_i,0\}}{\sigma_i}.
+$$
+
+For pools with positive distributable rewards ($f(\sigma_i,p_i;k)>c_i$),
+
+$$
+\frac{\partial r_i^D}{\partial c_i}<0.
+$$
+
+Hence, lowering $c_{\min}$ raises delegator returns for pools that reduce $c_i$, while increasing $k$ can reduce returns in now-oversaturated large pools. This is the direct push-pull mechanism on delegation incentives.
+
+In summary, at the direct mechanical level, lowering $c_{\min}$ hurts operator gross revenue but helps delegator returns (for pools that cut costs), while increasing $k$ can reduce gross rewards and returns for oversaturated pools. Any net competitiveness gain for smaller pools in realized allocations comes from the equilibrium responses of delegators and operators, which we analyze next.
 
 ### Behavioral and equilibrium effects
 
