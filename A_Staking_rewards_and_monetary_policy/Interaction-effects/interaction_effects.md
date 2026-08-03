@@ -32,19 +32,10 @@ Gross pool rewards are
 $$
 f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\tilde\sigma_i+a_0\tilde p_i\frac{\tilde\sigma_i-\tilde p_i\frac{z_0-\tilde\sigma_i}{z_0}}{z_0}\right],
 \qquad
-	ilde\sigma_i=\min\{\sigma_i,z_0\},\quad \tilde p_i=\min\{p_i,z_0\},
+	ilde\sigma_i=\min\{\sigma_i,z_0\},\quad \tilde p_i=\min\{p_i,z_0\}.
 $$
 
-implying
-
-
-Holding gross rewards fixed, a lower $c_i$ raises the delegator return per unit stake. Gross pool rewards are still given by
-
-$$
-f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\tilde\sigma_i+a_0\tilde p_i\frac{\tilde\sigma_i-\tilde p_i\frac{z_0-\tilde\sigma_i}{z_0}}{z_0}\right],
-\qquad
-	ilde\sigma_i=\min\{\sigma_i,z_0\},\quad \tilde p_i=\min\{p_i,z_0\},
-$$
+The [incentive effects of a change in k](k/Incentive_Effects_k.md) analysis shows that increasing $k$ may imply an increment or reduction in $f(\sigma_i,p_i)$ depending on the delegation and pledge of the pool considered.
 
 On the other hand, holding gross pool rewards fixed, a lower $c_i$ raises the delegator return per unit stake since the delegator-facing return per unit stake depends on both the gross pool reward and the fixed-cost,
 
