@@ -250,7 +250,10 @@ where $\bar r_{\text{exp}}$ is expected network staking return net of fee/cost p
 
 ### Behavioral deviations from the rational benchmark
 
-We now keep the same five channels but allow market frictions, bounded rationality, and coordination limits.
+We preserve the five baseline channels but relax full rationality by introducing market frictions, bounded rationality, and coordination failure.
+
+Compared to delegators, pool operators generally act as more sophisticated market participants. Consequently, we assume operators make rational, optimizing decisions while explicitly factoring in delegator behavioral frictions or bounded rationality into their strategies. 
+
 
 #### Delegators moving stake
 
