@@ -14,7 +14,7 @@ For the numerical analysis in this section, we use the parameter values below un
 
 ## Design
 
-The parameter $c_{\min}$ sets the minimum fixed cost that a stake pool operator may declare. The following plot shows the histogrma of the fixed cost declarations at epoch 644.
+The parameter $c_{\min}$ sets the minimum fixed cost that a stake pool operator may declare. The following plot shows the histogram of the fixed cost declarations at epoch 644.
 
 <p align="center" id="fig-min-pool-cost-644">
   <img src="plots/min_pool_cost_hist_epoch_644.png" alt="Histogram c_i epoch 644" width="62%">
@@ -50,7 +50,9 @@ f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
 where it is assume that the  operator's active pledge is equal to its declared pledge, $\hat{p}_i=p_i$.
     
-Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost` (this assumption contrasts with [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) setting where there is incentive compatibility, i.e., each operator declares their actual cost. However, the heavy concentration at 340 and 170 ADA in the histogram suggests parameter inertia rather than truthful cost revelation or active competitive optimization; many operators simply retained the legacy 340 ADA floor following its reduction to 170 ADA.). Next plot shows the effect of a reduction in `minPoolCost` change in the pool operator gross reward.
+Consider a reduction in `minPoolCost` and that the operator declares $c_i=$`minPoolCost`. Note that this assumption contrasts with [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) setting where there is incentive compatibility, i.e., each operator declares their actual cost. However, the heavy concentration at 340 and 170 ADA in the [histogram](fig-min-pool-cost-644) suggests parameter inertia or active competitive optimization rather than truthful cost revelation. 
+
+The next plot shows the effect of a reduction in `minPoolCost` change in the pool operator gross reward.
 
 <p align="center">
 <img src="plots/heatmap_operator_reward_c_cases.png" alt="Heatmap Operator Reward when c changes" width="80%">
@@ -66,7 +68,9 @@ Hence,
 
 $$\Pi_i=sf(\sigma_i,p_i)+(1-s)c_i$, \quad \text{and} \quad $\partial \Pi_i/\partial c_i=(1-s)\geq 0.$$
 
-It follows that the operator's profit drops with a lower $c_i$. A potential consequence is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. 
+It follows that the operator's profit drops with a lower $c_i$. A potential consequence is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. How important may this operator profit be? The [histogram](fig-min-pool-cost-644) shows that many pools prefer to stay with $c_i = 340$ ADA instead of reducing it to $170$ ADA and gain competitiveness. The next plot shows the $n=559$ pools that get a reward during epoch 644 (i.e., they produced a block). the plot shows how much reward (in percentage) these operators would lose if they report $170$ ADA instead of $340$ ADA. The figures are considerable. Note that in the first bin there are 86 pools: 64 of them lose exactly 0% because they all have a margin $m_i=100\%$, while 22 do not lose too much rewards $(0,2.5\%).
+
+
   
 
 ### Delegator return per unit of stake
@@ -78,7 +82,7 @@ $$\frac{f(\sigma_i,p_i)-c_i}{\sigma_i},$$
 Next plot illustrates this benefit comparing the net rewards per unit of stake for different $c_i$. For that comparison, let's first define the net rewards per unit of stake:
 
 <p align="center">
-<img src="plots/delegator_reward_per_unit_vs_sigma_c_cases.png" alt="Delegator Reward per unit of stake when c changes" width="80%">
+<img src="plots/delegator_reward_per_unit_vs_sigma_c_cases.png" alt="Delegator Reward per unit of stake when c changes" width="62%">
 </p>
 
   
