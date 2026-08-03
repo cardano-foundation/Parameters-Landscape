@@ -14,7 +14,13 @@ For the numerical analysis in this section, we use the parameter values below un
 
 ## Design
 
-The parameter $c_{\min}$ sets the minimum fixed cost that a stake pool operator may declare. It does not affect the pool's gross reward. Instead, the declared fixed cost is paid to the operator before the remaining rewards are divided between the operator and delegators.
+The parameter $c_{\min}$ sets the minimum fixed cost that a stake pool operator may declare. The following plot shows the histogrma of the fixed cost declarations at epoch 644.
+
+<p align="center" id="fig-min-pool-cost-644">
+  <img src="plots/min_pool_cost_hist_epoch_644.png" alt="Histogram c_i epoch 644" width="62%">
+</p>
+
+A change in $c_{\min}$ or in the declared fixed cost $c_i$ does not affect the pool's gross reward. Instead, the declared fixed cost is paid to the operator before the remaining rewards are divided between the operator and delegators.
 
 The main objective of $c_{\min}$ is to support economically viable pool operation and provide some protection against Sybil attacks. Without a minimum fixed cost to declare, an operator could create many pools, declare negligible costs, and offer returns to delegators that other operators (that needs to declare their cost) may be unable to match.
 
@@ -44,7 +50,7 @@ f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
 where it is assume that the  operator's active pledge is equal to its declared pledge, $\hat{p}_i=p_i$.
     
-Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost` (this assumption contrasts with [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) setting where there is incentive compatibility, i.e., each operator declares their actual cost). Next plot shows the effect of this change in the pool operator gross reward.
+Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost` (this assumption contrasts with [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) setting where there is incentive compatibility, i.e., each operator declares their actual cost. However, the heavy concentration at 340 and 170 ADA in the histogram suggests parameter inertia rather than truthful cost revelation or active competitive optimization; many operators simply retained the legacy 340 ADA floor following its reduction to 170 ADA.). Next plot shows the effect of a reduction in `minPoolCost` change in the pool operator gross reward.
 
 <p align="center">
 <img src="plots/heatmap_operator_reward_c_cases.png" alt="Heatmap Operator Reward when c changes" width="80%">
