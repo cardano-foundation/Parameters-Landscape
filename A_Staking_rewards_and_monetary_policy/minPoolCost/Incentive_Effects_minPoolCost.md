@@ -95,11 +95,11 @@ The plot suggests that cost reductions have a more significant positive impact o
 </p>
 
 
-### Behavioral and equilibrium effects
+## Behavioral and equilibrium effects
 
 Changing $c_{\min}$ does not modify gross rewards $f(\sigma_i,p_i)$ directly, but it changes feasible declared costs $c_i$, which feed into pool desirability, operator revenue, and participation constraints. The equilibrium forces are therefore mostly mediated by redelegation and strategic pool-level adjustments.
 
-#### Rational behavior
+### Rational behavior
 
 We start from a frictionless non-myopic benchmark (consistent with the reward-sharing game): forward-looking delegators and operators, truthful cost declaration ($c_i=\hat c_i$), and binding floor $c_i\ge c_{\min}$.
 
@@ -121,7 +121,7 @@ $$
 
 so increasing $c_{\min}$ directly lowers desirability for floor-binding pools.
 
-##### Delegators moving stake
+#### Delegators moving stake
 
 Delegators allocate by expected net return per unit stake,
 
@@ -139,7 +139,7 @@ $$
 
 Hence, raising $c_{\min}$ tends to push stake away from small/floor-binding pools (where $c_i/\sigma_i$ is large), while reducing $c_{\min}$ relaxes that pressure.
 
-##### Operators changing pledge, margin, or declared fixed cost
+#### Operators changing pledge, margin, or declared fixed cost
 
 Operator utility remains
 
@@ -158,7 +158,7 @@ $$
 
 When the floor is lowered, some operators use lower $c_i$ to recover delegation; when the floor rises, margin and pledge become relatively more important strategic levers.
 
-##### Entry or exit of pools
+#### Entry or exit of pools
 
 Participation constraints should be evaluated at post-redelegation stake:
 
@@ -170,7 +170,7 @@ $$
 
 This captures both channels: the direct effect of $c_{\min}$ through feasible $c_i$ and the indirect effect through redelegation ($\sigma_i'$). A higher floor may support incumbent revenue per pool but can tighten entry conditions for small newcomers if delegator net returns fall enough.
 
-##### Pool splitting by multi-pool operators
+#### Pool splitting by multi-pool operators
 
 For an MPO controlling $n$ pools,
 
@@ -181,7 +181,7 @@ $$
 
 Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{\min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{\min}$ does the opposite.
 
-##### Changes in staking participation
+#### Changes in staking participation
 
 Let total active stake be $S=\sum_i\sigma_i$. A reduced-form aggregate response is
 
@@ -191,11 +191,11 @@ $$
 
 where $\bar r_{\text{exp}}$ is expected network staking return net of fee/cost pass-through. Because $c_{\min}$ is mostly redistributive within staking, first-order effects are on allocation across pools, with aggregate participation moving mainly through perceived net-return changes.
 
-#### Behavioral deviations from the rational benchmark
+### Behavioral deviations from the rational benchmark
 
 We now keep the same five channels but allow market frictions, bounded rationality, and coordination limits.
 
-##### Delegators moving stake
+#### Delegators moving stake
 
 With search and attention frictions, observed migration is dampened:
 
@@ -206,7 +206,7 @@ $$
 
 Under this friction, even large changes in $c_{\min}$ can translate into slow redelegation if delegators are inert.
 
-##### Operators changing pledge, margin, or declared fixed cost
+#### Operators changing pledge, margin, or declared fixed cost
 
 Rather than jumping to the optimum, operators partially adjust controls:
 
@@ -221,7 +221,7 @@ $$
 
 with $0<\rho_c,\rho_m,\rho_p\le 1$. This generates transitional dynamics and temporary mispricing after a floor change.
 
-##### Entry or exit of pools
+#### Entry or exit of pools
 
 Inertia can be represented by hysteresis thresholds around participation:
 
@@ -233,7 +233,7 @@ $$
 
 with $H_i^{\text{entry}},H_i^{\text{exit}}>0$. This allows weak pools to remain active and viable entrants to delay launch, even when rational static constraints indicate immediate adjustment.
 
-##### Pool splitting by multi-pool operators
+#### Pool splitting by multi-pool operators
 
 Include organizational frictions in expansion value:
 
@@ -243,7 +243,7 @@ $$
 
 where $K(n)$ is increasing and convex. A lower floor may still fail to induce extra splits for operators with high coordination costs.
 
-##### Changes in staking participation
+#### Changes in staking participation
 
 If delegators overweight short-run payout changes, participation reacts to a salience-weighted objective:
 
@@ -253,11 +253,11 @@ $$
 
 with $\chi_s>\chi_l$ under short-term salience. This can amplify short-run participation responses to changes in $c_{\min}$ even when long-run effects are limited.
 
-### Decentralization
+## Decentralization
 
 
 
-### Interaction effects
+## Interaction effects
 
 See the file analysis in the [interaction effects file](Interaction-effects/interaction_effects.md)
 
