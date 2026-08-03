@@ -15,11 +15,11 @@ For the numerical analysis in this section, we use the parameter values below un
 
 This part studies the combined effects of changes in two or more parameters of the current rewards scheme design.
 
-## k with minPoolCost
+## k with minPoolCost ($c_{\min}$)
 
 ### Direct combined effects
 
-The proposal combines a lower minimum fixed cost, $c_{\min}$, with a higher pool target, $k$. In the reward-sharing model, the two parameters act on different margins: $k$ changes the saturation threshold
+The discussion combines a lower minimum fixed cost, $c_{\min}$, with a higher pool target, $k$. In the reward-sharing model, the two parameters act on different margins: $k$ changes the saturation threshold
 
 $$
 z_0(k)=\frac{1}{k},
