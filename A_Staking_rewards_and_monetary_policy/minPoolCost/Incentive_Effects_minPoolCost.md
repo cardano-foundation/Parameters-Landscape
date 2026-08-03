@@ -16,7 +16,7 @@ For the numerical analysis in this section, we use the parameter values below un
 
 The parameter $c_{\min}$ sets the minimum fixed cost that a stake pool operator may declare. It does not affect the pool's gross reward. Instead, the declared fixed cost is paid to the operator before the remaining rewards are divided between the operator and delegators.
 
-The main objective of $c_{\min}$ is to support economically viable pool operation and provide some protection against Sybil attacks. Without a minimum fixed cost, an operator could create many pools, declare negligible costs, and offer returns that other operators may be unable to match.
+The main objective of $c_{\min}$ is to support economically viable pool operation and provide some protection against Sybil attacks. Without a minimum fixed cost to declare, an operator could create many pools, declare negligible costs, and offer returns to delegators that other operators (that needs to declare their cost) may be unable to match.
 
 The main trade-off is that a fixed cost affects small pools more strongly because it is spread over less stake. Its burden per unit of stake is approximately proportional to
 
@@ -253,6 +253,7 @@ with $\chi_s>\chi_l$ under short-term salience. This can amplify short-run parti
 
 ### Interaction effects
 
+See the file analysis in the [interaction effects file](Interaction-effects/interaction_effects.md)
 
 
 
