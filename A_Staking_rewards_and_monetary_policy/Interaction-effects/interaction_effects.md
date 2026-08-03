@@ -47,7 +47,13 @@ $$
 \Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
 $$
 
-for the region where $f(\sigma_i,p_i)>c_i$. Defining
+for the region where $f(\sigma_i,p_i)>c_i$. In this direct-effects comparison, we assume pledge is fully honored, so declared and active pledge coincide:
+
+$$
+p_i=\hat p_i.
+$$
+
+Defining
 
 $$
 s_i=m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1],
@@ -89,7 +95,7 @@ $$
 s_i>s_i^*\equiv\frac{-\Delta c_i}{\Delta f_i-\Delta c_i}.
 $$
 
-Using $s_i=m_i+(1-m_i)\,q_i$ with $q_i\equiv\hat p_i/\sigma_i$, the equivalent pledge-share threshold is
+Using $s_i=m_i+(1-m_i)\,q_i$ with $q_i\equiv\hat p_i/\sigma_i=p_i/\sigma_i$, the equivalent pledge-share threshold is
 
 $$
 q_i>q_i^*\equiv\frac{s_i^*-m_i}{1-m_i}
@@ -122,7 +128,7 @@ $$
 q_i^*=\frac{0.388-0.05}{0.95}\approx 0.356.
 $$
 
-Therefore, under this example, a pool benefits mechanically from the combined shock only if its active pledge share satisfies $\hat p_i/\sigma_i\gtrsim 35.6\%$. Pools with lower pledge share are still hurt in direct operator revenue terms, even though their gross reward rises with the higher $k$.
+Therefore, under this example, a pool benefits mechanically from the combined shock only if its pledge share satisfies $p_i/\sigma_i=\hat p_i/\sigma_i\gtrsim 35.6\%$. Pools with lower pledge share are still hurt in direct operator revenue terms, even though their gross reward rises with the higher $k$.
 
 #### Delegator return per unit stake $r_i^D$
 
