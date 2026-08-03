@@ -156,7 +156,7 @@ When the floor is lowered, some operators use lower $c_i$ to gain delegation. We
 
 Actual data shows a different behavior to the one theoretically predicted. We already pointed out that a potential consequence of reducing $c_{min}$ is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. How important may this drop in the operator profit be? The [histogram](fig-min-pool-cost-644) shows that many pools prefer to stay with $c_i = 340$ ADA instead of reducing it to $170$ ADA and gain competitiveness. The next plot shows the $n=559$ pools that get a reward during epoch 644 (i.e., they produced a block). The plot shows how much reward (in percentage) these operators would lose if they report $170$ ADA instead of $340$ ADA. The figures are considerable. Note that in the first bin there are 86 pools: 64 of them lose exactly 0% because they all have a margin $m_i=100\%$, while 22 losses belongs to the range $(0,2.5\%).
 
-Empirical data reveals behavior that diverges from theoretical predictions. As previously noted, a lower declared fixed cost may make small pools more attractive for delegators but they may find it difficult to reduce their $c_i$ without compromising their economic viability. How significant is this potential loss in operator margin? As illustrated in the [histogram](fig-min-pool-cost-644), many operators choose to retain $c_i = 340\text{ ADA}$ rather than lowering it to $170\text{ ADA}$ to gain competitive yield for delegators. To quantify the financial impact, the subsequent plot analyzes the set of $n = 559$ reward-receiving pools in epoch 644 (i.e., those that produced at least one block). It plots the percentage loss in operator rewards resulting from a reduction to $170\text{ ADA}$. The revenue impact is substantial. Notably, the first bin contains 86 pools: 64 experience exactly a $0\%$ loss due to setting a margin of $m_i = 100\%$, while the remaining 22 pools incur losses within the $(0, 2.5\%]$ range.
+Empirical data reveals behavior that diverges from theoretical predictions. As previously noted, a lower declared fixed cost may make small pools more attractive for delegators but they may find it difficult to reduce their $c_i$ without compromising their economic viability. How significant is this potential loss in operator margin? As illustrated in the [histogram](fig-min-pool-cost-644), many operators choose to retain $c_i = 340\text{ ADA}$ rather than lowering it to $170\text{ ADA}$ to gain competitive yield for delegators. To quantify the financial impact, the subsequent plot analyzes the set of $n = 559$ reward-receiving pools and declaring $c_i=340$ ADA in epoch 644 (i.e., those that produced at least one block). It plots the percentage loss in operator rewards resulting from a reduction to $170\text{ ADA}$. The revenue impact is substantial. Notably, the first bin contains 86 pools: 64 experience exactly a $0\%$ loss due to setting a margin of $m_i = 100\%$, while the remaining 22 pools incur losses within the $(0, 2.5\%]$ range.
 
 <p align="center" id="fig-loss-reward-hist-644">
   <img src="plots/fixed_cost_340_to_170_loss_hist_epoch_644.png" alt="Histogram loss 340 to 170 epoch 644" width="62%">
@@ -178,9 +178,7 @@ As an intriguing side note, in the preceding figures—[fixed cost versus stake 
 
 #### Entry or exit of pools
 
-Entry or exit can be analyzed in two layers: direct viability thresholds, and then redelegation effects.
-
-Let
+Entry or exit has to be analyze the participation constraint, that needs ot take into account the actual fixed costs $\hat c_i$ and opportunity costs or outside options.  Let
 
 $$
 U_i=\Pi_i-\hat c_i,
@@ -190,37 +188,20 @@ U_i=\Pi_i-\hat c_i,
 s_i\equiv m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
 $$
 
-For the region $f(\sigma_i,p_i)>c_i$, expected viability is
+It follows that a pool decide to participate when
 
-$$
-\mathbb E[U_i]\ge 0
-\iff
-\mathbb E[f_i]\ge f_i^{\star}
-\equiv
-\frac{\hat c_i-(1-s_i)c_i}{s_i}.
+$$U_i\ge \underline{U}_i \iff f_i\ge f_i^{\star} \equiv \frac{\underline{U}_i+\hat c_i-(1-s_i)c_i}{s_i},
 $$
 
-Under the rational benchmark used in this section (truthful costs, $c_i=\hat c_i$), this simplifies to
+where $\underline{U}_i$ denotes the outside option. For simplicity, let's assume $\underline{U}_i=0$, however, a realistic outside option could be an anual return of $3\%-5\%$.
 
-$$
-\mathbb E[f_i]\ge c_i.
-$$
+Notice that if there is truthful cost reporting ($c_i=\hat c_i$)), then the previous condition becomes $f_i\ge c_i$. However, we have already argued that data do not suggests truthful reporting. 
 
-So viability must be evaluated with each pool's actual cost $c_i$ (equivalently $\hat c_i$ under truthful reporting), not by substituting $c_{\min}$.
+Using actual data from epoch 644, the following chart shows how many of the pools that produced a block during epoch 644 are on viability risk (note that taking only one epoch as data source may do not represent the actual state).
 
-The policy floor still matters through the feasibility constraint $c_i\ge c_{\min}$ and through strategic/cross-pool responses: lowering $c_{\min}$ relaxes the lower bound on feasible $c_i$, which can reduce break-even thresholds for pools that choose or can sustain lower costs, but the viability test itself remains pool-specific.
 
-This threshold is written directly in terms of $\mathbb E[f_i]$ to avoid double counting: in this framework, expected block production is already implicit in expected rewards.
 
-Now include redelegation. Participation constraints should be evaluated at post-redelegation stake:
 
-$$
-U_i\big(c_{\min},\sigma_i'\big)\ge 0,
-\qquad
-U_i^{\text{entry}}\big(c_{\min},\sigma_i'\big)-F_i\ge 0.
-$$
-
-Hence, a lower floor can reduce direct thresholds but still produce exits for pools that lose stake (and therefore expected rewards), while attracting entry/survival for pools that gain stake. This is why the net entry-versus-exit prediction is ultimately an equilibrium question, even though the direct threshold effect of $c_{\min}\downarrow$ is entry-friendly under truthful-cost assumptions.
 
 #### Pool splitting by multi-pool operators
 
