@@ -68,12 +68,8 @@ Hence,
 
 $$\Pi_i=sf(\sigma_i,p_i)+(1-s)c_i$, \quad \text{and} \quad $\partial \Pi_i/\partial c_i=(1-s)\geq 0.$$
 
-It follows that the operator's profit drops with a lower $c_i$. A potential consequence is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. How important may this drop in the operator profit be? The [histogram](fig-min-pool-cost-644) shows that many pools prefer to stay with $c_i = 340$ ADA instead of reducing it to $170$ ADA and gain competitiveness. The next plot shows the $n=559$ pools that get a reward during epoch 644 (i.e., they produced a block). The plot shows how much reward (in percentage) these operators would lose if they report $170$ ADA instead of $340$ ADA. The figures are considerable. Note that in the first bin there are 86 pools: 64 of them lose exactly 0% because they all have a margin $m_i=100\%$, while 22 losses belongs to the range $(0,2.5\%).
+It follows that the operator's profit drops with a lower $c_i$. A potential consequence is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. 
 
-<p align="center" id="fig-loss-reward-hist-644">
-  <img src="plots/fixed_cost_340_to_170_loss_hist_epoch_644.png" alt="Histogram loss 340 to 170 epoch 644" width="62%">
-</p>
-  
 
 ### Delegator return per unit of stake
 
@@ -156,11 +152,33 @@ $$
 \quad\text{s.t. }c_i\ge c_{\min}.
 $$
 
-When the floor is lowered, some operators use lower $c_i$ to recover delegation; when the floor rises, margin and pledge become relatively more important strategic levers.
+When the floor is lowered, some operators use lower $c_i$ to gain delegation. We should expect a stronger competition for delegations by reducing the fixed cost or the margin when reducing the fixed cost is not convenient. 
+
+Actual data shows a different behavior to the one theoretically predicted. We already pointed out that a potential consequence of reducing $c_{min}$ is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. How important may this drop in the operator profit be? The [histogram](fig-min-pool-cost-644) shows that many pools prefer to stay with $c_i = 340$ ADA instead of reducing it to $170$ ADA and gain competitiveness. The next plot shows the $n=559$ pools that get a reward during epoch 644 (i.e., they produced a block). The plot shows how much reward (in percentage) these operators would lose if they report $170$ ADA instead of $340$ ADA. The figures are considerable. Note that in the first bin there are 86 pools: 64 of them lose exactly 0% because they all have a margin $m_i=100\%$, while 22 losses belongs to the range $(0,2.5\%).
+
+Empirical data reveals behavior that diverges from theoretical predictions. As previously noted, a lower declared fixed cost may make small pools more attractive for delegators but they may find it difficult to reduce their $c_i$ without compromising their economic viability. How significant is this potential loss in operator margin? As illustrated in the [histogram](fig-min-pool-cost-644), many operators choose to retain $c_i = 340\text{ ADA}$ rather than lowering it to $170\text{ ADA}$ to gain competitive yield for delegators. To quantify the financial impact, the subsequent plot analyzes the set of $n = 559$ reward-receiving pools in epoch 644 (i.e., those that produced at least one block). It plots the percentage loss in operator rewards resulting from a reduction to $170\text{ ADA}$. The revenue impact is substantial. Notably, the first bin contains 86 pools: 64 experience exactly a $0\%$ loss due to setting a margin of $m_i = 100\%$, while the remaining 22 pools incur losses within the $(0, 2.5\%]$ range.
+
+<p align="center" id="fig-loss-reward-hist-644">
+  <img src="plots/fixed_cost_340_to_170_loss_hist_epoch_644.png" alt="Histogram loss 340 to 170 epoch 644" width="62%">
+</p>
+
+The subsequent plot demonstrates that pools adopting the lowest allowable fixed cost ($170\text{ ADA}$) tend to hold significantly higher delegation levels. Conversely, nearly $54\%$ of pools retaining $340\text{ ADA}$ command less than $100\text{k ADA}$ in stake, compared to only $21\%$ among those setting $170\text{ ADA}$.
+
+<p align="center" id="fig-bubble-c-versus-size">
+  <img src="plots/fixed_cost_170_vs_340_stake_bubbles_epoch_644.png" alt="Bubbles fixed costs versus size" width="62%">
+</p>
+
+The theoretical model also predicts intensified competition in margins ($m_i$) following a reduction in $c_{min}$. However, as shown in the next plot, this price competition is mainly observed among pools declaring $c_i = 170\text{ ADA}$. In contrast, many pools retaining $340\text{ ADA}$ continue to charge high margins. Despite commanding low delegation levels, these operators show no tendency to lower their margins to improve their attractivness for delegators.
+
+<p align="center" id="fig-bubble-c-versus-margin">
+  <img src="plots/fixed_cost_margin_bubbles_epoch_644.png" alt="Bubbles fixed costs versus margin" width="62%">
+</p>
+
+As an intriguing side note, in the preceding figures—[fixed cost versus stake size](id="fig-bubble-c-versus-size") and [fixed cost versus size](fig-bubble-c-versus-margin)—the total number of pools choosing the minimum allowable fixed cost ($170\text{ ADA}$) approaches $500$, aligning remarkably well with the target pool parameter $k$.
 
 #### Entry or exit of pools
 
-Participation constraints should be evaluated at post-redelegation stake:
+Entry or exit of pools can be understand (at least from a theoretical perspective) using participation constraints at post-redelegation stake:
 
 $$
 U_i\big(c_{\min},\sigma_i'\big)\ge 0,
@@ -168,7 +186,7 @@ U_i\big(c_{\min},\sigma_i'\big)\ge 0,
 U_i^{\text{entry}}\big(c_{\min},\sigma_i'\big)-F_i\ge 0.
 $$
 
-This captures both channels: the direct effect of $c_{\min}$ through feasible $c_i$ and the indirect effect through redelegation ($\sigma_i'$). A higher floor may support incumbent revenue per pool but can tighten entry conditions for small newcomers if delegator net returns fall enough.
+This captures both channels: the direct effect of $c_{\min}$ through feasible $c_i$ and the indirect effect through redelegation ($\sigma_i'$). A lower floor may reduce incumbent revenue per pool but can facilitate entry conditions for small newcomers if delegator net returns fall enough.
 
 #### Pool splitting by multi-pool operators
 
