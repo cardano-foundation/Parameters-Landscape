@@ -19,13 +19,7 @@ This part studies the combined effects of changes in two or more parameters of t
 
 ### Direct combined effects
 
-The discussion combines a lower minimum fixed cost, $c_{\min}$, with a higher pool target, $k$. In the reward-sharing model, the two parameters act on different margins: $k$ changes the saturation threshold
-
-$$
-z_0(k)=\frac{1}{k},
-$$
-
-while $c_{\min}$ changes the feasible declared fixed cost $c_i$. To keep the direct effects organized, we proceed in this order: gross pool rewards, operator gross revenues, and delegator returns.
+The discussion combines a lower minimum fixed cost, $c_{\min}$, with a higher pool target, $k$. In the reward-sharing model, the two parameters act on different margins: $k$ changes the saturation threshold $z_0(k)=1/k,$ while $c_{\min}$ changes the feasible declared fixed cost $c_i$. To keep the direct effects organized, we proceed in this order: gross pool rewards, operator gross revenues, and delegator returns.
 
 #### Gross pool rewards $f(\sigma_i,p_i)$
 
@@ -34,7 +28,7 @@ Gross pool rewards are
 $$
 f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\frac{\widetilde{\sigma}_i-\widetilde{p}_i\frac{z_0-\widetilde{\sigma}_i}{z_0}}{z_0}\right],
 \qquad
-\widetilde{\sigma}_i=\min\{\sigma_i,z_0\},\quad \widetilde{p}_i=\min\{p_i,z_0\}.
+\widetilde{\sigma}_i=\min\\{\sigma_i,z_0\\},\quad \widetilde{p}_i=\min\\{p_i,z_0\\}.
 $$
 
 Directly, $c_{\min}$ does not enter $f(\cdot)$. The [incentive effects of a change in k](k/Incentive_Effects_k.md) analysis shows that increasing $k$ can increase or reduce $f(\sigma_i,p_i)$ depending on the pool's delegation and pledge (through the new saturation point).
@@ -44,30 +38,14 @@ Directly, $c_{\min}$ does not enter $f(\cdot)$. The [incentive effects of a chan
 Operator gross revenue is
 
 $$
-\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
+\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\underbrace{\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right]}_{s_i\in[0,1]}, \qquad
+\frac{\partial \Pi_i}{\partial c_i}=1-s_i\ge 0
 $$
 
-for the region where $f(\sigma_i,p_i)>c_i$. In this direct-effects comparison, we assume pledge is fully honored, so declared and active pledge coincide:
+for the region where $f(\sigma_i,p_i)>c_i$. In this direct-effects comparison, we assume declared and active pledge coincide $p_i=\hat p_i.$
 
-$$
-p_i=\hat p_i.
-$$
 
-Defining
-
-$$
-s_i=m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1],
-$$
-
-we can write
-
-$$
-\Pi_i=s_i f(\sigma_i,p_i)+(1-s_i)c_i,
-\qquad
-\frac{\partial \Pi_i}{\partial c_i}=1-s_i\ge 0.
-$$
-
-To isolate the direct combined shock ($k\uparrow$, $c_{\min}\downarrow$), keep $(m_i,\hat p_i,\sigma_i)$ fixed and define
+To isolate the direct combined shock ($k\uparrow$, $c_{\min}\downarrow$), keep $(m_i,\hat p_i,\sigma_i)$ fixed and let
 
 $$
 \Delta f_i=f_i' - f_i,
@@ -78,14 +56,7 @@ $$
 Then
 
 $$
-\Delta\Pi_i=s_i\,\Delta f_i+(1-s_i)\,\Delta c_i.
-$$
-
-Hence a pool benefits mechanically iff
-
-$$
-\Delta\Pi_i>0
-\iff
+\Delta\Pi_i=s_i\,\Delta f_i+(1-s_i)\,\Delta c_i>0 \quad \iff
 s_i(\Delta f_i-\Delta c_i)>-\Delta c_i.
 $$
 
@@ -98,13 +69,12 @@ $$
 Using $s_i=m_i+(1-m_i)\,q_i$ with $q_i\equiv\hat p_i/\sigma_i=p_i/\sigma_i$, the equivalent pledge-share threshold is
 
 $$
-q_i>q_i^*\equiv\frac{s_i^*-m_i}{1-m_i}
-=\frac{\frac{-\Delta c_i}{\Delta f_i-\Delta c_i}-m_i}{1-m_i}.
+q_i > q_i^{*}\equiv\frac{s_i^{*}-m_i}{1-m_i} =\frac{\frac{-\Delta c_i}{\Delta f_i-\Delta c_i}-m_i}{1-m_i}.
 $$
 
-Interpretation: pools far from the old saturation point can have $\Delta f_i>0$ after $k$ increases, so they may offset the revenue loss from lowering $c_i$. Pools with low $q_i$ (and low effective $s_i$) are less able to offset that loss and are more likely to be harmed under the direct-effect comparison.
+Interpretation: pools far from the initial saturation point can have $\Delta f_i>0$ after $k$ increases, so they may offset the revenue loss from lowering $c_i$. Pools with low $q_i$ (and low effective $s_i$) are less able to offset that loss and are more likely to be harmed under the direct-effect comparison.
 
-As a numerical illustration, take the baseline margin $m_i=5\%$ and a binding fixed-cost reduction from $170$ ADA to $75$ ADA, so
+As a numerical illustration, take the baseline margin $m_i=5\\%$ and a binding fixed-cost reduction from $170$ ADA to $75$ ADA, so
 
 $$
 \Delta c_i=75-170=-95\text{ ADA}.
