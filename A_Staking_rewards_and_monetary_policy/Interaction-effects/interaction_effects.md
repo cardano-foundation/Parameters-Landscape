@@ -39,7 +39,7 @@ $$
 r_i^D(k,c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
 $$
 
-This creates a push-pull effect. Lowering $c_{\min}$ increases the net reward available to the pools that choose to reduce their fixed cost, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools.
+This creates a push-pull effect. Lowering $c_{\min}$ increases the net reward available on the pools that choose to reduce their fixed cost, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner, pushing out delegators. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools looking for better returns per unit of stake.
 
 At the operator level, the two parameters work in opposite directions on profitability. A lower $c_{\min}$ reduces operator revenue for floor-binding pools, while a higher $k$ lowers gross rewards for pools above the new saturation threshold. Hence, the combined reform redistributes rent away from large, fee-rich pools and toward smaller pools only if those smaller pools can remain viable with the lower fixed-cost floor.
 
@@ -198,4 +198,10 @@ $$
 
 with $\chi_s>\chi_l$ under short-term salience. This can delay the full reallocation implied by the rational benchmark, even when the combined reform improves the long-run positioning of smaller pools.
 
-## k with a0;
+## k with a0
+
+## rho with tau
+
+# Interaction with potential new parameters
+
+## a0 with pledge leverage L
