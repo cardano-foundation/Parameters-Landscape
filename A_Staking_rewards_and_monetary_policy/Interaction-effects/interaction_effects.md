@@ -61,7 +61,68 @@ $$
 \frac{\partial \Pi_i}{\partial c_i}=1-s_i\ge 0.
 $$
 
-So, mechanically, lowering $c_i$ (and therefore lowering the floor when binding) reduces operator gross revenue, while higher $k$ can also reduce $\Pi_i$ for pools whose gross reward falls after the saturation threshold change.
+To isolate the direct combined shock ($k\uparrow$, $c_{\min}\downarrow$), keep $(m_i,\hat p_i,\sigma_i)$ fixed and define
+
+$$
+\Delta f_i=f_i' - f_i,
+\qquad
+\Delta c_i=c_i'-c_i\le 0.
+$$
+
+Then
+
+$$
+\Delta\Pi_i=s_i\,\Delta f_i+(1-s_i)\,\Delta c_i.
+$$
+
+Hence a pool benefits mechanically iff
+
+$$
+\Delta\Pi_i>0
+\iff
+s_i(\Delta f_i-\Delta c_i)>-\Delta c_i.
+$$
+
+When $\Delta f_i>\Delta c_i$, this gives a threshold on $s_i$:
+
+$$
+s_i>s_i^*\equiv\frac{-\Delta c_i}{\Delta f_i-\Delta c_i}.
+$$
+
+Using $s_i=m_i+(1-m_i)\,q_i$ with $q_i\equiv\hat p_i/\sigma_i$, the equivalent pledge-share threshold is
+
+$$
+q_i>q_i^*\equiv\frac{s_i^*-m_i}{1-m_i}
+=\frac{\frac{-\Delta c_i}{\Delta f_i-\Delta c_i}-m_i}{1-m_i}.
+$$
+
+Interpretation: pools far from the old saturation point can have $\Delta f_i>0$ after $k$ increases, so they may offset the revenue loss from lowering $c_i$. Pools with low $q_i$ (and low effective $s_i$) are less able to offset that loss and are more likely to be harmed under the direct-effect comparison.
+
+As a numerical illustration, take the baseline margin $m_i=5\%$ and a binding fixed-cost reduction from $170$ ADA to $75$ ADA, so
+
+$$
+\Delta c_i=75-170=-95\text{ ADA}.
+$$
+
+Suppose that, for a given pool below the old saturation point, the direct effect of increasing $k$ from $500$ to $1000$ raises gross rewards by
+
+$$
+\Delta f_i=150\text{ ADA}.
+$$
+
+Then the operator-revenue threshold becomes
+
+$$
+s_i^*=\frac{95}{150+95}=\frac{95}{245}\approx 0.388,
+$$
+
+and, using $m_i=0.05$,
+
+$$
+q_i^*=\frac{0.388-0.05}{0.95}\approx 0.356.
+$$
+
+Therefore, under this example, a pool benefits mechanically from the combined shock only if its active pledge share satisfies $\hat p_i/\sigma_i\gtrsim 35.6\%$. Pools with lower pledge share are still hurt in direct operator revenue terms, even though their gross reward rises with the higher $k$.
 
 #### Delegator return per unit stake $r_i^D$
 
