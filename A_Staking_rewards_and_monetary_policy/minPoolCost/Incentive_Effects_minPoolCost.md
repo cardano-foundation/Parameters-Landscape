@@ -44,7 +44,7 @@ f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
 where it is assume that the  operator's active pledge is equal to its declared pledge, $\hat{p}_i=p_i$.
     
-Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost` (. Next plot shows the effect of this change in the pool operator gross reward.
+Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost` (this assumption contrasts with [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) setting where there is incentive compatibility, i.e., each operator declares their actual cost). Next plot shows the effect of this change in the pool operator gross reward.
 
 <p align="center">
 <img src="plots/heatmap_operator_reward_c_cases.png" alt="Heatmap Operator Reward when c changes" width="80%">
@@ -63,7 +63,7 @@ $$\Pi_i=sf(\sigma_i,p_i)+(1-s)c_i$, \quad \text{and} \quad $\partial \Pi_i/\part
 It follows that the operator's profit drops with a lower $c_i$. A potential consequence is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. 
   
 
-####Delegator return per unit of stake
+### Delegator return per unit of stake
 
 Reducing the fixed cost increases the net reward that a pool can distribute among its delegators since
 
