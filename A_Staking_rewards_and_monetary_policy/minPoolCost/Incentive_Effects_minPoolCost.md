@@ -146,7 +146,7 @@ $$
 with feasibility $c_i\ge c_{\min}$. A reduced-form best response is
 
 $$
-(c_i^*,m_i^*,\hat p_i^*)\in\arg\max_{c_i,m_i,\hat p_i}\;U_i\big(c_{\min},\sigma_i'(c_i,m_i,\hat p_i),c_i,m_i,\hat p_i\big)
+(c_i^{\*},m_i^{\*},\hat p_i^{\*})\in\arg\max_{c_i,m_i,\hat p_i}\;U_i\big(c_{\min},\sigma_i'(c_i,m_i,\hat p_i),c_i,m_i,\hat p_i\big)
 \quad\text{s.t. }c_i\ge c_{\min}.
 $$
 
@@ -205,12 +205,12 @@ Under this friction, even large changes in $c_{\min}$ can translate into slow re
 Rather than jumping to the optimum, operators partially adjust controls:
 
 $$
-c_{i,t+1}=\max\{c_{\min},\;c_{i,t}+\rho_c(c_i^*-c_{i,t})\},
+c_{i,t+1}=\max\{c_{\min},\;c_{i,t}+\rho_c(c_i^{\*}-c_{i,t})\},
 $$
 $$
-m_{i,t+1}=m_{i,t}+\rho_m(m_i^*-m_{i,t}),
+m_{i,t+1}=m_{i,t}+\rho_m(m_i^{\*}-m_{i,t}),
 \qquad
-\hat p_{i,t+1}=\hat p_{i,t}+\rho_p(\hat p_i^*-\hat p_{i,t}),
+\hat p_{i,t+1}=\hat p_{i,t}+\rho_p(\hat p_i^{\*}-\hat p_{i,t}),
 $$
 
 with $0<\rho_c,\rho_m,\rho_p\le 1$. This generates transitional dynamics and temporary mispricing after a floor change.
