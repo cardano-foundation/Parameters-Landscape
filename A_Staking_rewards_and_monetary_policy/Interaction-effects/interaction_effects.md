@@ -171,7 +171,7 @@ $$
 The relevant reduced-form best response is
 
 $$
-(c_i^*,m_i^*,\hat p_i^*)\in\arg\max_{c_i,m_i,\hat p_i}\;U_i\big(k,c_{\min},\sigma_i'(c_i,m_i,\hat p_i),c_i,m_i,\hat p_i\big)
+(c_i^{\*},m_i^{\*},\hat p_i^{\*})\in\arg\max_{c_i,m_i,\hat p_i}\;U_i\big(k,c_{\min},\sigma_i'(c_i,m_i,\hat p_i),c_i,m_i,\hat p_i\big)
 \quad\text{s.t. }c_i\ge c_{\min}.
 $$
 
@@ -230,12 +230,12 @@ This matters more under the combined reform because the new destination set is l
 With partial adjustment, operators move gradually toward the new optimum:
 
 $$
-c_{i,t+1}=\max\{c_{\min},\;c_{i,t}+\rho_c(c_i^*-c_{i,t})\},
+c_{i,t+1}=\max\{c_{\min},\;c_{i,t}+\rho_c(c_i^{\*}-c_{i,t})\},
 $$
 $$
-m_{i,t+1}=m_{i,t}+\rho_m(m_i^*-m_{i,t}),
+m_{i,t+1}=m_{i,t}+\rho_m(m_i^{\*}-m_{i,t}),
 \qquad
-\hat p_{i,t+1}=\hat p_{i,t}+\rho_p(\hat p_i^*-
+\hat p_{i,t+1}=\hat p_{i,t}+\rho_p(\hat p_i^{\*}-
 \hat p_{i,t}),
 $$
 
