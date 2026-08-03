@@ -199,13 +199,33 @@ Notice that if there is truthful cost reporting ($c_i=\hat c_i$)), then the prev
 
 Using actual data from epoch 644, the following chart shows how many of the pools that produced a block during epoch 644 are on viability risk (note that taking only one epoch as data source may do not represent the actual state). We assume that all pools face the same operation cost/expenditure ($C^*$) equal to $667$ USD per month (six epochs), and a token price of $0.15 USD/ADA$ giving 
 
-$$C^*=667/6/0.15 \text{USD per epoch}.$$
+$$C^*=667/6/0.15=741.1 \text{ USD per epoch}.$$
+
+The plot measures $r=\Pi_i/C^{\*}$, where a $r<1$ indicates not enough rewards to cover costs. Among the $902$ pools that were rewarded in that epoch, only $269$ were able to cover the OpEx $C^*$. However, $151$ of them were on a risky situation ($1\leq r\leq 2$)
 
 <p align="center">
-<img src="plots/pool_viability_opex_epoch_644.png" alt="Pools viability versus OpCost" width="62%">
+<img src="plots/pool_viability_opex_categories_epoch_644.png" alt="Pools viability versus OpCost" width="62%">
 </p>
 
+Next charts shows what are the characteristics of the losing and edge pools. 
 
+<p align="center">
+<img src="plots/pool_viability_losing_vs_edge_traits_epoch_644.png" alt="Pools characteristics losing and edge" width="62%">
+</p>
+
+| | Losing (n=633) | Edge (n=151) |
+|---|---|---|
+| Epoch stake (M ADA) | 6.66 | 38.08 |
+| Active pledge (k ADA) | 45.0 | 9.4 |
+| Declared pledge (k ADA) | 20.0 | 0.1 |
+| Declared fixed cost (ADA) | 340 | 340 |
+| Margin (%) | 1.5 | 5.0 |
+| Blocks minted | 6 | 39 |
+| Delegators | 243 | 36 |
+| Leader reward (ADA) | 358 | 934 |
+| Coverage ratio \(r\) | 0.483 | 1.260 |
+
+Unsurprisingly, pools on the losing set hold less total delegation. This remains true even when operators attempt to attract delegators by lowering their declared fixed costs ($c_i$) and variable margins ($m_i$). Delegators may be largely unresponsive to these fee reductions because $c_i$ and $m_i$ alone do not dictate a pool's market appeal. Instead, the primary factors driving pool attractiveness are its existing delegation volume and operator pledge size. These elements act as entry barrier for new small pools, regardless of any reductions in `minPoolCost`.
 
 #### Pool splitting by multi-pool operators
 
