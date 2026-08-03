@@ -25,7 +25,9 @@ $$
 z_0(k)=\frac{1}{k},
 $$
 
-while $c_{\min}$ changes the feasible declared fixed cost $c_i$ and therefore the net reward available to delegators. Holding gross rewards fixed, a lower $c_i$ raises the delegator return per unit stake. Gross pool rewards are still given by
+while $c_{\min}$ changes the feasible declared fixed cost $c_i$ and therefore the net reward available to delegators. 
+
+Gross pool rewards are
 
 $$
 f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\tilde\sigma_i+a_0\tilde p_i\frac{\tilde\sigma_i-\tilde p_i\frac{z_0-\tilde\sigma_i}{z_0}}{z_0}\right],
@@ -33,17 +35,28 @@ f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\tilde\sigma_i+a_0\tilde p_i\frac{\tilde\si
 	ilde\sigma_i=\min\{\sigma_i,z_0\},\quad \tilde p_i=\min\{p_i,z_0\},
 $$
 
-so the delegator-facing return per unit stake depends on both the gross reward term and the fixed-cost term,
+implying
+
+
+Holding gross rewards fixed, a lower $c_i$ raises the delegator return per unit stake. Gross pool rewards are still given by
+
+$$
+f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\tilde\sigma_i+a_0\tilde p_i\frac{\tilde\sigma_i-\tilde p_i\frac{z_0-\tilde\sigma_i}{z_0}}{z_0}\right],
+\qquad
+	ilde\sigma_i=\min\{\sigma_i,z_0\},\quad \tilde p_i=\min\{p_i,z_0\},
+$$
+
+On the other hand, holding gross pool rewards fixed, a lower $c_i$ raises the delegator return per unit stake since the delegator-facing return per unit stake depends on both the gross pool reward and the fixed-cost,
 
 $$
 r_i^D(k,c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
 $$
 
-This creates a push-pull effect on delegation incentives. Lowering $c_{\min}$ increases the net reward available on the pools that choose to reduce their fixed cost since $\partial{r}_i^D / \partial c_i<0$, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner, pushing out delegators. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools looking for better returns per unit of stake.
+A combined increment in $k$ and a reduction in `minPoolCost` creates a push-pull effect on delegation incentives. Lowering $c_{\min}$ increases the net reward available on the pools that choose to reduce their fixed cost since $\partial{r}_i^D / \partial c_i<0$, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner, pushing out delegators. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools looking for better returns per unit of stake.
 
 At the operator level, the direct mechanical effect is negative on operator gross revenues for both policy changes:
 
-$$\Pi_i = c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right].$$
+$$\Pi_i = c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], \qquad \partial \Pi_i/\partial c_i \geq 0.$$
 
 
 A lower $c_{\min}$ reduces operator revenue, and a higher $k$ lowers gross rewards for pools above the new saturation threshold. 
