@@ -39,7 +39,7 @@ $$
 r_i^D(k,c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
 $$
 
-This creates a push-pull effect on delegation incentives. Lowering $c_{\min}$ increases the net reward available on the pools that choose to reduce their fixed cost $\frac{\partial r_i^D}{\partial c_i}<0$, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner, pushing out delegators. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools looking for better returns per unit of stake.
+This creates a push-pull effect on delegation incentives. Lowering $c_{\min}$ increases the net reward available on the pools that choose to reduce their fixed cost since $\partial{r}_i^D / \partial c_i<0$, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner, pushing out delegators. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools looking for better returns per unit of stake.
 
 At the operator level, the direct mechanical effect is negative on operator gross revenues for both policy changes:
 
