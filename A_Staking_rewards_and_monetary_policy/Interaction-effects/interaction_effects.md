@@ -25,7 +25,7 @@ $$
 z_0(k)=\frac{1}{k},
 $$
 
-while $c_{\min}$ changes the feasible declared fixed cost $c_i$ and therefore the net reward available to delegators. Gross pool rewards are still given by
+while $c_{\min}$ changes the feasible declared fixed cost $c_i$ and therefore the net reward available to delegators. Holding gross rewards fixed, a lower $c_i$ raises the delegator return per unit stake. Gross pool rewards are still given by
 
 $$
 f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\tilde\sigma_i+a_0\tilde p_i\frac{\tilde\sigma_i-\tilde p_i\frac{z_0-\tilde\sigma_i}{z_0}}{z_0}\right],
@@ -33,13 +33,13 @@ f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\tilde\sigma_i+a_0\tilde p_i\frac{\tilde\si
 	\tilde\sigma_i=\min\\{\sigma_i,z_0\\},\quad \tilde p_i=\min\\{p_i,z_0\\},
 $$
 
-but the delegator-facing return per unit stake is reduced by the fixed-cost floor,
+so the delegator-facing return per unit stake depends on both the gross reward term and the fixed-cost term,
 
 $$
 r_i^D(k,c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
 $$
 
-This creates a push-pull effect. Lowering $c_{\min}$ improves the relative attractiveness of small pools by raising their net distributable reward, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools.
+This creates a push-pull effect. Lowering $c_{\min}$ increases the net reward available to the pools that choose to reduce their fixed cost, while increasing $k$ lowers $z_0$ and makes large pools oversaturate sooner. The two changes are therefore complementary: the first improves the destination quality of smaller pools, and the second increases the incentive to leave large pools.
 
 At the operator level, the two parameters work in opposite directions on profitability. A lower $c_{\min}$ reduces operator revenue for floor-binding pools, while a higher $k$ lowers gross rewards for pools above the new saturation threshold. Hence, the combined reform redistributes rent away from large, fee-rich pools and toward smaller pools only if those smaller pools can remain viable with the lower fixed-cost floor.
 
