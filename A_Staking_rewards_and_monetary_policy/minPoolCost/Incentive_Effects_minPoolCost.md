@@ -18,30 +18,24 @@ The parameter $c_{\min}$ sets the minimum fixed cost that a stake pool operator 
 
 The main objective of $c_{\min}$ is to support economically viable pool operation and provide some protection against Sybil attacks. Without a minimum fixed cost to declare, an operator could create many pools, declare negligible costs, and offer returns to delegators that other operators (that needs to declare their cost) may be unable to match.
 
-The main trade-off is that a fixed cost affects small pools more strongly because it is spread over less stake. Its burden per unit of stake is approximately proportional to
-
-$$
-\frac{c_i}{\sigma_i}.
-$$
-
-A higher $c_{\min}$ can therefore protect operator revenues and discourage small, undercapitalized Sybil pools, but it also reduces the competitiveness of small and new pools and may push delegation toward larger pools. A lower $c_{\min}$ facilitates entry and improves small-pool returns, but may intensify fee competition and make it easier for multi-pool operators to expand.
+The main trade-off comes from the incentive that a pool has to declare a larger fixed cost to cover their actual cost versus to declare less to become more attractive for delegators. That is, a higher $c_{\min}$ can therefore protect operator revenues and discourage small, undercapitalized Sybil pools, but it also reduces the competitiveness of small and new pools and may push delegation toward larger pools. A lower $c_{\min}$ facilitates entry and improves small-pool returns, but may intensify fee competition and make it easier for multi-pool operators to expand.
 
 The appropriate level of $c_{\min}$ therefore balances operator viability and Sybil resistance against entry, competition, and decentralization.
 
-## Effects of change in $c_{min}$
+Next, these effects and trade-off are explained with more details
 
-
-### Direct mechanical effects 
+## Direct mechanical effects 
 In this section we consider the direct effects of **reducing** `minPoolCost` while holding everything else equal (ceteris paribus). 
 
-####Gross pool rewards
+### Gross pool rewards
 
-The gross pool reward function does not depend on $c_{min}$:
+Notice that the gross pool reward function does not depend on $c_{min}$:
 
 $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
 
-  
-####Operator gross revenue
+However, minPoolCost operates through two distinct channels: it guarantees fixed cost recovery for the operator while simultaneously dictating net delegator yield, thereby driving both operator profitability and pool competitiveness.
+
+### Operator gross revenue
 
 The pool operator gross revenue function is
 
@@ -50,7 +44,7 @@ f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
 where it is assume that the  operator's active pledge is equal to its declared pledge, $\hat{p}_i=p_i$.
     
-Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost`. Next plot shows the effect of this change in the pool operator gross reward.
+Consider a reduction in `minPoolCost` and that the operator declares this `minPoolCost` (. Next plot shows the effect of this change in the pool operator gross reward.
 
 <p align="center">
 <img src="plots/heatmap_operator_reward_c_cases.png" alt="Heatmap Operator Reward when c changes" width="80%">
