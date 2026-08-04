@@ -123,14 +123,14 @@ Epoch 228 totals.
 
 Epoch 228 scenarios.
 
-| Quantity | Previous | After | Hypothetical |
-| --- | ---: | ---: | ---: |
-|  | ($k=150$) | ($k=500$, $3.33\times$) | ($k=300$, $2\times$) |
-| $z_0(k)$ (M ADA) | 213.53 | 64.06 | 106.77 |
-| Oversaturated pools (count) | 0 | 109 | 69 |
-| Oversaturated pools (% of pools) | 0.00% | 10.26% | 6.50% |
-| $E(k)$ - Stake above saturation (B ADA) | 0.00 | 6.14 | 2.73 |
-| $E(k)$ (% of $S$) | 0.00% | 35.71% | 15.88% |
+| Quantity | Previous | After | 
+| --- | ---: | ---: | 
+|  | ($k=150$) | ($k=500$, $3.33\times$) | 
+| $z_0(k)$ (M ADA) | 213.53 | 64.06 | 
+| Oversaturated pools (count) | 0 | 109 | 
+| Oversaturated pools (% of pools) | 0.00% | 10.26% | 
+| $E(k)$ - Stake above saturation (B ADA) | 0.00 | 6.14 | 
+| $E(k)$ (% of $S$) | 0.00% | 35.71% | 
 
 Main observations from epoch $228$:
 
