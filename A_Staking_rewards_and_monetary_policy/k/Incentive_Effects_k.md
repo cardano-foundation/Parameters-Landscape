@@ -172,7 +172,7 @@ and margins set at the highest level compatible with remaining in the top-$k$ de
 
 **Discussion**
 
-In the reality, this benchmark is constrained by participation and transition frictions. With current active stake $S\approx 21.4$B ADA and $T\approx 38.8$B ADA, the maximum number of simultaneously saturated pools is bounded by
+In the reality, this benchmark is constrained by participation and transition frictions. With current active stake $S \approx 21.4B$ ADA and $T \approx 38.8B$ ADA, the maximum number of simultaneously saturated pools is bounded by
 
 $$
 N_{\text{sat}}^{\max}(k)=\frac{S}{T/k}=\frac{S}{T}k\approx 0.552 k,
