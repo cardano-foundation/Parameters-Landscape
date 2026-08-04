@@ -103,15 +103,25 @@ The table summarizes the aggregate state of the pools ecosystem before the reduc
 | 500 | 2,884 | 22.85 |
 
 
-The following plots shows the response of operators and delegators to the reduction in `minPoolCost`. We have consider several epochs after the change to give time to players to react to that change. Notice, however, that the observed changes do not imply that all changes followed directly from the reduction in `minPoolCost`. The first plot shows that new $13\\%$ of pools reduced their declared fixed cost and that, among them, $55\\%$ gained delegation (again, we observe here correlation but not causality). The second plot shows that, in the same window, $2.8\\%$ of pools reduced their margin and $61\\%$ of them gained delegation.
+The following plots shows the response of operators and delegators to the reduction in `minPoolCost`. We have consider several epochs after the change to give time to players to react to that change. Notice, however, that the observed changes do not imply that all changes followed directly from the reduction in `minPoolCost`. The next plot shows that near $13\\%$ of pools reduced their declared fixed cost and that, among them, $55\\%$ gained delegation (again, we observe here correlation but not causality). That is, the vast majority of pool operators ($>87\%$) opted for a passive, static strategy rather than actively adjusting the fixed cost to compete for market share.
 
 <p align="center">
 <img src="plots/fixed_cost_changes.png" alt="Pools reducing fixed cost when minPoolCost changed" width="62%">
 </p>
 
+The next plots show potential reactions by the network of pools to the new market conditions. In the same window of time, only $2.8\\%$ of all pools reduced their margin but $61\\%$ of them gained delegation. This suggests that redelegation may be slightly more sensitive to variable margin ($m_i$) cuts than fixed cost ($c_i$) cuts.
+
 <p align="center">
 <img src="plots/margin_changes.png" alt="Pools reducing margin when minPoolCost changed" width="62%">
 </p>
+
+One interesting question is whether the reduction in fixed cost $c_i$ comes together with a reduction in margin $m_i$ to increase competitiveness or with an increment in margin to compensate for the lower $c_i$. The next plot  indicates a fraction $12.6\\%$ of those pools that reduced the fixed cost also reduced the margin, while $20\\%$ increased it. 
+
+<p align="center">
+<img src="plots/margin_direction_within_cost_reducers_426_500.png" alt="Pools reducing margin and fixed cost when minPoolCost changed" width="62%">
+</p>
+
+
 
 how many pools improve their viability? does decentralization improved after redelegation?
 
