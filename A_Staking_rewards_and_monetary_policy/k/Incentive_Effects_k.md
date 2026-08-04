@@ -112,38 +112,12 @@ Next, the section reports oversaturated-pool counts and stake above saturation $
   
 $$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
 
-### Epoch 228 (historical change)
-
-Epoch 228 totals.
-
-| Quantity | Value |
-| --- | ---: |
-| $T$ (B ADA) | 32.03 |
-| $S$ (B ADA) | 17.21 |
-| $S / T$ | 53.7% |
-| Pools with $\sigma_i>0$ | 1062 |
-
-Epoch 228 scenarios.
-
-| Quantity | Previous | After | 
-| --- | ---: | ---: | 
-|  | ($k=150$) | ($k=500$, $3.33\times$) | 
-| $z_0(k)$ (M ADA) | 213.53 | 64.06 | 
-| Oversaturated pools (count) | 0 | 109 | 
-| Oversaturated pools (% of pools) | 0.00% | 10.26% | 
-| $E(k)$ - Stake above saturation (B ADA) | 0.00 | 6.14 | 
-| $E(k)$ (% of $S$) | 0.00% | 35.71% | 
-
-**Snapshot**
-
 | Quantity | Epoch 228 | Epoch 285 |
 | :--- | ---: | ---: |
 | $T$ | 32.04B ADA | 33.03B ADA |
 | $S$ | 17.35B ADA | 23.16B ADA |
 | $S / T$ | 54.2% | 70.1% |
 | Pools with $\sigma_i>0$ | 1,161 | 2,813 |
-
-
 
 | Quantity | Epoch 228, $k=150$ | Epoch 228, $k=500$ | Epoch 285, $k=500$ |
 | :--- | ---: | ---: | ---: |
@@ -159,7 +133,13 @@ Main observations from epoch $228$:
 - Before the change ($k=150$), oversaturation was effectively zero.
 - The historical $3.33\times$ jump to $k=500$ moved the system to $109$ oversaturated pools and $E(k)=6.14$B ADA ($35.71\%$ of $S$).
 
+<p align="center">
+  <img src="plots/plot_unsaturated_delegation_by_stake_bin_228_285.png" alt="Unsaturated Pools change delegation when k raises" width="80%">
+</p>
 
+<p align="center">
+  <img src="plots/unsaturated_mi_ci_change_counts_228_285.png" alt="Unsaturated Pools change in parameters when k raises" width="80%">
+</p>
 
 
 **Evidence on decentralization**
