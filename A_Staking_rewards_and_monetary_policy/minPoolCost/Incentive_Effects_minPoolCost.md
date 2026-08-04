@@ -90,6 +90,19 @@ The plot suggests that cost reductions have a more significant positive impact o
 <img src="plots/heatmap_delegator_reward_c_cases.png" alt="Heatmap Delegator Reward when c changes" width="80%">
 </p>
 
+## Past evidence
+
+On epoch 445 there was a reduction of the `minPoolCost` from $340$ ADA to $170$ ADA. The following plots illustrate the effects that the measure took into operators and delegators. Note that these observations do not imply that a new reduction will produce the same results, since market conditions may differ.
+
+| Epoch | Number of pools | Total stake (B ADA) |
+|---:|---:|---:|
+| 426 | 2,931 | 22.73 |
+| 445 | 2,886 | 23.05 |
+| 500 | 2,884 | 22.85 |
+
+Next plot 
+
+how many pools improve their viability? does decentralization improved after redelegation?
 
 ## Behavioral and equilibrium effects
 
