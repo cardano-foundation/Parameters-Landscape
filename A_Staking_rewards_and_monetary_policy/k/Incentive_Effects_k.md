@@ -134,6 +134,26 @@ Epoch 228 scenarios.
 | $E(k)$ - Stake above saturation (B ADA) | 0.00 | 6.14 | 
 | $E(k)$ (% of $S$) | 0.00% | 35.71% | 
 
+**Snapshot**
+
+| Quantity | Epoch 228 | Epoch 285 |
+| :--- | ---: | ---: |
+| $T$ | 32.04B ADA | 33.03B ADA |
+| $S$ | 17.35B ADA | 23.16B ADA |
+| $S / T$ | 54.2% | 70.1% |
+| Pools with $\sigma_i>0$ | 1,161 | 2,813 |
+
+
+
+| Quantity | Epoch 228, $k=150$ | Epoch 228, $k=500$ | Epoch 285, $k=500$ |
+| :--- | ---: | ---: | ---: |
+| $z_0(k)$ (M ADA) | 213.58 | 64.07 | 66.06 |
+| Oversaturated pools (count) | 0 | 109 | 4 |
+| Oversaturated pools (% of pools) | 0.00% | 9.39% | 0.14% |
+| $E(k)$ - Stake above saturation (B ADA) | 0.00 | 6.14 | 0.02 |
+| $E(k)$ (% of $S$) | 0.00% | 35.41% | 0.09% |
+
+
 Main observations from epoch $228$:
 
 - Before the change ($k=150$), oversaturation was effectively zero.
@@ -141,6 +161,15 @@ Main observations from epoch $228$:
 
 
 
+
+**Evidence on decentralization**
+
+Nakamoto $N$: minimum number of pools (ranked by active stake) whose aggregate exceeds 50% of total active stake.
+
+| Epoch | Nakamoto \(N\) | Snapshot pools | Aggregate stake of \(N\) | Total active stake | Share | Min-agg declared pledge | Min-agg active pledge |
+|------:|---------------:|---------------:|-------------------------:|-------------------:|------:|------------------------:|----------------------:|
+| 228 | 57 | 1,161 | 8.76B ADA | 17.35B ADA | 50.48% | 59.0M ADA | 101.6M ADA |
+| 285 | 195 | 2,813 | 11.59B ADA | 23.16B ADA | 50.06% | 1.09B ADA | 1.23B ADA |
 
 ## Behavioral and equilibrium effects
 
