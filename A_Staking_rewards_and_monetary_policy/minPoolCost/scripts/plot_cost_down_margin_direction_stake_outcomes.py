@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stake outcomes for cost↓+margin↓ vs cost↓+margin↑ pools (426→500)."""
+"""Stake outcomes for cost↓ pools by margin direction (426→500)."""
 
 from __future__ import annotations
 
@@ -67,19 +67,24 @@ def main() -> None:
     sb = pd.to_numeric(b.loc[common, "active_stake"], errors="coerce")
     d_stake = sb - sa
 
-    mask_down = (fb < fa) & (mb < ma)
-    mask_up = (fb < fa) & (mb > ma)
+    cost_down = fb < fa
+    mask_down = cost_down & (mb < ma)
+    mask_same = cost_down & (mb == ma)
+    mask_up = cost_down & (mb > ma)
     n_down, vals_down = stake_outcomes(mask_down, d_stake)
+    n_same, vals_same = stake_outcomes(mask_same, d_stake)
     n_up, vals_up = stake_outcomes(mask_up, d_stake)
 
-    fig, axes = plt.subplots(1, 2, figsize=(10.5, 4.6), constrained_layout=True)
+    fig, axes = plt.subplots(1, 3, figsize=(14.5, 4.6), constrained_layout=True)
     draw_panel(axes[0], "Fixed cost ↓ and margin ↓", n_down, vals_down)
-    draw_panel(axes[1], "Fixed cost ↓ and margin ↑", n_up, vals_up)
+    draw_panel(axes[1], "Fixed cost ↓ and margin same", n_same, vals_same)
+    draw_panel(axes[2], "Fixed cost ↓ and margin ↑", n_up, vals_up)
     fig.suptitle(f"Stake outcomes among cost reducers ({E0}→{E1})", fontsize=FONT_SIZE + 1)
 
     fig.savefig(OUT, dpi=160)
     print(f"Wrote {OUT}")
     print({"cost_down_margin_down": {"n": n_down, "vals": vals_down}})
+    print({"cost_down_margin_same": {"n": n_same, "vals": vals_same}})
     print({"cost_down_margin_up": {"n": n_up, "vals": vals_up}})
 
 
