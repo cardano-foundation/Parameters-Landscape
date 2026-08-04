@@ -123,7 +123,9 @@ One interesting question is whether the reduction in fixed cost $c_i$ comes toge
 
 The last plot shows that those pools combining both measures is a more effective strategy to attract delegations.
 
-
+<p align="center">
+<img src="plots/cost_down_margin_direction_stake_outcomes_426_500.png" alt="Effectivness of competitive strategieswhen minPoolCost changed" width="62%">
+</p>
 
 
 
