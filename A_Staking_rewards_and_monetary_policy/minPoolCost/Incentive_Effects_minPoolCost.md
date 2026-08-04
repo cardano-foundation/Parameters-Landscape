@@ -1,4 +1,30 @@
 # Incentive effects of changing `minPoolCost` ($c_{min}$)
+
+## Summary: Trade-off from reducing minPoolCost.
+
+Reducing minPoolCost is conditionally beneficial. The net effect depends on which policy objective is prioritized: operator competitiveness for delegators, operator viability, Sybil resistance, or decentralization.
+
+**Pros**
+1. Higher delegator net yield in pools that reduce fixed cost.
+2. Lower entry barrier for some operators.
+3. Stronger competition through fixed cost and, in some cases, margin adjustments.
+
+**Risks**
+1. Lower operator revenue, especially for smaller pools with thin margins.
+2. Potential increase in concentration.
+
+**What the evidence suggests**
+1. Behavioral adjustment is partial: most operators do not actively reprice/respond to a parameter change.
+2. Cost cuts alone do not guarantee delegation gains.
+3. Decentralization signals in the observed window are mixed to negative.
+
+**Policy interpretation**
+1. If the primary objective is short-run improvement in delegator yield, a lower minPoolCost can help.
+2. If the primary objective is long-run decentralization and operator skin-in-the-game, reducing minPoolCost in isolation is not clearly supportive.
+3. minPoolCost reduction might need to be paired with complementary safeguards, not used as a standalone lever.
+
+
+## Parameter values at the current state
 For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
 
 | Symbol | Parameter | Value |
