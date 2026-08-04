@@ -153,7 +153,7 @@ $$z_0(k) = \frac{1}{k}: \qquad \frac{1}{500} \longrightarrow \frac{1}{1000}$$,
 
 The maximum potential gross pool reward is given by:
 
-$$f_i(\sigma_i=1/k,p_i) = \frac{R}{1+\a_0} \left[ \frac{1}{1000} + \a_0 \min\left(p_i, \frac{1}{1000}\right) \right]$$
+$$f_i(\sigma_i=z_0,p_i) = \frac{R}{1+a_0} \left[ z_0 + a_0 \min\left(p_i, z_0\right) \right].$$
 
 The active set of pools $G_{1000}$ consists of the top 1,000 operators ranked by $P_i(1000)$. The following dynamics is induced:
 - Stake Reallocation: Delegators shift stake to saturate all $i \in G_{1000}$. Incumbent pools lose half their stake ($\frac{1}{500} \to \frac{1}{1000}$), freeing exactly enough aggregate stake to saturate 500 new pools.
