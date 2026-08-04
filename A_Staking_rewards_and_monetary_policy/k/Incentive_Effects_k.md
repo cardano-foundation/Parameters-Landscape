@@ -140,10 +140,11 @@ Main observations from epoch $228$:
 - The historical $3.33\times$ jump to $k=500$ moved the system to $109$ oversaturated pools and $E(k)=6.14$B ADA ($35.71\%$ of $S$).
 
 
+
+
 ## Behavioral and equilibrium effects
 
 This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions. To provide a clearer breakdown, the section below adopts a more granular approach rather than relying on these two broad categories.
-
     
 ### Rational behavior
 
@@ -172,7 +173,9 @@ This model has several key assumptions:
 
 Overall, the stylized equilibrium changes from $500$ pools of size $T/500$ to $1000$ pools of size $T/1000$. Delegation is redistributed, the pool-leader ranking and margins are recalculated, and net pool entry equals $500$. Pool splitting may occur, but an increase in independent operators is not guaranteed. Aggregate staking participation remains unchanged.
 
-In the reality, this benchmark is constrained by market frictions. With current active stake $S \approx 21.4B$ ADA and $T \approx 38.8B$ ADA, the maximum number of simultaneously saturated pools is bounded by
+In the reality, this benchmark is constrained by market frictions. Several observations show that the assumptions of the model do not hold in reality (however, it should be notice that the equilibrium predicted does not consider the path until reaching it, while a snapshot of the current state could be just a point in that path). 
+
+For instance, only a fraction of $T$ is active stake $S$. With current active stake $S \approx 21.4B$ ADA and $T \approx 38.8B$ ADA, the maximum number of simultaneously saturated pools is bounded by
 
 $$
 N_{\text{sat}}^{\max}(k)=\frac{S}{T/k}=\frac{S}{T}k\approx 0.552 k,
@@ -180,19 +183,10 @@ $$
 
 which is about $276$ for $k=500$ and about $552$ for $k=1000$. 
 
-
-
-<!-- Several factors may explain the difference with the predicted equilibrium:
-
-- Delegation streallocation is path-dependent: some oversaturated pools can retain stake if delegators value lower variance, reputation, or search-cost savings.
-- The per-pool reward ceiling falls from about $R/500$ to $R/1000$, while fixed operating costs do not scale down proportionally, so marginal pools can become unprofitable.
-- Operators with shared infrastructure may respond by pool splitting and margin repricing, increasing the number of registrations faster than the number of independent operators.
-
-So, increasing $k$ should improve stake ditribution across pool, while its effect on independent-operator concentration remains theoretically ambiguous. -->
     
 ### Delegators moving stake
 
-Yield-sensitive delegators typically leave oversaturated pools for those with available capacity. However, a mechanical increase in oversaturation does not guarantee an immediate or equivalent outflow. A slightly oversaturated pool can remain appealing if it offers lower reward variance, better fixed-cost dilution, or a strong reputation. Furthermore, identifying alternative pools requires effort: spare capacity is often fragmented across many operators, introducing search and coordination friction. Additional barriers—such as switching costs, rational inattention, or brand loyalty—can further delay adjustments, leading to persistent mild oversaturation and herding toward a small subset of pools.
+After an increment in $k$, several pools will become oversaturated. Yield-sensitive delegators typically leave oversaturated pools for those with available capacity. However, a mechanical increase in oversaturation does not guarantee an immediate or equivalent outflow. A slightly oversaturated pool can remain appealing if it offers lower reward variance, better fixed-cost dilution, or a strong reputation. Furthermore, identifying alternative pools requires effort: spare capacity is often fragmented across many operators, introducing search and coordination friction. Additional barriers—such as switching costs, rational inattention, or brand loyalty—can further delay adjustments, leading to persistent mild oversaturation and herding toward a small subset of pools.
 
 **1. Why a slightly oversaturated pool may remain attractive**
 
