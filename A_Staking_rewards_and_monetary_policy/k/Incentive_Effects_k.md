@@ -134,7 +134,7 @@ Main observations from epoch $228$:
 - The historical $3.33\times$ jump to $k=500$ moved the system to $109$ oversaturated pools and $E(k)=6.14$B ADA ($35.71\%$ of $S$).
 
 <p align="center">
-  <img src="plots/plot_unsaturated_delegation_by_stake_bin_228_285.png" alt="Unsaturated Pools change delegation when k raises" width="80%">
+  <img src="plots/unsaturated_delegation_by_stake_bin_228_285.png" alt="Unsaturated Pools change delegation when k raises" width="80%">
 </p>
 
 <p align="center">
