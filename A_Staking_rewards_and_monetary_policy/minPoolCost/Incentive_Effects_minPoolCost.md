@@ -121,9 +121,11 @@ One interesting question is whether the reduction in fixed cost $c_i$ comes toge
 <img src="plots/margin_direction_within_cost_reducers_426_500.png" alt="Pools reducing margin and fixed cost when minPoolCost changed" width="62%">
 </p>
 
+The last plot shows that those pools combining both measures is a more effective strategy to attract delegations.
 
 
-how many pools improve their viability? does decentralization improved after redelegation?
+
+
 
 ## Behavioral and equilibrium effects
 
