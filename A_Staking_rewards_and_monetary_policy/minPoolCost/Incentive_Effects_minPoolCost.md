@@ -94,13 +94,24 @@ The plot suggests that cost reductions have a more significant positive impact o
 
 On epoch 445 there was a reduction of the `minPoolCost` from $340$ ADA to $170$ ADA. The following plots illustrate the effects that the measure took into operators and delegators. Note that these observations do not imply that a new reduction will produce the same results, since market conditions may differ.
 
+The table summarizes the aggregate state of the pools ecosystem before the reduction in `minPoolCost`(epoch 426), at the moment of the reduction (epoch 445), and after it (epoch 450). The aggregate staking level remains stable with a small reduction ($-1.6\\%$) in the number of pools. 
+
 | Epoch | Number of pools | Total stake (B ADA) |
 |---:|---:|---:|
 | 426 | 2,931 | 22.73 |
 | 445 | 2,886 | 23.05 |
 | 500 | 2,884 | 22.85 |
 
-Next plot 
+
+The following plots shows the response of operators and delegators to the reduction in `minPoolCost`. We have consider several epochs after the change to give time to players to react to that change. Notice, however, that the observed changes do not imply that all changes followed directly from the reduction in `minPoolCost`. The first plot shows that new $13\\%$ of pools reduced their declared fixed cost and that, among them, $55\\%$ gained delegation (again, we observe here correlation but not causality). The second plot shows that, in the same window, $2.8\\%$ of pools reduced their margin and $61\\%$ of them gained delegation.
+
+<p align="center">
+<img src="plots/fixed_cost_changes.png" alt="Pools reducing fixed cost when minPoolCost changed" width="62%">
+</p>
+
+<p align="center">
+<img src="plots/margin_changes.png" alt="Pools reducing margin when minPoolCost changed" width="62%">
+</p>
 
 how many pools improve their viability? does decentralization improved after redelegation?
 
