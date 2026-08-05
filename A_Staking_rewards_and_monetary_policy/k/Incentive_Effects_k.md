@@ -128,20 +128,28 @@ $$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
 | $E(k)$ (% of $S$) | 0.00% | 35.41% | 0.09% |
 
 
-Main observations from epoch $228$:
+Main observations:
 
 - Before the change ($k=150$), oversaturation was effectively zero.
 - The historical $3.33\times$ jump to $k=500$ moved the system to $109$ oversaturated pools and $E(k)=6.14$B ADA ($35.71\%$ of $S$).
+- After enough epochs, the redelegation moved away from oversaturated pools, leaving oversaturated pools again near zero.
+- The snapshot also shows a important increment in the staking level $S$, the ratio $S/T$, and number of pools.
 
+
+After the increment in $k$, delegators in those pools that become oversaturated pools migrated from the to those who remain undersaturated (some of them could have left the ecosystem but, since the staking participation increased, we can assume that in that case the leaveing ones were replaced by new incomers choosing undersaturated pools). The next two plots shows how many of those immediately undersaturated pools in epoch 228 after the increment in $k$ gain/lose delegation and how much delegation they gain/lose. However, since data shows an increment in the staking level, the plots do not inform how much of the additional delegation is due to new incoming stake. 
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
   <img src="plots/unsaturated_delegation_by_stake_bin_228_285.png" alt="Unsaturated Pools change  measure in numb pools when k increases" width="48%">
   <img src="plots/unsaturated_agg_stake_change_by_stake_bin_228_285.png" alt="Unsaturated Pools change measured in agg delegation when k increases" width="48%">
 </div>
 
+<p align="center">
+  <img src="plots/stake_distribution_228_vs_285.png" alt="Change in the distribution of stakes when k increases" width="80%">
+</p>
+
 
 <p align="center">
-  <img src="plots/unsaturated_mi_ci_change_counts_228_285.png" alt="Unsaturated Pools change in other  parameters when k raises" width="80%">
+  <img src="plots/unsaturated_mi_ci_change_counts_228_285.png" alt="Unsaturated Pools change in other  parameters when k increases" width="80%">
 </p>
 
 
