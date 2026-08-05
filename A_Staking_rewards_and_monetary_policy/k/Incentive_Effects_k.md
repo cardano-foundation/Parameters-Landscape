@@ -203,6 +203,25 @@ The plot shows a moderate impact of the increment of $3.33x$. on $k$ in the oper
 
 *APR*
 
+We compute the delegator return per ADA delegated as
+\[
+(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i},
+\qquad
+\mathrm{APR}_i\approx73\rho_i.
+\]
+For \(k=150\), the calculation includes all 1,161 pools active in epoch 228 and uses their epoch-228 stake, pledge, fixed cost, and margin. For the fee-adjusted \(k=500\) case, it includes the 851 surviving pools, holding their epoch-228 stake and pledge fixed but using their epoch-285 fixed cost and margin. This captures operators’ fee responses without allowing subsequent delegation changes to affect the comparison (this is a simplification since fee responses could also be a consequence of new incoming pools and delegations)
+
+Under the baseline ($k=150$), the median simple APR across all $1'161$ active pools is $0.00\\%$, as fewer than half ($537$, or $46.2\\%$) generated rewards exceeding their fixed cost $c_i$ (only pools with $f()>c_i distribute rewards among delegators). Among these profitable pools, the median return was $4.48\\%$. When transitioning to the fee-adjusted $k=500$ scenario (evaluated using epoch-285 fee structures), two distinct effects emerge. First, Among pools yielding positive returns, median APR declines from $4.48\\%$ to $4.03\\%$. Second, despite the decline in top-tier yield, the overall median APR across all pools increases from $0.00\\%$ to $1.66\\%$. This shift occurs because $310$ underperforming pools exited the ecosystem by epoch $285$. These exiting pools were structurally weak: only $58$ ($18.7\\%$) generated a positive delegator return at baseline, with a median APR of $3.86\\%$. Consequently, the exit of uncompetitive pools increased the proportion of profitable active pools to $56.1\\%$ ($477$ out of $851$), lifting the aggregate median above zero.
+
+| Scenario | Pools | Return \(>0\) | Median APR, all pools | Median APR, positive returns |
+| :--- | ---: | ---: | ---: | ---: |
+| \(k=150\), epoch-228 fees | 1,161 | 537 | 0.00% | 4.48% |
+| \(k=500\), fee-adjusted with epoch-285 fees | 851 | 477 | 1.66% | 4.03% |
+| Pools that exited by epoch 285, evaluated at \(k=150\) | 310 | 58 | 0.00% | 3.86% |
+
+<p align="center">
+  <img src="plots/member_return_k150_vs_k500_feeadjusted_epoch_228.png" alt="Change in APR in pools e228 when k increases" width="80%">
+</p>
 
 
 ## Behavioral and equilibrium effects
