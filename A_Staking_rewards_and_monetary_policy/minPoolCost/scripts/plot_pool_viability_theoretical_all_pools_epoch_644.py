@@ -41,6 +41,7 @@ PARAMS_JSON = DIR / "f_reward_params_epoch_644.json"
 OUT_PLOT = DIR / "pool_viability_theoretical_all_pools_epoch_644.png"
 OUT_CSV = DIR / "pool_viability_theoretical_all_pools_epoch_644.csv"
 OUT_SUMMARY = DIR / "pool_viability_theoretical_all_pools_epoch_644.md"
+OUT_TRAITS = DIR / "pool_viability_losing_vs_edge_traits_epoch_644.png"
 
 FONT_SIZE = 12
 MONTHLY_OPEX_USD = 667.0
@@ -136,6 +137,12 @@ def main() -> None:
         & margin.notna()
     )
     analysis = df.loc[complete, ["pool_id", "pool_name.ticker"]].copy()
+    analysis["delegators"] = pd.to_numeric(
+        df.loc[complete, "epochs.0.data.delegators"], errors="coerce"
+    ).to_numpy()
+    analysis["blocks_minted"] = pd.to_numeric(
+        df.loc[complete, "epochs.0.data.block.minted"], errors="coerce"
+    ).to_numpy()
     sigma_a = sigma[complete].to_numpy(dtype=float)
     declared_a = declared_pledge[complete].to_numpy(dtype=float)
     active_a = active_pledge[complete].to_numpy(dtype=float)
@@ -239,6 +246,111 @@ def main() -> None:
     )
     fig.savefig(OUT_PLOT, dpi=160)
 
+    # Losing-vs-edge characteristics under the same theoretical approach.
+    losing = analysis[analysis["category"] == "losing"]
+    edge = analysis[analysis["category"] == "edge"]
+    fig_traits, axes = plt.subplots(
+        3, 3, figsize=(12.5, 9.5), constrained_layout=True
+    )
+
+    def box_pair(
+        ax: plt.Axes,
+        losing_values: pd.Series,
+        edge_values: pd.Series,
+        ylabel: str,
+        title: str,
+    ) -> None:
+        values = [
+            losing_values.dropna().to_numpy(),
+            edge_values.dropna().to_numpy(),
+        ]
+        box = ax.boxplot(
+            values,
+            tick_labels=[
+                f"Losing\n(n={len(losing)})",
+                f"Edge\n(n={len(edge)})",
+            ],
+            patch_artist=True,
+            widths=0.55,
+            showfliers=False,
+        )
+        for patch, color in zip(
+            box["boxes"], (CATEGORY_COLORS[0], CATEGORY_COLORS[1])
+        ):
+            patch.set_facecolor(color)
+            patch.set_alpha(0.75)
+        ax.set_ylabel(ylabel, fontsize=FONT_SIZE)
+        ax.set_title(title, fontsize=FONT_SIZE)
+        ax.tick_params(axis="both", labelsize=FONT_SIZE)
+
+    box_pair(
+        axes[0, 0],
+        losing["sigma_ada"] / 1e6,
+        edge["sigma_ada"] / 1e6,
+        "Epoch stake (M ADA)",
+        "Epoch stake",
+    )
+    box_pair(
+        axes[0, 1],
+        losing["active_pledge_ada"] / 1e3,
+        edge["active_pledge_ada"] / 1e3,
+        "Active pledge (k ADA)",
+        "Active pledge",
+    )
+    box_pair(
+        axes[0, 2],
+        losing["declared_pledge_ada"] / 1e3,
+        edge["declared_pledge_ada"] / 1e3,
+        "Declared pledge (k ADA)",
+        "Declared pledge",
+    )
+    box_pair(
+        axes[1, 0],
+        losing["margin"] * 100.0,
+        edge["margin"] * 100.0,
+        "Declared margin (%)",
+        "Margin",
+    )
+    box_pair(
+        axes[1, 1],
+        losing["blocks_minted"],
+        edge["blocks_minted"],
+        "Blocks minted (epoch)",
+        "Blocks",
+    )
+    box_pair(
+        axes[1, 2],
+        losing["delegators"],
+        edge["delegators"],
+        "Delegators",
+        "Delegators",
+    )
+    box_pair(
+        axes[2, 0],
+        losing["declared_fixed_cost_ada"],
+        edge["declared_fixed_cost_ada"],
+        "Declared fixed cost (ADA)",
+        "Declared fixed cost",
+    )
+    axes[2, 1].axis("off")
+    axes[2, 1].text(
+        0.0,
+        0.9,
+        f"Not included in these categories:\n"
+        f"• pledge not met: {n_pledge_unmet}\n"
+        f"• incomplete rows: {n_incomplete}",
+        ha="left",
+        va="top",
+        fontsize=FONT_SIZE,
+    )
+    axes[2, 2].axis("off")
+    fig_traits.suptitle(
+        "Epoch 644 — characteristics of theoretical Losing vs Edge pools\n"
+        rf"($C^*={C_STAR_ADA:.1f}$ ADA/epoch, $r=\Pi_i/C^*$; pledge-met pools)",
+        fontsize=FONT_SIZE,
+    )
+    fig_traits.savefig(OUT_TRAITS, dpi=160)
+
     summary = (
         "# Epoch 644 theoretical viability — all pools\n\n"
         f"- Monthly OpEx: {MONTHLY_OPEX_USD:.0f} USD\n"
@@ -269,6 +381,7 @@ def main() -> None:
     print(f"wrote {OUT_PLOT}")
     print(f"wrote {OUT_CSV}")
     print(f"wrote {OUT_SUMMARY}")
+    print(f"wrote {OUT_TRAITS}")
 
 
 if __name__ == "__main__":
