@@ -109,6 +109,7 @@ As past evidence of a change in $k$, there is the realized historical jump ($150
 
 Next, the section reports oversaturated-pool counts and stake above saturation $E(k)$ using the same definitions introduced in **Oversaturated stake** above:
 
+*Sanpshot summaries*
   
 $$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
 
@@ -135,6 +136,7 @@ Main observations:
 - After enough epochs, the redelegation moved away from oversaturated pools, leaving oversaturated pools again near zero.
 - The snapshot also shows a important increment in the staking level $S$, the ratio $S/T$, and number of pools.
 
+*Changes in delegation distributions*
 
 After the increment in $k$, delegators in those pools that become oversaturated pools migrated from the to those who remain undersaturated (some of them could have left the ecosystem but, since the staking participation increased, we can assume that in that case the leaveing ones were replaced by new incomers choosing undersaturated pools). The next two plots shows how many of those immediately undersaturated pools in epoch 228 after the increment in $k$ gain/lose delegation and how much delegation they gain/lose. However, since data shows an increment in the staking level, the plots do not inform how much of the additional delegation is due to new incoming stake. To abstain considering new stake, we have to track each existing redelegation.
 
@@ -145,9 +147,9 @@ After the increment in $k$, delegators in those pools that become oversaturated 
 
 The next figure compares observed stake distributions before and after the \(k\) increment via CDFs .
 
-**Left panel (epoch-228 cohort).** Dashed green is all pools present at epoch 228; solid green is the subset that still exist at epoch 285, valued at their epoch-228 stake; orange is that same continuing set at epoch 285. Relative to the full 228 census, the continuing cohort is already less “dusty” (exits were especially small: median stake \(\approx 0.07\)M ADA). Comparing solid green to orange then isolates how *survivors* evolved: the median rises (about \(0.78\)M to \(1.34\)M ADA), while the upper tail compresses sharply (far fewer pools near the new saturation region). That pattern is consistent with redelegation away from oversaturated pools and with stake flowing toward remaining unsaturated operators—not with a thicker left tail of tiny pools.
+- *Left panel (epoch-228 cohort)*. Dashed green is all pools present at epoch 228; solid green is the subset that still exist at epoch 285, valued at their epoch-228 stake; orange is that same continuing set at epoch 285. Relative to the full 228 census, the continuing cohort is already less “dusty” (exits were especially small: median stake \(\approx 0.07\)M ADA). Comparing solid green to orange then isolates how *survivors* evolved: the median rises (about \(0.78\)M to \(1.34\)M ADA), while the upper tail compresses sharply (far fewer pools near the new saturation region). That pattern is consistent with redelegation away from oversaturated pools and with stake flowing toward remaining unsaturated operators—not with a thicker left tail of tiny pools.
 
-**Right panel (full snapshots).** Orange is *all* pools at epoch 285, including entrants after 228. Pool count rises from \(1{,}161\) to \(2{,}810\), and the median falls (about \(0.33\)M to \(0.16\)M ADA): many new small pools pull the CDF up and to the left even though the continuing cohort on the left looks less concentrated in the extreme right tail. 
+- *Right panel (full snapshots)*. Orange is *all* pools at epoch 285, including entrants after 228. Pool count rises from \(1{,}161\) to \(2{,}810\), and the median falls (about \(0.33\)M to \(0.16\)M ADA): many new small pools pull the CDF up and to the left even though the continuing cohort on the left looks less concentrated in the extreme right tail. 
 
 The two panels answer different questions—left: composition and stake reallocation *within* the 228 set; right: the ecosystem-wide distribution once entry is allowed.
 
@@ -165,7 +167,7 @@ The two panels answer different questions—left: composition and stake realloca
 </p>
 
 
-**Evidence on decentralization**
+*Decentralization metrics*
 
 The following table compares decentralization metrics for epoch 228 and epoch 285. However, since many pools and new stake entered in the ecosystem in this window of time, the figures are not informative of how successful was the parameter change in this objective.
 
@@ -176,7 +178,33 @@ Nakamoto $N$: minimum number of pools (ranked by active stake) whose aggregate e
 | 228 | 57 | 1,161 | 8.76B ADA | 17.35B ADA | 50.48% | 59.0M ADA | 101.6M ADA |
 | 285 | 195 | 2,813 | 11.59B ADA | 23.16B ADA | 50.06% | 1.09B ADA | 1.23B ADA |
 
-**Operators Viability**
+*Operators Viability*
+
+
+**Setup:** \(C^*=(667/6)/0.11=1010.6\) ADA/epoch; \(T=32.04\)B, \(R=29.7\)M, \(a_0=0.3\); \(\sigma,p,m,c\) fixed at epoch-228 values; theoretical \(f\) (not realized rewards). 84 “No rewards” pools have declared pledge \(>\) stake (infeasible under the formula).
+
+| | \(k=150\) | \(k=500\) |
+| :--- | ---: | ---: |
+| Cover OpEx (\(r\ge 1\)) | 148 | 134 |
+| Losing | 929 | 943 |
+| Edge | 65 | 71 |
+| Comfortable | 51 | 53 |
+| Strong | 32 | 10 |
+
+14 pools lose viability when \(k\) rises; 22 leave “Strong” (mostly to Comfortable). No pool newly becomes viable.
+
+**Draft text:**
+
+We recompute operator rewards \(\Pi_i\) under \(k=150\) (\(z_0=213.58\)M ADA) and the counterfactual \(k=500\) (\(z_0=64.07\)M), using $T=32.04B$ ADA, $R = 29.7M$ ADA, $a_0=0.3$, and holding each pool’s stake, pledges, margin, and declared cost fixed. With operational expenditure (or OpEx) $C^* = 667$ per month and ADA price at $0.11$ USD, we get 
+
+$$C^* = 667/6/0.11= 1010.6 \quad \text{ADA per epoch}$$. 
+
+Let \(r=\Pi_i/C^*\). Among $1'077$ pools with theoretical reward ($84$ out of $1'161$ are pools where the declared pledge exceeds the epoch-228 stake), $148$ cover $C^*$ under \(k=150\), of which 65 are on the edge (\(1\le r<2\)). Under \(k=500\) with the same delegation, only $134$ remain viable and the “Strong” group (\(r\ge 5\)) falls from 32 to 10 — large pools are capped by the lower saturation point.
+
+
+
+
+*APR*
 
 
 
