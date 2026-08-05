@@ -1,6 +1,6 @@
-stake_bin_M_ADA,n_pools,gain_delegation,lose_delegation,flat_delegation,median_dstake_ADA
-0–15,672,332,272,68,0.0
-15–30,40,21,19,0,614885.7860405017
-30–45,27,15,12,0,3503005.077387996
-45–60,21,2,19,0,-14654125.006861001
->60,2,0,2,0,-24959937.5339875
+stake_bin_M_ADA,n_pools,n_continuing,gain_delegation,lose_delegation,flat_delegation,exited,median_dstake_continuing_ADA
+0–15,962,672,332,272,68,290,0.0
+15–30,40,40,21,19,0,0,614885.7860405017
+30–45,27,27,15,12,0,0,3503005.077387996
+45–60,21,21,2,19,0,0,-14654125.006861001
+>60,2,2,0,2,0,0,-24959937.5339875
