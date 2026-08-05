@@ -223,7 +223,7 @@ The data shows that surviving pools were inherently higher-yielding at baseline,
 
 ## Behavioral and equilibrium effects
 
-This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions. To provide a clearer breakdown, the section below adopts a more granular approach rather than relying on these two broad categories.
+This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions **given the current state**. To provide a clearer breakdown, the section below adopts a more granular approach rather than relying on these two broad categories.
     
 ### Rational behavior
 
