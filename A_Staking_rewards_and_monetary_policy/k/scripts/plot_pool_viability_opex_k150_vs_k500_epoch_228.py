@@ -44,7 +44,6 @@ Z0_K500 = 64.07e6
 OPEX_EPOCH_USD = 667.0 / 6.0
 ADA_USD = 0.11
 C_STAR = OPEX_EPOCH_USD / ADA_USD  # ≈ 1010.61 ADA/epoch
-C75 = 75.0
 
 COLOR_LOSING = "#d62828"
 COLOR_EDGE = "#e76f51"
@@ -192,7 +191,6 @@ def main() -> None:
         # infeasible if pledge > stake
         f = np.where(p_decl > sigma, np.nan, f)
         pi = operator_reward(f, margin, p_hat, sigma, c_decl)
-        pi75 = operator_reward(f, margin, p_hat, sigma, np.full_like(c_decl, C75))
         r = pi / C_STAR
         cats = pd.Series([classify_ratio(float(x) if np.isfinite(x) else 0.0) for x in r])
 
@@ -207,15 +205,10 @@ def main() -> None:
         out[f"coverage_ratio_k{k}"] = r
         out[f"category_k{k}"] = cats.to_numpy()
         out[f"viable_k{k}"] = pi >= C_STAR
-        out[f"Pi_c75_ada_k{k}"] = pi75
-        out[f"viable_at_c75_k{k}"] = pi75 >= C_STAR
 
         counts = category_counts(cats)
         n_rewarded = int((cats != "no_rewards").sum())
         n_viable = int((pi >= C_STAR).sum())
-        currently_viable = pi >= C_STAR
-        n_remain_75 = int((currently_viable & (pi75 >= C_STAR)).sum())
-        n_lose_75 = int((currently_viable & (pi75 < C_STAR)).sum())
 
         for cname, n in counts.items():
             summary_rows.append({"quantity": f"k{k}_n_{cname}", "value": n})
@@ -223,8 +216,6 @@ def main() -> None:
             [
                 {"quantity": f"k{k}_n_rewarded", "value": n_rewarded},
                 {"quantity": f"k{k}_n_viable", "value": n_viable},
-                {"quantity": f"k{k}_n_viable_remain_at_c75", "value": n_remain_75},
-                {"quantity": f"k{k}_n_viable_lose_at_c75", "value": n_lose_75},
                 {"quantity": f"k{k}_median_Pi_ada", "value": float(np.nanmedian(pi))},
                 {"quantity": f"k{k}_median_f_ada", "value": float(np.nanmedian(f))},
             ]
@@ -233,8 +224,6 @@ def main() -> None:
             "counts": counts,
             "n_rewarded": n_rewarded,
             "n_viable": n_viable,
-            "n_remain_75": n_remain_75,
-            "n_lose_75": n_lose_75,
             "z0": z0,
         }
 
@@ -257,10 +246,7 @@ def main() -> None:
         d = panel_data[k]
         note = (
             f"Rewarded (theory): {d['n_rewarded']}\n"
-            f"Cover OpEx: {d['n_viable']}\n"
-            f"If declare $c=75$ ADA:\n"
-            f"  remain viable: {d['n_remain_75']}\n"
-            f"  lose viability: {d['n_lose_75']}"
+            f"Cover OpEx: {d['n_viable']}"
         )
         draw_panel(
             ax,
