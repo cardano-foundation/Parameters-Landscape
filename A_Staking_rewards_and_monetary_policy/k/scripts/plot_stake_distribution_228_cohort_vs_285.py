@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """
-Stake-distribution ECDF for the epoch-228 pool cohort only:
-  - teal: stake at epoch 228 (all pools present then)
-  - coral: stake at epoch 285 among those same pools that still exist
-    (new pools that appear only at 285 are excluded)
+Stake-distribution ECDF for the epoch-228 pool cohort.
+
+Lines:
+  - green dashed: epoch 228, all pools (incl. those that exit by 285)
+  - green solid:  epoch 228, only continuing pools
+  - coral:        epoch 285 stake of those continuing pools
+                  (new-at-285 pools excluded)
 """
 
 from __future__ import annotations
@@ -45,6 +48,21 @@ def ecdf(x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     return xs, ys
 
 
+def summarize(label: str, s: np.ndarray, **extra) -> dict:
+    row = {
+        "series": label,
+        "n": int(len(s)),
+        "median_ADA": float(np.median(s)) if len(s) else float("nan"),
+        "mean_ADA": float(s.mean()) if len(s) else float("nan"),
+        "p90_ADA": float(np.percentile(s, 90)) if len(s) else float("nan"),
+        "p99_ADA": float(np.percentile(s, 99)) if len(s) else float("nan"),
+        "max_ADA": float(s.max()) if len(s) else float("nan"),
+        "sum_ADA": float(s.sum()) if len(s) else 0.0,
+    }
+    row.update(extra)
+    return row
+
+
 def main() -> None:
     a = load_epoch(E0)
     b = load_epoch(E1)
@@ -53,85 +71,89 @@ def main() -> None:
     continuing = ids_228.intersection(b.index)
     exited = ids_228.difference(b.index)
 
-    s0 = a.loc[ids_228, "stake_ada"].to_numpy()
-    # Epoch-285 curve: only pools that already existed at 228 (and still exist)
-    s1 = b.loc[continuing, "stake_ada"].to_numpy()
-    s1 = s1[s1 >= MIN_STAKE]
+    s0_all = a.loc[ids_228, "stake_ada"].to_numpy()
+    s0_cont = a.loc[continuing, "stake_ada"].to_numpy()
+    s1_cont = b.loc[continuing, "stake_ada"].to_numpy()
+    s1_cont = s1_cont[s1_cont >= MIN_STAKE]
 
     rows = [
-        {
-            "series": f"epoch_{E0}_all_pools",
-            "n": int(len(s0)),
-            "median_ADA": float(np.median(s0)),
-            "mean_ADA": float(s0.mean()),
-            "p90_ADA": float(np.percentile(s0, 90)),
-            "p99_ADA": float(np.percentile(s0, 99)),
-            "max_ADA": float(s0.max()),
-            "sum_ADA": float(s0.sum()),
-        },
-        {
-            "series": f"epoch_{E1}_among_epoch_{E0}_continuing_pools",
-            "n": int(len(s1)),
-            "n_exited_from_228_excluded": int(len(exited)),
-            "median_ADA": float(np.median(s1)),
-            "mean_ADA": float(s1.mean()),
-            "p90_ADA": float(np.percentile(s1, 90)),
-            "p99_ADA": float(np.percentile(s1, 99)),
-            "max_ADA": float(s1.max()),
-            "sum_ADA": float(s1.sum()),
-        },
+        summarize(f"epoch_{E0}_all", s0_all, n_exited=int(len(exited))),
+        summarize(f"epoch_{E0}_continuing_to_{E1}", s0_cont),
+        summarize(
+            f"epoch_{E1}_among_epoch_{E0}_continuing",
+            s1_cont,
+            n_exited_omitted=int(len(exited)),
+        ),
     ]
     pd.DataFrame(rows).to_csv(OUT_CSV, index=False)
 
-    x0, f0 = ecdf(s0)
-    x1, f1 = ecdf(s1)
+    x_all, f_all = ecdf(s0_all)
+    x_c0, f_c0 = ecdf(s0_cont)
+    x_c1, f_c1 = ecdf(s1_cont)
 
     fig, ax = plt.subplots(figsize=(9.2, 5.4), constrained_layout=True)
     ax.step(
-        x0,
-        f0,
+        x_all,
+        f_all,
         where="post",
         color=COLOR_228,
         linewidth=2.0,
-        label=f"Epoch {E0} — all pools then (n={len(s0)}; median={np.median(s0)/1e6:.2f} M)",
+        linestyle="--",
+        label=(
+            f"Epoch {E0} — all pools "
+            f"(n={len(s0_all)}; median={np.median(s0_all)/1e6:.2f} M)"
+        ),
     )
     ax.step(
-        x1,
-        f1,
+        x_c0,
+        f_c0,
+        where="post",
+        color=COLOR_228,
+        linewidth=2.2,
+        linestyle="-",
+        label=(
+            f"Epoch {E0} — continuing to {E1} "
+            f"(n={len(s0_cont)}; median={np.median(s0_cont)/1e6:.2f} M)"
+        ),
+    )
+    ax.step(
+        x_c1,
+        f_c1,
         where="post",
         color=COLOR_285,
         linewidth=2.0,
         label=(
             f"Epoch {E1} — only pools present at {E0} that continue "
-            f"(n={len(s1)}; median={np.median(s1)/1e6:.2f} M)"
+            f"(n={len(s1_cont)}; median={np.median(s1_cont)/1e6:.2f} M)"
         ),
     )
     ax.axhline(0.5, color="0.55", linestyle=":", linewidth=1.0)
-    ax.axvline(np.median(s0), color=COLOR_228, linestyle="--", linewidth=1.0, alpha=0.85)
-    ax.axvline(np.median(s1), color=COLOR_285, linestyle="--", linewidth=1.0, alpha=0.85)
+    ax.axvline(np.median(s0_all), color=COLOR_228, linestyle="--", linewidth=1.0, alpha=0.7)
+    ax.axvline(np.median(s0_cont), color=COLOR_228, linestyle="-", linewidth=1.0, alpha=0.85)
+    ax.axvline(np.median(s1_cont), color=COLOR_285, linestyle="--", linewidth=1.0, alpha=0.85)
+
     ax.set_xscale("log")
-    ax.set_xlim(MIN_STAKE, max(s0.max(), s1.max()) * 1.05)
+    ax.set_xlim(MIN_STAKE, max(s0_all.max(), s1_cont.max()) * 1.05)
     ax.set_ylim(0, 1.02)
     ax.set_xlabel("Epoch stake (ADA, log scale)", fontsize=FONT_SIZE)
     ax.set_ylabel("Fraction of pools ≤ stake", fontsize=FONT_SIZE)
     ax.set_title(
         f"Stake distribution of the epoch-{E0} pool cohort\n"
-        f"(epoch-{E1} curve excludes pools new after {E0}; "
-        f"{len(exited)} pools from {E0} exited by {E1} and are omitted from that curve)",
+        f"(solid green = {E0} continuing pools; dashed green = all {E0}, "
+        f"incl. {len(exited)} exits; orange = those continuing pools at {E1})",
         fontsize=FONT_SIZE,
     )
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
-    ax.legend(frameon=False, fontsize=FONT_SIZE - 2, loc="lower right")
+    ax.legend(frameon=False, fontsize=FONT_SIZE - 2, loc="upper left")
     ax.grid(alpha=0.25)
 
     fig.savefig(OUT, dpi=300)
     print(f"Wrote {OUT}")
     print(f"Wrote {OUT_CSV}")
-    print(f"  ep{E0} all: n={len(s0)} median={np.median(s0)/1e6:.3f}M")
-    print(
-        f"  ep{E1} among ep{E0} continuing: n={len(s1)} "
-        f"median={np.median(s1)/1e6:.3f}M  exited_omitted={len(exited)}"
-    )
+    for r in rows:
+        print(
+            f"  {r['series']}: n={r['n']} median={r['median_ADA']/1e6:.3f}M"
+        )
 
 
 if __name__ == "__main__":

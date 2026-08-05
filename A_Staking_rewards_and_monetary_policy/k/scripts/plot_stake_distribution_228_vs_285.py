@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """
-Compare pool stake distributions at epoch 228 vs epoch 285 via ECDFs
-(empirical CDFs) on a log stake axis.
+Compare pool stake distributions at epoch 228 vs epoch 285 via ECDFs.
+
+Lines:
+  - green dashed: epoch 228, all pools
+  - green solid:  epoch 228, only pools that continue to 285
+  - coral:        epoch 285, all pools
 """
 
 from __future__ import annotations
@@ -26,13 +30,15 @@ COLOR_285 = "#e76f51"
 MIN_STAKE = 1.0  # ADA
 
 
-def load_stake(epoch: int) -> np.ndarray:
+def load_epoch(epoch: int) -> pd.DataFrame:
     df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
     stake = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce")
         / 1e6
     )
-    return stake.fillna(0.0).to_numpy()
+    return pd.DataFrame(
+        {"pool_id": df["pool_id"], "stake_ada": stake.fillna(0.0)}
+    ).set_index("pool_id")
 
 
 def ecdf(x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
@@ -41,42 +47,68 @@ def ecdf(x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     return xs, ys
 
 
-def summarize(epoch: int, s_all: np.ndarray, s: np.ndarray) -> dict:
-    return {
-        "epoch": epoch,
-        "n_pools_total": int(len(s_all)),
-        "n_pools_sigma_gt_0": int((s_all > 0).sum()),
-        "n_in_plot": int(len(s)),
-        "n_excluded_lt_min_stake": int((s_all > 0).sum() - len(s)),
-        "mean_ADA": float(s.mean()) if len(s) else float("nan"),
+def summarize(label: str, s: np.ndarray, **extra) -> dict:
+    row = {
+        "series": label,
+        "n": int(len(s)),
         "median_ADA": float(np.median(s)) if len(s) else float("nan"),
+        "mean_ADA": float(s.mean()) if len(s) else float("nan"),
         "p90_ADA": float(np.percentile(s, 90)) if len(s) else float("nan"),
         "p99_ADA": float(np.percentile(s, 99)) if len(s) else float("nan"),
         "max_ADA": float(s.max()) if len(s) else float("nan"),
-        "sum_ADA": float(s_all[s_all > 0].sum()),
+        "sum_ADA": float(s.sum()) if len(s) else 0.0,
     }
+    row.update(extra)
+    return row
 
 
 def main() -> None:
-    s0_all = load_stake(E0)
-    s1_all = load_stake(E1)
-    s0 = s0_all[s0_all >= MIN_STAKE]
-    s1 = s1_all[s1_all >= MIN_STAKE]
+    a = load_epoch(E0)
+    b = load_epoch(E1)
 
-    rows = [summarize(E0, s0_all, s0), summarize(E1, s1_all, s1)]
+    ids_228 = a.index[a["stake_ada"] >= MIN_STAKE]
+    continuing = ids_228.intersection(b.index)
+    exited = ids_228.difference(b.index)
+
+    s0_all = a.loc[ids_228, "stake_ada"].to_numpy()
+    s0_cont = a.loc[continuing, "stake_ada"].to_numpy()
+    s1_all = b.loc[b["stake_ada"] >= MIN_STAKE, "stake_ada"].to_numpy()
+
+    rows = [
+        summarize(f"epoch_{E0}_all", s0_all, n_exited=int(len(exited))),
+        summarize(f"epoch_{E0}_continuing_to_{E1}", s0_cont),
+        summarize(f"epoch_{E1}_all", s1_all),
+    ]
     pd.DataFrame(rows).to_csv(OUT_CSV, index=False)
 
-    x0, f0 = ecdf(s0)
-    x1, f1 = ecdf(s1)
+    x_all, f_all = ecdf(s0_all)
+    x_c, f_c = ecdf(s0_cont)
+    x1, f1 = ecdf(s1_all)
 
-    fig, ax = plt.subplots(figsize=(8.8, 5.2), constrained_layout=True)
+    fig, ax = plt.subplots(figsize=(9.2, 5.4), constrained_layout=True)
     ax.step(
-        x0,
-        f0,
+        x_all,
+        f_all,
         where="post",
         color=COLOR_228,
         linewidth=2.0,
-        label=f"Epoch {E0} (n={len(s0)}; median={np.median(s0)/1e6:.2f} M)",
+        linestyle="--",
+        label=(
+            f"Epoch {E0} — all pools "
+            f"(n={len(s0_all)}; median={np.median(s0_all)/1e6:.2f} M)"
+        ),
+    )
+    ax.step(
+        x_c,
+        f_c,
+        where="post",
+        color=COLOR_228,
+        linewidth=2.2,
+        linestyle="-",
+        label=(
+            f"Epoch {E0} — continuing to {E1} "
+            f"(n={len(s0_cont)}; median={np.median(s0_cont)/1e6:.2f} M)"
+        ),
     )
     ax.step(
         x1,
@@ -84,22 +116,29 @@ def main() -> None:
         where="post",
         color=COLOR_285,
         linewidth=2.0,
-        label=f"Epoch {E1} (n={len(s1)}; median={np.median(s1)/1e6:.2f} M)",
+        label=(
+            f"Epoch {E1} — all pools "
+            f"(n={len(s1_all)}; median={np.median(s1_all)/1e6:.2f} M)"
+        ),
     )
     ax.axhline(0.5, color="0.55", linestyle=":", linewidth=1.0)
-    ax.axvline(np.median(s0), color=COLOR_228, linestyle="--", linewidth=1.0, alpha=0.85)
-    ax.axvline(np.median(s1), color=COLOR_285, linestyle="--", linewidth=1.0, alpha=0.85)
+    ax.axvline(np.median(s0_all), color=COLOR_228, linestyle="--", linewidth=1.0, alpha=0.7)
+    ax.axvline(np.median(s0_cont), color=COLOR_228, linestyle="-", linewidth=1.0, alpha=0.85)
+    ax.axvline(np.median(s1_all), color=COLOR_285, linestyle="--", linewidth=1.0, alpha=0.85)
+
     ax.set_xscale("log")
-    ax.set_xlim(MIN_STAKE, max(s0.max(), s1.max()) * 1.05)
+    ax.set_xlim(MIN_STAKE, max(s0_all.max(), s1_all.max()) * 1.05)
     ax.set_ylim(0, 1.02)
     ax.set_xlabel("Epoch stake (ADA, log scale)", fontsize=FONT_SIZE)
     ax.set_ylabel("Fraction of pools ≤ stake", fontsize=FONT_SIZE)
     ax.set_title(
-        f"Pool stake distribution: epoch {E0} vs epoch {E1}",
+        f"Pool stake distribution: epoch {E0} vs epoch {E1}\n"
+        f"(solid green = {E0} pools that still exist at {E1}; "
+        f"dashed green = all {E0} pools, incl. {len(exited)} that exited)",
         fontsize=FONT_SIZE,
     )
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
-    ax.legend(frameon=False, fontsize=FONT_SIZE - 1, loc="lower right")
+    ax.legend(frameon=False, fontsize=FONT_SIZE - 2, loc="upper left")
     ax.grid(alpha=0.25)
 
     fig.savefig(OUT, dpi=300)
@@ -107,10 +146,7 @@ def main() -> None:
     print(f"Wrote {OUT_CSV}")
     for r in rows:
         print(
-            f"  ep{r['epoch']}: n={r['n_in_plot']}  "
-            f"median={r['median_ADA']/1e6:.3f}M  "
-            f"mean={r['mean_ADA']/1e6:.3f}M  "
-            f"S={r['sum_ADA']/1e9:.2f}B"
+            f"  {r['series']}: n={r['n']} median={r['median_ADA']/1e6:.3f}M"
         )
 
 
