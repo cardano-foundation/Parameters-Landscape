@@ -308,7 +308,7 @@ Next charts shows what are the characteristics of the losing and edge pools.
 | Theoretical operator reward (ADA), median | 43 | 933 | 8,790 |
 | Coverage ratio \(r\), median | 0.058 | 1.259 | 11.860 |
 
-Unsurprisingly, pools in the losing set hold less total delegation. This remains true even when operators attempt to attract delegators by lowering their variable margins ($m_i$). Delegators seem unresponsive to margin cuts because $m_i$ alone does not dictate a pool's market appeal—notably, the median fixed cost ($c_i$) remains anchored at $340$ ADA despite ^minPoolCost`=$170$ ADA. Pool attractiveness seems to be driven by existing delegation volume and operator pledge size, which may create entry barriers for new or small pools.
+Unsurprisingly, pools in the losing set hold less total delegation. This remains true even when operators attempt to attract delegators by lowering their variable margins ($m_i$). Delegators seem unresponsive to margin cuts because $m_i$ alone does not dictate a pool's market appeal—notably, the median fixed cost ($c_i$) remains anchored at $340$ ADA despite `minPoolCost` $ = 170$ ADA. Pool attractiveness seems to be driven by existing delegation volume and operator pledge size, which may create entry barriers for new or small pools.
 
 #### Pool splitting by multi-pool operators
 
