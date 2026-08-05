@@ -160,13 +160,6 @@ The two panels answer different questions—left: composition and stake realloca
 
 
 
-
-
-<p align="center">
-  <img src="plots/unsaturated_mi_ci_change_counts_228_285.png" alt="Unsaturated Pools change in other  parameters when k increases" width="80%">
-</p>
-
-
 *Decentralization metrics*
 
 The following table compares decentralization metrics for epoch 228 and epoch 285. However, since many pools and new stake entered in the ecosystem in this window of time, the figures are not informative of how successful was the parameter change in this objective.
@@ -217,6 +210,15 @@ This measures net yield per ADA after deducting fixed costs ($c_i$) and variable
 | $k=150$: pools exiting by epoch 285 | 290 | 38 | 3.03% | 2.87% |
 
 The data shows that surviving pools were inherently higher-yielding at baseline, with $51.6\\%$ ($393/762$) generating positive returns (median positive APR of $4.14\%$), whereas only $13.1\\%$ ($38/290$) of exiting pools produced positive returns (median positive APR of $3.03\\%$). The change in $k$ may be responsible in purging underperforming operators, and  yielding a slight upward shift in both overall median positive APR (from $4.07\\%$ to $4.14\\%$) and mean positive APR (from $3.63\\%$ to $3.71\\%$) of the network. Notice that APR for surviving pools remain invariant under the counterfactual $k=500$ parameterization. This suggests that surviving operators may have adjusted their margins and fixed costs sufficiently to absorb protocol parameter changes and preserve steady yields for their delegators. That is, the increase in $k$ enhanced network-wide attractiveness by marginally lifting average delegator APR—a direct result of the exit of weak pools.
+
+
+*Interaction effects*
+
+
+
+<p align="center">
+  <img src="plots/unsaturated_mi_ci_change_counts_228_285.png" alt="Unsaturated Pools change in other  parameters when k increases" width="80%">
+</p>
 
 
 ## Behavioral and equilibrium effects
