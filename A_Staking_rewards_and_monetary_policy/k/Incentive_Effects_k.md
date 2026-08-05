@@ -143,11 +143,21 @@ After the increment in $k$, delegators in those pools that become oversaturated 
   <img src="plots/unsaturated_agg_stake_change_by_stake_bin_228_285.png" alt="Unsaturated Pools change measured in agg delegation when k increases" width="48%">
 </div>
 
-The next plot shows the new distribution of stake. The left panel shows the distribution over the pools on epoch 228 versus the same pools that survived in epoch 285. We see that there is an improvment in the distribution. This is because many dust pools left (exits pools were especially small, with a median $\approx 0.07M$), due to redelegation, and due to incoming stake to existing pools. The right panel shows the distribution with all pools in each epoch (hence, epoch 285 includes new pools).
+The next figure compares observed stake distributions before and after the \(k\) increment via CDFs .
 
-<p align="center">
-  <img src="plots/stake_distribution_228_vs_285.png" alt="Change in the distribution of stakes when k increases" width="80%">
-</p>
+**Left panel (epoch-228 cohort).** Dashed green is all pools present at epoch 228; solid green is the subset that still exist at epoch 285, valued at their epoch-228 stake; orange is that same continuing set at epoch 285. Relative to the full 228 census, the continuing cohort is already less “dusty” (exits were especially small: median stake \(\approx 0.07\)M ADA). Comparing solid green to orange then isolates how *survivors* evolved: the median rises (about \(0.78\)M to \(1.34\)M ADA), while the upper tail compresses sharply (far fewer pools near the new saturation region). That pattern is consistent with redelegation away from oversaturated pools and with stake flowing toward remaining unsaturated operators—not with a thicker left tail of tiny pools.
+
+**Right panel (full snapshots).** Orange is *all* pools at epoch 285, including entrants after 228. Pool count rises from \(1{,}161\) to \(2{,}810\), and the median falls (about \(0.33\)M to \(0.16\)M ADA): many new small pools pull the CDF up and to the left even though the continuing cohort on the left looks less concentrated in the extreme right tail. 
+
+The two panels answer different questions—left: composition and stake reallocation *within* the 228 set; right: the ecosystem-wide distribution once entry is allowed.
+
+<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+  <img src="plots/stake_distribution_228_cohort_vs_285.png" alt="Change in the distribution of stakes 228 cohort when k increases" width="48%">
+  <img src="plots/stake_distribution_228_vs_285.png" alt="Change in the distribution of stakes when k increases" width="48%">
+</div>
+
+
+
 
 
 <p align="center">
@@ -157,12 +167,16 @@ The next plot shows the new distribution of stake. The left panel shows the dist
 
 **Evidence on decentralization**
 
+The following table compares decentralization metrics for epoch 228 and epoch 285. However, since many pools and new stake entered in the ecosystem in this window of time, the figures are not informative of how successful was the parameter change in this objective.
+
 Nakamoto $N$: minimum number of pools (ranked by active stake) whose aggregate exceeds 50% of total active stake.
 
 | Epoch | Nakamoto \(N\) | Snapshot pools | Aggregate stake of \(N\) | Total active stake | Share | Min-agg declared pledge | Min-agg active pledge |
 |------:|---------------:|---------------:|-------------------------:|-------------------:|------:|------------------------:|----------------------:|
 | 228 | 57 | 1,161 | 8.76B ADA | 17.35B ADA | 50.48% | 59.0M ADA | 101.6M ADA |
 | 285 | 195 | 2,813 | 11.59B ADA | 23.16B ADA | 50.06% | 1.09B ADA | 1.23B ADA |
+
+**Viability**
 
 ## Behavioral and equilibrium effects
 
