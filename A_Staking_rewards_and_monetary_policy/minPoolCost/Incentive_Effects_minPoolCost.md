@@ -40,19 +40,19 @@ For the numerical analysis in this section, we use the parameter values below un
 
 ## Design
 
-The parameter $c_{\min}$ sets the minimum fixed cost that a stake pool operator may declare. The following plot shows the histogram of the fixed cost declarations at epoch 644.
+The parameter $c_{min}$ sets the minimum fixed cost that a stake pool operator may declare. The following plot shows the histogram of the fixed cost declarations at epoch 644.
 
 <p align="center" id="fig-min-pool-cost-644">
   <img src="plots/min_pool_cost_hist_epoch_644.png" alt="Histogram c_i epoch 644" width="62%">
 </p>
 
-A change in $c_{\min}$ or in the declared fixed cost $c_i$ does not affect the pool's gross reward. Instead, the declared fixed cost is paid to the operator before the remaining rewards are divided between the operator and delegators.
+A change in $c_{min}$ or in the declared fixed cost $c_i$ does not affect the pool's gross reward. Instead, the declared fixed cost is paid to the operator before the remaining rewards are divided between the operator and delegators.
 
-The main objective of $c_{\min}$ is to support economically viable pool operation and provide some protection against Sybil attacks. Without a minimum fixed cost to declare, an operator could create many pools, declare negligible costs, and offer returns to delegators that other operators (that needs to declare their cost) may be unable to match.
+The main objective of $c_{min}$ is to support economically viable pool operation and provide some protection against Sybil attacks. Without a minimum fixed cost to declare, an operator could create many pools, declare negligible costs, and offer returns to delegators that other operators (that needs to declare their cost) may be unable to match.
 
-The main trade-off comes from the incentive that a pool has to declare a larger fixed cost to cover their actual cost versus to declare less to become more attractive for delegators. That is, a higher $c_{\min}$ can therefore protect operator revenues and discourage small, undercapitalized Sybil pools, but it also reduces the competitiveness of small and new pools and may push delegation toward larger pools. A lower $c_{\min}$ facilitates entry and improves small-pool returns, but may intensify competition in $c_i$ and make it easier for multi-pool operators to expand.
+The main trade-off comes from the incentive that a pool has to declare a larger fixed cost to cover their actual cost versus to declare less to become more attractive for delegators. That is, a higher $c_{min}$ can therefore protect operator revenues and discourage small, undercapitalized Sybil pools, but it also reduces the competitiveness of small and new pools and may push delegation toward larger pools. A lower $c_{min}$ facilitates entry and improves small-pool returns, but may intensify competition in $c_i$ and make it easier for multi-pool operators to expand.
 
-The appropriate level of $c_{\min}$ therefore balances operator viability and Sybil resistance against entry, competition, and decentralization.
+The appropriate level of $c_{min}$ therefore balances operator viability and Sybil resistance against entry, competition, and decentralization.
 
 Next, these effects and trade-off are explained with more details
 
@@ -92,7 +92,7 @@ $$
 
 Hence,
 
-$$\Pi_i=sf(\sigma_i,p_i)+(1-s)c_i$, \quad \text{and} \quad $\partial \Pi_i/\partial c_i=(1-s)\geq 0.$$
+$$\Pi_i=sf(\sigma_i,p_i)+(1-s)c_i, \quad \text{and} \quad \partial \Pi_i/\partial c_i=(1-s)\geq 0.$$
 
 It follows that the operator's profit drops with a lower $c_i$ (unless $p_i=\sigma_i=z_0$). A potential consequence is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. 
 
@@ -272,10 +272,10 @@ U_i=\Pi_i-\hat c_i,
 \Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
 $$
 
-with feasibility $c_i\ge c_{\min}$. A reduced-form best response is
+with feasibility $c_i\ge c_{min}$. A reduced-form best response is
 
 $$
-(c_i^{\*},m_i^{\*},\hat p_i^{\*})\in\arg\max_{c_i,m_i,\hat p_i} U_i\big(c_{\min},\sigma_i'(c_i,m_i,\hat p_i),c_i,m_i,\hat p_i\big)
+(c_i^{\*},m_i^{\*},\hat p_i^{\*})\in\arg\max_{c_i,m_i,\hat p_i} U_i\big(c_{min},\sigma_i'(c_i,m_i,\hat p_i),c_i,m_i,\hat p_i\big)
 \quad\text{s.t. }c_i\ge c_{min}.
 $$
 
@@ -368,21 +368,21 @@ Unsurprisingly, pools in the losing set hold less total delegation. This remains
 For an MPO controlling $n$ pools,
 
 $$
-\Pi^{\text{MPO}}(n)=\sum_{j=1}^{n}\Pi_j\big(c_{\min},\sigma_j',\hat p_j,m_j,c_j\big),
-\qquad c_j\ge c_{\min}.
+\Pi^{\text{MPO}}(n)=\sum_{j=1}^{n}\Pi_j\big(c_{min},\sigma_j',\hat p_j,m_j,c_j\big),
+\qquad c_j\ge c_{min}.
 $$
 
-Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{\min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{\min}$ does the opposite.
+Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{min}$ does the opposite.
 
 #### Changes in staking participation
 
 Let total active stake be $S=\sum_i\sigma_i$. A reduced-form aggregate response is
 
 $$
-\Delta S=\chi\,\big(\bar r_{\text{exp}}(c_{\min})-r_{\text{alt}}\big),
+\Delta S=\chi\,\big(\bar r_{\text{exp}}(c_{min})-r_{\text{alt}}\big),
 $$
 
-where $\bar r_{\text{exp}}$ is expected network staking return net of fee/cost pass-through. Because $c_{\min}$ is mostly redistributive within staking, first-order effects are on allocation across pools, with aggregate participation moving mainly through perceived net-return changes.
+where $\bar r_{\text{exp}}$ is expected network staking return net of fee/cost pass-through. Because $c_{min}$ is mostly redistributive within staking, first-order effects are on allocation across pools, with aggregate participation moving mainly through perceived net-return changes.
 
 ### Behavioral deviations from the rational benchmark
 
@@ -400,14 +400,14 @@ $$
 \qquad 0<\lambda_i<1.
 $$
 
-Under this friction, even large changes in $c_{\min}$ can translate into slow redelegation if delegators are inert.
+Under this friction, even large changes in $c_{min}$ can translate into slow redelegation if delegators are inert.
 
 #### Operators changing pledge, margin, or declared fixed cost
 
 Rather than jumping to the optimum, operators partially adjust controls:
 
 $$
-c_{i,t+1}=\max\{c_{\min},\;c_{i,t}+\rho_c(c_i^{\*}-c_{i,t})\},
+c_{i,t+1}=\max\{c_{min},\;c_{i,t}+\rho_c(c_i^{\*}-c_{i,t})\},
 $$
 $$
 m_{i,t+1}=m_{i,t}+\rho_m(m_i^{\*}-m_{i,t}),
@@ -422,9 +422,9 @@ with $0<\rho_c,\rho_m,\rho_p\le 1$. This generates transitional dynamics and tem
 Inertia can be represented by hysteresis thresholds around participation:
 
 $$
-U_i(c_{\min},\sigma_i')<-H_i^{\text{exit}},
+U_i(c_{min},\sigma_i')<-H_i^{\text{exit}},
 \qquad
-U_i^{\text{entry}}(c_{\min},\sigma_i')>H_i^{\text{entry}},
+U_i^{\text{entry}}(c_{min},\sigma_i')>H_i^{\text{entry}},
 $$
 
 with $H_i^{\text{entry}},H_i^{\text{exit}}>0$. This allows weak pools to remain active and viable entrants to delay launch, even when rational static constraints indicate immediate adjustment.
@@ -447,7 +447,7 @@ $$
 \Delta S_t=\chi_s\big(r_t-r_{\text{alt},t}\big)+\chi_l\,\mathbb E_t\!\left[\sum_{h\ge 1}\beta^h\big(r_{t+h}-r_{\text{alt},t+h}\big)\right],
 $$
 
-with $\chi_s>\chi_l$ under short-term salience. This can amplify short-run participation responses to changes in $c_{\min}$ even when long-run effects are limited.
+with $\chi_s>\chi_l$ under short-term salience. This can amplify short-run participation responses to changes in $c_{min}$ even when long-run effects are limited.
 
 
 
