@@ -269,16 +269,26 @@ $$
 
 where $\underline{U}_i$ denotes the outside option. For simplicity, let's assume $\underline{U}_i=0$, however, a realistic outside option could be an anual return of $3\%-5\%$.
 
-Notice that if there is truthful cost reporting ($c_i=\hat c_i$)), then the previous condition becomes $f_i\ge c_i$. However, we have already argued that data do not suggests truthful reporting. 
+Notice that if there is truthful cost reporting ($c_i=\hat c_i$), then the previous condition becomes $f_i\ge c_i$. However, we have already argued that data do not suggests truthful reporting. 
 
-Using actual data from epoch 644, the following chart shows how many of the pools that produced a block during epoch 644 are on viability risk (note that taking only one epoch as data source may do not represent the actual state). We assume that all pools face the same operation cost/expenditure ($C^*$) equal to $667$ USD per month (six epochs), and a token price of $0.15 USD/ADA$ giving 
+Using actual data from epoch 644, the following chart shows how many of the pools during epoch 644 are on viability risk (note that taking only one epoch as data source may do not represent the actual state). For each pool we calculate its 
+
+$$
+\Pi_i=
+\begin{cases}
+f_i, & f_i\le c_i,\\
+c_i+(f_i-c_i)\left[m_i+(1-m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i>c_i,
+\end{cases}
+$$
+
+using their margin, delegation, active and delcared pledge, and declared fixed cost. However, we consider the case in which the latter is not the actual operating cost. We assume that all pools face the same operation cost/expenditure ($C^*$) equal to $667$ USD per month (six epochs), and a token price of $0.15 USD/ADA$ giving 
 
 $$C^*=667/6/0.15=741.1 \text{ USD per epoch}.$$
 
 The plot measures $r=\Pi_i/C^{\*}$, where a $r<1$ indicates not enough rewards to cover costs. Among the $902$ pools that were rewarded in that epoch, only $269$ were able to cover the OpEx $C^*$. However, $151$ of them were on a risky situation ($1\leq r\leq 2$)
 
 <p align="center">
-<img src="plots/pool_viability_opex_categories_epoch_644.png" alt="Pools viability versus OpCost" width="62%">
+<img src="plots/pool_viability_theoretical_all_pools_epoch_644.png" alt="Pools theoretical viability versus OpCost" width="62%">
 </p>
 
 Next charts shows what are the characteristics of the losing and edge pools. 
