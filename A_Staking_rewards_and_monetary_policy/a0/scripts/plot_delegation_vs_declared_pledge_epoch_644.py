@@ -140,12 +140,7 @@ def main() -> None:
         color="#e76f51",
         linewidth=2.0,
         zorder=3,
-        label=(
-            rf"OLS on $\log_{{10}}$ "
-            rf"(slope={coef[0]:.2f}; "
-            rf"Spearman $\rho$={spearman:.2f}; "
-            rf"Pearson$_{{\log}}$={pearson_log:.2f})"
-        ),
+        label=rf"OLS on $\log_{{10}}$ (slope={coef[0]:.2f})",
     )
 
     ref_lo = min(x.min(), y.min())
