@@ -298,19 +298,17 @@ Next charts shows what are the characteristics of the losing and edge pools.
 </p>
 
 
-| | Losing (n=633) | Edge (n=151) |
-|---|---|---|
-| Epoch stake (M ADA) | 6.66 | 38.08 |
-| Active pledge (k ADA) | 45.0 | 9.4 |
-| Declared pledge (k ADA) | 20.0 | 0.1 |
-| Declared fixed cost (ADA) | 340 | 340 |
-| Margin (%) | 1.5 | 5.0 |
-| Blocks minted | 6 | 39 |
-| Delegators | 243 | 36 |
-| Leader reward (ADA) | 358 | 934 |
-| Coverage ratio \(r\) | 0.483 | 1.260 |
+| | Losing (n=1949) | Edge (n=150) | Comfortable+Strong (n=124) |
+|---|---|---|---|
+| Epoch stake (M ADA), median | 0.14 | 38.29 | 35.94 |
+| Active pledge (k ADA), median | 5.0 | 8.0 | 429.0 |
+| Declared pledge (k ADA), median | 1.0 | 0.1 | 10.0 |
+| Declared fixed cost (ADA), median | 340 | 340 | 340 |
+| Margin (%), median | 1.0 | 5.0 | 100.0 |
+| Theoretical operator reward (ADA), median | 43 | 933 | 8,790 |
+| Coverage ratio \(r\), median | 0.058 | 1.259 | 11.860 |
 
-Unsurprisingly, pools on the losing set hold less total delegation. This remains true even when operators attempt to attract delegators by lowering their declared fixed costs ($c_i$) and variable margins ($m_i$). Delegators may be largely unresponsive to these fee reductions because $c_i$ and $m_i$ alone do not dictate a pool's market appeal. Instead, the primary factors driving pool attractiveness are its existing delegation volume and operator pledge size. These elements act as entry barrier for new small pools, regardless of any reductions in `minPoolCost`.
+Unsurprisingly, pools in the losing set hold less total delegation. This remains true even when operators attempt to attract delegators by lowering their variable margins ($m_i$). Delegators seem unresponsive to margin cuts because $m_i$ alone does not dictate a pool's market appeal—notably, the median fixed cost ($c_i$) remains anchored at $340$ ADA despite ^minPoolCost`=$170$ ADA. Pool attractiveness seems to be driven by existing delegation volume and operator pledge size, which may create entry barriers for new or small pools.
 
 #### Pool splitting by multi-pool operators
 
