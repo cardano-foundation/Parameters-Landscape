@@ -154,7 +154,7 @@ $$
 
 so pledge differences receive more weight relative to cost differences.
 
-#### Response of delegators to the protocol incentive for the operator skin-in-the-game ($a_0$) Delegators moving stake
+#### Skin-in-the-game and external delegation ($a_0$ motivation)
 
 As stated above, the inclusion of $a_0$ in the design aims to put weight in the skin-in-the-game of opertors. This is done by prizing the declared pledge. To examine whether higher operator declared pledge attract greater external delegation, next plot shows third-party delegation against declared pledge across $n = 2,123$ active pools in epoch 644 on a log-log scale. The OLS regression yield a slope of just $0.18$, indicating a very inelastic relationship: A $100\\%$ increase in declared pledge is associated with only an $18\\%$ increase in third-party delegation. There is substantial delegation leverage at low declared pledges: Even pools with modest declared pledges attract multi-million ADA third-party delegations.
 
@@ -181,9 +181,19 @@ $$
 
 with $\bar r^D$ the stake-weighted market benchmark. After an increase in $a_0$, high-pledge pools tend to have higher relative $r_i^D$, so they receive positive net flows in this benchmark.-->
 
-#### Operators changing pledge, margin, or declared fixed cost
+#### Operator margin and fixed cost choices vs declared pledge
 
-With costs treated as truthful and fixed in this baseline, operators mainly adjust $\hat p_i$ and $m_i$ to preserve utility,
+Since the parameter $a_0$ favours those pools with more declared pledge, we could ask whether those pools with high declared pledge choose lower fees (margin and declared fixed cost) to increase their attractiveness for delegators. The following plots show that this correlation is very weak. On the other hand, the data do not support “high pledge → higher fees” (because high pledge makes the pool competitive, opening the door to keep higher fees without losing stake). The sign goes (weakly) against that.
+
+<p align="center">
+  <img src="plots/declared_pledge_vs_margin_epoch_644.png" alt="a0 induces high pledge pools to reduce margin?" width="62%">
+</p>
+
+<p align="center">
+  <img src="plots/declared_pledge_vs_fixed_cost_epoch_644.png" alt="a0 induces high pledge pools to reduce fixed cost?" width="62%">
+</p>
+
+<!--With costs treated as truthful and fixed in this baseline, operators mainly adjust $\hat p_i$ and $m_i$ to preserve utility,
 
 $$
 U_i=\Pi_i-\hat c_i,
@@ -197,7 +207,7 @@ $$
 (\hat{p}_i^{\*},m_i^{\*})\in\arg\max_{\hat p_i,m_i}\;U_i\big(a_0,\sigma_i'(\hat p_i,m_i),\hat p_i,m_i\big),
 $$
 
-which captures that pricing and pledge choices are made jointly with their induced stake response. Low-pledge operators are pushed to increase pledged capital and/or reduce margins to retain delegation.
+which captures that pricing and pledge choices are made jointly with their induced stake response. Low-pledge operators are pushed to increase pledged capital and/or reduce margins to retain delegation.-->
 
 #### Entry or exit of pools
 
