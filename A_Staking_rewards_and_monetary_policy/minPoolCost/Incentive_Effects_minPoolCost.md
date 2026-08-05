@@ -297,6 +297,7 @@ Next charts shows what are the characteristics of the losing and edge pools.
 <img src="plots/pool_viability_losing_vs_edge_traits_epoch_644.png" alt="Pools characteristics losing and edge" width="62%">
 </p>
 
+
 | | Losing (n=633) | Edge (n=151) |
 |---|---|---|
 | Epoch stake (M ADA) | 6.66 | 38.08 |
