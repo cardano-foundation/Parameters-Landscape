@@ -10,7 +10,8 @@ set lower declared fixed costs (lower fees).
 Declared pledge p = pool_update.active.pledge
 Fixed cost      c = pool_update.active.fixed_cost
 
-Plot: log(p) vs c scatter with OLS on log10(p).
+Plot: log(p) vs c scatter. No OLS line: fixed cost is discrete (policy
+notches) and a few extreme c values make a fitted slope misleading.
 
 Usage:
   python3 plot_declared_pledge_vs_fixed_cost_epoch_644.py
@@ -68,6 +69,7 @@ def main() -> None:
     print(f"Spearman(p, c)              = {spearman:.4f}")
     print(f"Pearson(log10 p, c)         = {pearson_log:.4f}")
     print(f"Pearson(p, c)               = {pearson:.4f}")
+    print("OLS omitted: c is notch-dominated; a few extreme costs distort the fit.")
 
     fig, ax = plt.subplots(figsize=(8.5, 5.4), constrained_layout=True)
     ax.scatter(
@@ -79,17 +81,6 @@ def main() -> None:
         edgecolors="none",
         zorder=2,
         label=rf"pools (n={n})",
-    )
-
-    coef = np.polyfit(lx, y, 1)
-    lx_line = np.linspace(lx.min(), lx.max(), 200)
-    ax.plot(
-        10**lx_line,
-        coef[0] * lx_line + coef[1],
-        color="#e76f51",
-        linewidth=2.0,
-        zorder=3,
-        label=rf"OLS on $\log_{{10}} p$ (slope={coef[0]:.2f})",
     )
 
     ax.set_xscale("log")
