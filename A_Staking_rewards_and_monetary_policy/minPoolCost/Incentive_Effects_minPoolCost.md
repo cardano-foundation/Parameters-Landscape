@@ -224,7 +224,9 @@ Changing $c_{min}$ does not modify gross rewards $f(\sigma_i,p_i)$ directly, but
 
 ### Rational behavior
 
-We start from a frictionless non-myopic benchmark (consistent with the reward-sharing game): forward-looking delegators and operators, truthful cost declaration ($c_i=\hat c_i$), and binding floor $c_i\ge c_{min}$.
+(here short description of how the equilibrium in the paper changes, with expected responses of operators and delegators)
+
+<!-- We start from a frictionless non-myopic benchmark (consistent with the reward-sharing game): forward-looking delegators and operators, truthful cost declaration ($c_i=\hat c_i$), and binding floor $c_i\ge c_{min}$.
 
 For competitive ranking, use
 
@@ -242,11 +244,11 @@ $$
 \frac{\partial D_i}{\partial c_{min}}=-(1-m_i)\mathbf 1\{P_i>0\},
 $$
 
-so increasing $c_{min}$ directly lowers desirability for floor-binding pools.
+so increasing $c_{min}$ directly lowers desirability for floor-binding pools. -->
 
-#### Delegators moving stake
+#### Delegators moving stake (?)
 
-Delegators allocate by expected net return per unit stake,
+<!-- Delegators allocate by expected net return per unit stake,
 
 $$
 r_i^D=(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}.
@@ -260,7 +262,7 @@ $$
 \sigma_i'=\sigma_i+\Delta\sigma_i^D.
 $$
 
-Hence, raising $c_{min}$ tends to push stake away from small/floor-binding pools (where $c_i/\sigma_i$ is large), while reducing $c_{min}$ relaxes that pressure.
+Hence, raising $c_{min}$ tends to push stake away from small/floor-binding pools (where $c_i/\sigma_i$ is large), while reducing $c_{min}$ relaxes that pressure. -->
 
 #### Operators changing pledge, margin, or declared fixed cost
 
@@ -363,30 +365,30 @@ Next charts shows what are the characteristics of the losing and edge pools.
 
 Unsurprisingly, pools in the losing set hold less total delegation. This remains true even when operators attempt to attract delegators by lowering their variable margins ($m_i$). Delegators seem unresponsive to margin cuts because $m_i$ alone does not dictate a pool's market appeal—notably, the median fixed cost ($c_i$) remains anchored at $340$ ADA despite `minPoolCost` $ = 170$ ADA. Pool attractiveness seems to be driven by existing delegation volume and operator pledge size, which may create entry barriers for new or small pools.
 
-#### Pool splitting by multi-pool operators
+#### Pool splitting by multi-pool operators (?)
 
-For an MPO controlling $n$ pools,
+<!-- For an MPO controlling $n$ pools,
 
 $$
 \Pi^{\text{MPO}}(n)=\sum_{j=1}^{n}\Pi_j\big(c_{min},\sigma_j',\hat p_j,m_j,c_j\big),
 \qquad c_j\ge c_{min}.
 $$
 
-Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{min}$ does the opposite.
+Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{min}$ does the opposite. -->
 
-#### Changes in staking participation
+#### Changes in staking participation (?)
 
-Let total active stake be $S=\sum_i\sigma_i$. A reduced-form aggregate response is
+<!-- Let total active stake be $S=\sum_i\sigma_i$. A reduced-form aggregate response is
 
 $$
 \Delta S=\chi\,\big(\bar r_{\text{exp}}(c_{min})-r_{\text{alt}}\big),
 $$
 
-where $\bar r_{\text{exp}}$ is expected network staking return net of fee/cost pass-through. Because $c_{min}$ is mostly redistributive within staking, first-order effects are on allocation across pools, with aggregate participation moving mainly through perceived net-return changes.
+where $\bar r_{\text{exp}}$ is expected network staking return net of fee/cost pass-through. Because $c_{min}$ is mostly redistributive within staking, first-order effects are on allocation across pools, with aggregate participation moving mainly through perceived net-return changes. -->
 
-### Behavioral deviations from the rational benchmark
+### Behavioral deviations from the rational benchmark (??
 
-We preserve the five baseline channels but relax full rationality by introducing market frictions, bounded rationality, and coordination failure.
+<!-- We preserve the five baseline channels but relax full rationality by introducing market frictions, bounded rationality, and coordination failure.
 
 Compared to delegators, pool operators generally act as more sophisticated market participants. Consequently, we assume operators make rational, optimizing decisions while explicitly factoring in delegator behavioral frictions or bounded rationality into their strategies. 
 
@@ -447,11 +449,11 @@ $$
 \Delta S_t=\chi_s\big(r_t-r_{\text{alt},t}\big)+\chi_l\,\mathbb E_t\!\left[\sum_{h\ge 1}\beta^h\big(r_{t+h}-r_{\text{alt},t+h}\big)\right],
 $$
 
-with $\chi_s>\chi_l$ under short-term salience. This can amplify short-run participation responses to changes in $c_{min}$ even when long-run effects are limited.
+with $\chi_s>\chi_l$ under short-term salience. This can amplify short-run participation responses to changes in $c_{min}$ even when long-run effects are limited. -->
 
 
 
-## Interaction effects
+## Interaction effects (ToDo)
 
 See the file analysis in the [interaction effects file](Interaction-effects/interaction_effects.md)
 
