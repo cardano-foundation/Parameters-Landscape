@@ -114,7 +114,7 @@ The parameter $a_0$ directly influences reward pot dynamics and treasury flows. 
 An analysis of epoch 644 demonstrates how varying $a_0$ influences reserve reward retention during that specific period. The analysis considers the actual distribution of stake and pledge across the different pools (see [Pools Data e644](../../staking_pools_full_epoch_644.csv)), and calculates the gross reward $f(\sigma_i,p_i)$ per each pool for different values of $a_0$ (see [Pool Rewards vs a0](../../pools_f_vs_a0_epoch_644.csv) and [R Savings vs a0](../../savings_pct_of_R_vs_a0_epoch_644.csv) ). The effect exhibits slight concavity: for small adjustments, each $1\%$ increase in $a_0$ yields a reward savings of roughly $0.1\%$.
 
 <p align="center">
-  <img src="plots/savings_pct_of_R_vs_a0_epoch_644.png" alt="Saving R when a0 changes" width="80%">
+  <img src="plots/savings_pct_of_R_vs_a0_epoch_644.png" alt="Saving R when a0 changes" width="62%">
 </p>
 
 
@@ -156,19 +156,22 @@ so pledge differences receive more weight relative to cost differences.
 
 #### Response of delegators to the protocol incentive for the operator skin-in-the-game ($a_0$) Delegators moving stake
 
-As stated above, the inclusion of $a_0$ in the design aims to put weight in the skin-in-the-game of opertors. This is done by prizing the declared pledge. An indirect consequence is that delegators should choose pools with larger declared pledge. However, using data of epoch 644 declared pledge seems not to have a strong importance in delegation decision:
+As stated above, the inclusion of $a_0$ in the design aims to put weight in the skin-in-the-game of opertors. This is done by prizing the declared pledge. To examine whether higher operator declared pledge attract greater external delegation, next plot shows third-party delegation against declared pledge across $n = 2,123$ active pools in epoch 644 on a log-log scale. The OLS regression yield a slope of just $0.18$, indicating a very inelastic relationship: A $100\\%$ increase in declared pledge is associated with only an $18\\%$ increase in third-party delegation. There is substantial delegation leverage at low declared pledges: Even pools with modest declared pledges attract multi-million ADA third-party delegations.
+
+<p align="center">
+  <img src="plots/delegation_vs_declared_pledge_epoch_644.png" alt="Helps a0 in making declared pledge a driver for delegation?" width="62%">
+</p>
 
 
 
 
-
-Delegators reallocate toward pools with higher expected return per unit stake,
+<!-- We expect delegators to reallocate toward pools with higher expected return per unit stake,
 
 $$
-r_i^D=(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i}.
+(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i}.
 $$
 
-Let the post-shock delegation update be
+SupposeLet the post-shock delegation update be
 
 $$
 \Delta \sigma_i^D=\eta\,\sigma_i\big(r_i^D-\bar r^D\big),
@@ -176,7 +179,7 @@ $$
 \sigma_i'=\sigma_i+\Delta \sigma_i^D,
 $$
 
-with $\bar r^D$ the stake-weighted market benchmark. After an increase in $a_0$, high-pledge pools tend to have higher relative $r_i^D$, so they receive positive net flows in this benchmark.
+with $\bar r^D$ the stake-weighted market benchmark. After an increase in $a_0$, high-pledge pools tend to have higher relative $r_i^D$, so they receive positive net flows in this benchmark.-->
 
 #### Operators changing pledge, margin, or declared fixed cost
 
