@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-Delegation gain/loss among pools that were unsaturated under k=500 at epoch 228,
-comparing stake 228→285, by epoch-228 stake bins (M ADA).
+Delegation gain/loss/exit among pools unsaturated under k=500 at epoch 228,
+by epoch-228 stake bins (M ADA).
 
-Bins: 0–15, 15–30, 30–45, 45–60, >60.
+Includes pools that exited by epoch 285 (separate "exited" bar).
+Continuing pools: gain / lose / flat stake vs 285.
 """
 
 from __future__ import annotations
@@ -23,10 +24,11 @@ OUT = DIR / "unsaturated_delegation_by_stake_bin_228_285.png"
 OUT_CSV = DIR / "unsaturated_delegation_by_stake_bin_228_285.csv"
 E0, E1 = 228, 285
 K_POST = 500
-FONT_SIZE = 11
+FONT_SIZE = 12
 COLOR_GAIN = "#2f6f4e"
 COLOR_LOSE = "#b23a3a"
 COLOR_FLAT = "#6b7280"
+COLOR_EXIT = "#7c3aed"
 KOIOS = "https://api.koios.rest/api/v1"
 TOKEN_PATH = DIR / ".koios_api_token"
 
@@ -63,73 +65,85 @@ def load_epoch(epoch: int) -> pd.DataFrame:
     ).set_index("pool_id")
 
 
-def bin_label(stake_m: float) -> str:
-    for lo, hi, lab in BINS:
-        if lo <= stake_m < hi:
-            return lab
-    return BINS[-1][2]
-
-
 def main() -> None:
     T = fetch_T_ada(E0)
     z0 = T / K_POST
     a = load_epoch(E0)
     b = load_epoch(E1)
 
-    # Unsaturated after k increment (under new k=500), with positive stake at 228
     unsat = a[(a["stake_ada"] > 0) & (a["stake_ada"] <= z0)].index
-    common = unsat.intersection(b.index)
-    sa = a.loc[common, "stake_ada"]
-    sb = b.loc[common, "stake_ada"]
-    d = sb - sa
+    continuing = unsat.intersection(b.index)
+    exited = unsat.difference(b.index)
 
-    stake_m = sa / 1e6  # M ADA
+    sa_c = a.loc[continuing, "stake_ada"]
+    sb_c = b.loc[continuing, "stake_ada"]
+    d_c = sb_c - sa_c
+    sa_x = a.loc[exited, "stake_ada"]
+
+    stake_m_c = sa_c / 1e6
+    stake_m_x = sa_x / 1e6
     labels = [lab for _, _, lab in BINS]
     rows = []
-    gain_vals, lose_vals, flat_vals, ns = [], [], [], []
+    gain_vals, lose_vals, flat_vals, exit_vals, ns = [], [], [], [], []
     for lo, hi, lab in BINS:
-        mask = (stake_m >= lo) & (stake_m < hi)
-        n = int(mask.sum())
-        g = int((d[mask] > 0).sum())
-        l = int((d[mask] < 0).sum())
-        f = int((d[mask] == 0).sum())
+        mask_c = (stake_m_c >= lo) & (stake_m_c < hi)
+        mask_x = (stake_m_x >= lo) & (stake_m_x < hi)
+        g = int((d_c[mask_c] > 0).sum())
+        l = int((d_c[mask_c] < 0).sum())
+        f = int((d_c[mask_c] == 0).sum())
+        x = int(mask_x.sum())
+        n = g + l + f + x
         gain_vals.append(g)
         lose_vals.append(l)
         flat_vals.append(f)
+        exit_vals.append(x)
         ns.append(n)
         rows.append(
             {
                 "stake_bin_M_ADA": lab,
                 "n_pools": n,
+                "n_continuing": int(mask_c.sum()),
                 "gain_delegation": g,
                 "lose_delegation": l,
                 "flat_delegation": f,
-                "median_dstake_ADA": float(d[mask].median()) if n else float("nan"),
+                "exited": x,
+                "median_dstake_continuing_ADA": (
+                    float(d_c[mask_c].median()) if mask_c.any() else float("nan")
+                ),
             }
         )
 
     pd.DataFrame(rows).to_csv(OUT_CSV, index=False)
 
     x = np.arange(len(labels))
-    width = 0.26
-    fig, ax = plt.subplots(figsize=(10.5, 5.2), constrained_layout=True)
-    b1 = ax.bar(x - width, gain_vals, width, color=COLOR_GAIN, label="gain stake")
-    b2 = ax.bar(x, lose_vals, width, color=COLOR_LOSE, label="lose stake")
-    b3 = ax.bar(x + width, flat_vals, width, color=COLOR_FLAT, label="flat stake")
+    width = 0.2
+    fig, ax = plt.subplots(figsize=(11.5, 5.4), constrained_layout=True)
+    offs = (-1.5 * width, -0.5 * width, 0.5 * width, 1.5 * width)
+    series = [
+        (offs[0], gain_vals, COLOR_GAIN, "gain stake"),
+        (offs[1], lose_vals, COLOR_LOSE, "lose stake"),
+        (offs[2], flat_vals, COLOR_FLAT, "flat stake"),
+        (offs[3], exit_vals, COLOR_EXIT, "exited by 285"),
+    ]
+    bar_artists = []
+    for off, vals, col, lab in series:
+        bar_artists.append(ax.bar(x + off, vals, width, color=col, label=lab))
+
     ax.set_xticks(x)
     ax.set_xticklabels([f"{lab}\n(n={n})" for lab, n in zip(labels, ns)], fontsize=FONT_SIZE)
     ax.set_xlabel("Epoch-228 stake bin (M ADA)", fontsize=FONT_SIZE)
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
     ax.set_title(
         f"Delegation outcomes 228→285 among pools unsaturated under $k={K_POST}$ at epoch 228\n"
-        f"(n={len(common)} continuing; $z_0={z0/1e6:.1f}$ M ADA)",
+        f"(n={len(unsat)} unsaturated; {len(continuing)} continuing, {len(exited)} exited; "
+        f"$z_0={z0/1e6:.1f}$ M ADA)",
         fontsize=FONT_SIZE,
     )
     ax.tick_params(labelsize=FONT_SIZE)
     ax.legend(fontsize=FONT_SIZE - 1, frameon=False)
     ax.grid(axis="y", alpha=0.25)
-    ymax = max(gain_vals + lose_vals + flat_vals + [1])
-    for bars in (b1, b2, b3):
+    ymax = max(gain_vals + lose_vals + flat_vals + exit_vals + [1])
+    for bars in bar_artists:
         for bar in bars:
             v = int(bar.get_height())
             if v > 0:
@@ -138,13 +152,21 @@ def main() -> None:
                     v + ymax * 0.02,
                     str(v),
                     ha="center",
-                    fontsize=8,
+                    fontsize=FONT_SIZE - 3,
                 )
 
-    fig.savefig(OUT, dpi=160)
+    fig.savefig(OUT, dpi=300)
     print(f"Wrote {OUT}")
     print(f"Wrote {OUT_CSV}")
-    print({"z0_M": z0 / 1e6, "n_unsat_continuing": len(common), "rows": rows})
+    print(
+        {
+            "z0_M": z0 / 1e6,
+            "n_unsat": len(unsat),
+            "n_continuing": len(continuing),
+            "n_exited": len(exited),
+            "rows": rows,
+        }
+    )
 
 
 if __name__ == "__main__":
