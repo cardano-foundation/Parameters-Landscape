@@ -155,9 +155,6 @@ The last plot shows that those pools combining both measures is a more effective
 <img src="plots/cost_down_margin_direction_stake_outcomes_426_500.png" alt="Effectivness of competitive strategieswhen minPoolCost changed" width="62%">
 </p>
 
-*Operators viability*
-
-*APR*
 
 *Decentralization metrics*
 
@@ -169,6 +166,12 @@ Next, we measure the impact of the minPoolCost reduction on network decentraliza
 | 500 | 186 | 2,884 | 11.45B ADA | 22.85B ADA | 50.10% | 1.28B ADA | 1.8B ADA |
 
 Over the analyzed window (epochs 426 to 500), decentralization metrics shifted toward greater stake concentration across two key dimensions. While the Nakamoto coefficient experienced a modest drop of $-2.6\%$ (from $191$ to $186$ pools), the economic commitment securing these controlling pools eroded significantly more. Specifically, the minimum aggregate active pledge among the Nakamoto set fell by $-18.2\%$ (from $2.20\text{B}$ to $1.80\text{B}$ ADA), accompanied by an $-11.1\%$ decrease in declared pledge.These findings indicate that following the parameter adjustment, stake concentration not only consolidated into slightly fewer pools, but the controlling pools themselves operated with substantially less "skin in the game," marking a compound increase in network centralization.
+
+*Pools viability*
+
+
+
+*APR*
 
 
 ## Behavioral and equilibrium effects
