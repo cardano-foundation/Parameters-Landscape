@@ -106,9 +106,6 @@ $$\Delta r_i^{D} = \frac{1-m_i}{\sigma_i} \Delta f(\sigma_i,p_i).$$
 
 Consequently, higher pledge mitigates the negative effect of an increase in $a_0$ on delegator returns, even though it may amplify the reduction in operator gross revenue.
 
-#### Oversaturated stake
-
-Since $a_0$ does not directly affect $z_0$, there is no direct change in oversaturated stake.
   
 #### Reward-pot and treasury flows
 
