@@ -1,4 +1,6 @@
 # Incentive effects of changing $a_0$
+
+## Parameter values at the current state
 For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
 
 | Symbol | Parameter | Value |
@@ -12,7 +14,7 @@ For the numerical analysis in this section, we use the parameter values below un
 | $\rho$ | Reserve decay rate.  | 0.3%  |
 | $\tau$ | Treasury share.| 20% | 
 
-# Design
+## Design
 
 The parameter $a_0$ determines how strongly a pool’s pledge affects its rewards. When $a_0=0$, pledge has no special role beyond contributing to total pool stake. As $a_0$ increases, pools with more pledge receive higher rewards than otherwise comparable low-pledge pools.
 
@@ -20,14 +22,12 @@ Without a pledge incentive, an operator with little capital could attract large 
 
 The main trade-off is between Sybil resistance and accessibility. A higher $a_0$ discourages highly leveraged and multi-pool strategies, but it also favors wealthy operators and makes it harder for operators with limited capital to compete. A lower $a_0$ reduces barriers to entry and allows competition to depend more on performance, costs, and margins, but provides weaker protection against operators controlling large amounts of delegated stake with little pledge.
 
-## Effects of change in $a_0$
 
-
-### Direct mechanical effects 
+## Direct mechanical effects 
 In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus). 
 
 
-#### Gross pool rewards
+### Gross pool rewards
 
 We study this using the partial derivative, which measures how $f(\sigma_i,p_i)$ changes when $a_0$ changes while all other variables are held constant. Since
 
@@ -48,7 +48,7 @@ For a fixed level of pledge, this negative impact is more significant for larger
   <img src="plots/Reward_function_vs_pledge_a0_cases.png" alt="Reward function when a0 changes versus pledge" width="48%">
 </p>
 
-#### Operator gross revenue
+### Operator gross revenue
 
 Analyzing the pool reward function $f(\sigma_i,p_i)$ in isolation gives an incomplete picture of an operator’s position. While a larger pledge might appear to cushion the impact of increasing $a_0$ by substituting delegation with pledge, this smoothing applies only to **gross pool rewards $f(\sigma_i,p_i)$**. To assess the true direct mechanical impact on pool operators, we must instead evaluate **operator gross revenue ($\Pi_i$)**.
 
@@ -88,7 +88,7 @@ As an example, let $\sigma_i = 50M$ ADA, $k=500$, $c_i=170$, and $m_i=5\\%$. Sup
 
 Bottom line: Higher pledge cushions the decline in the pool gross reward function $f(\sigma_i,p_i)$ following an increase in $a_0$. For the operator, however, higher pledge also means bearing a larger share of the remaining reward reduction. Operator gross revenue can therefore fall by more at high pledge, even though the decline in total pool rewards is smaller.
 
-#### Delegator return per unit of stake
+### Delegator return per unit of stake
 
 The following heatmaps show the return received by delegators per unit of stake. Total pool stake $\sigma_i$ is displayed on the $x$-axis and operator pledge $p_i$ on the $y$-axis, while the grey region represents the infeasible domain $p_i > \sigma_i$. The left and center panels report delegator returns under $a_0 = 0.3$ and $a_0 = 0.6$, respectively. The right panel shows the direct change resulting from the increase in $a_0$. Red regions indicate a reduction in delegator returns, with darker shades representing larger losses.
 
@@ -107,7 +107,7 @@ $$\Delta r_i^{D} = \frac{1-m_i}{\sigma_i} \Delta f(\sigma_i,p_i).$$
 Consequently, higher pledge mitigates the negative effect of an increase in $a_0$ on delegator returns, even though it may amplify the reduction in operator gross revenue.
 
   
-#### Reward-pot and treasury flows
+### Reward-pot and treasury flows
 
 The parameter $a_0$ directly influences reward pot dynamics and treasury flows. In particular, it normalizes the total reward $R$ distributed among pools by a factor of roughly $1 + a_0$. Consequently, larger values of $a_0$ reduce the overall amount of $R$ paid out to pools, directing the remaining fraction back to the reserve. By allowing more rewards to remain unspent, an increase in $a_0$ slows reserve depletion and enhances the long-term sustainability of the reward model.
 
@@ -119,12 +119,12 @@ An analysis of epoch 644 demonstrates how varying $a_0$ influences reserve rewar
 
 
 
-### Behavioral and equilibrium effects
+## Behavioral and equilibrium effects
 
 Changing $a_0$ can affect not only current rewards but also the rank of pools, how much pledge they commit, how they set fees, and where delegation ultimately concentrates.
 
     
-#### Rational behavior
+### Rational behavior
 
 We start from a frictionless baseline consistent with the reward-sharing analysis: forward-looking (non-myopic) players, truthful fixed-cost declaration ($c_i=\hat c_i$), and no strategic changes in declared cost after the parameter shock ($dc_i=0$).
 
@@ -152,7 +152,7 @@ $$
 
 so pledge differences receive more weight relative to cost differences.
 
-##### Delegators moving stake
+#### Delegators moving stake
 
 Delegators reallocate toward pools with higher expected return per unit stake,
 
@@ -170,7 +170,7 @@ $$
 
 with $\bar r^D$ the stake-weighted market benchmark. After an increase in $a_0$, high-pledge pools tend to have higher relative $r_i^D$, so they receive positive net flows in this benchmark.
 
-##### Operators changing pledge, margin, or declared fixed cost
+#### Operators changing pledge, margin, or declared fixed cost
 
 With costs treated as truthful and fixed in this baseline, operators mainly adjust $\hat p_i$ and $m_i$ to preserve utility,
 
@@ -188,7 +188,7 @@ $$
 
 which captures that pricing and pledge choices are made jointly with their induced stake response. Low-pledge operators are pushed to increase pledged capital and/or reduce margins to retain delegation.
 
-##### Entry or exit of pools
+#### Entry or exit of pools
 
 Entry and survival follow participation constraints evaluated at post-redelegation stake:
 
@@ -200,7 +200,7 @@ $$
 
 where $\sigma_i'=\sigma_i+\Delta\sigma_i^D$ and $F_i$ is setup/friction cost. This combines the direct impact of $a_0$ through $f(\cdot)$ and the indirect impact through redelegation from previous channels.
 
-##### Pool splitting by multi-pool operators
+#### Pool splitting by multi-pool operators
 
 For an MPO operating $n$ pools with total pledge $P$, a simple feasibility condition is
 
@@ -212,7 +212,7 @@ $$
 
 and splitting is attractive only if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Higher $a_0$ makes low $\hat p_j$ more costly in ranking terms, raising the capital requirement for expansion.
 
-##### Changes in staking participation
+#### Changes in staking participation
 
 Let total staking participation be $S=\sum_i\sigma_i$. A compact reduced-form response is
 
@@ -222,11 +222,11 @@ $$
 
 where $\bar r_{\text{exp}}$ is expected aggregate staking return after the policy change and $r_{\text{alt}}$ is the outside option return. This clarifies that the first-order effect of $a_0$ is mostly reallocative, with aggregate participation changing only if expected net returns versus alternatives move enough.
 
-#### Behavioral deviations from the rational benchmark
+### Behavioral deviations from the rational benchmark
 
 We now introduce frictions that can change the speed and shape of the same five channels.
 
-##### Delegators moving stake
+#### Delegators moving stake
 
 Search costs, inattention, and brand/reputation effects slow migration. One simple frictional law of motion is
 
@@ -237,7 +237,7 @@ $$
 
 so realized reallocations are a scaled-down version of the rational benchmark.
 
-##### Operators changing pledge, margin, or declared fixed cost
+#### Operators changing pledge, margin, or declared fixed cost
 
 With bounded rationality and experimentation, operators may only partially adjust each epoch:
 
@@ -249,7 +249,7 @@ $$
 
 with $0<\rho_m,\rho_p\le 1$. If $\rho_p<\rho_m$, margins move faster than pledge, generating transitional pricing cycles.
 
-##### Entry or exit of pools
+#### Entry or exit of pools
 
 Operational inertia and uncertainty can be represented with hysteresis thresholds:
 
@@ -261,7 +261,7 @@ $$
 
 with $H_i^{\text{entry}},H_i^{\text{exit}}>0$. This allows weak pools to persist and delays both entry and exit relative to the frictionless benchmark.
 
-##### Pool splitting by multi-pool operators
+#### Pool splitting by multi-pool operators
 
 If MPOs face coordination and infrastructure frictions, net expansion value can be written as
 
@@ -271,7 +271,7 @@ $$
 
 where $K(n)$ is increasing and convex. MPOs with lower marginal $K'(n)$ can still split effectively under higher $a_0$, especially when they reallocate internal stake quickly.
 
-##### Changes in staking participation
+#### Changes in staking participation
 
 Behavioral salience can be captured by weighting short-run and long-run returns differently:
 
@@ -283,6 +283,5 @@ with $\chi_s>\chi_l$ under short-term salience. This yields participation respon
 
 
 
-### Decentralization
 
 
