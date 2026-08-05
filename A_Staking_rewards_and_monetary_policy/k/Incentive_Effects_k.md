@@ -143,7 +143,7 @@ After the increment in $k$, delegators in those pools that become oversaturated 
   <img src="plots/unsaturated_agg_stake_change_by_stake_bin_228_285.png" alt="Unsaturated Pools change measured in agg delegation when k increases" width="48%">
 </div>
 
-
+The next plot shows the new distribution of stake. The left panel shows the distribution over the pools on epoch 228 versus the same pools that survived in epoch 285. We see that there is an improvment in the distribution. This is because many dust pools left (exits pools were especially small, with a median $\approx 0.07M$), due to redelegation, and due to incoming stake to existing pools. The right panel shows the distribution with all pools in each epoch (hence, epoch 285 includes new pools).
 
 <p align="center">
   <img src="plots/stake_distribution_228_vs_285.png" alt="Change in the distribution of stakes when k increases" width="80%">
