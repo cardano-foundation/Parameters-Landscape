@@ -121,6 +121,8 @@ An analysis of epoch 644 demonstrates how varying $a_0$ influences reserve rewar
 
 ## Behavioral and equilibrium effects
 
+This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions given the current state.
+
 Changing $a_0$ can affect not only current rewards but also the rank of pools, how much pledge they commit, how they set fees, and where delegation ultimately concentrates.
 
     
@@ -280,6 +282,8 @@ $$
 $$
 
 with $\chi_s>\chi_l$ under short-term salience. This yields participation responses that can be stronger in the short run than in the rational benchmark.
+
+#### Decentralization
 
 
 
