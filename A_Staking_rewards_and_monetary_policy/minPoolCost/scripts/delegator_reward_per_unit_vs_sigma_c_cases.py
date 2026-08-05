@@ -9,6 +9,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
 import numpy as np
 
 R = 14.9e6
@@ -20,6 +21,7 @@ C_CASES = (340.0, 170.0, 75.0)
 SIGMA_MIN = 1.0
 SIGMA_MAX = 100e6
 N_POINTS = 3000
+STAKE_UNIT = 1_000.0
 
 z0 = T / k
 r_over_t = R / T
@@ -63,7 +65,7 @@ def main() -> None:
 
     fig, ax = plt.subplots(1, 1, figsize=(9, 5), constrained_layout=True)
     for c_val in C_CASES:
-        y = net_reward_per_unit(sigma, p_i, z0, r_over_t, a0, c_val)
+        y = net_reward_per_unit(sigma, p_i, z0, r_over_t, a0, c_val) * STAKE_UNIT
         y = np.where(feasible, y, np.nan)
         ax.plot(
             sigma,
@@ -77,17 +79,20 @@ def main() -> None:
     ax.set_ylim(bottom=0.0)
     ax.set_xlabel(r"$\sigma_i$ (ADA)", fontsize=FONT_SIZE)
     ax.set_ylabel(
-        r"$\dfrac{\max\{f(\sigma_i,p_i;z_0)-c_i,\,0\}}{\sigma_i}$",
+        r"$\dfrac{\max\{f(\sigma_i,p_i)-c_i,\,0\}}{\sigma_i}$"
+        "\n(ADA per 1000 ADA staked)",
         fontsize=FONT_SIZE,
     )
+    ax.yaxis.set_major_formatter(mticker.FormatStrFormatter("%.2f"))
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
     ax.ticklabel_format(axis="x", style="sci", scilimits=(8, 8))
     ax.grid(alpha=0.25)
     ax.legend(fontsize=FONT_SIZE, loc="upper right")
+
     ax.set_title(
-        "Delegator rewards per unit of stake\n"
+        "Per-epoch delegator rewards per unit of stake\n"
         rf"($k={k}$, $p_i={p_i/1e3:.0f}$K, $a_0={a0}$; "
-        rf"$c\in{{{', '.join(f'{c:.0f}' for c in C_CASES)}}}$)",
+        rf"$c\in\{{{', '.join(f'{c:.0f}' for c in C_CASES)}\}}$)",
         fontsize=FONT_SIZE,
     )
     fig.savefig(OUTPUT_PATH, dpi=300, bbox_inches="tight")
