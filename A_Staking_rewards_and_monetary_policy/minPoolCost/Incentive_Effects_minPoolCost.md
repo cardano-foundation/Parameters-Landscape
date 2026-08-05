@@ -169,7 +169,30 @@ Over the analyzed window (epochs 426 to 500), decentralization metrics shifted t
 
 *Pools viability*
 
+We recompute operator rewards $\Pi_i$ for a fixed cohort of pools present in both epoch 426 and epoch 500, holding each pool’s epoch $426$ stake $\sigma_i$, declared pledge $p_i$, active pledge $\hat p_i$, and margin $m_i$ fixed. Gross pool reward $f(\sigma_i,p_i)$ is computed once under $k=500$, using $T=36.01B$ ADA, $R=21.6M$ ADA, and $a_0=0.3$ (which are the parameters value for epoch 426). We then compare viability under each pool’s declared fixed cost at epoch $426$ (when $\text{`minPoolCost`}=340$) versus its declared fixed cost at epoch $500$ (when $\text{`minPoolCost`}=170$). This allows us to compare pool viability before and after the parameter change while isolating operator fee responses. By holding delegation and other market variables constant, we focus exclusively on how the same pool cohort adjusted its declared fixed cost in response to the `minPoolCost` reduction.
 
+With monthly OpEx of $667$ USD and ADA at $0.31$ USD,
+
+$$C^*=\frac{667/6}{0.31}=358.6 \text{ ADA per epoch}.$$
+
+Let $r=\Pi_i/C^{\*}$. Among $1'991$ pools with theoretical reward (of $2'662$ continuing pools; the rest lack complete fields or have declared pledge above epoch $426$ stake), $672$ cover $C^*$ under epoch $426$ costs, of which $427$ are on the edge ($1\le r<2$). Under the same delegation but with epoch $500$ declared costs, only $588$ remain viable. The Edge group falls from $427$ to $354$, while Strong ($r\ge 5$) is unchanged at 53.
+
+After the change in `minPoolCost`, in the analyzed cohort of $1'991$ pools, $312$ changed cost ($306$ decreases, $6$ increases), including $267$ direct $340$-to-$170$ changes.
+
+| | Epoch-426 costs (minPoolCost 340) | Epoch-500 costs (minPoolCost 170) | Variation |
+| :--- | ---: | ---: | ---: |
+| Pools | 1,991 | 1,991 | — |
+| Cover OpEx (\(r\ge 1\)) | 672 | 588 | −12.5% |
+| Losing (\(r<1\)) | 1,319 | 1,403 | +6.4% |
+| Edge (\(1\le r<2\)) | 427 | 354 | −17.1% |
+| Comfortable (\(2\le r<5\)) | 192 | 181 | −5.7% |
+| Strong (\(r\ge 5\)) | 53 | 53 | 0.0% |
+
+The plot shows a moderate reduction in operator viability from the historical cost cuts, before any redelegation or operator response.
+
+<p align="center">
+<img src="plots/pool_viability_opex_categories_minpoolcost_426_vs_500.png" alt="Pool viability versus OpEx when minPoolCost drops" width="62%">
+</p>
 
 *APR*
 
