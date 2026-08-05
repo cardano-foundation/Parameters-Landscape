@@ -176,7 +176,9 @@ Nakamoto $N$: minimum number of pools (ranked by active stake) whose aggregate e
 | 228 | 57 | 1,161 | 8.76B ADA | 17.35B ADA | 50.48% | 59.0M ADA | 101.6M ADA |
 | 285 | 195 | 2,813 | 11.59B ADA | 23.16B ADA | 50.06% | 1.09B ADA | 1.23B ADA |
 
-**Viability**
+**Operators Viability**
+
+
 
 ## Behavioral and equilibrium effects
 
