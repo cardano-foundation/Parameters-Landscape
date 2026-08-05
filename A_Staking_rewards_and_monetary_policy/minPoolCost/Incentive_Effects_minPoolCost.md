@@ -340,7 +340,7 @@ using their margin, delegation, active and delcared pledge, and declared fixed c
 
 $$C^*=667/6/0.15=741.1 \text{ USD per epoch}.$$
 
-The plot measures $r=\Pi_i/C^{\*}$, where a $r<1$ indicates not enough rewards to cover costs. Among the $902$ pools that were rewarded in that epoch, only $269$ were able to cover the OpEx $C^*$. However, $151$ of them were on a risky situation ($1\leq r\leq 2$)
+The plot measures $r=\Pi_i/C^{\*}$, where a $r<1$ indicates not enough rewards to cover costs. Among $2223$ pools, only $274$ would be able to cover the OpEx $C^*$. However, $150$ of them would be on a risky situation ($1\leq r\leq 2$)
 
 <p align="center">
 <img src="plots/pool_viability_theoretical_all_pools_epoch_644.png" alt="Pools theoretical viability versus OpCost" width="62%">
