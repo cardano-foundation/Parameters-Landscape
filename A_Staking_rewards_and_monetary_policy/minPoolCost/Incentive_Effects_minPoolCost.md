@@ -160,6 +160,9 @@ Data reveals that only $14.0\\%$ of pools ($374$) reduced their declared fixed c
 <img src="plots/fixed_cost_changes.png" alt="Pools reducing fixed cost when minPoolCost changed" width="62%">
 </p>
 
+The following plot does a similar comparison regarding margin adjustments ($m_i$) during the same window of time. The goal is to see if the $c_i$ reduction triggered competition in $m_i$. Results show that operator adjustments to margins were even rarer than fixed-cost adjustments: only $3.0\%$ of pools ($80$) reduced their margin. Among the $80$ pools that lowered their variable margin, $61.3\%$ ($49$) succeeded in expanding their total stake, while $53.8\%$ ($43$) grew their delegator count.
+
+
 The next plots show potential reactions by the network of pools to the new market conditions. In the same window of time, only $2.8\\%$ of all pools reduced their margin but $61\\%$ of them gained delegation. This suggests that redelegation may be slightly more sensitive to variable margin ($m_i$) cuts than fixed cost ($c_i$) cuts.
 
 <p align="center">
