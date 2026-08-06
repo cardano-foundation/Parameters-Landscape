@@ -125,7 +125,7 @@ On epoch 445 there was a reduction of the `minPoolCost` from $340$ ADA to $170$ 
 
 Key findings from this section:
 
-1. Operator repricing was limited: about $13\%$ reduced fixed cost and about $2.8\%$ reduced margin.
+1. Operator repricing was limited: about $13\\%$ reduced fixed cost and about $2.8\\%$ reduced margin.
 2. Cost-plus-margin cuts were associated with better delegation outcomes than cost-only adjustments.
 3. Decentralization indicators moved slightly toward higher concentration over the analyzed window.
 4. Viability declined in the cost-adjusted counterfactual, while delegator APR improved only modestly at the network level.
