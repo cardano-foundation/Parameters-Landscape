@@ -123,6 +123,15 @@ The plot suggests that cost reductions have a more significant positive impact o
 
 On epoch 445 there was a reduction of the `minPoolCost` from $340$ ADA to $170$ ADA. The analysis in this section illustrates the effects that the measure took into operators and delegators. Note that these observations do not imply that a new reduction will produce the same results, since market conditions may differ.
 
+Key findings from this section:
+
+1. Operator repricing was limited: about $13\%$ reduced fixed cost and about $2.8\%$ reduced margin.
+2. Cost-plus-margin cuts were associated with better delegation outcomes than cost-only adjustments.
+3. Decentralization indicators moved slightly toward higher concentration over the analyzed window.
+4. Viability declined in the cost-adjusted counterfactual, while delegator APR improved only modestly at the network level.
+
+### Aggregate system snapshot
+
 The table summarizes the aggregate state of the pools ecosystem before the reduction in `minPoolCost`(epoch 426), at the moment of the reduction (epoch 445), and after it (epoch 450). The aggregate staking level remains stable with a small reduction ($-1.6\\%$) in the number of pools. 
 
 | Epoch | Number of pools | Total stake (B ADA) |
@@ -132,7 +141,7 @@ The table summarizes the aggregate state of the pools ecosystem before the reduc
 | 500 | 2,884 | 22.85 |
 
 
-*Operators and delegators responses*
+### Operators and delegators responses
 
 The following plots shows the response of operators and delegators to the reduction in `minPoolCost`. We have consider several epochs after the change to give time to players to react to that change. Notice, however, that the observed changes do not imply that all changes followed directly from the reduction in `minPoolCost`. The next plot shows that near $13\\%$ of pools reduced their declared fixed cost and that, among them, $55\\%$ gained delegation (again, we observe here correlation but not causality). That is, the vast majority of pool operators ($>87\%$) opted for a passive, static strategy rather than actively adjusting the fixed cost to compete for market share.
 
@@ -159,7 +168,7 @@ The last plot shows that those pools combining both measures is a more effective
 </p>
 
 
-*Decentralization metrics*
+### Decentralization metrics
 
 Next, we measure the impact of the minPoolCost reduction on network decentralization. We evaluate decentralization using two metrics: the Nakamoto coefficient (the minimum number of pools controlling over $50\%$ of total delegation) and the aggregate pledge of these top pools. Ideally, this analysis should be conducted at the level of independent operators rather than individual pools. However, because the total pool count remains relatively stable between epochs 426 and 500, comparing the relative change in these coefficients across pools provides a reliable proxy for operator dynamics.
 
@@ -170,7 +179,7 @@ Next, we measure the impact of the minPoolCost reduction on network decentraliza
 
 Over the analyzed window (epochs 426 to 500), decentralization metrics shifted toward greater stake concentration across two key dimensions. While the Nakamoto coefficient experienced a modest drop of $-2.6\%$ (from $191$ to $186$ pools), the economic commitment securing these controlling pools eroded significantly more. Specifically, the minimum aggregate active pledge among the Nakamoto set fell by $-18.2\%$ (from $2.20\text{B}$ to $1.80\text{B}$ ADA), accompanied by an $-11.1\%$ decrease in declared pledge.These findings indicate that following the parameter adjustment, stake concentration not only consolidated into slightly fewer pools, but the controlling pools themselves operated with substantially less "skin in the game," marking a compound increase in network centralization.
 
-*Pools viability*
+### Pools viability
 
 We recompute operator rewards $\Pi_i$ for a fixed cohort of pools present in both epoch 426 and epoch 500, holding each pool’s epoch $426$ stake $\sigma_i$, declared pledge $p_i$, active pledge $\hat p_i$, and margin $m_i$ fixed. Gross pool reward $f(\sigma_i,p_i)$ is computed once under $k=500$, using $T=36.01B$ ADA, $R=21.6M$ ADA, and $a_0=0.3$ (which are the parameters value for epoch 426). We then compare viability under each pool’s declared fixed cost at epoch $426$ (when $\text{`minPoolCost`}=340$) versus its declared fixed cost at epoch $500$ (when $\text{`minPoolCost`}=170$). This allows us to compare pool viability before and after the parameter change while isolating operator fee responses. By holding delegation and other market variables constant, we focus exclusively on how the same pool cohort adjusted its declared fixed cost in response to the `minPoolCost` reduction.
 
@@ -197,7 +206,7 @@ The plot shows a moderate reduction in operator viability from the historical co
 <img src="plots/pool_viability_opex_categories_minpoolcost_426_vs_500.png" alt="Pool viability versus OpEx when minPoolCost drops" width="62%">
 </p>
 
-*APR*
+### APR
 
 To evaluate how the reduction in `minPoolCost` affects delegator returns, we calculate the annualized delegator yield:
 
