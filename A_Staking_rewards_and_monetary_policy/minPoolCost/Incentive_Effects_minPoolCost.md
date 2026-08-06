@@ -61,7 +61,9 @@ In this section we consider the direct effects of **reducing** `minPoolCost` whi
 
 ### Gross pool rewards
 
-Notice that the gross pool reward function does not depend on $c_{min}$:
+Let $\sigma_i$ denote the total delegation at pool $i$, $p_i$ to the declared pledge of the pool, and $z_0$ to the saturation threshold.
+
+(when Notice that the gross pool reward function does not depend on $c_{min}$:
 
 $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
 
