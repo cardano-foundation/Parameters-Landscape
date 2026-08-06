@@ -160,10 +160,19 @@ Data reveals that only $14.0\\%$ of pools ($374$) reduced their declared fixed c
 <img src="plots/fixed_cost_changes.png" alt="Pools reducing fixed cost when minPoolCost changed" width="62%">
 </p>
 
-The following plot does a similar comparison regarding margin adjustments ($m_i$) during the same window of time. The goal is to see if the $c_i$ reduction triggered competition in $m_i$. Results show that operator adjustments to margins were even rarer than fixed-cost adjustments: only $3.0\%$ of pools ($80$) reduced their margin. Among the $80$ pools that lowered their variable margin, $61.3\%$ ($49$) succeeded in expanding their total stake, while $53.8\%$ ($43$) grew their delegator count.
+Next plot compares the baseline characteristics at epoch $426$ between pool operators who reduced their fixed costs ("Reducers") and those who did not ("Non-reducers"). Across all three metrics—epoch stake, declared pledge, and active pledge—pools that opted to lower their fixed costs exhibited systematically stronger baseline positions.
 
+<p align="center">
+<img src="plots/cost_reducer_vs_nonreducer_characteristics_426.png" alt="Reducers versus non-reducers" width="62%">
+</p>
 
-The next plots show potential reactions by the network of pools to the new market conditions. In the same window of time, only $2.8\\%$ of all pools reduced their margin but $61\\%$ of them gained delegation. This suggests that redelegation may be slightly more sensitive to variable margin ($m_i$) cuts than fixed cost ($c_i$) cuts.
+We next compare the baseline epoch $426$ characteristics between cost-reducing pools that gained total stake ("Gainers") and those that lost stake ("Losers"). A striking divergence emerges in baseline delegation volume: Gainers were predominantly smaller pools with a median stake of approximately $0.8\text{M ADA}$, whereas Losers held substantially higher baseline stake, with a median of $3.2\text{M ADA}$. In contrast, declared and active pledge distributions are virtually identical between the two groups. This suggests that reducing fixed costs was primarily effective for smaller pools where fee cuts yield a larger relative increase in delegator returns.
+
+<p align="center">
+<img src="plots/cost_reducer_stake_outcome_characteristics_426.png" alt="Reducers characteristics" width="62%">
+</p>
+
+Beyond fixed-cost adjustments, operators could also alter their variable margin ($m_i$) to respond to changing market conditions. To investigate whether the reduction in minPoolCost catalyzed broader price competition across fee levers, the following analysis examines margin adjustments during the same observation window. Results show that operator adjustments to margins were even rarer than fixed-cost adjustments: only $3.0\%$ of pools ($80$) reduced their margin. Among the $80$ pools that lowered their variable margin, $61.3\%$ ($49$) succeeded in expanding their total stake, while $53.8\%$ ($43$) grew their delegator count.
 
 <p align="center">
 <img src="plots/margin_changes.png" alt="Pools reducing margin when minPoolCost changed" width="62%">
