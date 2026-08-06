@@ -216,12 +216,12 @@ This measures the net yield per ADA after accounting for fixed costs ($c_i$) and
 
 For the counterfactual scenario, surviving pools hold their epoch $426$ stake, pledge, and margin fixed while adopting their actual epoch $500$ declared fixed costs. This isolates operators' fixed-cost responses while holding delegation constant (though we acknowledge that in practice, cost adjustments may also react to new pool entry and redelegation). Exiting pools are retained in the epoch $426$ baseline to prevent survivorship bias, but are excluded from the cost-adjusted scenario since their post-exit parameters are unobserved.
 
-| Sample and scenario | Pools | Return $>0$ | Median APR, positive | Mean APR, positive |
+| Sample and scenario | Pools |  Median APR | Mean APR |
 | :--- | ---: | ---: | ---: | ---: |
-| Epoch-426 costs: all pools | $2,445$ | $887$ | $2.97\\%$ | $2.58\\%$ |
-| Epoch-426 costs: pools exiting by epoch $500$ | $180$ | $36$ | $2.11\\%$ | $1.98\\%$ |
-| Epoch-426 costs: survivors | $2,265$ | $851$ | $2.99\\%$ | $2.60\\%$ |
-| Epoch-500 costs: survivors (cost-adjusted) | $2,265$ | $878$ | $3.02\\%$ | $2.64\\%$ |
+| Epoch-426 costs: all pools | $2,445$ |  $2.97\\%$ | $2.58\\%$ |
+| Epoch-426 costs: pools exiting by epoch $500$ | $180$ |  $2.11\\%$ | $1.98\\%$ |
+| Epoch-426 costs: survivors | $2,265$ |  $2.99\\%$ | $2.60\\%$ |
+| Epoch-500 costs: survivors (cost-adjusted) | $2,265$ |  $3.02\\%$ | $2.64\\%$ |
 
 As expected, fixed-cost reductions by select operators led to a slight increase in positive delegator APRs (median rising from $2.99\\%$ to $3.02\\%$). However, because only a small fraction of operators lowered their $c_i$, the median yield network improvement remains modest. Although individual pools that cut their fixed costs may have enhanced their competitive standing, these adjustments were insufficient to materially alter network-wide median attractiveness.
 
