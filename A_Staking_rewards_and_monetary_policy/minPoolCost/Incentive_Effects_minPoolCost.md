@@ -229,7 +229,7 @@ As expected, fixed-cost reductions by select operators led to a slight increase 
 
 This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions **given the current state**.
 
-Changing $c_{min}$ does not modify gross rewards $f(\sigma_i,p_i)$ directly, but it changes feasible declared costs $c_i$, which feed into pool desirability, operator revenue, and participation constraints. The equilibrium forces are therefore mostly mediated by redelegation and strategic pool-level adjustments.
+Changing $c_{min}$ does not modify gross rewards $f(\sigma_i,p_i)$ directly, but it changes feasible declared costs $c_i$, which feed into pool desirability, operator revenue, and participation constraints. <!-- The equilibrium forces are therefore mostly mediated by redelegation and strategic pool-level adjustments. -->
 
 ### Rational behavior
 
