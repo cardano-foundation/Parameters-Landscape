@@ -125,18 +125,19 @@ The plot suggests that cost reductions have a more significant positive impact o
 
 ## Past evidence
 
-On epoch 445 there was a reduction of the `minPoolCost` from $340$ ADA to $170$ ADA. The analysis in this section illustrates the effects that the measure took into operators and delegators. Note that these observations do not imply that a new reduction will produce the same results, since market conditions may differ.
+On epoch $445$ there was a reduction of the `minPoolCost` from $340$ ADA to $170$ ADA. The analysis in this section illustrates the effects that the measure took into operators and delegators. Note that these observations do not imply that a new reduction will produce the same results, since market conditions may differ.
 
 Key findings from this section:
 
-1. Operator repricing was limited: about $13\\%$ reduced fixed cost and about $2.8\\%$ reduced margin.
-2. Cost-plus-margin cuts were associated with better delegation outcomes than cost-only adjustments.
-3. Decentralization indicators moved slightly toward higher concentration over the analyzed window.
-4. Viability declined in the cost-adjusted counterfactual, while delegator APR improved only modestly at the network level.
+1. Operator reduction of declared fixed cost was limited: about $13\\%$ reduced fixed cost.
+2. Declared fixed cost $c_i$ cuts plus margin $m-i$ cuts were associated with better delegation outcomes than $c_i$ only adjustments.
+3. Decentralization metrics moved slightly toward higher concentration over the analyzed window.
+4. Operators viability declined after the declared fixed cost adjustment.
+5. Delegator APR improved modestly at the network level.
 
 ### Aggregate system snapshot
 
-The table summarizes the aggregate state of the pools ecosystem before the reduction in `minPoolCost`(epoch 426), at the moment of the reduction (epoch 445), and after it (epoch 450). The aggregate staking level remains stable with a small reduction ($-1.6\\%$) in the number of pools. 
+The table summarizes the aggregate state of the pools ecosystem before the reduction in `minPoolCost`(epoch $426$), at the moment of the reduction (epoch $445$), and after it (epoch $450$). The aggregate staking remains stable with a small reduction ($-1.6\\%$) in the number of pools. 
 
 | Epoch | Number of pools | Total stake (B ADA) |
 |---:|---:|---:|
@@ -147,7 +148,15 @@ The table summarizes the aggregate state of the pools ecosystem before the reduc
 
 ### Operators and delegators responses
 
-The following plots shows the response of operators and delegators to the reduction in `minPoolCost`. We have consider several epochs after the change to give time to players to react to that change. Notice, however, that the observed changes do not imply that all changes followed directly from the reduction in `minPoolCost`. The next plot shows that near $13\\%$ of pools reduced their declared fixed cost and that, among them, $55\\%$ gained delegation (again, we observe here correlation but not causality). That is, the vast majority of pool operators ($>87\%$) opted for a passive, static strategy rather than actively adjusting the fixed cost to compete for market share.
+The following plots and analysis show the response of operators and delegators to the reduction in `minPoolCost`. We have consider several epochs after the change to give time to players to react to that change. 
+
+> Note: The observations identified in the following analysis provide suggestive evidence rather than causal proof. Consequently, they do not imply that all observed changes resulted directly from the reduction in `minPoolCost`. 
+
+The next plots illustrates pool operator behavior following the reduction in `minPoolCost` between epochs $426$ and $500$. The left panel tracks changes in declared fixed costs of $n = 2,662$ pools present in both epochs, while the right panel highlights delegation and stake dynamics specifically among the subset of pools that lowered their fixed cost ($n = 374$).
+
+The empirical data reveals that only a small minority of operators actively utilized the fixed-cost lever: $14.0\%$ of pools ($374$) reduced their declared fixed cost ($\text{cost } \downarrow$), while $85.7\%$ ($2,281$) maintained their existing cost ($\text{same}$) and $0.3\%$ ($7$) increased it. Among the $374$ pools that lowered their fixed cost, $61.5\%$ ($230$) expanded their delegator base ($\text{gain delegation}$) and $55.1\%$ ($206$) increased their total stake ($\text{gain stake}$).In summary, the vast majority of pool operators ($>85\%$) opted for a passive, static fee strategy rather than actively adjusting fixed costs to compete for market share. However, for the minority that did cut costs, the decision was predominantly associated with positive inflows of both delegators and stake.
+
+The next plot shows that near $13\\%$ of pools reduced their declared fixed cost and that, among them, $55\\%$ gained delegation. That is, the vast majority of pool operators ($>87\\%$) opted for a passive, static strategy rather than actively adjusting the fixed cost to compete for market share.
 
 <p align="center">
 <img src="plots/fixed_cost_changes.png" alt="Pools reducing fixed cost when minPoolCost changed" width="62%">
