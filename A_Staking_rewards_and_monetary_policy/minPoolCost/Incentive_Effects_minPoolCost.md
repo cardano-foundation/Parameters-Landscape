@@ -40,7 +40,7 @@ For the numerical analysis in this section, we use the parameter values below un
 
 ## Design
 
-The parameter $c_{min}$ sets the minimum fixed cost that a stake pool operator may declare. The following plot shows the histogram of the fixed cost declarations at epoch 644.
+The parameter `minPoolCost` (here also denoted as $c_{min}$) sets the minimum fixed cost that a stake pool operator may declare. The following plot shows the histogram of the fixed cost declarations at epoch 644.
 
 <p align="center" id="fig-min-pool-cost-644">
   <img src="plots/min_pool_cost_hist_epoch_644.png" alt="Histogram c_i epoch 644" width="62%">
@@ -61,15 +61,15 @@ In this section we consider the direct effects of **reducing** `minPoolCost` whi
 
 ### Gross pool rewards
 
-Let $\sigma_i$ denote the total delegation at pool $i$, $p_i$ to the declared pledge of the pool, and $z_0$ to the saturation threshold.
-
-(when Notice that the gross pool reward function does not depend on $c_{min}$:
+Let $\sigma_i$ denote the total delegation at pool $i$, $p_i$ to the declared pledge of the pool, and $z_0$ to the saturation threshold. The gross pool reward function is
 
 $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
 
+which does not depend on $c_{min}$.
+
 > **Note:** Most of the analysis presented in this document assumes a static environment, omitting the dynamic, inter-epoch feedback effects of return flows to the reserves. While return flows can be evaluated statically for a given state, fully dynamic feedback scenarios will be explicitly indicated.
 
-However, minPoolCost operates through two distinct channels: it guarantees fixed cost recovery for the operator while simultaneously dictating net delegator yield, thereby driving both operator profitability and pool competitiveness.
+However, `minPoolCost` operates through two distinct channels: it guarantees fixed cost recovery for the operator while simultaneously dictating net delegator yield, thereby driving both operator profitability and pool competitiveness.
 
 ### Operator gross revenue
 
@@ -78,7 +78,7 @@ The pool operator gross revenue function is
 $$\begin{cases} c_i + (f(\sigma_i,p_i)-c_i) \left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if }  f(\sigma_i,p_i)>c_i, \\ 
 f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
-where it is assume that the  operator's active pledge is equal to its declared pledge, $\hat{p}_i=p_i$.
+where $\hat{p}_i$ is the operator's active pledge (the stake/delegation own by the operator).
     
 Consider a reduction in `minPoolCost` and that the operator declares $c_i=$`minPoolCost`. Note that this assumption contrasts with [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) setting where there is incentive compatibility, i.e., each operator declares their actual cost. However, the heavy concentration at 340 and 170 ADA in the [histogram](fig-min-pool-cost-644) suggests parameter inertia or active competitive optimization rather than truthful cost revelation. 
 
