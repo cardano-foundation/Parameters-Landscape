@@ -217,7 +217,7 @@ This measures the net yield per ADA after accounting for fixed costs ($c_i$) and
 For the counterfactual scenario, surviving pools hold their epoch $426$ stake, pledge, and margin fixed while adopting their actual epoch $500$ declared fixed costs. This isolates operators' fixed-cost responses while holding delegation constant (though we acknowledge that in practice, cost adjustments may also react to new pool entry and redelegation). Exiting pools are retained in the epoch $426$ baseline to prevent survivorship bias, but are excluded from the cost-adjusted scenario since their post-exit parameters are unobserved.
 
 | Sample and scenario | Pools |  Median APR | Mean APR |
-| :--- | ---: | ---: | ---: | ---: |
+| :--- | ---: | ---: | ---: | 
 | Epoch-426 costs: all pools | $2,445$ |  $2.97\\%$ | $2.58\\%$ |
 | Epoch-426 costs: pools exiting by epoch $500$ | $180$ |  $2.11\\%$ | $1.98\\%$ |
 | Epoch-426 costs: survivors | $2,265$ |  $2.99\\%$ | $2.60\\%$ |
