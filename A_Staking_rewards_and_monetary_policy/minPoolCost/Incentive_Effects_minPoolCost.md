@@ -172,13 +172,25 @@ We next compare the baseline epoch $426$ characteristics between cost-reducing p
 <img src="plots/cost_reducer_stake_outcome_characteristics_426.png" alt="Reducers characteristics" width="62%">
 </p>
 
-Beyond fixed-cost adjustments, operators could also alter their variable margin ($m_i$) to respond to changing market conditions. To investigate whether the reduction in minPoolCost catalyzed broader price competition across fee levers, the following analysis examines margin adjustments during the same observation window. Results show that operator adjustments to margins were even rarer than fixed-cost adjustments: only $3.0\%$ of pools ($80$) reduced their margin. Among the $80$ pools that lowered their variable margin, $61.3\%$ ($49$) succeeded in expanding their total stake, while $53.8\%$ ($43$) grew their delegator count.
+Beyond fixed-cost adjustments, operators could also alter their variable margin ($m_i$) to respond to changing market conditions. To investigate whether the reduction in minPoolCost catalyzed broader price competition across fee levers, the following analysis examines margin adjustments during the same observation window. Results show that operator adjustments to margins were even rarer than fixed-cost adjustments: only $3.0\\%$ of pools ($80$) reduced their margin. Among the $80$ pools that lowered their variable margin, $61.3\\%$ ($49$) succeeded in expanding their total stake, while $53.8\\%$ ($43$) grew their delegator count.
 
 <p align="center">
 <img src="plots/margin_changes.png" alt="Pools reducing margin when minPoolCost changed" width="62%">
 </p>
 
-One interesting question is whether the reduction in fixed cost $c_i$ comes together with a reduction in margin $m_i$ to increase competitiveness or with an increment in margin to compensate for the lower $c_i$. The next plot  indicates a fraction $12.6\\%$ of those pools that reduced the fixed cost also reduced the margin, while $20\\%$ increased it. 
+The following plot compares the baseline epoch $426$ characteristics across pool operators who reduced their variable margin ("Reducers", $n=80$), increased it ("Increasers", $n=121$), or kept it unchanged ("Same", $n=2,461$). The distributions reveal that margin behavior varies substantially by pool scale. Operators who raised their margins held the highest baseline stake as well as significantly larger declared and active pledges. In contrast, margin reducers were smaller pools with modest baseline stake and lower pledge levels. These patterns suggest that margin cuts were primarily utilized as a competitive catch-up strategy by mid-sized, lower-pledged pools, whereas large, well-capitalized pools held sufficient market power to increase margins without losing dominance.
+
+<p align="center">
+<img src="plots/margin_change_groups_characteristics_426.png" alt="Margin decision groups characteristics" width="62%">
+</p>
+
+Next, we compare the baseline epoch $426$ characteristics between margin-reducing pools that gained total stake ("Gainers", $n=49$) and those that lost stake ("Losers", $n=31$). Similar to fixed-cost reducers, Gainers were smaller pools with a median stake of under $0.5\text{M ADA}$, whereas Losers held higher baseline stake with a median near $2.0\text{M ADA}$. Regarding pledge levels, both Gainers and Losers shared identical median declared and active pledges. However, Gainers displayed a much wider dispersion in capital commitment. This suggests that reducing margins was primarily successful for smaller pools while larger pools continued to lose stake despite lowering their margins.
+
+<p align="center">
+<img src="plots/margin_reducer_stake_outcome_characteristics_426.png" alt="Margin reducers characteristics" width="62%">
+</p>
+
+Having evaluated how pools responded to isolated fee adjustments, a natural follow-up question is whether operators coordinate both fee levers simultaneously. Specifically, does a reduction in fixed cost $c_i$ serve as a complement paired with a lower margin $m_i$ to maximize competitiveness, or as a substitute where operators raise $m_i$ to offset revenue lost from a lower $c_i$? The following analysis examines this interaction among cost-reducing pools: $12.6\\%$ ($47$) also reduced their variable margin, whereas $20.1\\%$ ($75$) increased it, leaving the remaining $67.4\\%$ ($252$) with an unchanged margin. 
 
 <p align="center">
 <img src="plots/margin_direction_within_cost_reducers_426_500.png" alt="Pools reducing margin and fixed cost when minPoolCost changed" width="62%">
