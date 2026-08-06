@@ -202,6 +202,12 @@ The last plot shows that those pools combining both measures is a more effective
 <img src="plots/cost_down_margin_direction_stake_outcomes_426_500.png" alt="Effectivness of competitive strategieswhen minPoolCost changed" width="62%">
 </p>
 
+The next plot analyizes the pools characteristics—epoch stake, declared pledge, and active pledge—across fixed-cost reducers ($n=374$) grouped by their secondary margin strategy: those that also reduced margin ($n=47$), those that raised margin ($n=75$), and those that kept margin unchanged ($n=252$). Pools that combined fixed-cost reductions with margin increases held the highest baseline stake as well as the largest pledged capital. Conversely, operators adopting a dual-discount strategy were smaller, less-capitalized pools. These patterns suggests that smaller pools relied on double fee cuts to build market presence, whereas larger pools leveraged fixed-cost reductions as a buffer to simultaneously raise margins.
+
+<p align="center">
+<img src="plots/cost_reducer_margin_strategy_characteristics_426.png" alt="Cost and Margin reducers characteristics" width="62%">
+</p>
+
 
 ### Decentralization metrics
 
