@@ -125,7 +125,7 @@ def main() -> None:
     )
 
     ax = axes[1]
-    labels2 = ["gain stake", "lose stake", "flat stake", "gain delegation", "lose delegation", "flat delegation"]
+    labels2 = ["gain stake", "lose stake", "flat stake", "gain delegators", "lose delegators", "flat delegators"]
     vals2 = [
         st["down"]["gain_stake"],
         st["down"]["lose_stake"],
