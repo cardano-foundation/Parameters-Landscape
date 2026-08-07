@@ -506,13 +506,9 @@ where $K(n)$ is increasing and convex. A lower floor may still fail to induce ex
 
 #### Changes in staking participation
 
-If delegators overweight short-run payout changes, participation reacts to a salience-weighted objective:
+Changes in staking participation are closely tied to shifts in delegator APR, though external factors such as market sentiment and alternative investment opportunities also play a role. Past data from the previous minPoolCost reduction demonstrates that pools—particularly smaller ones—that lowered their declared fixed costs experienced an increase in both APR and stake. However, neither the network-wide median APR nor the total aggregate stake shifted significantly. The stability in median APR is likely because only a small fraction of pools actually reduced their costs, while the unchanged aggregate stake suggests that capital was simply redelegated among existing pools rather than drawn from new incoming stake.
 
-$$
-\Delta S_t=\chi_s\big(r_t-r_{\text{alt},t}\big)+\chi_l\,\mathbb E_t\!\left[\sum_{h\ge 1}\beta^h\big(r_{t+h}-r_{\text{alt},t+h}\big)\right],
-$$
 
-with $\chi_s>\chi_l$ under short-term salience. This can amplify short-run participation responses to changes in $c_{min}$ even when long-run effects are limited. -->
 
 
 
