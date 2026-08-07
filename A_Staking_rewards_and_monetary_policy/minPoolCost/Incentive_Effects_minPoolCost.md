@@ -7,11 +7,11 @@ Reducing minPoolCost is conditionally beneficial. The net effect depends on whic
 **Pros**
 1. Some pools that reduce declared fixed cost show higher delegator APR.
 2. APR gains are stronger among fixed-cost reducers than in network-wide aggregates.
-3. Lower fixed-cost floor can relax fee pressure on smaller pools.
+3. Lower minPoolCost allows some smaller pools to declare lower fixed costs and improve their attractiveness for delegators.
 
 **Risks**
 1. Operator viability can weaken after fixed-cost reductions.
-2. Operator repricing is limited, so network-wide effects can remain modest.
+2. After minPoolCost was reduced, only a minority of pools reduced declared fixed cost or margin, so network-wide effects remained modest.
 3. Whole-network concentration metrics may not improve even when reducers improve.
 
 **What the evidence suggests**
@@ -23,6 +23,9 @@ Reducing minPoolCost is conditionally beneficial. The net effect depends on whic
 1. Trade-off: lower minPoolCost can improve delegator APR while reducing operator viability.
 2. Short-run effects are more visible in pool-level redistribution than in total staking changes.
 3. Long-run decentralization effects remain uncertain under partial fee adjustment.
+4. If the primary objective is short-run improvement in delegator yield, a lower minPoolCost can help.
+5. If the primary objective is long-run decentralization and operator skin-in-the-game, reducing minPoolCost in isolation is not clearly supportive.
+6. minPoolCost reduction may need complementary safeguards, rather than being used as a standalone lever.
 
 
 ## Parameter values at the current state
