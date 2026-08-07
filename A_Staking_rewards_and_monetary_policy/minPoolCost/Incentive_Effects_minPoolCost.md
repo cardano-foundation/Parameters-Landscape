@@ -430,20 +430,20 @@ The old aggregate “Losing” category masks a sharp split. Pools with $r<0.5$ 
 
 #### Pool splitting by multi-pool operators
 
+A reduction in $c_{min}$ can affect the incentive to split one pool into multiple pools through opposing channels. On one side, splitting can increase operator revenue when fixed cost is collected per pool. On the other side, splitting also fragments stake and pledge across child pools, which can reduce their desirability and make delegation harder to retain.
 
-A reduction in $c_{min}$ can affect the incentive of an operator to split one pool into several pools through two opposing channels. First, a higher fixed cost can create a direct revenue incentive to split, because the declared fixed cost is collected separately by each pool. However, there are opposite effects. Since pool desirability is
+Pool desirability is
 
 $$
 D_i=(1-m_i)\frac{f(\sigma_i,p_i)-c_{min}}{\sigma_i},
 $$
 
-a lower $c_{min}$ improves the relative attractiveness of small pools. Newly created split pools therefore suffer a smaller fixed-cost disadvantage and may find it easier to attract enough delegation to become viable. Additionally, the operator needs to split their pledge and delegation, which means that their new pools may become less desirable for delegators. On the other hand,More importantly, operators may not control their delegators decisions.
+a lower $c_{min}$ improves the relative attractiveness of smaller pools by reducing the fixed-cost drag on delegator return. This tends to reduce the fixed-cost disadvantage of newly created split pools and may help them attract delegation. At the same time, the operator must divide pledge and existing stake across the split, and delegator reallocation is not fully under operator control.
 
-Thus, reducing $c_{\min}$ has an ambiguous overall effect on multi-pool operation: it reduces the extra revenue obtained from collecting a fixed cost in several pools, but at the same time makes small split pools more competitive for delegation. Which effect dominates may depend on actual operating costs, margins, pledge allocation, and delegation.
+Thus, reducing $c_{min}$ has an ambiguous overall effect on multi-pool operation: it weakens the fixed-cost duplication gain from splitting, while making smaller post-split pools more competitive for delegation. Which effect dominates depends on operating costs, margins, pledge allocation, and realized delegation responses.
 
 
-
-We illustrate this ambiguity with and exercise. For each pool we compute the theoretical
+We illustrate this ambiguity with a simple exercise. For each pool we compute the theoretical
 
 $$
 \Pi_i = c_i + (f_i-c_i)\bigl[m_i+(1-m_i)\hat p_i/\sigma_i\bigr]
@@ -460,7 +460,7 @@ $$
 \text{same }m_i\text{ and declared }c\text{ in each half}.
 $$
 
-We compare $\Pi_i$ to $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i)$.
+We then compare the unsplit reward $\Pi_i$ with the split outcome $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i)$.
 
 *Scenario A — original declared fixed costs*
 
