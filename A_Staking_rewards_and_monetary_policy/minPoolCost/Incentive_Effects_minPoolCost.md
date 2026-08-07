@@ -211,14 +211,23 @@ The next plot analyizes the pools characteristics—epoch stake, declared pledge
 
 ### Decentralization metrics
 
-Next, we measure the impact of the minPoolCost reduction on network decentralization. We evaluate decentralization using two metrics: the Nakamoto coefficient (the minimum number of pools controlling over $50\%$ of total delegation) and the aggregate pledge of these top pools. Ideally, this analysis should be conducted at the level of independent operators rather than individual pools. However, because the total pool count remains relatively stable between epochs 426 and 500, comparing the relative change in these coefficients across pools provides a reliable proxy for operator dynamics.
+Next, we evaluate the impact of the minPoolCost reduction on network decentralization. We begin by examining fixed-cost reducers ($n = 374$) and measuring net stake flows across different initial stake tiers. The data reveals a net redistribution toward smaller pools. This shift provides suggestive evidence of decentralization among cost reducers.
+
+ 
+<p align="center">
+<img src="plots/cost_reducer_net_stake_by_bin_426_500.png" alt="Cost reducers net flows" width="62%">
+</p>
+
+The previous plot does not constitute whole-network causal proof, as it excludes non-reducing pools ($85\\%+$ of the network) that may have absorbed outflowing stake.
+
+We next evaluate network decentralization using two metrics: the Nakamoto coefficient (the minimum number of pools controlling over $50\%$ of total delegation) and the aggregate pledge of these top pools. Ideally, this analysis should be conducted at the level of independent operators rather than individual pools. However, because the total pool count remains relatively stable between epochs 426 and 500, comparing the relative change in these coefficients across pools provides a reliable proxy for operator dynamics.
 
 | Epoch | Nakamoto \(N\) | Snapshot pools | Aggregate stake of \(N\) | Total active stake | Share | Min-agg declared pledge | Min-agg active pledge |
 |------:|---------------:|---------------:|-------------------------:|-------------------:|------:|------------------------:|----------------------:|
 | 426 | 191 | 2,931 | 11.37B ADA | 22.73B ADA | 50.02% | 1.44B ADA | 2.2B ADA |
 | 500 | 186 | 2,884 | 11.45B ADA | 22.85B ADA | 50.10% | 1.28B ADA | 1.8B ADA |
 
-Over the analyzed window (epochs 426 to 500), decentralization metrics shifted toward greater stake concentration across two key dimensions. While the Nakamoto coefficient experienced a modest drop of $-2.6\%$ (from $191$ to $186$ pools), the economic commitment securing these controlling pools eroded significantly more. Specifically, the minimum aggregate active pledge among the Nakamoto set fell by $-18.2\%$ (from $2.20\text{B}$ to $1.80\text{B}$ ADA), accompanied by an $-11.1\%$ decrease in declared pledge.These findings indicate that following the parameter adjustment, stake concentration not only consolidated into slightly fewer pools, but the controlling pools themselves operated with substantially less "skin in the game," marking a compound increase in network centralization.
+Over the analyzed window (epochs 426 to 500), decentralization metrics shifted toward greater stake concentration across the two key dimensions. While the Nakamoto coefficient experienced a modest drop of $-2.6\\%$ (from $191$ to $186$ pools), the economic commitment securing these controlling pools eroded significantly more. Specifically, the minimum aggregate active pledge among the Nakamoto set fell by $-18.2\\%$ (from $2.20\text{B}$ to $1.80\text{B}$ ADA), accompanied by an $-11.1\\%$ decrease in declared pledge. These findings indicate that, in the time window considered, stake concentration not only consolidated into slightly fewer pools, but the controlling pools themselves operated with substantially less "skin in the game," marking an increase in network centralization. 
 
 ### Pools viability
 
