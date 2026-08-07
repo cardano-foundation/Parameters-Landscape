@@ -14,15 +14,16 @@ Reducing minPoolCost is conditionally beneficial. The net effect depends on whic
 3. Whole-network concentration metrics may not improve even when reducer ones improve.
 
 **What the evidence suggests**
-1. Operator fixed-cost reduction was partial: only about $14.0\%$ it. 
-2. Among fixed-cost reducers, a majority gained stake ($55.1\%$).
-3. Reducers are generally larger/better positioned.
-4. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only cuts.
+1. Operator fixed-cost reduction was partial: only about $14.0\\%$ of them.
+2. Fixed-cost reducers are generally larger/better positioned than no-reducers.
+3. Among reducers, a majority gained stake ($55.1\\%$).
+4. Among reducers, smaller ones are more likely to be gainers than larger reducers.
+5. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only cuts.
 
 **Policy interpretation**
 1. Trade-off: lower minPoolCost can improve delegator APR while reducing operator viability.
-2. If the primary objective is short-run improvement in small pool competitivness, a lower minPoolCost can help.
-5. If the primary objective is long-run decentralization and operator skin-in-the-game, reducing minPoolCost in isolation is not clearly supportive.
+2. If the primary objective is short-run small-pool competitiveness, a lower minPoolCost can help, but with a viability trade-off. This trade-off limits the capacity of small pools to follow the reduction.
+5. If the primary objective is long-run decentralization, reducing minPoolCost in isolation is not clearly supportive due to partial participation.
 
 ## Parameter values at the current state
 For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
@@ -411,7 +412,7 @@ The plot measures $r=\Pi_i/C^{\*}$, where any $r<1$ indicates not enough rewards
 <img src="plots/pool_viability_theoretical_all_pools_epoch_644.png" alt="Pools theoretical viability versus OpCost" width="62%">
 </p>
 
-The next chart shows the characteristics of the losing and edge pools.
+Note that the low ADA price has a direct implication in the previous results. However, the first bin $(r<0.25)$ would need a very large increment in the price to cover their costs. The next chart shows the characteristics of the losing and edge pools.
 
 <p align="center">
 <img src="plots/pool_viability_losing_vs_edge_traits_epoch_644.png" alt="Pools characteristics losing and edge" width="62%">
