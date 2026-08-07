@@ -24,6 +24,7 @@ import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+from matplotlib.ticker import MultipleLocator
 import numpy as np
 import pandas as pd
 
@@ -108,6 +109,74 @@ def classify_delta(delta: np.ndarray) -> tuple[int, int, int]:
     return inc, dec, same
 
 
+def _boxplot_whisker_ylim(series_list: list[pd.Series | np.ndarray]) -> tuple[float, float]:
+    """Y-limits matching matplotlib boxplot whiskers (showfliers=False)."""
+    lows: list[float] = []
+    highs: list[float] = []
+    for s in series_list:
+        a = np.asarray(s, dtype=float)
+        a = a[np.isfinite(a)]
+        if a.size == 0:
+            continue
+        q1, q3 = np.percentile(a, [25.0, 75.0])
+        iqr = q3 - q1
+        lows.append(float(max(a.min(), q1 - 1.5 * iqr)))
+        highs.append(float(min(a.max(), q3 + 1.5 * iqr)))
+    if not lows:
+        return 0.0, 1.0
+    lo, hi = min(lows), max(highs)
+    if hi <= lo:
+        pad = abs(hi) * 0.05 + 1.0
+        return lo - pad, hi + pad
+    pad = 0.05 * (hi - lo)
+    return lo - pad, hi + pad
+
+
+def traits_series_bundle(df: pd.DataFrame) -> dict[str, list[pd.Series]]:
+    """Named series lists used by the traits panels (same units as the plot)."""
+    return {
+        "stake": [df["sigma_ada"] / 1e6],
+        "active_pledge": [df["active_pledge_ada"] / 1e3],
+        "declared_pledge": [df["declared_pledge_ada"] / 1e3],
+        "margin": [df["margin"] * 100.0],
+        "fixed_cost": [df["fixed_cost_ada"]],
+    }
+
+
+def shared_traits_ylims(
+    group_dfs: list[pd.DataFrame],
+) -> dict[str, tuple[float, float]]:
+    keys = (
+        "stake",
+        "active_pledge",
+        "declared_pledge",
+        "margin",
+        "fixed_cost",
+    )
+    ylims: dict[str, tuple[float, float]] = {}
+    for key in keys:
+        series: list[pd.Series] = []
+        for g in group_dfs:
+            series.extend(traits_series_bundle(g)[key])
+        lo, hi = _boxplot_whisker_ylim(series)
+        if key == "stake":
+            # Prefer a 0–N scale with major ticks every 10 M ADA.
+            lo = 0.0
+            hi = float(np.ceil(hi / 10.0) * 10.0)
+            if hi <= 0:
+                hi = 10.0
+            # Extra tick of headroom so median labels clear the top spine.
+            hi += 10.0
+        else:
+            span = hi - lo
+            pad = 0.18 * span if span > 0 else abs(hi) * 0.1 + 1.0
+            hi = hi + pad
+            if lo > 0:
+                lo = max(0.0, lo - 0.02 * span)
+        ylims[key] = (lo, hi)
+    return ylims
+
+
 def plot_traits_inc_vs_dec(
     df: pd.DataFrame,
     inc_mask: np.ndarray,
@@ -115,6 +184,7 @@ def plot_traits_inc_vs_dec(
     *,
     out_path: Path,
     subtitle: str,
+    ylims: dict[str, tuple[float, float]],
 ) -> None:
     """Boxplots of pool characteristics: Π increases vs decreases."""
     inc = df.loc[inc_mask]
@@ -131,6 +201,9 @@ def plot_traits_inc_vs_dec(
         series_by_group: list[pd.Series],
         ylabel: str,
         title: str,
+        ylim: tuple[float, float],
+        y_major: float | None = None,
+        median_fmt: str = "{:.2f}",
     ) -> None:
         values = [s.dropna().to_numpy() for s in series_by_group]
         labels = [name for name, _, _ in groups]
@@ -149,36 +222,73 @@ def plot_traits_inc_vs_dec(
         ax.set_ylabel(ylabel, fontsize=FONT_SIZE)
         ax.set_title(title, fontsize=FONT_SIZE)
         ax.tick_params(axis="both", labelsize=FONT_SIZE - 1)
+        ax.set_ylim(*ylim)
+        if y_major is not None:
+            ax.yaxis.set_major_locator(MultipleLocator(y_major))
+        y0, y1 = ylim
+        span = y1 - y0
+        for i, arr in enumerate(values, start=1):
+            if arr.size == 0:
+                continue
+            med = float(np.median(arr))
+            q1, q3 = np.percentile(arr, [25.0, 75.0])
+            iqr = q3 - q1
+            top = float(min(arr.max(), q3 + 1.5 * iqr))
+            # Sit clearly above the whisker, well below the axis top.
+            y_text = top + 0.04 * span
+            if y_text > y1 - 0.06 * span:
+                y_text = y1 - 0.06 * span
+            ax.text(
+                i,
+                y_text,
+                median_fmt.format(med),
+                ha="center",
+                va="bottom",
+                fontsize=FONT_SIZE - 2,
+                color=MEDIAN_COLOR,
+                clip_on=False,
+            )
 
     box_groups(
         axes[0, 0],
         [inc["sigma_ada"] / 1e6, dec["sigma_ada"] / 1e6],
         "Epoch stake (M ADA)",
         "Delegation (epoch stake)",
+        ylims["stake"],
+        y_major=10.0,
+        median_fmt="{:.2f}",
     )
     box_groups(
         axes[0, 1],
         [inc["active_pledge_ada"] / 1e3, dec["active_pledge_ada"] / 1e3],
         "Active pledge (k ADA)",
         "Active pledge",
+        ylims["active_pledge"],
+        median_fmt="{:.1f}",
     )
     box_groups(
         axes[0, 2],
         [inc["declared_pledge_ada"] / 1e3, dec["declared_pledge_ada"] / 1e3],
         "Declared pledge (k ADA)",
         "Declared pledge",
+        ylims["declared_pledge"],
+        median_fmt="{:.1f}",
     )
     box_groups(
         axes[1, 0],
         [inc["margin"] * 100.0, dec["margin"] * 100.0],
         "Declared margin (%)",
         "Margin",
+        ylims["margin"],
+        median_fmt="{:.1f}",
     )
     box_groups(
         axes[1, 1],
         [inc["fixed_cost_ada"], dec["fixed_cost_ada"]],
         "Declared fixed cost (ADA)",
         "Declared fixed cost",
+        ylims["fixed_cost"],
+        median_fmt="{:.0f}",
     )
     axes[1, 2].axis("off")
     axes[1, 2].text(
@@ -189,7 +299,10 @@ def plot_traits_inc_vs_dec(
         "\n\n"
         "Characteristics are from the\n"
         "unsplit epoch-644 snapshot\n"
-        r"(original declared $c_i$).",
+        r"(original declared $c_i$)."
+        "\n\n"
+        "Numbers above each box are\n"
+        "the group median.",
         ha="left",
         va="top",
         fontsize=FONT_SIZE,
@@ -454,12 +567,21 @@ Per-pool detail: `{OUT_CSV.name}`.
     fig.savefig(OUT_PLOT, dpi=160)
     plt.close(fig)
 
+    ylims = shared_traits_ylims(
+        [
+            out.loc[d_a > EPS],
+            out.loc[d_a < -EPS],
+            out.loc[d_b > EPS],
+            out.loc[d_b < -EPS],
+        ]
+    )
     plot_traits_inc_vs_dec(
         out,
         d_a > EPS,
         d_a < -EPS,
         out_path=OUT_TRAITS_A,
         subtitle=r"Scenario A: original declared $c_i$",
+        ylims=ylims,
     )
     plot_traits_inc_vs_dec(
         out,
@@ -467,6 +589,7 @@ Per-pool detail: `{OUT_CSV.name}`.
         d_b < -EPS,
         out_path=OUT_TRAITS_B,
         subtitle=r"Scenario B: $c'=c_i/2$ before and after the split",
+        ylims=ylims,
     )
 
     print(f"Wrote {OUT_CSV}")
