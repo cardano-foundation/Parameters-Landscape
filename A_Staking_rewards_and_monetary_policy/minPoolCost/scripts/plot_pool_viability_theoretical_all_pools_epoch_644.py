@@ -49,14 +49,37 @@ EPOCHS_PER_MONTH = 6.0
 ADA_USD = 0.15
 C_STAR_ADA = MONTHLY_OPEX_USD / EPOCHS_PER_MONTH / ADA_USD
 
-CATEGORY_ORDER = ("losing", "edge", "comfortable", "strong")
-CATEGORY_LABELS = (
-    "Losing\n($r<1$)",
-    "Edge\n($1\\leq r<2$)",
-    "Comfortable\n($2\\leq r<5$)",
-    "Strong\n($r\\geq5$)",
+CATEGORY_ORDER = (
+    "losing_lt_025",
+    "losing_025_050",
+    "losing_050_075",
+    "losing_075_100",
+    "edge",
+    "comfortable",
+    "strong",
 )
-CATEGORY_COLORS = ("#d62828", "#e76f51", "#4c78a8", "#2a9d8f")
+CATEGORY_LABELS = (
+    r"$r<0.25$",
+    r"$0.25\leq r<0.5$",
+    r"$0.5\leq r<0.75$",
+    r"$0.75\leq r<1$",
+    "Edge\n"
+    r"($1\leq r<2$)",
+    "Comfortable\n"
+    r"($2\leq r<5$)",
+    "Strong\n"
+    r"($r\geq5$)",
+)
+# Darker red = worse (lower r); then edge / comfortable / strong unchanged
+CATEGORY_COLORS = (
+    "#67000d",
+    "#a50f15",
+    "#de2d26",
+    "#fc9272",
+    "#e76f51",
+    "#4c78a8",
+    "#2a9d8f",
+)
 
 
 def gross_pool_reward(
@@ -100,13 +123,23 @@ def operator_reward(
 
 
 def classify(ratio: float) -> str:
+    if ratio < 0.25:
+        return "losing_lt_025"
+    if ratio < 0.5:
+        return "losing_025_050"
+    if ratio < 0.75:
+        return "losing_050_075"
     if ratio < 1.0:
-        return "losing"
+        return "losing_075_100"
     if ratio < 2.0:
         return "edge"
     if ratio < 5.0:
         return "comfortable"
     return "strong"
+
+
+def is_losing(category: str) -> bool:
+    return category.startswith("losing_")
 
 
 def main() -> None:
@@ -197,7 +230,7 @@ def main() -> None:
     )
     n_pledge_unmet = int((~pledge_met).sum())
 
-    fig, ax = plt.subplots(figsize=(9.2, 5.2), constrained_layout=True)
+    fig, ax = plt.subplots(figsize=(11.5, 5.2), constrained_layout=True)
     x = np.arange(len(CATEGORY_ORDER))
     ax.bar(
         x,
@@ -213,11 +246,12 @@ def main() -> None:
             f"{height}",
             ha="center",
             va="bottom",
-            fontsize=FONT_SIZE,
+            fontsize=FONT_SIZE - 1,
         )
+    ax.set_ylim(0.0, max(heights) * 1.12)
 
     ax.set_xticks(x)
-    ax.set_xticklabels(CATEGORY_LABELS)
+    ax.set_xticklabels(CATEGORY_LABELS, fontsize=FONT_SIZE - 1)
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
     ax.set_title(
         "Epoch 644 — theoretical viability vs OpEx\n"
@@ -225,14 +259,15 @@ def main() -> None:
         fontsize=FONT_SIZE,
     )
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
+    n_losing = int(sum(heights[:4]))
     ax.text(
         0.98,
         0.97,
         f"Pledge-met pools analyzed: {n_analyzed}\n"
+        f"Losing ($r<1$): {n_losing}\n"
         f"Cover OpEx: {n_viable}\n"
         f"At risk ($1\\leq r<2$): {n_risk}\n"
-        f"Not counted (pledge not met): {n_pledge_unmet}\n"
-        f"Incomplete rows: {n_incomplete}",
+        f"Not counted (pledge not met): {n_pledge_unmet}",
         transform=ax.transAxes,
         ha="right",
         va="top",
@@ -246,89 +281,117 @@ def main() -> None:
     )
     fig.savefig(OUT_PLOT, dpi=160)
 
-    # Losing-vs-edge characteristics under the same theoretical approach.
-    losing = analysis[analysis["category"] == "losing"]
+    # Characteristics: deep-losing vs near-edge losing vs edge.
+    losing_deep = analysis[
+        analysis["category"].isin(("losing_lt_025", "losing_025_050"))
+    ]
+    losing_near = analysis[
+        analysis["category"].isin(("losing_050_075", "losing_075_100"))
+    ]
     edge = analysis[analysis["category"] == "edge"]
+    trait_groups = [
+        (r"Losing" "\n" r"($r<0.5$)", losing_deep, CATEGORY_COLORS[0]),
+        (r"Losing" "\n" r"($0.5\leq r<1$)", losing_near, CATEGORY_COLORS[2]),
+        ("Edge\n"
+         r"($1\leq r<2$)", edge, CATEGORY_COLORS[4]),
+    ]
     fig_traits, axes = plt.subplots(
-        3, 3, figsize=(12.5, 9.5), constrained_layout=True
+        3, 3, figsize=(13.5, 9.5), constrained_layout=True
     )
+    median_color = "#111111"
 
-    def box_pair(
+    def box_groups(
         ax: plt.Axes,
-        losing_values: pd.Series,
-        edge_values: pd.Series,
+        series_by_group: list[pd.Series],
         ylabel: str,
         title: str,
     ) -> None:
-        values = [
-            losing_values.dropna().to_numpy(),
-            edge_values.dropna().to_numpy(),
+        values = [s.dropna().to_numpy() for s in series_by_group]
+        labels = [
+            f"{name}\n(n={len(df_g)})" for name, df_g, _ in trait_groups
         ]
         box = ax.boxplot(
             values,
-            tick_labels=[
-                f"Losing\n(n={len(losing)})",
-                f"Edge\n(n={len(edge)})",
-            ],
+            tick_labels=labels,
             patch_artist=True,
             widths=0.55,
             showfliers=False,
+            medianprops={"color": median_color, "linewidth": 2.0},
         )
-        for patch, color in zip(
-            box["boxes"], (CATEGORY_COLORS[0], CATEGORY_COLORS[1])
-        ):
+        for patch, (_, _, color) in zip(box["boxes"], trait_groups):
             patch.set_facecolor(color)
             patch.set_alpha(0.75)
         ax.set_ylabel(ylabel, fontsize=FONT_SIZE)
         ax.set_title(title, fontsize=FONT_SIZE)
-        ax.tick_params(axis="both", labelsize=FONT_SIZE)
+        ax.tick_params(axis="both", labelsize=FONT_SIZE - 1)
 
-    box_pair(
+    box_groups(
         axes[0, 0],
-        losing["sigma_ada"] / 1e6,
-        edge["sigma_ada"] / 1e6,
+        [
+            losing_deep["sigma_ada"] / 1e6,
+            losing_near["sigma_ada"] / 1e6,
+            edge["sigma_ada"] / 1e6,
+        ],
         "Epoch stake (M ADA)",
         "Epoch stake",
     )
-    box_pair(
+    box_groups(
         axes[0, 1],
-        losing["active_pledge_ada"] / 1e3,
-        edge["active_pledge_ada"] / 1e3,
+        [
+            losing_deep["active_pledge_ada"] / 1e3,
+            losing_near["active_pledge_ada"] / 1e3,
+            edge["active_pledge_ada"] / 1e3,
+        ],
         "Active pledge (k ADA)",
         "Active pledge",
     )
-    box_pair(
+    box_groups(
         axes[0, 2],
-        losing["declared_pledge_ada"] / 1e3,
-        edge["declared_pledge_ada"] / 1e3,
+        [
+            losing_deep["declared_pledge_ada"] / 1e3,
+            losing_near["declared_pledge_ada"] / 1e3,
+            edge["declared_pledge_ada"] / 1e3,
+        ],
         "Declared pledge (k ADA)",
         "Declared pledge",
     )
-    box_pair(
+    box_groups(
         axes[1, 0],
-        losing["margin"] * 100.0,
-        edge["margin"] * 100.0,
+        [
+            losing_deep["margin"] * 100.0,
+            losing_near["margin"] * 100.0,
+            edge["margin"] * 100.0,
+        ],
         "Declared margin (%)",
         "Margin",
     )
-    box_pair(
+    box_groups(
         axes[1, 1],
-        losing["blocks_minted"],
-        edge["blocks_minted"],
+        [
+            losing_deep["blocks_minted"],
+            losing_near["blocks_minted"],
+            edge["blocks_minted"],
+        ],
         "Blocks minted (epoch)",
         "Blocks",
     )
-    box_pair(
+    box_groups(
         axes[1, 2],
-        losing["delegators"],
-        edge["delegators"],
+        [
+            losing_deep["delegators"],
+            losing_near["delegators"],
+            edge["delegators"],
+        ],
         "Delegators",
         "Delegators",
     )
-    box_pair(
+    box_groups(
         axes[2, 0],
-        losing["declared_fixed_cost_ada"],
-        edge["declared_fixed_cost_ada"],
+        [
+            losing_deep["declared_fixed_cost_ada"],
+            losing_near["declared_fixed_cost_ada"],
+            edge["declared_fixed_cost_ada"],
+        ],
         "Declared fixed cost (ADA)",
         "Declared fixed cost",
     )
@@ -337,8 +400,7 @@ def main() -> None:
         0.0,
         0.9,
         f"Not included in these categories:\n"
-        f"• pledge not met: {n_pledge_unmet}\n"
-        f"• incomplete rows: {n_incomplete}",
+        f"• pledge not met: {n_pledge_unmet}",
         ha="left",
         va="top",
         fontsize=FONT_SIZE,
@@ -362,12 +424,15 @@ def main() -> None:
         f"- Incomplete rows excluded: {n_incomplete}\n\n"
         "| Category | Condition | Pools |\n"
         "|---|---:|---:|\n"
-        f"| Losing | \\(r<1\\) | {heights[0]} |\n"
-        f"| Edge | \\(1\\le r<2\\) | {heights[1]} |\n"
-        f"| Comfortable | \\(2\\le r<5\\) | {heights[2]} |\n"
-        f"| Strong | \\(r\\ge5\\) | {heights[3]} |\n\n"
+        f"| Losing (worst) | \\(r<0.25\\) | {heights[0]} |\n"
+        f"| Losing | \\(0.25\\le r<0.5\\) | {heights[1]} |\n"
+        f"| Losing | \\(0.5\\le r<0.75\\) | {heights[2]} |\n"
+        f"| Losing | \\(0.75\\le r<1\\) | {heights[3]} |\n"
+        f"| Edge | \\(1\\le r<2\\) | {heights[4]} |\n"
+        f"| Comfortable | \\(2\\le r<5\\) | {heights[5]} |\n"
+        f"| Strong | \\(r\\ge5\\) | {heights[6]} |\n\n"
         f"Thus, {n_viable} of {n_analyzed} pledge-met pools cover the assumed OpEx, "
-        f"and {n_risk} are in the edge category.\n"
+        f"{n_losing} are losing ($r<1$), and {n_risk} are in the edge category.\n"
     )
     OUT_SUMMARY.write_text(summary)
 
