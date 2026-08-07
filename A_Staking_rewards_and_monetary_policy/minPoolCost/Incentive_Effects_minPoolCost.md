@@ -471,8 +471,11 @@ We compare $\Pi_i$ to $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i)$.
 
 Median $\Delta\Pi=\Pi_{\mathrm{split}}-\Pi_{\mathrm{unsplit}}$: 0.00 ADA/epoch; mean: 38.45 ADA/epoch.
 
-Under this scenario with the original declared costs, a $1→2$ split reduces operator reward for a majority of pledge-met pools ($52.7\\%$ decrease vs $38.9\\%$ increase): duplicating the income from $c_i$ outweighs any gain from the reward formula for most operators, even though mean $\Delta\Pi$ is positive (right tail from pools that benefit from desaturation).
+Under this scenario with the original declared costs, a $1→2$ split reduces operator reward for a majority of pledge-met pools ($52.7\\%$ decrease vs $38.9\\%$ increase): duplicating the income from $c_i$ outweighs any gain from the reward formula for most operators, even though mean $\Delta\Pi$ is positive (right tail from pools that benefit from desaturation). Next plot shows that gainers are much larger and more pledged.
 
+<p align="center">
+<img src="plots/pool_split_traits_increase_vs_decrease_epoch_644.png" alt="Operators incentives to split when actual costs" width="62%">
+</p>
 
 
 *Scenario B — declared fixed cost cut 50% before and after the split*
@@ -487,7 +490,11 @@ Both the unsplit pool and each half use $c'=c_i/2$.
 
 Median $\Delta\Pi$: 0.00 ADA/epoch; mean: 5.04 ADA/epoch.
 
-When declared fixed cost is cut by half both before and after the split, the fraction of pools gaining is larger than before ($44.0\\%$), and the fraction of pools losing decreases ($47.7\\%$). The mean $\Delta\Pi$ falls sharply ($38.45 → 5.04$ ADA/epoch), consistent with a weaker fixed-cost duplication penalty when $c$ is already lower.
+When declared fixed cost is cut by half both before and after the split, the fraction of pools gaining is larger than before ($44.0\\%$), and the fraction of pools losing decreases ($47.7\\%$). The mean $\Delta\Pi$ falls sharply ($38.45 → 5.04$ ADA/epoch), consistent with a weaker fixed-cost duplication penalty when $c$ is already lower. Next plot does not show a relevant change in gainers characterisitcs.
+
+<p align="center">
+<img src="plots/pool_split_traits_increase_vs_decrease_c50_epoch_644.png" alt="Operators incentives to split when half of actual costs" width="62%">
+</p>
 
 
 #### Changes in staking participation
