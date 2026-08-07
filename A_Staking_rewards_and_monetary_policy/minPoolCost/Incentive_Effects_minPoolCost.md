@@ -48,20 +48,20 @@ The parameter `minPoolCost` (here also denoted as $c_{min}$) sets the minimum fi
 
 A change in $c_{min}$ or in the declared fixed cost $c_i$ does not affect the pool's gross reward. Instead, the declared fixed cost is paid to the operator before the remaining rewards are divided between the operator and delegators.
 
-The main objective of $c_{min}$ is to support economically viable pool operation and provide some protection against Sybil attacks. Without a minimum fixed cost to declare, an operator could create many pools, declare negligible costs, and offer returns to delegators that other operators (that needs to declare their cost) may be unable to match.
+The main objective of $c_{min}$ is to support economically viable pool operation and provide some protection against Sybil attacks. Without a minimum fixed cost to declare, an operator could create many pools, declare negligible costs, and offer returns to delegators that other operators (that need to declare their cost) may be unable to match.
 
 The main trade-off comes from the incentive that a pool has to declare a larger fixed cost to cover their actual cost versus to declare less to become more attractive for delegators. That is, a higher $c_{min}$ can therefore protect operator revenues and discourage small, undercapitalized Sybil pools, but it also reduces the competitiveness of small and new pools and may push delegation toward larger pools. A lower $c_{min}$ facilitates entry and improves small-pool returns, but may intensify competition in $c_i$ and make it easier for multi-pool operators to expand.
 
 The appropriate level of $c_{min}$ therefore balances operator viability and Sybil resistance against entry, competition, and decentralization.
 
-Next, these effects and trade-off are explained with more details
+Next, this effect and trade-off are explained in more detail.
 
 ## Direct mechanical effects 
 In this section we consider the direct effects of **reducing** `minPoolCost` while holding everything else equal (ceteris paribus). 
 
 ### Gross pool rewards
 
-Let $\sigma_i$ denote the total delegation at pool $i$, $p_i$ to the declared pledge of the pool, and $z_0$ to the saturation threshold. The gross pool reward function is
+Let $\sigma_i$ denote the total delegation at pool $i$, $p_i$ the declared pledge of the pool, and $z_0$ the saturation threshold. The gross pool reward function is
 
 $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
 
@@ -78,17 +78,17 @@ The pool operator gross revenue function is
 $$\begin{cases} c_i + (f(\sigma_i,p_i)-c_i) \left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if }  f(\sigma_i,p_i)>c_i, \\ 
 f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
-where $\hat{p}_i$ is the operator's active pledge (the stake/delegation own by the operator).
+where $\hat{p}_i$ is the operator's active pledge (the stake/delegation owned by the operator).
     
 Consider a reduction in `minPoolCost` and that the operator declares $c_i=$`minPoolCost`. Note that this assumption contrasts with [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) setting where there is incentive compatibility, i.e., each operator declares their actual cost. However, the heavy concentration at 340 and 170 ADA in the [histogram](fig-min-pool-cost-644) suggests parameter inertia or active competitive optimization rather than truthful cost revelation. 
 
-The next plot shows the effect of a reduction in `minPoolCost` change in the pool operator gross reward.
+The next plot shows the effect of a reduction in `minPoolCost` on pool operator gross reward.
 
 <p align="center">
 <img src="plots/heatmap_operator_reward_c_cases.png" alt="Heatmap Operator Reward when c changes" width="80%">
 </p>
 
-The plot shows that a reduction in the declared fixed cost (from $170$ ADA to $75$ ADA) reduces pool operator revenues, with the effect being particularly strong for small pools. This is because the fixed cost plays an important role in operator's revenues. To see this, take
+The plot shows that a reduction in the declared fixed cost (from $170$ ADA to $75$ ADA) reduces pool operator revenues, with the effect being particularly strong for small pools. This is because the fixed cost plays an important role in operators' revenues. To see this, take
 
 $$
 \Pi_i = c_i+(f(\sigma_i,p_i)-c_i)\underbrace{[m_i +(1-m_i)\frac{p_i}{\sigma_i}]}_{s\in[0,1]},
@@ -103,13 +103,13 @@ It follows that the operator's profit drops with a lower $c_i$ (unless $p_i=\sig
 
 ### Delegator return per unit of stake
 
-Reducing the fixed cost increases the net reward 
+Reducing the fixed cost increases the net reward
 
 $$(f(\sigma_i,p_i)-c_i),$$ 
 
-that a pool can distribute among its delegators. Next plot illustrates this benefit comparing the net rewards per unit of stake for different $c_i$, where the net rewards per unit of stake is
+that a pool can distribute among its delegators. The next plot illustrates this benefit by comparing the net rewards per unit of stake for different $c_i$, where net rewards per unit of stake are
 
-$$\frac{max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i},$$
+$$\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i},$$
 
 
 <p align="center">
@@ -125,19 +125,19 @@ The plot suggests that cost reductions have a more significant positive impact o
 
 ## Past evidence
 
-On epoch $445$ there was a reduction of the `minPoolCost` from $340$ ADA to $170$ ADA. The analysis in this section illustrates the effects that the measure took into operators and delegators. Note that these observations do not imply that a new reduction will produce the same results, since market conditions may differ.
+On epoch $445$ there was a reduction of the `minPoolCost` from $340$ ADA to $170$ ADA. The analysis in this section illustrates the effects that the measure had on operators and delegators. Note that these observations do not imply that a new reduction will produce the same results, since market conditions may differ.
 
 Key findings from this section:
 
 1. Operator reduction of declared fixed cost was limited: about $13\\%$ reduced fixed cost.
-2. Declared fixed cost $c_i$ cuts plus margin $m-i$ cuts were associated with better delegation outcomes than $c_i$ only adjustments.
+2. Declared fixed cost $c_i$ cuts plus margin $m_i$ cuts were associated with better delegation outcomes than $c_i$-only adjustments.
 3. Decentralization metrics moved slightly toward higher concentration over the analyzed window.
-4. Operators viability declined after the declared fixed cost adjustment.
+4. Operator viability declined after the declared fixed-cost adjustment.
 5. Delegator APR improved modestly at the network level.
 
 ### Aggregate system snapshot
 
-The table summarizes the aggregate state of the pools ecosystem before the reduction in `minPoolCost`(epoch $426$), at the moment of the reduction (epoch $445$), and after it (epoch $450$). The aggregate staking remains stable with a small reduction ($-1.6\\%$) in the number of pools. 
+The table summarizes the aggregate state of the pools ecosystem before the reduction in `minPoolCost` (epoch $426$), at the moment of the reduction (epoch $445$), and after it (epoch $500$). Aggregate staking remained stable, with a small reduction ($-1.6\\%$) in the number of pools.
 
 | Epoch | Number of pools | Total stake (B ADA) |
 |---:|---:|---:|
@@ -148,11 +148,11 @@ The table summarizes the aggregate state of the pools ecosystem before the reduc
 
 ### Operators and delegators responses
 
-The following plots and analysis show the response of operators and delegators to the reduction in `minPoolCost`. We have consider several epochs after the change to give time to players to react to that change. 
+The following plots and analysis show the response of operators and delegators to the reduction in `minPoolCost`. We have considered several epochs after the change to give players time to react.
 
 > Note: The observations identified in the following analysis provide suggestive evidence rather than causal proof. Consequently, they do not imply that all observed changes resulted directly from the reduction in `minPoolCost`. 
 
-The next plots illustrates pool operator behavior following the reduction in `minPoolCost` between epochs $426$ and $500$. The left panel tracks changes in declared fixed costs of $n = 2,662$ pools present in both epochs, while the right panel highlights number of delegators and stake dynamics specifically among the subset of pools that lowered their fixed cost ($n = 374$).
+The next plot illustrates pool operator behavior following the reduction in `minPoolCost` between epochs $426$ and $500$. The left panel tracks changes in declared fixed costs of $n = 2,662$ pools present in both epochs, while the right panel highlights changes in delegator count and stake dynamics among the subset of pools that lowered their fixed cost ($n = 374$).
 
 Data reveals that only $14.0\\%$ of pools ($374$) reduced their declared fixed cost. Among them, $61.5\\%$ ($230$) expanded their delegator base and $55.1\\%$ ($206$) increased their total stake. In summary, the vast majority of pool operators ($>85\\%$) opted for a passive, static fixed cost strategy rather than adjusting it to compete for market share. For the minority that did cut costs, the decision was predominantly associated with positive inflows of both delegators and stake.
 
@@ -160,7 +160,7 @@ Data reveals that only $14.0\\%$ of pools ($374$) reduced their declared fixed c
 <img src="plots/fixed_cost_changes.png" alt="Pools reducing fixed cost when minPoolCost changed" width="62%">
 </p>
 
-Next plot compares the baseline characteristics at epoch $426$ between pool operators who reduced their fixed costs ("Reducers") and those who did not ("Non-reducers"). Across all three metrics—epoch stake, declared pledge, and active pledge—pools that opted to lower their fixed costs exhibited systematically stronger baseline positions.
+The next plot compares the baseline characteristics at epoch $426$ between pool operators who reduced their fixed costs ("Reducers") and those who did not ("Non-reducers"). Across all three metrics—epoch stake, declared pledge, and active pledge—pools that opted to lower their fixed costs exhibited systematically stronger baseline positions.
 
 <p align="center">
 <img src="plots/cost_reducer_vs_nonreducer_characteristics_426.png" alt="Reducers versus non-reducers" width="62%">
@@ -196,13 +196,13 @@ Having evaluated how pools responded to isolated fee adjustments, a natural foll
 <img src="plots/margin_direction_within_cost_reducers_426_500.png" alt="Pools reducing margin and fixed cost when minPoolCost changed" width="62%">
 </p>
 
-The last plot shows that those pools combining both measures is a more effective strategy to attract delegations.
+The last plot shows that pools combining both measures are more effective at attracting delegation.
 
 <p align="center">
-<img src="plots/cost_down_margin_direction_stake_outcomes_426_500.png" alt="Effectivness of competitive strategieswhen minPoolCost changed" width="62%">
+<img src="plots/cost_down_margin_direction_stake_outcomes_426_500.png" alt="Effectiveness of competitive strategies when minPoolCost changed" width="62%">
 </p>
 
-The next plot analyizes the pools characteristics—epoch stake, declared pledge, and active pledge—across fixed-cost reducers ($n=374$) grouped by their secondary margin strategy: those that also reduced margin ($n=47$), those that raised margin ($n=75$), and those that kept margin unchanged ($n=252$). Pools that combined fixed-cost reductions with margin increases held the highest baseline stake as well as the largest pledged capital. Conversely, operators adopting a dual-discount strategy were smaller, less-capitalized pools. These patterns suggests that smaller pools relied on double fee cuts to build market presence, whereas larger pools leveraged fixed-cost reductions as a buffer to simultaneously raise margins.
+The next plot analyzes pool characteristics—epoch stake, declared pledge, and active pledge—across fixed-cost reducers ($n=374$) grouped by their secondary margin strategy: those that also reduced margin ($n=47$), those that raised margin ($n=75$), and those that kept margin unchanged ($n=252$). Pools that combined fixed-cost reductions with margin increases held the highest baseline stake as well as the largest pledged capital. Conversely, operators adopting a dual-discount strategy were smaller, less-capitalized pools. These patterns suggest that smaller pools relied on double fee cuts to build market presence, whereas larger pools leveraged fixed-cost reductions as a buffer to simultaneously raise margins.
 
 <p align="center">
 <img src="plots/cost_reducer_margin_strategy_characteristics_426.png" alt="Cost and Margin reducers characteristics" width="62%">
@@ -297,7 +297,7 @@ Changing $c_{min}$ does not modify gross rewards $f(\sigma_i,p_i)$ directly, but
 
 In [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf), `minPoolCost` ($c_{min}$) is not a parameter of the theoretical model. The paper initially treats costs as publicly known. Later, it allows an operator to declare a cost $\hat{c}\_i$ different from its true cost $c_i$, and argues that truthful declaration is a dominant strategy at the perfect equilibrium.
 
-In such a case of truthful declaration, the reduction in `minPoolCost` would have a limited effect: Only those pools with an actual fixed cost $c\_{min}^{new} < \hat{c}\_i < c\_{min}^{original}$  would redeclared their fixed cost. Although this should trigger a new equilibrium, the impact may be moderated. In particular, lowering $c_min$ does not change the equilibrium number or size of pools. It can instead change which operators run the $k$ pools.
+In such a case of truthful declaration, the reduction in `minPoolCost` would have a limited effect: only those pools with an actual fixed cost $c\_{min}^{new} < \hat{c}\_i < c\_{min}^{original}$ would redeclare their fixed cost. Although this should trigger a new equilibrium, the impact may be moderated. In particular, lowering $c_{min}$ does not change the equilibrium number or size of pools. It can instead change which operators run the $k$ pools.
 
 <!-- We start from a frictionless non-myopic benchmark (consistent with the reward-sharing game): forward-looking delegators and operators, truthful cost declaration ($c_i=\hat c_i$), and binding floor $c_i\ge c_{min}$.
 
@@ -321,21 +321,21 @@ so increasing $c_{min}$ directly lowers desirability for floor-binding pools. --
 
 #### Delegators moving stake
 
-Delegators allocate by expected net return per unit stake, ranking pools based on their desirability. Suppose $f(\sigma_i, p_i)>c_i$, where $c_i$ is the declared fixed cost (when $f(\sigma_i, p_i)<c_i$, the protocol does not distribute rewards to delegators). The operator declares their actual cost whenever it is larger or equal than than $c_{min}$. Otherwise, the operator declares $c_{min}$. That is, $c_i = max \\{ \hat{c}\_i, c_{min}\\}$. Then
+Delegators allocate by expected net return per unit stake, ranking pools based on their desirability. Suppose $f(\sigma_i, p_i)>c_i$, where $c_i$ is the declared fixed cost (when $f(\sigma_i, p_i)<c_i$, the protocol does not distribute rewards to delegators). The operator declares their actual cost whenever it is greater than or equal to $c_{min}$. Otherwise, the operator declares $c_{min}$. That is, $c_i = \max \\{ \hat{c}\_i, c_{min}\\}$. Then
 
 $$
 D_i(c_i)=
 \begin{cases}
-(1-m_i)\frac{f(\sigma_i, p_i)-\hat{c}\_i}{\sigma_i}, & \quad \text{if } \quad \hat{c} \geq c_{min},\\
+(1-m_i)\frac{f(\sigma_i, p_i)-\hat{c}\_i}{\sigma_i}, & \quad \text{if } \quad \hat{c}_i \geq c_{min},\\
 (1-m_i)\frac{f(\sigma_i, p_i)-c_{min}}{\sigma_i}, & \quad \text{if } \quad \hat{c}\_i < c_{min}.
 \end{cases}
 $$
 
 <p align="center">
-<img src="plots/delegator_reward_vs_c_cmin_cases.png" alt="Delegator net reward when miniPoolCost decreases" width="62%">
+<img src="plots/delegator_reward_vs_c_cmin_cases.png" alt="Delegator net reward when minPoolCost decreases" width="62%">
 </p>
 
-A reduction in $c_{\min}$ allows certain pools to declare their actual costs rather than being constrained by the fee floor. This increases the net rewards, $f(\sigma_i, p_i) - c_i$, distributed to delegators, thereby shifting stake toward smaller pools.
+A reduction in $c_{min}$ allows certain pools to declare their actual costs rather than being constrained by the fee floor. This increases the net rewards, $f(\sigma_i, p_i) - c_i$, distributed to delegators, thereby shifting stake toward smaller pools.
 
 #### Operators changing pledge, margin, or declared fixed cost
 
@@ -345,10 +345,11 @@ $$
 U_i=\Pi_i-\hat c_i,
 \qquad
 \Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
+$$
 
-where $\hat c_i$ is the actual operating cost and $c_i$ the declared cost. Following [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf), operators should declared their actual cost (unless this declaration is constrained by `minPoolCost`). However, actual data shows a different behavior to the one theoretically predicted. The [histogram](fig-min-pool-cost-644) shows clusters around declared cost $340$ ADA and $170$ ADA. Even more, once that `minPoolCost` was reduced, many pools prefered to stay with $c_i = 340$ ADA instead of reducing it to $170$ ADA and gain competitiveness. Both aspects suggest that not all pools may be declaring their actual costs.
+where $\hat c_i$ is the actual operating cost and $c_i$ the declared cost. Following [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf), operators should declare their actual cost (unless this declaration is constrained by `minPoolCost`). However, actual data shows behavior different from what is theoretically predicted. The [histogram](fig-min-pool-cost-644) shows clusters around declared costs of $340$ ADA and $170$ ADA. Moreover, once `minPoolCost` was reduced, many pools preferred to stay with $c_i = 340$ ADA instead of reducing it to $170$ ADA and gaining competitiveness. Both aspects suggest that not all pools may be declaring their actual costs.
 
-When the `minPoolCost` is lowered, some operators may use a lower $c_i$ to become more competitive and gain delegation. However, we already pointed out that a potential consequence of reducing $c_{min}$ is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. The next plot shows the $n=559$ pools that get a reward during epoch $644$ (i.e., they produced a block). The plot shows how much reward (in percentage) these operators would lose if they report $170$ ADA instead of $340$ ADA. The figures are considerable and may be preventing those pools to declare a lower fixed cost. Note that in the first bin there are $86$ pools: $64$ of them lose exactly $0\\%$ because they all have a margin $m_i=100\\%$, while $22$ losses belongs to the range $(0,2.5\\%).
+When `minPoolCost` is lowered, some operators may use a lower $c_i$ to become more competitive and gain delegation. However, we already pointed out that a potential consequence of reducing $c_{min}$ is that very small pool operators may not have room to reduce their fixed costs without losing economic viability. The next plot shows the $n=559$ pools that get a reward during epoch $644$ (i.e., they produced a block). The plot shows how much reward (in percentage) these operators would lose if they report $170$ ADA instead of $340$ ADA. The figures are considerable and may prevent those pools from declaring a lower fixed cost. Note that in the first bin there are $86$ pools: $64$ of them lose exactly $0\\%$ because they all have a margin $m_i=100\\%$, while $22$ losses belong to the range $(0,2.5\\%).
 
 <p align="center" id="fig-loss-reward-hist-644">
   <img src="plots/fixed_cost_340_to_170_loss_hist_epoch_644.png" alt="Histogram loss 340 to 170 epoch 644" width="62%">
@@ -370,7 +371,7 @@ As an intriguing side note, in the preceding figures—[fixed cost versus stake 
 
 #### Entry or exit of pools
 
-Entry or exit can be analyzed with the participation constraint, that needs to take into account the actual fixed costs $\hat c_i$ and opportunity costs (or outside options).  Let
+Entry or exit can be analyzed with the participation constraint, which needs to take into account the actual fixed costs $\hat c_i$ and opportunity costs (or outside options). Let
 
 $$
 U_i=\Pi_i-\hat c_i,
@@ -380,16 +381,16 @@ U_i=\Pi_i-\hat c_i,
 s_i\equiv m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
 $$
 
-It follows that a pool decide to participate when
+It follows that a pool decides to participate when
 
 $$U_i\ge \underline{U}_i \iff f_i\ge f_i^{\star} \equiv \frac{\underline{U}_i+\hat c_i-(1-s_i)c_i}{s_i},
 $$
 
 where $\underline{U}_i$ denotes the outside option. For simplicity, let's assume $\underline{U}_i=0$, however, a realistic outside option could be an annual return of $3\\%-5\\%$.
 
-Notice that if there is truthful cost reporting ($c_i=\hat c_i$), then the previous condition becomes $f_i\ge c_i$. However, we have already argued that data do not suggests truthful reporting. 
+Notice that if there is truthful cost reporting ($c_i=\hat c_i$), then the previous condition becomes $f_i\ge c_i$. However, we have already argued that the data do not suggest truthful reporting.
 
-Using actual data from epoch $644$, the following chart shows how many of the pools during that epoch are on viability risk (note that taking only one epoch as data source may do not represent the actual situation of those pools). For each pool we calculate its 
+Using actual data from epoch $644$, the following chart shows how many pools during that epoch are at viability risk (note that using only one epoch as a data source may not represent the actual situation of those pools). For each pool we calculate its
 
 $$
 \Pi_i=
@@ -409,7 +410,7 @@ The plot measures $r=\Pi_i/C^{\*}$, where any $r<1$ indicates not enough rewards
 <img src="plots/pool_viability_theoretical_all_pools_epoch_644.png" alt="Pools theoretical viability versus OpCost" width="62%">
 </p>
 
-Next charts shows what are the characteristics of the losing and edge pools. 
+The next chart shows the characteristics of the losing and edge pools.
 
 <p align="center">
 <img src="plots/pool_viability_losing_vs_edge_traits_epoch_644.png" alt="Pools characteristics losing and edge" width="62%">
@@ -491,7 +492,7 @@ Both the unsplit pool and each half use $c'=c_i/2$.
 
 Median $\Delta\Pi$: 0.00 ADA/epoch; mean: 5.04 ADA/epoch.
 
-When declared fixed cost is cut by half both before and after the split, the fraction of pools gaining is larger than before ($44.0\\%$), and the fraction of pools losing decreases ($47.7\\%$). The mean $\Delta\Pi$ falls sharply ($38.45 → 5.04$ ADA/epoch), consistent with a weaker fixed-cost duplication penalty when $c$ is already lower. Again gainers are larger but the median size to become a gainer decreased.
+When declared fixed cost is cut by half, both before and after the split, the fraction of pools gaining is larger than before ($44.0\\%$), and the fraction of pools losing decreases ($47.7\\%$). The mean $\Delta\Pi$ falls sharply ($38.45 → 5.04$ ADA/epoch), consistent with a weaker fixed-cost duplication penalty when $c$ is already lower. Again, gainers are larger, but the median size required to become a gainer decreases.
 
 <p align="center">
 <img src="plots/pool_split_traits_increase_vs_decrease_c50_epoch_644.png" alt="Operators incentives to split when half of actual costs" width="62%">
