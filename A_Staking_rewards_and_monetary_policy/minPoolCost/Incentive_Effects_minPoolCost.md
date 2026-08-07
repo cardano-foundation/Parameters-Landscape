@@ -418,14 +418,14 @@ The old aggregate “Losing” category masks a sharp split. Pools with $r<0.5$ 
 
 #### Pool splitting by multi-pool operators (?)
 
-<!-- For an MPO controlling $n$ pools,
+For an MPO controlling $n$ pools,
 
 $$
 \Pi^{\text{MPO}}(n)=\sum_{j=1}^{n}\Pi_j\big(c_{min},\sigma_j',\hat p_j,m_j,c_j\big),
 \qquad c_j\ge c_{min}.
 $$
 
-Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{min}$ does the opposite. -->
+Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{min}$ does the opposite.
 
 #### Changes in staking participation (?)
 
