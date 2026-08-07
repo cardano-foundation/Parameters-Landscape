@@ -404,17 +404,17 @@ Next charts shows what are the characteristics of the losing and edge pools.
 </p>
 
 
-| | Losing (n=1949) | Edge (n=150) | Comfortable+Strong (n=124) |
-|---|---|---|---|
-| Epoch stake (M ADA), median | 0.14 | 38.29 | 35.94 |
-| Active pledge (k ADA), median | 5.0 | 8.0 | 429.0 |
-| Declared pledge (k ADA), median | 1.0 | 0.1 | 10.0 |
-| Declared fixed cost (ADA), median | 340 | 340 | 340 |
-| Margin (%), median | 1.0 | 5.0 | 100.0 |
-| Theoretical operator reward (ADA), median | 43 | 933 | 8,790 |
-| Coverage ratio \(r\), median | 0.058 | 1.259 | 11.860 |
+| | Losing \(r<0.5\) (n=1624) | Losing \(0.5\leq r<1\) (n=325) | Edge (n=150) | Comfortable+Strong (n=124) |
+|---|---:|---:|---:|---:|
+| Epoch stake (M ADA), median | 0.04 | 14.53 | 38.29 | 35.94 |
+| Active pledge (k ADA), median | 2.1 | 68.9 | 8.0 | 429.0 |
+| Declared pledge (k ADA), median | 1.0 | 50.0 | 0.1 | 10.0 |
+| Declared fixed cost (ADA), median | 340 | 340 | 340 | 340 |
+| Margin (%), median | 1.0 | 2.0 | 5.0 | 100.0 |
+| Theoretical operator reward (ADA), median | 12 | 460 | 933 | 8,790 |
+| Coverage ratio \(r\), median | 0.017 | 0.620 | 1.259 | 11.860 |
 
-Unsurprisingly, pools in the losing set hold less total delegation. This remains true even when operators attempt to attract delegators by lowering their variable margins ($m_i$). Delegators seem unresponsive to margin cuts because $m_i$ alone does not dictate a pool's market appeal—notably, the median fixed cost ($c_i$) remains anchored at $340$ ADA despite `minPoolCost` $ = 170$ ADA. Pool attractiveness seems to be driven by existing delegation volume and operator pledge size, which may create entry barriers for new or small pools.
+The old aggregate “Losing” category masks a sharp split. Pools with $r<0.5$ are typically tiny (median stake $\approx 0.04M$ ADA) and earn almost no operator reward, whereas those with $0.5\leq r<1$ already look like mid-sized pools (median stake $\approx 14.5M$ ADA)—still well below Edge on stake, but often with higher active and declared pledge than Edge. Across both losing bands and Edge, the median declared fixed cost remains anchored at $340$ ADA despite `minPoolCost` $=170$ ADA. Lower margins $m_i$ among losing pools do not close the gap: attractiveness is driven more by existing delegation volume than by $m_i$ cuts alone.
 
 #### Pool splitting by multi-pool operators (?)
 
