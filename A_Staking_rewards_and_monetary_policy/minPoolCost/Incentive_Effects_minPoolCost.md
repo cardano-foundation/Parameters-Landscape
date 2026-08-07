@@ -430,19 +430,20 @@ The old aggregate “Losing” category masks a sharp split. Pools with $r<0.5$ 
 
 #### Pool splitting by multi-pool operators
 
-For an MPO controlling $n$ pools,
+
+A reduction in $c_{min}$ can affect the incentive of an operator to split one pool into several pools through two opposing channels. First, a higher fixed cost can create a direct revenue incentive to split, because the declared fixed cost is collected separately by each pool. However, there are opposite effects. Since pool desirability is
 
 $$
-\Pi^{\text{MPO}}(n)=\sum_{j=1}^{n}\Pi_j\big(c_{min},\sigma_j',\hat p_j,m_j,c_j\big),
-\qquad c_j\ge c_{min}.
+D_i=(1-m_i)\frac{f(\sigma_i,p_i)-c_{min}}{\sigma_i},
 $$
 
-Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{min}$ does the opposite.
+a lower $c_{min}$ improves the relative attractiveness of small pools. Newly created split pools therefore suffer a smaller fixed-cost disadvantage and may find it easier to attract enough delegation to become viable. Additionally, the operator needs to split their pledge and delegation, which means that their new pools may become less desirable for delegators. On the other hand,More importantly, operators may not control their delegators decisions.
+
+Thus, reducing $c_{\min}$ has an ambiguous overall effect on multi-pool operation: it reduces the extra revenue obtained from collecting a fixed cost in several pools, but at the same time makes small split pools more competitive for delegation. Which effect dominates may depend on actual operating costs, margins, pledge allocation, and delegation.
 
 
 
-
-For each pool we compute the theoretical
+We illustrate this ambiguity with and exercise. For each pool we compute the theoretical
 
 $$
 \Pi_i = c_i + (f_i-c_i)\bigl[m_i+(1-m_i)\hat p_i/\sigma_i\bigr]
@@ -490,7 +491,7 @@ Both the unsplit pool and each half use $c'=c_i/2$.
 
 Median $\Delta\Pi$: 0.00 ADA/epoch; mean: 5.04 ADA/epoch.
 
-When declared fixed cost is cut by half both before and after the split, the fraction of pools gaining is larger than before ($44.0\\%$), and the fraction of pools losing decreases ($47.7\\%$). The mean $\Delta\Pi$ falls sharply ($38.45 → 5.04$ ADA/epoch), consistent with a weaker fixed-cost duplication penalty when $c$ is already lower. Next plot does not show a relevant change in gainers characterisitcs.
+When declared fixed cost is cut by half both before and after the split, the fraction of pools gaining is larger than before ($44.0\\%$), and the fraction of pools losing decreases ($47.7\\%$). The mean $\Delta\Pi$ falls sharply ($38.45 → 5.04$ ADA/epoch), consistent with a weaker fixed-cost duplication penalty when $c$ is already lower. Again gainers are larger but the median size to become a gainer decreased.
 
 <p align="center">
 <img src="plots/pool_split_traits_increase_vs_decrease_c50_epoch_644.png" alt="Operators incentives to split when half of actual costs" width="62%">
