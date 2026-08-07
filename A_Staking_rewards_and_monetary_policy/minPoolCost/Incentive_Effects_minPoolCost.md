@@ -129,11 +129,11 @@ On epoch $445$ there was a reduction of the `minPoolCost` from $340$ ADA to $170
 
 Key findings from this section:
 
-1. Operator reduction of declared fixed cost was limited: about $13\\%$ reduced fixed cost.
-2. Declared fixed cost $c_i$ cuts plus margin $m_i$ cuts were associated with better delegation outcomes than $c_i$-only adjustments.
-3. Decentralization metrics moved slightly toward higher concentration over the analyzed window.
-4. Operator viability declined after the declared fixed-cost adjustment.
-5. Delegator APR improved modestly at the network level.
+1. Fee adjustment was limited: about $14.0\\%$ of pools reduced declared fixed cost, and about $3.0\\%$ reduced margin.
+2. Gains were concentrated in reducers: among pools that reduced fixed cost, a majority gained delegators ($61.5\\%$) and stake ($55.1\\%$).
+3. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only adjustments.
+4. Decentralization signals are mixed: reducers show net redistribution toward smaller pools, but whole-network concentration metrics moved slightly in the opposite direction.
+5. The policy trade-off is clear: after cost adjustment, operator viability declined while delegator APR improved modestly at the network level, with stronger APR gains among reducers.
 
 ### Aggregate system snapshot
 
