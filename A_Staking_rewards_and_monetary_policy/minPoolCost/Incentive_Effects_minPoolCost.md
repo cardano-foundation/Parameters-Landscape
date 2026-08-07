@@ -439,6 +439,57 @@ $$
 
 Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{min}$ does the opposite.
 
+
+
+
+For each pool we compute the theoretical
+
+$$
+\Pi_i = c_i + (f_i-c_i)\bigl[m_i+(1-m_i)\hat p_i/\sigma_i\bigr]
+\quad\text{if }f_i>c_i,\quad
+\Pi_i=f_i\text{ otherwise},
+$$
+
+with $f_i=f(\sigma_i,p_i)$ and $f_i=0$ if active pledge is below declared pledge.
+
+Suppose each pool becomes two halves with
+
+$$
+\sigma'=\sigma_i/2,\quad p'=\hat p'=p_i/2,\quad
+\text{same }m_i\text{ and declared }c\text{ in each half}.
+$$
+
+We compare $\Pi_i$ to $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i)$.
+
+*Scenario A — original declared fixed costs*
+
+| Outcome | All complete pools | Pledge-met only |
+|---|---:|---:|
+| $\Pi$ increases after split | 864 (32.1%) | 864 (38.9%) |
+| $\Pi$ decreases after split | 1171 (43.5%) | 1171 (52.7%) |
+| Unchanged | 659 (24.5%) | 188 (8.5%) |
+
+Median $\Delta\Pi=\Pi_{\mathrm{split}}-\Pi_{\mathrm{unsplit}}$: 0.00 ADA/epoch; mean: 38.45 ADA/epoch.
+
+Under this scenario with the original declared costs, a $1→2$ split reduces operator reward for a majority of pledge-met pools ($52.7\\%$ decrease vs $38.9\\%$ increase): duplicating the income from $c_i$ outweighs any gain from the reward formula for most operators, even though mean $\Delta\Pi$ is positive (right tail from pools that benefit from desaturation).
+
+
+
+*Scenario B — declared fixed cost cut 50% before and after the split*
+
+Both the unsplit pool and each half use $c'=c_i/2$.
+
+| Outcome | All complete pools | Pledge-met only |
+|---|---:|---:|
+| $\Pi$ increases after split | 979 (36.3%) | 979 (44.0%) |
+| $\Pi$ decreases after split | 1060 (39.3%) | 1060 (47.7%) |
+| Unchanged | 655 (24.3%) | 184 (8.3%) |
+
+Median $\Delta\Pi$: 0.00 ADA/epoch; mean: 5.04 ADA/epoch.
+
+When declared fixed cost is cut by half both before and after the split, the fraction of pools gaining is larger than before ($44.0\\%$), and the fraction of pools losing decreases ($47.7\\%$). The mean $\Delta\Pi$ falls sharply ($38.45 → 5.04$ ADA/epoch), consistent with a weaker fixed-cost duplication penalty when $c$ is already lower.
+
+
 #### Changes in staking participation
 
 
@@ -465,7 +516,8 @@ The plot visualizes the same counterfactual shift in APR distribution and confir
 
 
 
-<!-- ### Behavioral deviations from the rational benchmark (??
+<!-- *************
+### Behavioral deviations from the rational benchmark (??
 
  We preserve the five baseline channels but relax full rationality by introducing market frictions, bounded rationality, and coordination failure.
 
