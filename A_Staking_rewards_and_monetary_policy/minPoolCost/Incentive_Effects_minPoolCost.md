@@ -511,6 +511,17 @@ Changes in staking participation are closely tied to shifts in delegator APR, th
 The following plot shows how much the network delegator APR would change if all the pools were reducing their declared fixed cost to the current `minPoolCost`$\=170$ ADA.
 
 
+| Scenario | $f>c$ | Change | Mean APR | Change | Median APR | Change | Losing ($r<1$)<br>$C^*=741.1$ | Change |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Baseline | 941 | — | 1.46% | — | 1.82% | — | 1949 | — |
+| $c_i=170$ | 1020 | +8.4% | 1.51% | +3.3% | 1.88% | +3.4% | 2007 | +3.0% |
+| $c_i=75$ | 1159 | +23.2% | 1.59% | +9.2% | 1.94% | +7.1% | 2030 | +4.2% |
+| $c_i=25$ | 1339 | +42.3% | 1.67% | +14.6% | 2.02% | +11.3% | 2036 | +4.5% |
+
+<p align="center">
+<img src="plots/member_apr_theoretical_c170_counterfactual_epoch_644.png" alt="APR increment if all pools reduce cost to minPoolCost" width="62%">
+</p>
+
 
 
 ## Interaction effects (ToDo)
