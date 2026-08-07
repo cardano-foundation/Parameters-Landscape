@@ -456,7 +456,7 @@ with $f_i=f(\sigma_i,p_i)$ and $f_i=0$ if active pledge is below declared pledge
 Suppose each pool becomes two halves with
 
 $$
-\sigma'=\sigma_i/2,\quad p'=\hat p'=p_i/2,\quad
+\sigma'=\sigma_i/2,\quad p'=p_i/2,\quad \hat p'=\hat p_i/2,\quad
 \text{same }m_i\text{ and declared }c\text{ in each half}.
 $$
 
