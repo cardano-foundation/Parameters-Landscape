@@ -508,6 +508,8 @@ where $K(n)$ is increasing and convex. A lower floor may still fail to induce ex
 
 Changes in staking participation are closely tied to shifts in delegator APR, though external factors such as market sentiment and alternative investment opportunities also play a role. Past data from the previous minPoolCost reduction demonstrates that pools—particularly smaller ones—that lowered their declared fixed costs experienced an increase in both APR and stake. However, neither the network-wide median APR nor the total aggregate stake shifted significantly. The stability in median APR is likely because only a small fraction of pools actually reduced their costs, while the unchanged aggregate stake suggests that capital was simply redelegated among existing pools rather than drawn from new incoming stake.
 
+The following plot shows how much the network delegator APR would change if all the pools were reducing their declared fixed cost to the current `minPoolCost`$\=170$ ADA.
+
 
 
 
