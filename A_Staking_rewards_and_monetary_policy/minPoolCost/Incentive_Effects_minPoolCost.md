@@ -437,9 +437,9 @@ $$
 
 where $\bar r_{\text{exp}}$ is expected network staking return net of fee/cost pass-through. Because $c_{min}$ is mostly redistributive within staking, first-order effects are on allocation across pools, with aggregate participation moving mainly through perceived net-return changes. -->
 
-### Behavioral deviations from the rational benchmark (??
+<!-- ### Behavioral deviations from the rational benchmark (??
 
-<!-- We preserve the five baseline channels but relax full rationality by introducing market frictions, bounded rationality, and coordination failure.
+ We preserve the five baseline channels but relax full rationality by introducing market frictions, bounded rationality, and coordination failure.
 
 Compared to delegators, pool operators generally act as more sophisticated market participants. Consequently, we assume operators make rational, optimizing decisions while explicitly factoring in delegator behavioral frictions or bounded rationality into their strategies. 
 
