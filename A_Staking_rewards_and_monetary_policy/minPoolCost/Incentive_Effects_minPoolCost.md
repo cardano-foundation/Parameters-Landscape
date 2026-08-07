@@ -428,7 +428,7 @@ Next charts shows what are the characteristics of the losing and edge pools.
 
 The old aggregate “Losing” category masks a sharp split. Pools with $r<0.5$ are typically tiny (median stake $\approx 0.04M$ ADA) and earn almost no operator reward, whereas those with $0.5\leq r<1$ already look like mid-sized pools (median stake $\approx 14.5M$ ADA)—still well below Edge on stake, but often with higher active and declared pledge than Edge. Across both losing bands and Edge, the median declared fixed cost remains anchored at $340$ ADA despite `minPoolCost` $=170$ ADA. Lower margins $m_i$ among losing pools do not close the gap: attractiveness is driven more by existing delegation volume than by $m_i$ cuts alone.
 
-#### Pool splitting by multi-pool operators (?)
+#### Pool splitting by multi-pool operators
 
 For an MPO controlling $n$ pools,
 
@@ -439,15 +439,27 @@ $$
 
 Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower $c_{min}$ weakens the fixed-cost barrier per additional pool and can strengthen splitting incentives; higher $c_{min}$ does the opposite.
 
-#### Changes in staking participation (?)
+#### Changes in staking participation
 
-<!-- Let total active stake be $S=\sum_i\sigma_i$. A reduced-form aggregate response is
 
-$$
-\Delta S=\chi\,\big(\bar r_{\text{exp}}(c_{min})-r_{\text{alt}}\big),
-$$
+Changes in staking participation are closely tied to shifts in delegator APR, though external factors such as market sentiment and alternative investment opportunities also play a role. Past data from the previous minPoolCost reduction demonstrates that pools—particularly smaller ones—that lowered their declared fixed costs experienced an increase in both APR and stake. However, neither the network-wide median APR nor the total aggregate stake shifted significantly. The stability in median APR is likely because only a small fraction of pools actually reduced their costs, while the unchanged aggregate stake suggests that capital was simply redelegated among existing pools rather than drawn from new incoming stake.
 
-where $\bar r_{\text{exp}}$ is expected network staking return net of fee/cost pass-through. Because $c_{min}$ is mostly redistributive within staking, first-order effects are on allocation across pools, with aggregate participation moving mainly through perceived net-return changes. -->
+The following plot shows how much the network delegator APR would change if all the pools were reducing their declared fixed cost to the current `minPoolCost`$\=170$ ADA.
+
+
+| Scenario | $f>c$ | Change | Mean APR | Change | Median APR | Change | Losing ($r<1$)<br>$C^*=741.1$ | Change |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Baseline | 941 | — | 1.46% | — | 1.82% | — | 1949 | — |
+| $c_i=170$ | 1020 | +8.4% | 1.51% | +3.3% | 1.88% | +3.4% | 2007 | +3.0% |
+| $c_i=75$ | 1159 | +23.2% | 1.59% | +9.2% | 1.94% | +7.1% | 2030 | +4.2% |
+| $c_i=25$ | 1339 | +42.3% | 1.67% | +14.6% | 2.02% | +11.3% | 2036 | +4.5% |
+
+<p align="center">
+<img src="plots/member_apr_theoretical_c170_counterfactual_epoch_644.png" alt="APR increment if all pools reduce cost to minPoolCost" width="62%">
+</p>
+
+
+
 
 <!-- ### Behavioral deviations from the rational benchmark (??
 
@@ -502,26 +514,7 @@ $$
 V^{\text{split}}(n)=\Pi^{\text{MPO}}(n)-K(n),
 $$
 
-where $K(n)$ is increasing and convex. A lower floor may still fail to induce extra splits for operators with high coordination costs.
-
-#### Changes in staking participation
-
-Changes in staking participation are closely tied to shifts in delegator APR, though external factors such as market sentiment and alternative investment opportunities also play a role. Past data from the previous minPoolCost reduction demonstrates that pools—particularly smaller ones—that lowered their declared fixed costs experienced an increase in both APR and stake. However, neither the network-wide median APR nor the total aggregate stake shifted significantly. The stability in median APR is likely because only a small fraction of pools actually reduced their costs, while the unchanged aggregate stake suggests that capital was simply redelegated among existing pools rather than drawn from new incoming stake.
-
-The following plot shows how much the network delegator APR would change if all the pools were reducing their declared fixed cost to the current `minPoolCost`$\=170$ ADA.
-
-
-| Scenario | $f>c$ | Change | Mean APR | Change | Median APR | Change | Losing ($r<1$)<br>$C^*=741.1$ | Change |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Baseline | 941 | — | 1.46% | — | 1.82% | — | 1949 | — |
-| $c_i=170$ | 1020 | +8.4% | 1.51% | +3.3% | 1.88% | +3.4% | 2007 | +3.0% |
-| $c_i=75$ | 1159 | +23.2% | 1.59% | +9.2% | 1.94% | +7.1% | 2030 | +4.2% |
-| $c_i=25$ | 1339 | +42.3% | 1.67% | +14.6% | 2.02% | +11.3% | 2036 | +4.5% |
-
-<p align="center">
-<img src="plots/member_apr_theoretical_c170_counterfactual_epoch_644.png" alt="APR increment if all pools reduce cost to minPoolCost" width="62%">
-</p>
-
+where $K(n)$ is increasing and convex. A lower floor may still fail to induce extra splits for operators with high coordination costs.  -->
 
 
 ## Interaction effects (ToDo)
