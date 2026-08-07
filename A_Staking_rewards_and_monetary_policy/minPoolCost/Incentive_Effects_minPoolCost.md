@@ -511,7 +511,6 @@ Changes in staking participation are closely tied to shifts in delegator APR, th
 
 
 
-
 ## Interaction effects (ToDo)
 
 See the file analysis in the [interaction effects file](Interaction-effects/interaction_effects.md)
