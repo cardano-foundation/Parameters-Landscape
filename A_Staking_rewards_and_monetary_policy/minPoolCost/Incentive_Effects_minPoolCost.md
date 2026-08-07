@@ -5,9 +5,8 @@
 Reducing minPoolCost is conditionally beneficial. The net effect depends on which policy objective is prioritized: operator competitiveness for delegators, operator viability, Sybil resistance, or decentralization.
 
 **Pros**
-1. Some pools that reduce declared fixed cost show higher delegator APR.
+1. Some pools that reduce declared fixed cost show higher delegator APR, improving their attractiveness for delegators
 2. APR gains are stronger among fixed-cost reducers than in network-wide aggregates.
-3. Smaller pools declaring lower fixed costs can improve their attractiveness for delegators.
 
 **Risks**
 1. Operator viability can weaken after fixed-cost reductions. However, an operator can avoid reducing their fixed cost at the cost of losing competitivness.
@@ -15,9 +14,10 @@ Reducing minPoolCost is conditionally beneficial. The net effect depends on whic
 3. Whole-network concentration metrics may not improve even when reducer ones improve.
 
 **What the evidence suggests**
-1. Operator fixed-cost reduction was partial: only about $14.0\%$ it.
+1. Operator fixed-cost reduction was partial: only about $14.0\%$ it. 
 2. Among fixed-cost reducers, a majority gained stake ($55.1\%$).
-3. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only cuts.
+3. Reducers are generally larger/better positioned.
+4. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only cuts.
 
 **Policy interpretation**
 1. Trade-off: lower minPoolCost can improve delegator APR while reducing operator viability.
