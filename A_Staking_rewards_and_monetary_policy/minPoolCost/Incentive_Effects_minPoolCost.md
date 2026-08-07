@@ -133,7 +133,7 @@ Key findings from this section:
 2. Gains were concentrated in reducers: among pools that reduced fixed cost, a majority gained delegators ($61.5\\%$) and stake ($55.1\\%$).
 3. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only adjustments.
 4. Decentralization signals are mixed: reducers show net redistribution toward smaller pools, but whole-network concentration metrics moved slightly in the opposite direction.
-5. The policy trade-off is clear: after cost adjustment, operator viability declined while delegator APR improved modestly at the network level, with stronger APR gains among reducers.
+5. Trade-off: after cost adjustment, operator viability declined while delegator APR improved modestly at the network level, with stronger APR gains among reducers.
 
 ### Aggregate system snapshot
 
