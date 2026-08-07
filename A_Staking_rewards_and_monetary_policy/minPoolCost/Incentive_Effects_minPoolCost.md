@@ -442,9 +442,9 @@ Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Lower 
 #### Changes in staking participation
 
 
-Changes in staking participation are closely tied to shifts in delegator APR, though external factors such as market sentiment and alternative investment opportunities also play a role. Past data from the previous minPoolCost reduction demonstrates that pools—particularly smaller ones—that lowered their declared fixed costs experienced an increase in both APR and stake. However, neither the network-wide median APR nor the total aggregate stake shifted significantly. The stability in median APR is likely because only a small fraction of pools actually reduced their costs, while the unchanged aggregate stake suggests that capital was simply redelegated among existing pools rather than drawn from new incoming stake.
+Changes in staking participation are closely tied to shifts in delegator APR, although external factors such as market sentiment and alternative investment opportunities also matter. Past data from the previous minPoolCost reduction shows that pools, particularly smaller ones, that lowered declared fixed costs tended to improve both APR and stake. However, neither network-wide median APR nor total aggregate stake changed materially. This pattern is consistent with limited fee adjustment by operators and with redelegation across existing pools rather than large net new inflows into staking.
 
-The following plot shows how much the network delegator APR would change if all the pools were reducing their declared fixed cost to the current `minPoolCost`$\=170$ ADA.
+To quantify the potential APR channel under broader fee adjustment, the next table and plot report a counterfactual in which all pools are assigned the same declared fixed cost level ($c_i=170$, $75$, or $25$ ADA), and outcomes are compared against baseline. The column $f>c$ tracks pools with positive delegator return (that is, pools satisfying $f(\sigma_i,p_i)>c_i$).
 
 
 | Scenario | $f>c$ | Change | Mean APR | Change | Median APR | Change | Losing ($r<1$)<br>$C^*=741.1$ | Change |
@@ -453,6 +453,10 @@ The following plot shows how much the network delegator APR would change if all 
 | $c_i=170$ | 1020 | +8.4% | 1.51% | +3.3% | 1.88% | +3.4% | 2007 | +3.0% |
 | $c_i=75$ | 1159 | +23.2% | 1.59% | +9.2% | 1.94% | +7.1% | 2030 | +4.2% |
 | $c_i=25$ | 1339 | +42.3% | 1.67% | +14.6% | 2.02% | +11.3% | 2036 | +4.5% |
+
+The table indicates a monotonic increase in delegator APR as declared fixed costs are lowered uniformly, together with a larger count of pools satisfying $f>c$. At the same time, the count of losing operators ($r<1$) increases, reflecting the trade-off between stronger delegator returns and weaker operator-side viability under lower fixed costs.
+
+The plot visualizes the same counterfactual shift in APR distribution and confirms that the gain is broad but moderate at $c_i=170$, becoming progressively stronger at lower cost levels.
 
 <p align="center">
 <img src="plots/member_apr_theoretical_c170_counterfactual_epoch_644.png" alt="APR increment if all pools reduce cost to minPoolCost" width="62%">
