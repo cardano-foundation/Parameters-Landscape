@@ -472,7 +472,7 @@ We then compare the unsplit reward $\Pi_i$ with the split outcome $\Pi'+\Pi'=2\P
 
 Median $\Delta\Pi=\Pi_{\mathrm{split}}-\Pi_{\mathrm{unsplit}}$: 0.00 ADA/epoch; mean: 38.45 ADA/epoch.
 
-Under this scenario with the original declared costs, a $1→2$ split reduces operator reward for a majority of pledge-met pools ($52.7\\%$ decrease vs $38.9\\%$ increase): duplicating the income from $c_i$ outweighs any gain from the reward formula for most operators, even though mean $\Delta\Pi$ is positive (right tail from pools that benefit from desaturation). Next plot shows that gainers are much larger and more pledged.
+Under this scenario with the original declared costs, a $1→2$ split reduces operator reward for a majority of pledge-met pools ($52.7\\%$ decrease vs $38.9\\%$ increase). Next plot shows that gainers are much larger and more pledged.
 
 <p align="center">
 <img src="plots/pool_split_traits_increase_vs_decrease_epoch_644.png" alt="Operators incentives to split when actual costs" width="62%">
