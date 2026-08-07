@@ -283,7 +283,7 @@ Changing $c_{min}$ does not modify gross rewards $f(\sigma_i,p_i)$ directly, but
 
 ### Rational behavior
 
-(here short description of how the equilibrium in the paper changes, with expected responses of operators and delegators)
+In  declaring the fixed cost were incentive compatible, all pools would be declaring the actual cost and the reduction in `minPoolCost` would have a limited effect: Only those pools with an actual fixed cost $c\_{min}^{new} < \hat{c}\_i < c\_{min}^{original}$  would redeclared their fixed cost. Although this should trigger a new equilibrium, the impact may be moderated.
 
 <!-- We start from a frictionless non-myopic benchmark (consistent with the reward-sharing game): forward-looking delegators and operators, truthful cost declaration ($c_i=\hat c_i$), and binding floor $c_i\ge c_{min}$.
 
@@ -307,13 +307,17 @@ so increasing $c_{min}$ directly lowers desirability for floor-binding pools. --
 
 #### Delegators moving stake (?)
 
-<!-- Delegators allocate by expected net return per unit stake,
+ Delegators allocate by expected net return per unit stake,
 
 $$
-r_i^D=(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}.
+(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i},
 $$
 
-With a floor change, a simple reallocation equation is
+where $c_i$ is the declared fixed cost. 
+
+
+
+With a reduction in the `minPoolCost`, a simple reallocation equation is
 
 $$
 \Delta\sigma_i^D=\eta\sigma_i\big(r_i^D-\bar r^D\big),
@@ -321,7 +325,7 @@ $$
 \sigma_i'=\sigma_i+\Delta\sigma_i^D.
 $$
 
-Hence, raising $c_{min}$ tends to push stake away from small/floor-binding pools (where $c_i/\sigma_i$ is large), while reducing $c_{min}$ relaxes that pressure. -->
+Hence, raising $c_{min}$ tends to push stake away from small/floor-binding pools (where $c_i/\sigma_i$ is large), while reducing $c_{min}$ relaxes that pressure.
 
 #### Operators changing pledge, margin, or declared fixed cost
 
