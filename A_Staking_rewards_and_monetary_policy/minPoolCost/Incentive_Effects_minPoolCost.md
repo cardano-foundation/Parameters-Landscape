@@ -262,7 +262,7 @@ To evaluate how the reduction in `minPoolCost` affects delegator returns, we cal
 
 $$\text{APR}_i \approx 73(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}$$
 
-This measures the net yield per ADA after accounting for fixed costs ($c_i$) and variable margins ($m_i$). Calculations are based on the epoch $426$ snapshot with parameters $T=36.01\text{B ADA}$, $R=21.6\text{M ADA}$, $a_0=0.3$, and $k=500$. Of the $2,445$ pools with complete baseline data—including those where $p_i > \hat{p}_i$ that receive zero rewards—$2,265$ survived through epoch $500$, while $180$ exited. 
+This measures the net yield per ADA after accounting for fixed costs ($c_i$) and variable margins ($m_i$). APR summary statistics in this subsection are computed over pools with positive delegator return, that is, pools satisfying $f(\sigma_i,p_i)>c_i$. Calculations are based on the epoch $426$ snapshot with parameters $T=36.01\text{B ADA}$, $R=21.6\text{M ADA}$, $a_0=0.3$, and $k=500$. Of the $2,445$ pools with complete baseline data—including those where $p_i > \hat{p}_i$ that receive zero rewards—$2,265$ survived through epoch $500$, while $180$ exited. 
 
 For the counterfactual scenario, surviving pools hold their epoch $426$ stake, pledge, and margin fixed while adopting their actual epoch $500$ declared fixed costs. This isolates operators' fixed-cost responses while holding delegation constant (though we acknowledge that in practice, cost adjustments may also react to new pool entry and redelegation). Exiting pools are retained in the epoch $426$ baseline to prevent survivorship bias, but are excluded from the cost-adjusted scenario since their post-exit parameters are unobserved.
 
@@ -275,9 +275,13 @@ For the counterfactual scenario, surviving pools hold their epoch $426$ stake, p
 
 As expected, fixed-cost reductions by select operators led to a slight increase in positive delegator APRs (median rising from $2.99\\%$ to $3.02\\%$). However, because only a small fraction of operators lowered their $c_i$, the median yield network improvement remains modest. Although individual pools that cut their fixed costs may have enhanced their competitive standing, these adjustments were insufficient to materially alter network-wide median attractiveness.
 
+The next plot compares the APR distribution for the epoch-$426$ cohort under baseline costs versus cost-adjusted costs, using only pools with positive delegator return ($f(\sigma_i,p_i)>c_i$). It shows a mild upward shift in the distribution after cost adjustment, consistent with the small increase observed in the median and mean APR statistics.
+
 <p align="center">
 <img src="plots/member_apr_boxplot_cohort_426_500.png" alt="APR change in 426 cohort" width="62%">
 </p>
+
+To isolate where the APR gains are concentrated, the following plot restricts the sample to pools that actually reduced fixed costs, again conditioning on positive delegator return ($f(\sigma_i,p_i)>c_i$). The shift is more visible within this subgroup, indicating that APR improvements are primarily localized among active cost reducers rather than broadly distributed across the full cohort.
 
 <p align="center">
 <img src="plots/member_apr_boxplot_cost_reducers_426_500.png" alt="APR change in 426 reducers cohort" width="62%">
