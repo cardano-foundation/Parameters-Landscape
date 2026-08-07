@@ -307,66 +307,58 @@ $$
 
 so increasing $c_{min}$ directly lowers desirability for floor-binding pools. -->
 
-#### Delegators moving stake (?)
+#### Delegators moving stake
 
-Delegators allocate by expected net return per unit stake, ranking pools based on their desirability. Suppose $f(\sigma_i, p_i)>c_i$, where $c_i$ is the declared fixed cost (when $f(\sigma_i, p_i)<c_i$, the protocol does not distribute rewards to delegators). The operator declares their actual cost whenever it is larger or equal than than $c_{min}$. Otherwise, the operator declares $c_{min}$. That is, $c_i=\max\\{\hat{c}\_i, c_{min}\\}. Then
+Delegators allocate by expected net return per unit stake, ranking pools based on their desirability. Suppose $f(\sigma_i, p_i)>c_i$, where $c_i$ is the declared fixed cost (when $f(\sigma_i, p_i)<c_i$, the protocol does not distribute rewards to delegators). The operator declares their actual cost whenever it is larger or equal than than $c_{min}$. Otherwise, the operator declares $c_{min}$. That is, $c_i = max \\{ \hat{c}\_i, c_{min}\\}$. Then
 
 $$
 D_i(c_i)=
 \begin{cases}
-(1-m_i)\frac{f(\sigma_i, p_i)-c_i}{\sigma_i},
-& \text{if } \hat{c}\_i=c_i \geq c_{\min},\\[6pt]
-(1-m_i)\frac{f(\sigma_i, p_i)-c_{\min}}{\sigma_i},
-& \text{if } \hat{c}\_i<c_{\min}=c_i.
+(1-m_i)\frac{f(\sigma_i, p_i)-\hat{c}\_i}{\sigma_i}, & \quad \text{if } \quad \hat{c} \geq c_{min},\\
+(1-m_i)\frac{f(\sigma_i, p_i)-c_{min}}{\sigma_i}, & \quad \text{if } \quad \hat{c}\_i < c_{min}.
 \end{cases}
 $$
+
+<p align="center">
+<img src="plots/delegator_reward_vs_c_cmin_cases.png" alt="Delegator net reward when miniPoolCost decreases" width="62%">
+</p>
 
 A reduction in $c_{\min}$ allows certain pools to declare their actual costs rather than being constrained by the fee floor. This increases the net rewards, $f(\sigma_i, p_i) - c_i$, distributed to delegators, thereby shifting stake toward smaller pools.
 
 #### Operators changing pledge, margin, or declared fixed cost
 
-Operator utility remains
+The operator utility is
 
 $$
 U_i=\Pi_i-\hat c_i,
 \qquad
 \Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
-$$
 
-with feasibility $c_i\ge c_{min}$. A reduced-form best response is
+where $\hat c_i$ is the actual operating cost and $c_i$ the declared cost. Following [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf), operators should declared their actual cost (unless this declaration is constrained by `minPoolCost`). However, actual data shows a different behavior to the one theoretically predicted. The [histogram](fig-min-pool-cost-644) shows clusters around declared cost $340$ ADA and $170$ ADA. Even more, once that `minPoolCost` was reduced, many pools prefered to stay with $c_i = 340$ ADA instead of reducing it to $170$ ADA and gain competitiveness. Both aspects suggest that not all pools may be declaring their actual costs.
 
-$$
-(c_i^{\*},m_i^{\*},\hat p_i^{\*})\in\arg\max_{c_i,m_i,\hat p_i} U_i\big(c_{min},\sigma_i'(c_i,m_i,\hat p_i),c_i,m_i,\hat p_i\big)
-\quad\text{s.t. }c_i\ge c_{min}.
-$$
-
-When the floor is lowered, some operators use lower $c_i$ to gain delegation. We should expect a stronger competition for delegations by reducing the fixed cost or the margin when reducing the fixed cost is not convenient. 
-
-Actual data shows a different behavior to the one theoretically predicted. We already pointed out that a potential consequence of reducing $c_{min}$ is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. How important may this drop in the operator profit be? The [histogram](fig-min-pool-cost-644) shows that many pools prefer to stay with $c_i = 340$ ADA instead of reducing it to $170$ ADA and gain competitiveness. The next plot shows the $n=559$ pools that get a reward during epoch 644 (i.e., they produced a block). The plot shows how much reward (in percentage) these operators would lose if they report $170$ ADA instead of $340$ ADA. The figures are considerable. Note that in the first bin there are 86 pools: 64 of them lose exactly 0% because they all have a margin $m_i=100\%$, while 22 losses belongs to the range $(0,2.5\%).
-
-Empirical data reveals behavior that diverges from theoretical predictions. As previously noted, a lower declared fixed cost may make small pools more attractive for delegators but they may find it difficult to reduce their $c_i$ without compromising their economic viability. How significant is this potential loss in operator margin? As illustrated in the [histogram](fig-min-pool-cost-644), many operators choose to retain $c_i = 340\text{ ADA}$ rather than lowering it to $170\text{ ADA}$ to gain competitive yield for delegators. To quantify the financial impact, the subsequent plot analyzes the set of $n = 559$ reward-receiving pools and declaring $c_i=340$ ADA in epoch 644 (i.e., those that produced at least one block). It plots the percentage loss in operator rewards resulting from a reduction to $170\text{ ADA}$. The revenue impact is substantial. Notably, the first bin contains 86 pools: 64 experience exactly a $0\%$ loss due to setting a margin of $m_i = 100\%$, while the remaining 22 pools incur losses within the $(0, 2.5\%]$ range.
+When the `minPoolCost` is lowered, some operators may use a lower $c_i$ to become more competitive and gain delegation. However, we already pointed out that a potential consequence of reducing $c_{min}$ is that very small pool operators will not have room to reduce their fixed costs without losing economic viability. The next plot shows the $n=559$ pools that get a reward during epoch $644$ (i.e., they produced a block). The plot shows how much reward (in percentage) these operators would lose if they report $170$ ADA instead of $340$ ADA. The figures are considerable and may be preventing those pools to declare a lower fixed cost. Note that in the first bin there are $86$ pools: $64$ of them lose exactly $0\\%$ because they all have a margin $m_i=100\\%$, while $22$ losses belongs to the range $(0,2.5\\%).
 
 <p align="center" id="fig-loss-reward-hist-644">
   <img src="plots/fixed_cost_340_to_170_loss_hist_epoch_644.png" alt="Histogram loss 340 to 170 epoch 644" width="62%">
 </p>
 
-The subsequent plot demonstrates that pools adopting the lowest allowable fixed cost ($170\text{ ADA}$) tend to hold significantly higher delegation levels. Conversely, nearly $54\\%$ of pools retaining $340\text{ ADA}$ command less than $100\text{k ADA}$ in stake, compared to only $21\\%$ among those setting $170\text{ ADA}$.
+The subsequent plot shows that pools adopting the lowest feasible fixed cost ($170$ ADA) tend to hold significantly higher delegation levels. Conversely, nearly $54\\%$ of pools retaining $340$ ADA command less than $100K$ ADA in stake, compared to only $21\\%$ among those setting $170$ ADA.
 
 <p align="center" id="fig-bubble-c-versus-size">
   <img src="plots/fixed_cost_170_vs_340_stake_bubbles_epoch_644.png" alt="Bubbles fixed costs versus size" width="62%">
 </p>
 
-The theoretical model also predicts intensified competition in margins ($m_i$) following a reduction in $c_{min}$. However, as shown in the next plot, this price competition is mainly observed among pools declaring $c_i = 170\text{ ADA}$. In contrast, many pools retaining $340\text{ ADA}$ continue to charge high margins. Despite commanding low delegation levels, these operators show no tendency to lower their margins to improve their attractivness for delegators.
+Theoretically, a lower $c_{min} leads to lower equilibrium margins $m_i$, intensifying competition among pool operators. However, as shown in the next plot, this price competition is mainly observed among pools declaring $c_i = 170$ ADA. In contrast, many pools retaining $340$ ADA continue to charge high margins. Despite commanding low delegation levels, these operators show no tendency to lower their margins to improve their attractiveness for delegators.
 
 <p align="center" id="fig-bubble-c-versus-margin">
   <img src="plots/fixed_cost_margin_bubbles_epoch_644.png" alt="Bubbles fixed costs versus margin" width="62%">
 </p>
 
-As an intriguing side note, in the preceding figures—[fixed cost versus stake size](id="fig-bubble-c-versus-size") and [fixed cost versus size](fig-bubble-c-versus-margin)—the total number of pools choosing the minimum allowable fixed cost ($170\text{ ADA}$) approaches $500$, aligning remarkably well with the target pool parameter $k$.
+As an intriguing side note, in the preceding figures—[fixed cost versus stake size](id="fig-bubble-c-versus-size") and [fixed cost versus size](fig-bubble-c-versus-margin)—the total number of pools choosing the minimum allowable fixed cost ($170$ ADA) approaches $500$, aligning remarkably well with the target pool parameter $k$.
 
 #### Entry or exit of pools
 
-Entry or exit has to be analyze the participation constraint, that needs ot take into account the actual fixed costs $\hat c_i$ and opportunity costs or outside options.  Let
+Entry or exit can be analyzed with the participation constraint, that needs to take into account the actual fixed costs $\hat c_i$ and opportunity costs (or outside options).  Let
 
 $$
 U_i=\Pi_i-\hat c_i,
@@ -381,11 +373,11 @@ It follows that a pool decide to participate when
 $$U_i\ge \underline{U}_i \iff f_i\ge f_i^{\star} \equiv \frac{\underline{U}_i+\hat c_i-(1-s_i)c_i}{s_i},
 $$
 
-where $\underline{U}_i$ denotes the outside option. For simplicity, let's assume $\underline{U}_i=0$, however, a realistic outside option could be an anual return of $3\\%-5\\%$.
+where $\underline{U}_i$ denotes the outside option. For simplicity, let's assume $\underline{U}_i=0$, however, a realistic outside option could be an annual return of $3\\%-5\\%$.
 
 Notice that if there is truthful cost reporting ($c_i=\hat c_i$), then the previous condition becomes $f_i\ge c_i$. However, we have already argued that data do not suggests truthful reporting. 
 
-Using actual data from epoch 644, the following chart shows how many of the pools during epoch 644 are on viability risk (note that taking only one epoch as data source may do not represent the actual state). For each pool we calculate its 
+Using actual data from epoch $644$, the following chart shows how many of the pools during that epoch are on viability risk (note that taking only one epoch as data source may do not represent the actual situation of those pools). For each pool we calculate its 
 
 $$
 \Pi_i=
@@ -395,11 +387,11 @@ c_i+(f_i-c_i)\left[m_i+(1-m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i>c_i,
 \end{cases}
 $$
 
-using their margin, delegation, active and delcared pledge, and declared fixed cost. However, we consider the case in which the latter is not the actual operating cost. We assume that all pools face the same operation cost/expenditure ($C^*$) equal to $667$ USD per month (six epochs), and a token price of $0.15 USD/ADA$ giving 
+using their margin, delegation, active and declared pledge, and declared fixed cost. We consider the case in which the latter is not the actual operating cost that the pools face. In particular, we assume that all pools have the same operation cost/expenditure ($C^*$) equal to $667$ USD per month (six epochs), and a token price of $0.15 USD/ADA$ giving 
 
 $$C^*=667/6/0.15=741.1 \text{ USD per epoch}.$$
 
-The plot measures $r=\Pi_i/C^{\*}$, where a $r<1$ indicates not enough rewards to cover costs. Among $2223$ pools, only $274$ would be able to cover the OpEx $C^*$. However, $150$ of them would be on a risky situation ($1\leq r\leq 2$)
+The plot measures $r=\Pi_i/C^{\*}$, where any $r<1$ indicates not enough rewards to cover costs. Among $2223$ pools, only $274$ would be able to cover the OpEx $C^*$. However, $150$ of them would be on a risky situation ($1\leq r\leq 2$)
 
 <p align="center">
 <img src="plots/pool_viability_theoretical_all_pools_epoch_644.png" alt="Pools theoretical viability versus OpCost" width="62%">
