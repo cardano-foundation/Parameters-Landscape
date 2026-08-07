@@ -275,6 +275,14 @@ For the counterfactual scenario, surviving pools hold their epoch $426$ stake, p
 
 As expected, fixed-cost reductions by select operators led to a slight increase in positive delegator APRs (median rising from $2.99\\%$ to $3.02\\%$). However, because only a small fraction of operators lowered their $c_i$, the median yield network improvement remains modest. Although individual pools that cut their fixed costs may have enhanced their competitive standing, these adjustments were insufficient to materially alter network-wide median attractiveness.
 
+<p align="center">
+<img src="plots/member_apr_boxplot_cohort_426_500.png" alt="APR change in 426 cohort" width="62%">
+</p>
+
+<p align="center">
+<img src="plots/member_apr_boxplot_cost_reducers_426_500.png" alt="APR change in 426 reducers cohort" width="62%">
+</p>
+
 ## Behavioral and equilibrium effects
 
 This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions **given the current state**.
