@@ -123,6 +123,7 @@ The tables below summarize how doubling $k$ drives oversaturation, quantifying b
 | $E(k)$ - Stake above saturation (B ADA) | 0.08 | 4.79 | 
 | $E(k)$ (% of $S$) | 0.4% | 22.4% | 
 
+Delegators in pools that become oversaturated following the increase in $k$ are expected to respond by redelegating to unsaturated pools. However, the possibility that some of this stake exits the ecosystem entirely cannot be ruled out.
 
 ### Reward-pot and treasury flows
 
