@@ -133,9 +133,9 @@ Raising $k$ does not have a direct mechanical effect in the total size of the re
 
 As past evidence of a change in $k$, there is the realized historical jump ($150\rightarrow500$, i.e., $3.33\times$) around epoch $228$. This section collects data about the consequence of that change. It is important to note that the consequences and behaviors observed in that jump do not need to replicate in a new one, since market conditions and sentiments may differ. 
 
-Next, the section reports oversaturated-pool counts and stake above saturation $E(k)$ using the same definitions introduced in **Oversaturated stake** above:
+Next, the section reports oversaturated-pool counts and stake above saturation $E(k)$ using the same definitions introduced in **Oversaturated stake** above.
 
-*Sanpshot summaries*
+### Aggregate system snapshot
   
 $$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
 
@@ -160,9 +160,11 @@ Main observations:
 - Before the change ($k=150$), oversaturation was effectively zero.
 - The historical $3.33\times$ jump to $k=500$ moved the system to $109$ oversaturated pools and $E(k)=6.14$B ADA ($35.71\%$ of $S$).
 - After enough epochs, the redelegation moved away from oversaturated pools, leaving oversaturated pools again near zero.
-- The snapshot also shows a important increment in the staking level $S$, the ratio $S/T$, and number of pools.
+- The snapshot also shows a important increment in the staking level $S$, the ratio $S/T$, and number of pools. However, this does not imply that the change in $k$ triggered that increment.
 
-*Changes in delegation distributions*
+
+
+### Changes in delegation distributions
 
 After the increment in $k$, delegators in those pools that become oversaturated pools migrated from the to those who remain undersaturated (some of them could have left the ecosystem but, since the staking participation increased, we can assume that in that case the leaveing ones were replaced by new incomers choosing undersaturated pools). The next two plots shows how many of those immediately undersaturated pools in epoch 228 after the increment in $k$ gain/lose delegation and how much delegation they gain/lose. However, since data shows an increment in the staking level, the plots do not inform how much of the additional delegation is due to new incoming stake. To abstain considering new stake, we have to track each existing redelegation.
 
@@ -184,9 +186,7 @@ The two panels answer different questions—left: composition and stake realloca
   <img src="plots/stake_distribution_228_vs_285.png" alt="Change in the distribution of stakes when k increases" width="48%">
 </div>
 
-
-
-*Decentralization metrics*
+### Decentralization metrics
 
 The following table compares decentralization metrics for epoch 228 and epoch 285. However, since many pools and new stake entered in the ecosystem in this window of time, the figures are not informative of how successful was the parameter change in this objective.
 
@@ -197,7 +197,7 @@ Nakamoto $N$: minimum number of pools (ranked by active stake) whose aggregate e
 | 228 | 57 | 1,161 | 8.76B ADA | 17.35B ADA | 50.48% | 59.0M ADA | 101.6M ADA |
 | 285 | 195 | 2,813 | 11.59B ADA | 23.16B ADA | 50.06% | 1.09B ADA | 1.23B ADA |
 
-*Pools Viability*
+### Pools Viability
 
 We recompute operator rewards $\Pi_i$ under $k=150$ and the counterfactual $k=500$, using $T=32.04B$ ADA, $R = 29.7M$ ADA, $a_0=0.3$, and holding each pool’s stake, pledges, margin, and declared cost fixed. With operational expenditure (or OpEx) $C^* = 667$ per month and ADA price at $0.11$ USD, we get 
 
@@ -238,7 +238,7 @@ This measures net yield per ADA after deducting fixed costs ($c_i$) and variable
 The data shows that surviving pools were inherently higher-yielding at baseline, with $51.6\\%$ ($393/762$) generating positive returns (median positive APR of $4.14\%$), whereas only $13.1\\%$ ($38/290$) of exiting pools produced positive returns (median positive APR of $3.03\\%$). The change in $k$ may be responsible in purging underperforming operators, and  yielding a slight upward shift in both overall median positive APR (from $4.07\\%$ to $4.14\\%$) and mean positive APR (from $3.63\\%$ to $3.71\\%$) of the network. Notice that APR for surviving pools remain invariant under the counterfactual $k=500$ parameterization. This suggests that surviving operators may have adjusted their margins and fixed costs sufficiently to absorb protocol parameter changes and preserve steady yields for their delegators. That is, the increase in $k$ enhanced network-wide attractiveness by marginally lifting average delegator APR—a direct result of the exit of weak pools.
 
 
-*Interaction effects*
+### Interaction effects
 
 
 
