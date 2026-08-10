@@ -51,18 +51,9 @@ The effect of changing $k$ on $f(\sigma_i,p_i)$ depends on whether the caps  $\t
 $$
 \frac{\partial f}{\partial k} =
 \begin{cases}
-\displaystyle
-\frac{R a_0 p_i}{1+a_0}
-\left[
-\sigma_i-p_i+2kp_i\sigma_i
-\right]\geq 0,
-& \sigma_i<\frac{1}{k}, \\
-\displaystyle
--\frac{R}{(1+a_0)k^2}\leq 0,
-& p_i<\frac{1}{k}\leq\sigma_i,\\
-\displaystyle
--\frac{R}{k^2}\leq 0,
-& \frac{1}{k}\leq p_i\leq\sigma_i.
+\displaystyle \frac{R a_0 p_i}{1+a_0} \left[\sigma_i-p_i+2kp_i\sigma_i\right]\geq 0,& k<\frac{1}{\sigma_i}, \\
+\displaystyle -\frac{R}{(1+a_0)k^2}\leq 0, & \frac{1}{\sigma_i}<k\leq \frac{1}{p_i},\\
+\displaystyle -\frac{R}{k^2}\leq 0, & \frac{1}{p_i}\leq k.
 \end{cases}
 $$
 
