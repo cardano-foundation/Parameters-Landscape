@@ -370,7 +370,9 @@ The comparison plot `stake_distribution_by_bin_k1000_redelegation_epoch_644.png`
 Under this exercise, \(205\) donor pools hold \(12.73\)B ADA that must move. That stake is fully absorbed by \(2{,}489\) receivers (about \(90.9\)B ADA of free capacity; nothing left unallocated). Aggregate network stake remains \(21.399\)B ADA, while the number of active pools falls from \(2{,}694\) to \(2{,}489\), of which \(490\) receivers fill exactly to the \(40\)M cap. Stake disappears from bins above \(40\)M and concentrates near the cap, especially in the \(35\)–\(40\)M range. The \(0\)–\(5\)M pool count falls from \(2{,}072\) to \(1{,}935\) (a drop of \(137\)) not because small pools lose stake, but because \(137\) well-ranked receivers that started below \(5\)M absorb inflows and jump to \(40\)M; most remaining tiny pools have \(D_i=0\) and receive nothing.
 XXXX
 
-
+<p align="center">
+  <img src="plots/stake_distribution_by_bin_k1000_redelegation_epoch_644.png" alt="Stake distribution by bin e644 after redelegation" width="62%">
+</p>
 
 
 #### Frictions
