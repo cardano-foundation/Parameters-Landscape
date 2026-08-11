@@ -105,7 +105,7 @@ While maintaining the same delegation ($x$-axis) and pledge ($y$-axis) layout as
 Delegators remaining in now-oversaturated pools—those to the right of the vertical $z_0 = \text{38.5M ADA}$ threshold—suffer immediate yield losses. Conversely, delegators in pools operating near the new saturation boundary experience yield gains, with the most pronounced improvements concentrated in the high-pledge region along the upper area of the plot.
 
 <p align="center">
-<img src="plots/heatmap_delegator_reward_k_cases.png" alt="Heatmap Delegator Reward when k changes" width="80%">
+<img src="plots/heatmap_delegator_reward_k_cases.png" alt="Heatmap Delegator Reward when k changes" width="62%">
 </p>
 
 
@@ -188,6 +188,17 @@ The next two plots illustrate how many pools—restricted to the set of active p
   <img src="plots/unsaturated_agg_stake_change_by_stake_bin_228_285.png" alt="Unsaturated Pools change measured in agg delegation when k increases" width="48%">
 </div>
 
+The following plots illustrate the characteristics of pools at epoch 228 grouped by their post-adjustment outcome (gain, lose, flat, or exit by epoch 285). The top set of panels covers all $1,052$ pools that were undersaturated under the new $k=500$, while the bottom set focuses strictly on the subset of $900$ small pools holding $0\text{--}5\text{M ADA}$ of initial stake. 
+
+The data reveals that operator pledge served as the primary differentiator for stake attraction, with gaining pools maintaining a substantially higher median declared pledge ($30\text{k ADA}$) than those that lost stake ($10\text{k ADA}$), went flat ($0.2\text{k ADA}$), or exited ($3.6\text{--}5\text{k ADA}$). Additionally, gaining pools operated with slightly lower median profit margins ($1.8\%$) compared to losing or flat pools ($2.0\%$), suggesting delegators favored lower-cost fee structures paired with higher declared pledge. On the other hand, pools that remained flat or exited were characterized by near-zero initial pledge, and extremely low initial stake.
+
+<p align="center">
+<img src="plots/unsaturated_characteristics_by_outcome_228_285.png" alt="Pools characteristics before gain/loss/flat/exit when k changed" width="62%">
+</p>
+
+<p align="center">
+<img src="plots/unsaturated_characteristics_by_outcome_0_5M_228_285.png" alt="0-5M pools characteristics before gain/loss/flat/exit when k changed" width="62%">
+</p>
 
 
 The next figure compares observed stake distributions before and after the \(k\) increment via CDFs .
