@@ -354,8 +354,10 @@ The tables below summarize how doubling $k$ drives oversaturation, quantifying b
 
 Delegators in pools that become oversaturated following the increase in $k$ are expected to respond by redelegating to unsaturated pools. However, the possibility that some of this stake exits the ecosystem entirely cannot be ruled out.
 
-XXXX
 
+<p align="center">
+  <img src="plots/stake_distribution_by_bin_epoch_644.png" alt="Stake distribution by bin e644" width="62%">
+</p>
 
 
 
