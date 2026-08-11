@@ -314,7 +314,7 @@ The data shows that surviving pools were inherently higher-yielding at baseline,
 
 ## Behavioral and equilibrium effects
 
-This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions **given the current state**. To provide a clearer breakdown, the section below adopts a more granular approach rather than relying on these two broad categories.
+This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions **given the current state**.
     
 ### Rational behavior
 
@@ -328,22 +328,22 @@ $$f_i(\sigma_i=z_0,p_i) = \frac{R}{1+a_0} \left[ z_0 + a_0 \min\\{p_i, z_0\\} \r
 
 The active set of pools $G_{1000}$ consists of the top $1,000$ operators ranked by their desirability $(1-m_i)(f_i(z_0,p_i)-c_i)$. The following dynamics is induced:
 - Stake Reallocation: Delegators shift stake to saturate all $i \in G_{1000}$. Incumbent pools lose half their stake ($\frac{1}{500} \to \frac{1}{1000}$), freeing exactly enough aggregate stake to saturate 500 new pools.
-- Staking Participation: Unchanged since the model assumes that there is full active stake $\sum_i ​\sigma_i​ = T$
-* **Pledge:** Operators declared as pledge all their their available stake ($p_i = \hat{p}_i$).
-* **Margin:** Operators adjust their margin $m_i$ to remain competitive. The direction of the margin changes are ambiguous as $k$ alters both gross pool rewards and the marginal competitor's profit threshold.
-* **Declared Cost:** Truthful reporting remains optimal.
-* **Net Entry:** New pools enter in the ecosystem.
+- The staking participation is unchanged since the model assumes that there is full active stake $\sum_i ​\sigma_i​ = T$.
+- Operators declared as pledge all their their available stake or cappital ($p_i = \hat{p}_i$). Hence, the declared pledge does not change.
+- Operators adjust their margin $m_i$ to remain competitive. The direction of the margin changes are ambiguous as $k$ alters both gross pool rewards and the marginal competitor's profit threshold.
+- Truthful reporting remains optimal.
+- New pools enter in the ecosystem.
 
 This model has several key assumptions:
 - Full active stake and frictionless redelegation;
 - No switching costs, search frictions, reward uncertainty, or externalities;
 - Each operator manages at most one pool with stake $p_i \le \frac{1}{1000}$;
-- There are sufficiently many potential operators;
+- There are sufficiently many potential operators; and
 - Enough profitable candidates to support the new $k$;
 
 Overall, the stylized equilibrium changes from $500$ pools of size $T/500$ to $1000$ pools of size $T/1000$. Delegation is redistributed, the pool-leader ranking and margins are recalculated, and net pool entry equals $500$. Pool splitting may occur, but an increase in independent operators is not guaranteed. Aggregate staking participation remains unchanged.
 
-In the reality, this benchmark is constrained by market frictions. Several observations show that the assumptions of the model do not hold in reality (however, it should be notice that the equilibrium predicted does not consider the path until reaching it, while a snapshot of the current state could be just a point in that path). 
+In reality, this benchmark is constrained by market frictions, and several empirical observations confirm that the theoretical model's underlying assumptions do not strictly hold. However, it should be noted that the predicted equilibrium describes an eventual steady state without accounting for the transition path toward it; thus, a current snapshot may simply reflect an intermediate point along that adaptation trajectory.
 
 For instance, only a fraction of $T$ is active stake $S$. With current active stake $S \approx 21.4B$ ADA and $T \approx 38.8B$ ADA, the maximum number of simultaneously saturated pools is bounded by
 
