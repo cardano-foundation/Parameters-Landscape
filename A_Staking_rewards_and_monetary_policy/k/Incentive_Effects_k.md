@@ -152,20 +152,30 @@ Next, the section reports oversaturated-pool counts and stake above saturation $
   
 $$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
 
+
 | Quantity | Epoch 228 | Epoch 285 |
 | :--- | ---: | ---: |
 | $T$ | 32.04B ADA | 33.03B ADA |
 | $S$ | 17.35B ADA | 23.16B ADA |
 | $S / T$ | 54.2% | 70.1% |
 | Pools with $\sigma_i>0$ | 1,161 | 2,813 |
+|     — continuing to 285 | 851 | — |
+|     — exited by 285 | 310 | — |
+
 
 | Quantity | Epoch 228, $k=150$ | Epoch 228, $k=500$ | Epoch 285, $k=500$ |
 | :--- | ---: | ---: | ---: |
 | $z_0(k)$ (M ADA) | 213.58 | 64.07 | 66.06 |
 | Oversaturated pools (count) | 0 | 109 | 4 |
 | Oversaturated pools (% of pools) | 0.00% | 9.39% | 0.14% |
+|     — continuing to 285 | — | 89 | — |
+|     — exited by 285 | — | 20 | — |
+| Unsaturated pools ($\sigma_i\leq z_0$) | 1,161 | 1,052 | — |
+|     — continuing to 285 | — | 762 | — |
+|     — exited by 285 | — | 290 | — |
 | $E(k)$ - Stake above saturation (B ADA) | 0.00 | 6.14 | 0.02 |
 | $E(k)$ (% of $S$) | 0.00% | 35.41% | 0.09% |
+
 
 
 Main observations:
