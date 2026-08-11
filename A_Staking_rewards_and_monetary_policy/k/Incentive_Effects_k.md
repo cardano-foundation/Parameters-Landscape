@@ -179,12 +179,16 @@ Main observations:
 
 ### Changes in delegation distributions
 
-After the increment in $k$, delegators in those pools that become oversaturated pools migrated from the to those who remain undersaturated (some of them could have left the ecosystem but, since the staking participation increased, we can assume that in that case the leaveing ones were replaced by new incomers choosing undersaturated pools). The next two plots shows how many of those immediately undersaturated pools in epoch 228 after the increment in $k$ gain/lose delegation and how much delegation they gain/lose. However, since data shows an increment in the staking level, the plots do not inform how much of the additional delegation is due to new incoming stake. To abstain considering new stake, we have to track each existing redelegation.
+Following the increase in $k$, delegators in newly oversaturated pools migrated to those that remained undersaturated. While some delegators left the ecosystem, overall staking participation increased, indicating that departing delegators were offset by new entrants selecting undersaturated pools. 
+
+The next two plots illustrate how many pools—restricted to the set of active pools present at epoch 228—gained or lost delegation, along with the magnitude of those shifts. The dynamics show that small pools ($0\text{--}5\text{M ADA}$) experienced the largest total staking gains, and also the highest exit rates ($287$ pools). Because total staking grew, these aggregate plots cannot isolate new incoming stake from redistributed existing stake (to disentangle whether a pool gained capital from redelegations or new entrants, individual redelegation trajectories must be tracked, data that we do not have in the snapshots).
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
   <img src="plots/unsaturated_delegation_by_stake_bin_228_285.png" alt="Unsaturated Pools change  measure in numb pools when k increases" width="48%">
   <img src="plots/unsaturated_agg_stake_change_by_stake_bin_228_285.png" alt="Unsaturated Pools change measured in agg delegation when k increases" width="48%">
 </div>
+
+
 
 The next figure compares observed stake distributions before and after the \(k\) increment via CDFs .
 
