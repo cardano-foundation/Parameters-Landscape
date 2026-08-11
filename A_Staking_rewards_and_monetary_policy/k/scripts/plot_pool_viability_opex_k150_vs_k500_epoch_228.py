@@ -45,21 +45,49 @@ OPEX_EPOCH_USD = 667.0 / 6.0
 ADA_USD = 0.11
 C_STAR = OPEX_EPOCH_USD / ADA_USD  # ≈ 1010.61 ADA/epoch
 
-COLOR_LOSING = "#d62828"
+COLOR_NONE = "#adb5bd"
+# Darker red = worse (lower r); same palette as epoch-644 / minPoolCost viability
+COLOR_LOSING_LT_025 = "#67000d"
+COLOR_LOSING_025_050 = "#a50f15"
+COLOR_LOSING_050_075 = "#de2d26"
+COLOR_LOSING_075_100 = "#fc9272"
 COLOR_EDGE = "#e76f51"
 COLOR_COMF = "#4c78a8"
 COLOR_STRONG = "#2a9d8f"
-COLOR_NONE = "#adb5bd"
 
-CAT_ORDER = ["no_rewards", "losing", "edge", "comfortable", "strong"]
+CAT_ORDER = [
+    "no_rewards",
+    "losing_lt_025",
+    "losing_025_050",
+    "losing_050_075",
+    "losing_075_100",
+    "edge",
+    "comfortable",
+    "strong",
+]
 CAT_LABELS = [
     "No rewards",
-    "Losing\n($r<1$)",
-    "Edge\n($1\\leq r<2$)",
-    "Comfortable\n($2\\leq r<5$)",
-    "Strong\n($r\\geq 5$)",
+    r"$r<0.25$",
+    r"$0.25\leq r<0.5$",
+    r"$0.5\leq r<0.75$",
+    r"$0.75\leq r<1$",
+    "Edge\n"
+    r"($1\leq r<2$)",
+    "Comfortable\n"
+    r"($2\leq r<5$)",
+    "Strong\n"
+    r"($r\geq5$)",
 ]
-CAT_COLORS = [COLOR_NONE, COLOR_LOSING, COLOR_EDGE, COLOR_COMF, COLOR_STRONG]
+CAT_COLORS = [
+    COLOR_NONE,
+    COLOR_LOSING_LT_025,
+    COLOR_LOSING_025_050,
+    COLOR_LOSING_050_075,
+    COLOR_LOSING_075_100,
+    COLOR_EDGE,
+    COLOR_COMF,
+    COLOR_STRONG,
+]
 
 
 def gross_pool_reward(
@@ -89,8 +117,14 @@ def operator_reward(
 def classify_ratio(r: float) -> str:
     if not np.isfinite(r) or r <= 0:
         return "no_rewards"
+    if r < 0.25:
+        return "losing_lt_025"
+    if r < 0.5:
+        return "losing_025_050"
+    if r < 0.75:
+        return "losing_050_075"
     if r < 1.0:
-        return "losing"
+        return "losing_075_100"
     if r < 2.0:
         return "edge"
     if r < 5.0:
@@ -110,13 +144,14 @@ def draw_panel(ax, counts: dict[str, int], title: str, note: str) -> None:
     ymax = max(heights) if heights else 1
     for xi, h in zip(x, heights):
         ax.text(
-            xi, h + ymax * 0.012, str(h), ha="center", va="bottom", fontsize=FONT_SIZE
+            xi, h + ymax * 0.012, str(h), ha="center", va="bottom", fontsize=FONT_SIZE - 1
         )
     ax.set_xticks(x)
-    ax.set_xticklabels(CAT_LABELS, fontsize=FONT_SIZE)
+    ax.set_xticklabels(CAT_LABELS, fontsize=FONT_SIZE - 2, rotation=28, ha="right")
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
     ax.set_title(title, fontsize=FONT_SIZE)
-    ax.tick_params(axis="both", labelsize=FONT_SIZE)
+    ax.tick_params(axis="y", labelsize=FONT_SIZE)
+    ax.tick_params(axis="x", labelsize=FONT_SIZE - 2, pad=2)
     ax.set_ylim(0, ymax * 1.18)
     ax.text(
         0.98,
@@ -241,7 +276,7 @@ def main() -> None:
     out.to_csv(OUT_CSV, index=False)
     pd.DataFrame(summary_rows).to_csv(OUT_SUMMARY, index=False)
 
-    fig, axes = plt.subplots(1, 2, figsize=(14.5, 5.4), constrained_layout=True)
+    fig, axes = plt.subplots(1, 2, figsize=(17.5, 6.2), constrained_layout=True)
     for ax, k in zip(axes, (150, 500)):
         d = panel_data[k]
         note = (
@@ -269,6 +304,10 @@ def main() -> None:
 
     # markdown blurb
     c150, c500 = panel_data[150], panel_data[500]
+
+    def losing_total(counts: dict[str, int]) -> int:
+        return sum(counts[c] for c in CAT_ORDER if c.startswith("losing_"))
+
     md = f"""# Theoretical operator viability — epoch 228 ($k=150$ vs $k=500$)
 
 Hold each pool's epoch-228 stake $\\sigma_i$, declared pledge $p_i$, active pledge $\\hat p_i$,
@@ -284,7 +323,11 @@ $r=\\Pi_i/C^*$.
 | :--- | ---: | ---: |
 | Pools (theory rewarded) | {c150['n_rewarded']} | {c500['n_rewarded']} |
 | Cover OpEx ($r\\ge 1$) | {c150['n_viable']} | {c500['n_viable']} |
-| Losing ($0<r<1$) | {c150['counts']['losing']} | {c500['counts']['losing']} |
+| Losing ($r<0.25$) | {c150['counts']['losing_lt_025']} | {c500['counts']['losing_lt_025']} |
+| Losing ($0.25\\le r<0.5$) | {c150['counts']['losing_025_050']} | {c500['counts']['losing_025_050']} |
+| Losing ($0.5\\le r<0.75$) | {c150['counts']['losing_050_075']} | {c500['counts']['losing_050_075']} |
+| Losing ($0.75\\le r<1$) | {c150['counts']['losing_075_100']} | {c500['counts']['losing_075_100']} |
+| Losing (all $0<r<1$) | {losing_total(c150['counts'])} | {losing_total(c500['counts'])} |
 | Edge ($1\\le r<2$) | {c150['counts']['edge']} | {c500['counts']['edge']} |
 | Comfortable ($2\\le r<5$) | {c150['counts']['comfortable']} | {c500['counts']['comfortable']} |
 | Strong ($r\\ge 5$) | {c150['counts']['strong']} | {c500['counts']['strong']} |
