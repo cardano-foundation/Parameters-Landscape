@@ -277,7 +277,7 @@ The plot shows a moderate impact of the increment of $3.33x$. on $k$ in the oper
 | Strong ($r\ge 5$) | $32$ | $10$ | $-68.8\\%$ |
 
 <p align="center">
-  <img src="plots/pool_viability_opex_categories_k150_vs_k500_epoch_228.png" alt="Pools viability when k increases" width="80%">
+  <img src="plots/pool_viability_opex_categories_k150_vs_k500_epoch_228.png" alt="Pools viability when k increases" width="62%">
 </p>
 
 ### APR
@@ -298,7 +298,7 @@ This measures net yield per ADA after deducting fixed costs ($c_i$) and variable
 | $k=150$: pools exiting by epoch 285 | 290 | 38 | 3.03% | 2.87% |
 
 <p align="center">
-  <img src="plots/member_apr_boxplot_undersaturated_k150_vs_k500.png" alt="APR changes when k changed based on Data" width="80%">
+  <img src="plots/member_apr_boxplot_undersaturated_k150_vs_k500.png" alt="APR changes when k changed based on Data" width="62%">
 </p>
 
 
@@ -311,7 +311,7 @@ The data shows that surviving pools were inherently higher-yielding at baseline,
 
 
 <p align="center">
-  <img src="plots/unsaturated_mi_ci_change_counts_228_285.png" alt="Unsaturated Pools change in other  parameters when k increases" width="80%">
+  <img src="plots/unsaturated_mi_ci_change_counts_228_285.png" alt="Unsaturated Pools change in other  parameters when k increases" width="62%">
 </p>
 
 
