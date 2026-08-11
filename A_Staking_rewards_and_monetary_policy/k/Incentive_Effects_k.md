@@ -231,6 +231,7 @@ The data reveals two distinct strategic profiles among operators. First, total s
 </p>
 
 
+
 ### Decentralization metrics
 
 The following table compares decentralization metrics for epoch 228 and epoch 285. However, since many pools and new stake entered in the ecosystem in this window of time, the figures are not informative of how successful was the parameter change in this objective.
@@ -253,7 +254,6 @@ The two panels answer different questions—left: composition and stake realloca
   <img src="plots/stake_distribution_228_cohort_vs_285.png" alt="Change in the distribution of stakes 228 cohort when k increases" width="48%">
   <img src="plots/stake_distribution_228_vs_285.png" alt="Change in the distribution of stakes when k increases" width="48%">
 </div>
-
 
 
 
