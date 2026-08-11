@@ -259,7 +259,7 @@ The two panels answer different questions—left: composition and stake realloca
 
 ### Pools Viability
 
-We recompute operator rewards $\Pi_i$ under $k=150$ and the counterfactual $k=500$, using $T=32.04B$ ADA, $R = 29.7M$ ADA, $a_0=0.3$, and holding each pool’s stake, pledges, margin, and declared cost fixed. With operational expenditure (or OpEx) $C^* = 667$ per month and ADA price at $0.11$ USD, we get 
+We recompute operator rewards $\Pi_i$ under $k=150$ and the counterfactual $k=500$, using the state parameters at epoch $228$: $T=32.04B$ ADA, $R = 29.7M$ ADA, $a_0=0.3$, and holding each pool’s stake, pledges, margin, and declared cost fixed. With operational expenditure (or OpEx) $C^* = 667$ per month and ADA price at $0.11$ USD (the one corresponding at epoch $228$), we get 
 
 $$C^* = 667/6/0.11= 1010.6 \quad \text{ADA per epoch}$$. 
 
@@ -280,7 +280,7 @@ The plot shows a moderate impact of the increment of $3.33x$. on $k$ in the oper
   <img src="plots/pool_viability_opex_categories_k150_vs_k500_epoch_228.png" alt="Pools viability when k increases" width="80%">
 </p>
 
-*APR*
+### APR
 
 To evaluate how shifting $k=150 \to 500$ affects delegator returns, we calculate the annualized delegator yield
 
