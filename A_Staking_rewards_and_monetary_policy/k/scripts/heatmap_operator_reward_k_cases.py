@@ -113,13 +113,14 @@ def draw_panel(
     im = ax.pcolormesh(S, P, masked, shading="auto", cmap=cmap, vmin=vmin, vmax=vmax)
     ax.plot([0.0, float(S.max())], [0.0, float(S.max())], "k--", linewidth=1.2, alpha=0.85)
     ax.axvline(z0_case, color="0.3", linestyle=":", linewidth=1.2, alpha=0.9)
+    s_max = float(S.max())
     ax.text(
-        0.98 * float(S.max()),
-        0.98 * float(S.max()),
-        "p=sigma (feasibility limit)",
+        s_max / 3.0,
+        2.0 * s_max / 3.0,
+        r"$p_i=\sigma_i$" "\n(infeasible region)",
         fontsize=FONT_SIZE - 1,
-        ha="right",
-        va="top",
+        ha="center",
+        va="center",
     )
     ax.set_xlim(0.0, float(S.max()))
     ax.set_ylim(0.0, float(S.max()))
