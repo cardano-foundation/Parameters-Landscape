@@ -216,11 +216,11 @@ The data reveals that operator pledge served as the primary differentiator for s
 
 In the previous section, we examined the response of delegators within the cohort of pools active at epoch 228 that were undersaturated following the increase in $k$, aiming to evaluate whether the parameter increment correlated with growth among smaller pools. Note that these observations reflect empirical correlations rather than direct causality.
 
-Next, we would like to see the reaction of the operators. Because between epoch 228 and epoch 285 was a notably increment in the number of pools and delegation, any pool change in their parameter choices may be related to those changes in the market condition rather than induced directly by the increment in $k$.
+We also want to see the reaction of the operators. The next plot tracks margin rate changes and delegation outcomes between epochs 228 and 285 across the $851$ surviving pools (both under and oversaturated) that were active at epoch 228. The left panel details operator fee adjustments, showing that the vast majority of surviving pools ($68.0\\%$) kept their margin rate unchanged. The right panel maps these fee decisions to delegation outcomes. Operators who reduced their margin achieved the highest success rate, with $91$ pools gaining stake compared to $65$ losing stake ($58.3\\%$ gainers). Conversely, keeping margins unchanged was the least effective strategy for retaining capital, resulting in $297$ pools losing stake versus $214$ gaining stake ($51.3\\%$ losers). However, because overall market conditions changed significantly over this period—marked by a notable growth in total pools and total ecosystem stake—these parameter shifts reflect operator responses to evolving market competition rather than a direct, causal effect of the increase in $k$.
 
-The next plot illustrate that the cohort of all pools present in epoch 228 that survive to epoch 285 (both, under and oversaturated after the increment in $k$).
-
-
+<p align="center">
+<img src="plots/cohort_margin_change_stake_outcomes_228_285.png" alt="Pools changing margin when k changed" width="62%">
+</p>
 
 
 ### Decentralization metrics
