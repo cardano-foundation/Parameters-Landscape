@@ -360,6 +360,15 @@ Delegators in pools that become oversaturated following the increase in $k$ are 
 </p>
 
 
+XXXX
+We use the epoch-644 snapshot with reward parameters \(T=38.764\)B ADA and \(R=14.967\)M ADA (\(a_0=0.3\)), taken from `f_reward_params_epoch_644.json`. Under a counterfactual \(k=1000\), the saturation threshold is \(z_0=T/k\approx38.764\)M ADA. Redelegation is implemented with a practical cap of \(40\)M ADA. Stake \(\sigma_i\), declared pledge \(p_i\), and \(z_0\) enter the reward formula in absolute ADA (not divided by \(T\)), using \(f(\sigma_i,p_i)=(R/T)/(1+a_0)\,[\tilde\sigma_i+a_0\tilde p_i(\tilde\sigma_i-\tilde p_i(z_0-\tilde\sigma_i)/z_0)/z_0]\) with \(\tilde\sigma_i=\min\{\sigma_i,z_0\}\) and \(\tilde p_i=\min\{p_i,z_0,\tilde\sigma_i\}\). This is equivalent to the \(T\)-normalized form and yields the same ranking. Declared pledge is `pool_update.active.pledge`; epoch stake is `epochs.0.data.epoch_stake` (fallback `active_stake`). The sample is the \(n=2694\) pools with \(\sigma_i>0\) and complete margin and fixed cost.
+
+All stake in pools with \(\sigma_i>40\)M ADA is treated as forced to redelegate. Receiving pools are those with \(0<\sigma_i\le40\)M. Receivers are ranked by member return per ADA \(D_i=(1-m_i)\max\{f(\sigma_i,p_i)-c_i,0\}/\sigma_i\), computed at \(k=1000\), from highest to lowest desirability. Each receiver’s free space is \(40\text{M}-\sigma_i\). Donor stake is allocated in that rank order, filling each pool up to the \(40\)M cap before moving to the next. Total stake is conserved; emptied donors leave the active set.
+
+The comparison plot `stake_distribution_by_bin_k1000_redelegation_epoch_644.png` shows current versus post-redelegation distributions in \(5\)M-ADA bins: number of pools (with a broken \(y\)-axis from \(0\)–\(550\), then \(\approx1750\)–\(2100\)) and aggregate stake per bin. Blue bars are the current snapshot; orange bars are the counterfactual after redelegation. Rank-level detail is in `redelegation_rank_k1000_cap40M_epoch_644.csv`.
+
+Under this exercise, \(205\) donor pools hold \(12.73\)B ADA that must move. That stake is fully absorbed by \(2{,}489\) receivers (about \(90.9\)B ADA of free capacity; nothing left unallocated). Aggregate network stake remains \(21.399\)B ADA, while the number of active pools falls from \(2{,}694\) to \(2{,}489\), of which \(490\) receivers fill exactly to the \(40\)M cap. Stake disappears from bins above \(40\)M and concentrates near the cap, especially in the \(35\)–\(40\)M range. The \(0\)–\(5\)M pool count falls from \(2{,}072\) to \(1{,}935\) (a drop of \(137\)) not because small pools lose stake, but because \(137\) well-ranked receivers that started below \(5\)M absorb inflows and jump to \(40\)M; most remaining tiny pools have \(D_i=0\) and receive nothing.
+XXXX
 
 
 
