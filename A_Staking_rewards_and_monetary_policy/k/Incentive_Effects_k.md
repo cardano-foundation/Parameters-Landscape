@@ -222,7 +222,9 @@ We also want to see the reaction of the operators. The next plot tracks margin r
 <img src="plots/cohort_margin_change_stake_outcomes_228_285.png" alt="Pools changing margin when k changed" width="62%">
 </p>
 
-The following plots compare pools characteristics—total stake, declared pledge, and active pledge—across the $851$ surviving pools categorized by their subsequent margin fee decisions (reducers, increasers, and no change). The data reveals that pool size significantly influenced fee strategy: margin reducers ($n=156$) had smaller stake sizes, whereas margin increasers ($n=116$) were substantially larger, reaching upper quartiles above $17\text{M ADA}$. This suggests that smaller pools aggressively cut fees to compete for incoming delegators, while larger pools leveraged their existing stake baseline to raise margins. In contrast, pledge showed negligible impact on fee decisions, as declared and active pledge distributions remained virtually identical across all three groups, maintaining median values near $20\text{k--}40\text{k ADA}$.
+The following plots compare pools characteristics—total stake, declared pledge, and active pledge—across the $851$ surviving pools categorized by their subsequent margin fee decisions (reducers, increasers, and no change). 
+
+The data reveals two distinct strategic profiles among operators. First, total stake strongly influenced fee changes: margin reducers ($n=156$) had smaller stake sizes, whereas margin increasers ($n=116$) were substantially larger, reaching upper quartiles above $17\text{M ADA}$. Second, pledge played a key role in fee cuts: pools that reduced margins held a median declared and active pledge of $41\text{k ADA}$—roughly double the $20\text{k ADA}$ median pledge of pools that increased or kept margins constant. This indicates that while larger pools leveraged existing stake to raise fees, it was smaller, higher-pledge operators that aggressively lowered margins to compete for incoming delegators.
 
 <p align="center">
 <img src="plots/cohort_margin_strategy_characteristics_228.png" alt="Pools characteristics of those changing margin when k changed" width="62%">
