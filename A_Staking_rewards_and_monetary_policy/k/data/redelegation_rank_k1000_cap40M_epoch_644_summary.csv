@@ -1,0 +1,16 @@
+quantity,value
+k_new,1000
+T_ada,38763957566.43464
+z0_k1000_ada,38763957.56643464
+cap_ada,40000000.0
+declared_pledge_column,pool_update.active.pledge
+n_pools_sigma_gt_0_complete,2694
+n_receivers,2489
+n_donors,205
+stake_to_allocate_ada,12730389962.551748
+receiver_capacity_ada,90891459144.87292
+unallocated_ada,0.0
+total_stake_before_ada,21398930817.678818
+total_stake_after_ada,21398930817.67881
+n_pools_after_sigma_gt_0,2489
+n_receivers_filled_to_cap,490
