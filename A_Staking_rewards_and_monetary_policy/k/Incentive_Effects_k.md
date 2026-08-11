@@ -109,35 +109,6 @@ Delegators remaining in now-oversaturated pools—those to the right of the vert
 </p>
 
 
-### Oversaturated stake
-
-Denote the per-pool saturation point as $z_0(k) = \frac{T}{k},$ and the saturation level as
-
-$$s_i(k) = \frac{\sigma_i}{z_0(k)} = \frac{\sigma_i k}{T}.$$
-
-Pool $i$ is oversaturated if $s_i(k)>1$, i.e., $\sigma_i>z_0(k)$. The aggregate stake/delegation above saturation is calculated with
-  
-$$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
-
-The tables below summarize how doubling $k$ drives oversaturation, quantifying both the affected pool count and the aggregate delegation impacted by the change.
-  
-| Quantity | Value |
-| :--- | ---: |
-| $T$  | $38.8B$ ADA |
-| $S$  | $21.4B$ ADA|
-| $S / T$ | 55.2% |
-| Pools with $\sigma_i>0$ | 2,694 |
-
-| Quantity | $k=500$ | $k=1000$ | 
-| :--- | ---: | ---: | 
-| $z_0(k)$ (M ADA) | 77.5 | 38.8 |
-| Oversaturated pools (count) | 7 | 211 | 
-| Oversaturated pools (% of pools) | 0.26% | 7.8% | 
-| $E(k)$ - Stake above saturation (B ADA) | 0.08 | 4.79 | 
-| $E(k)$ (% of $S$) | 0.4% | 22.4% | 
-
-Delegators in pools that become oversaturated following the increase in $k$ are expected to respond by redelegating to unsaturated pools. However, the possibility that some of this stake exits the ecosystem entirely cannot be ruled out.
-
 ### Reward-pot and treasury flows
 
 Raising $k$ does not have a direct mechanical effect in the total size of the reward pot or the treasury's share. It only changes how the rewards are split among pools, which may affect (due to second order effects, like changes in the staking level) how much is actually paid out.
@@ -356,7 +327,44 @@ which is about $276$ for $k=500$ and about $552$ for $k=1000$.
     
 ### Delegators moving stake
 
-After an increment in $k$, several pools will become oversaturated. Yield-sensitive delegators typically leave oversaturated pools for those with available capacity. However, a mechanical increase in oversaturation does not guarantee an immediate or equivalent outflow. A slightly oversaturated pool can remain appealing if it offers lower reward variance, better fixed-cost dilution, or a strong reputation. Furthermore, identifying alternative pools requires effort: spare capacity is often fragmented across many operators, introducing search and coordination friction. Additional barriers—such as switching costs, rational inattention, or brand loyalty—can further delay adjustments, leading to persistent mild oversaturation and herding toward a small subset of pools.
+After an increment in $k$, several pools will become oversaturated. Yield-sensitive delegators typically leave oversaturated pools for those with available capacity. Denote the per-pool saturation point as $z_0(k) = \frac{T}{k},$ and the saturation level as
+
+$$s_i(k) = \frac{\sigma_i}{z_0(k)} = \frac{\sigma_i k}{T}.$$
+
+Pool $i$ is oversaturated if $s_i(k)>1$, i.e., $\sigma_i>z_0(k)$. The aggregate stake/delegation above saturation is calculated with
+  
+$$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
+
+The tables below summarize how doubling $k$ drives oversaturation, quantifying both the affected pool count and the aggregate delegation impacted by the change.
+  
+| Quantity | Value |
+| :--- | ---: |
+| $T$  | $38.8B$ ADA |
+| $S$  | $21.4B$ ADA|
+| $S / T$ | 55.2% |
+| Pools with $\sigma_i>0$ | 2,694 |
+
+| Quantity | $k=500$ | $k=1000$ | 
+| :--- | ---: | ---: | 
+| $z_0(k)$ (M ADA) | 77.5 | 38.8 |
+| Oversaturated pools (count) | 7 | 211 | 
+| Oversaturated pools (% of pools) | 0.26% | 7.8% | 
+| $E(k)$ - Stake above saturation (B ADA) | 0.08 | 4.79 | 
+| $E(k)$ (% of $S$) | 0.4% | 22.4% | 
+
+Delegators in pools that become oversaturated following the increase in $k$ are expected to respond by redelegating to unsaturated pools. However, the possibility that some of this stake exits the ecosystem entirely cannot be ruled out.
+
+XXXX
+
+
+
+
+
+
+
+#### Frictions
+
+However, a mechanical increase in oversaturation does not guarantee an immediate or equivalent outflow. A slightly oversaturated pool can remain appealing if it offers lower reward variance, better fixed-cost dilution, or a strong reputation. Furthermore, identifying alternative pools requires effort: spare capacity is often fragmented across many operators, introducing search and coordination friction. Additional barriers—such as switching costs, rational inattention, or brand loyalty—can further delay adjustments, leading to persistent mild oversaturation and herding toward a small subset of pools.
 
 **1. Why a slightly oversaturated pool may remain attractive**
 
