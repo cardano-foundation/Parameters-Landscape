@@ -89,6 +89,29 @@ def draw_boxes(
     ax.set_ylim(bottom=0.0)
     ax.grid(axis="y", alpha=0.25)
 
+    # Annotate medians above each box; expand ylim for headroom.
+    tops = []
+    for i, arr in enumerate(data, start=1):
+        if arr.size == 0:
+            continue
+        med = float(np.median(arr))
+        q1, q3 = np.percentile(arr, [25.0, 75.0])
+        iqr = q3 - q1
+        top = float(min(arr.max(), q3 + 1.5 * iqr))
+        tops.append(top)
+        ax.text(
+            i,
+            top,
+            f"{med:.1f}",
+            ha="center",
+            va="bottom",
+            fontsize=FONT_SIZE - 1,
+            color="0.15",
+        )
+    if tops:
+        y_hi = max(tops)
+        ax.set_ylim(0.0, y_hi * 1.18 if y_hi > 0 else 1.0)
+
 
 def main() -> None:
     a = load_epoch(E0)
@@ -124,7 +147,8 @@ def main() -> None:
         )
     fig.suptitle(
         f"Margin reducers / increasers / no change ({E0}→{E1}): "
-        f"characteristics at epoch {E0}",
+        f"characteristics at epoch {E0}\n"
+        "(numbers above boxes are medians)",
         fontsize=FONT_SIZE + 1,
     )
     fig.savefig(OUT, dpi=200, bbox_inches="tight")
