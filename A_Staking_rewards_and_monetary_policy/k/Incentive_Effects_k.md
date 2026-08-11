@@ -89,6 +89,12 @@ Because the protocol reimburses operators for their declared fixed costs ($c_i$)
 
 ### Delegator return per unit of stake
 
+<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+  <img src="plots/delegator_reward_per_unit_vs_sigma_k_cases.png" alt="Delegator rewar per unit of stake when k changes" width="48%">
+  <img src="plots/delegator_reward_per_unit_vs_sigma_k_cases_zoom.png" alt="Zoom" width="48%">
+</div>
+
+
 Maintaining the same delegation ($x$-axis) and pledge ($y$-axis) layout as the previous figures, the following plot maps the immediate shift in delegator yield per unit of stake prior to any behavioral rebalancing (such as stake migration). As predicted by our analytical model, delegators remaining in now-oversaturated pools—those to the right of the vertical $z_0 = 38.5\text{M ADA}$ threshold—suffer immediate yield losses. Conversely, delegators aligned with pools operating near the new saturation boundary experience yield gains, with the most pronounced improvements concentrated in the high-pledge region along the upper area of the plot.
 
 <p align="center">
