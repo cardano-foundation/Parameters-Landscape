@@ -503,6 +503,9 @@ The table below reports the median theoretical delegator APR evaluated at the cu
 | Nakamoto $N$ | 160 | 268 |
 | Total stake | 21.40B ADA | 21.40B ADA |
 
+<p align="center">
+  <img src="plots/member_apr_redelegation_current_vs_after_epoch_644.png" alt="APR distribution current vs after k increment e644" width="62%">
+</p>
 
 Even under a best-case redelegation scenario—where stake from newly saturated pools is optimally reallocated following the increase in $k$—the median APR rises by only an $8\\%$ relative gain. Such a marginal increase is unlikely to incentivize new capital inflow; furthermore, because this model assumes optimal delegator behavior, it represents an upper bound on potential yield improvement.
 
