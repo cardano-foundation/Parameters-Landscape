@@ -413,6 +413,13 @@ where we used a price $0.15 USD/ADA$. The next plot shows the pools' viability c
 </p>
 
 
+The next plot shows the characteristics of the pools in each before the change in $k$.
+
+
+
+
+
+
 
 
 XXX
