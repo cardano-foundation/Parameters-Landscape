@@ -117,6 +117,16 @@ Raising $k$ does not have a direct mechanical effect in the total size of the re
 
 As past evidence of a change in $k$, there is the realized historical jump ($150\rightarrow500$, i.e., $3.33\times$) around epoch $228$. This section collects data about the consequence of that change. It is important to note that the consequences and behaviors observed in that jump do not need to replicate in a new one, since market conditions and sentiments may differ. 
 
+Key findings from this section:
+
+1. The jump in $k$ created a short-lived oversaturation shock: many pools briefly became saturated, but redelegation soon moved stake away.
+2. Delegators moved toward smaller, still-undersaturated pools, especially pools with stronger pledge and lower margins.
+3. Operators that cut margins showed better stake retention and gain outcomes than pools that kept fees unchanged.
+4. The distribution of stake became more balanced within the surviving cohort, but this is only suggestive evidence: it is not a causal estimate of the effect of the $k$ increase alone, and it coincides with a large influx of new low-stake pools and new stake into the ecosystem.
+5. The network-wide APR gain was modest and mainly reflected the exit of weak pools and the broader market shift, not a clean, direct causal effect of the parameter change.
+
+These are descriptive patterns rather than causal proof. Because many pools and new stake entered the ecosystem in the same window, we cannot isolate the direct effect of the increase in $k$ on the observed distributional improvement.
+
 Next, the section reports oversaturated-pool counts and stake above saturation $E(k)$ using the same definitions introduced in **Oversaturated stake** above.
 
 ### Aggregate system snapshot
