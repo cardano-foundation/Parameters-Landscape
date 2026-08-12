@@ -435,52 +435,74 @@ Following the increase in $k$, several pool groups experienced subtle compositio
   <img src="plots/pool_viability_k1000_bin_movers_traits_epoch_644.png" alt="Pool viability characteristics bin movers when k goes to 1000" width="62%">
 </p>
 
-
-XXX
-Entry or exit can be analyzed with the participation constraint, which needs to take into account the actual fixed costs $\hat c_i$ and opportunity costs (or outside options). Let
-
-$$
-U_i=\Pi_i-\hat c_i,
-\qquad
-\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
-\qquad
-s_i\equiv m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
-$$
-
-It follows that a pool decides to participate when
-
-$$U_i\ge \underline{U}_i \iff f_i\ge f_i^{\star} \equiv \frac{\underline{U}_i+\hat c_i-(1-s_i)c_i}{s_i},
-$$
-
-where $\underline{U}_i$ denotes the outside option. For simplicity, let's assume $\underline{U}_i=0$, however, a realistic outside option could be an annual return of $3\\%-5\\%$.
-
-Notice that if there is truthful cost reporting ($c_i=\hat c_i$), then the previous condition becomes $f_i\ge c_i$. However, we have already argued that the data do not suggest truthful reporting.
-
-Using actual data from epoch $644$, the following chart shows how many pools during that epoch are at viability risk (note that using only one epoch as a data source may not represent the actual situation of those pools). For each pool we calculate its
-
-$$
-\Pi_i=
-\begin{cases}
-f_i, & f_i\le c_i,\\
-c_i+(f_i-c_i)\left[m_i+(1-m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i>c_i,
-\end{cases}
-$$
-
-using their margin, delegation, active and declared pledge, and declared fixed cost. We consider the case in which the latter is not the actual operating cost that the pools face. In particular, we assume that all pools have the same operation cost/expenditure ($C^*) equal to $667$ USD per month (six epochs), and a token price of $0.15 USD/ADA$ giving 
-
-$$C^*=667/6/0.15=741.1 \text{ USD per epoch}.$$
-
-The plot measures $r=\Pi_i/C^{\*}$, where any $r<1$ indicates not enough rewards to cover costs. Among $2223$ pools, only $274$ would be able to cover the OpEx $C^*$. However, $150$ of them would be on a risky situation ($1\leq r\leq 2$)
-
-
 ### Pool splitting by multi-pool operators
 
 MPOs can split stake across additional pools to keep each pool closer to the new, lower $z_0$. This can increase pool count without proportionally reducing operator-level concentration. Splitting is favored by economies of scope, brand portability, and repeated fixed-cost collection, but constrained by extra operating complexity, pledge dilution across pools, and delegator-side search/coordination frictions.
-    
+
+An increase in $k$ lowers the saturation pivot $(z_0=1/k$ and can affect the incentive to operate one pool versus several through opposing channels. On one side, a lower $z_0$ caps gross reward $f(\sigma_i,p_i)$ earlier in stake, so large unsplit pools earn less per epoch and fixed cost $c_i$ is harder to cover. On the other side, smaller post-split pools allows the operator to collect more fixed-costs. Thus, raising $k$ has an ambiguous overall effect on multi-pool operation. Which effect dominates may depend on stake size relative to the new $z_0$, margins, pledge, declared costs, and realized delegation responses.
+
+We study this using a split exercise. Since we want to compare how the incentive to split is affected by an increment on $k$, we consider only the cohort of pools at epoch 644 that do not become overdsaturated after the increment in $k$ to $1000$. Otherwise, the new oversaturated pools will have trivially incentives to split.
+
+For each pool we compute theoretical
+
+$$
+\Pi_i = c_i + (f_i-c_i)\bigl[m_i+(1-m_i)\hat p_i/\sigma_i\bigr]
+\quad\text{if }f_i>c_i,\quad
+\Pi_i=f_i\text{ otherwise},
+$$
+
+with \(f_i=f(\sigma_i,p_i)\) and \(f_i=0\) if active pledge is below declared pledge.
+
+Suppose each pool becomes two halves with
+
+$$
+\sigma'=\sigma_i/2,\quad p'=\hat p'=p_i/2,\quad
+\text{same }m_i\text{ and declared }c\text{ in each half}.
+$$
+
+We compare the unsplit reward $\Pi_i$ with $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i)$.
+
+**Scenario A — current \(k=500\)**
+
+The analysis is restricted to pools with $\sigma_i \leq z_0 (k=1,000)$ ($2,483$ of $2,694$ pools; $211$ newly oversaturated pools excluded).
+
+## Cohort-restricted results
+
+| | Scenario A (k=500) | Scenario B (k=1000) |
+|:---|---:|---:|
+| Cohort  | 2,483 | 2,483 |
+| Pledge-met (active pledge larger than declared pledge)| 2,012 | 2,012 |
+| Π increases (pledge-met) | 695 (34.5%) | 694 (34.5%) |
+| Π decreases (pledge-met) | 1,143 (56.8%) | 1,147 (57.0%) |
+| Unchanged (pledge-met) | 174 (8.6%) | 171 (8.5%) |
+| Median ΔΠ | 0.00 ADA/epoch | 0.00 ADA/epoch |
+| Mean ΔΠ | 63.86 ADA/epoch | 62.66 ADA/epoch |
+
+Among unsaturated pools, raising $k$ from $500$ to $1,000$ barely shifts split incentives: a majority of pools still lose from splitting ($\approx 57\\%$). The k increment mainly reshapes incentives for pools that cross the new saturation threshold — not for those already below it.
+
+
 ### Changes in staking participation
 
-Increasing $k$ does not create a direct strong incentive for currently unstaked ADA to enter staking (as already discussed there could be some marginal gains in APR in some pools that are nea saturation after the change). It mainly changes the allocation of stake across pools by lowering the saturation threshold. Therefore, its expected effect on aggregate staking participation is small, while its effect on redelegation patterns may be substantial.
-    
+Increasing the $k$ parameter does not inherently create a strong incentive for unstaked ADA to enter the ecosystem unless the resulting redelegation alters stake distributions enough to improve overall network yield—measured here by the median APR as a metric of network attractiveness. To evaluate this effect, we compare the baseline median APR of active pools against the counterfactual median APR under an "idealized" redelegation scenario where delegators rank and select pools strictly based on desirability ($D_i$).The theoretical delegator APR for pool $i$ is computed as:
+
+$$\mathrm{APR}_i = 73\,(1-m_i)\,\frac{\max\{f(\sigma_i,p_i)-c_i,\,0\}}{\sigma_i}$$
+
+The table below reports the median theoretical delegator APR evaluated at $k=1000$ (matching the counterfactual scenario) across pledge-met pools satisfying $f_i > c_i$:
+
+
+| Quantity | Before | After redelegation |
+|:---|---:|---:|
+| Active pools | 2,694 | 2,489 |
+| Donors (\(\sigma>40\)M) | 205 | 0 |
+| Receivers (\(0<\sigma\le40\)M) | 2,489 | 2,489 |
+| Pools at cap (40M) | 26 | 490 |
+| Max pool stake | 114.2M ADA | 40.0M ADA |
+| Median pool stake | 0.10M ADA | 0.04M ADA |
+| **Median APR (\(f>c\), pledge-met) ** | **1.52%** | **1.97%** |
+| Pools with \(f>c\) (APR sample) | 941 | 736 |
+| Nakamoto \(N\) | 160 | 268 |
+| Total stake | 21.40B ADA | 21.40B ADA |
+
 
 
 
