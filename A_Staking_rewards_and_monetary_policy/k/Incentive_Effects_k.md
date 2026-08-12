@@ -1,4 +1,33 @@
 # Incentive effects of changing k
+
+## Summary: Trade-off from increasing k
+
+Increasing $k$ can help more pools compete, but it also lowers the reward ceiling for large pools and can create a temporary oversaturation shock.
+
+**Pros**
+1. More pools can fit below saturation, which helps smaller and newer pools compete.
+2. Delegators can shift toward smaller pools with stronger pledge and lower margins.
+3. Some operators can retain or gain delegation by cutting margin.
+
+**Risks**
+1. Large pools lose reward capacity once they are pushed earlier into saturation.
+2. A higher $k$ can trigger a short-lived oversaturation shock and temporary yield losses.
+3. These two factors may prompt delegators to leave the ecosystem and encourage operators to open new pools, ultimately undermining potential stake redistribution.
+
+
+**What the evidence suggests**
+1. Oversaturation was temporary and mostly faded after redelegation.
+2. Delegators moved toward smaller still-undersaturated pools.
+3. Margin reducers tended to retain or gain stake better than pools that kept fees unchanged.
+4. The network-wide APR gain was modest and partly reflected the exit of weak pools.
+5. The observations are descriptive, not causal, because new low-stake pools and new stake entered in the same period.
+
+**Policy interpretation**
+1. Higher $k$ supports small-pool entry and competition.
+2. It likely improves decentralization in a broad sense, but the evidence is suggestive rather than causal.
+3. The trade-off is between more room for small pools and weaker rewards for large ones.
+
+## Parameter values at the current state
 For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
 
 | Symbol | Parameter | Value |
