@@ -360,169 +360,38 @@ Delegators in pools that become oversaturated following the increase in $k$ are 
 </p>
 
 
-XXXX
-We use the epoch-644 snapshot with reward parameters \(T=38.764\)B ADA and \(R=14.967\)M ADA (\(a_0=0.3\)), taken from `f_reward_params_epoch_644.json`. Under a counterfactual \(k=1000\), the saturation threshold is \(z_0=T/k\approx38.764\)M ADA. Redelegation is implemented with a practical cap of \(40\)M ADA. Stake \(\sigma_i\), declared pledge \(p_i\), and \(z_0\) enter the reward formula in absolute ADA (not divided by \(T\)), using \(f(\sigma_i,p_i)=(R/T)/(1+a_0)\,[\tilde\sigma_i+a_0\tilde p_i(\tilde\sigma_i-\tilde p_i(z_0-\tilde\sigma_i)/z_0)/z_0]\) with \(\tilde\sigma_i=\min\{\sigma_i,z_0\}\) and \(\tilde p_i=\min\{p_i,z_0,\tilde\sigma_i\}\). This is equivalent to the \(T\)-normalized form and yields the same ranking. Declared pledge is `pool_update.active.pledge`; epoch stake is `epochs.0.data.epoch_stake` (fallback `active_stake`). The sample is the \(n=2694\) pools with \(\sigma_i>0\) and complete margin and fixed cost.
+Suppose that, after an increment in $k$ from $500$ to $1,000$ (which, using epoch-644 parameters, implies \(z_0=T/k\approx38.8\)M ADA since \(T=38.764\)B ADA), all delegation in pools with more than $40M$ ADA redelegate to smaller pools (that is, we assume no delegation leaves the ecosystem while we use $40M$ and not $38.8M$ for simplicity). We rank pools receiving delegation using 
 
-All stake in pools with \(\sigma_i>40\)M ADA is treated as forced to redelegate. Receiving pools are those with \(0<\sigma_i\le40\)M. Receivers are ranked by member return per ADA \(D_i=(1-m_i)\max\{f(\sigma_i,p_i)-c_i,0\}/\sigma_i\), computed at \(k=1000\), from highest to lowest desirability. Each receiver’s free space is \(40\text{M}-\sigma_i\). Donor stake is allocated in that rank order, filling each pool up to the \(40\)M cap before moving to the next. Total stake is conserved; emptied donors leave the active set.
+$$D_i=(1-m_i)\max\{f(\sigma_i,p_i)-c_i,0\}/\sigma_i.$$
 
-The comparison plot `stake_distribution_by_bin_k1000_redelegation_epoch_644.png` shows current versus post-redelegation distributions in \(5\)M-ADA bins: number of pools (with a broken \(y\)-axis from \(0\)–\(550\), then \(\approx1750\)–\(2100\)) and aggregate stake per bin. Blue bars are the current snapshot; orange bars are the counterfactual after redelegation. Rank-level detail is in `redelegation_rank_k1000_cap40M_epoch_644.csv`.
-
-Under this exercise, \(205\) donor pools hold \(12.73\)B ADA that must move. That stake is fully absorbed by \(2{,}489\) receivers (about \(90.9\)B ADA of free capacity; nothing left unallocated). Aggregate network stake remains \(21.399\)B ADA, while the number of active pools falls from \(2{,}694\) to \(2{,}489\), of which \(490\) receivers fill exactly to the \(40\)M cap. Stake disappears from bins above \(40\)M and concentrates near the cap, especially in the \(35\)–\(40\)M range. The \(0\)–\(5\)M pool count falls from \(2{,}072\) to \(1{,}935\) (a drop of \(137\)) not because small pools lose stake, but because \(137\) well-ranked receivers that started below \(5\)M absorb inflows and jump to \(40\)M; most remaining tiny pools have \(D_i=0\) and receive nothing.
-XXXX
+If all delegators were rational and there were not market frictions, stake should be redelegated in that rank order, filling each pool up to the \(40\)M cap before moving to the next. The next plot shows this idealized result. Under this exercise, $205$ pools hold $12.73B$ ADA that must move. That stake is fully absorbed by $2,489$ receivers with about $90.9B$ ADA of free capacity (this is, nothing left unredelegated). Interestingly, the $0–5M$ pool count falls because some of these small pools were well-ranked receivers that started below $5M$ ADA, absorb inflows and jump to $40M$ ADA.
 
 <p align="center">
   <img src="plots/stake_distribution_by_bin_k1000_redelegation_epoch_644.png" alt="Stake distribution by bin e644 after redelegation" width="62%">
 </p>
 
+The preceding analysis relies on stylized assumptions regarding both delegator and operator behavior. In practice, delegators do not select pools based solely on the desirability metric $D_i$; they are also influenced by brand reputation, pool loyalty, and/or herding behavior, or they may decide to complete withdrawal from the ecosystem. Similarly, operators—particularly centralized exchanges or multi-pool entities—can launch new pools and actively migrate their existing stake.
 
-#### Frictions
 
-However, a mechanical increase in oversaturation does not guarantee an immediate or equivalent outflow. A slightly oversaturated pool can remain appealing if it offers lower reward variance, better fixed-cost dilution, or a strong reputation. Furthermore, identifying alternative pools requires effort: spare capacity is often fragmented across many operators, introducing search and coordination friction. Additional barriers—such as switching costs, rational inattention, or brand loyalty—can further delay adjustments, leading to persistent mild oversaturation and herding toward a small subset of pools.
 
-**1. Why a slightly oversaturated pool may remain attractive**
 
-Consider a simplified capped-gross-reward approximation (ignoring pledge and performance differences):
-
-$$g_i(\sigma_i)=\bar{R} \min\\{\sigma_i,z_0\\},$$
-
-where $\bar{R}>0$ is a constant gross reward rate per unit of reward-bearing stake. In this reduced-form approximation, $\bar{R}$ plays the role of $f(\sigma_i,p_i)/\sigma_i$ for a sub-saturated pool when pledge and performance are held fixed. The delegator net return per unit stake is
-
-$$y_i(\sigma_i)=(1-m_i) \frac{\big[g_i(\sigma_i)-c_i\big]_+}{\sigma_i}.$$
-
-When the pool is below saturation ($\sigma_i<z_0$),
-
-$$y_i(\sigma_i)=(1-m_i)\left(\bar{R}-\frac{c_i}{\sigma_i}\right),$$
-
-so returns rise with size because fixed cost is diluted. When the pool is above saturation ($\sigma_i>z_0$),
-
-$$y_i(\sigma_i)=(1-m_i)\left(\frac{\bar{R}z_0-c_i}{\sigma_i}\right),$$
-
-so returns decline with additional stake because gross rewards are capped at $\bar{R}z_0$. Therefore, a *slightly* oversaturated pool can still dominate a much smaller unsaturated one if fixed-cost dilution and reputation/variance effects remain favorable. The next plot shows this case:
-
-<p align="center">
-<img src="plots/slightly_oversaturated_vs_small_pool.png" alt="A slightly oversaturated pool can remain preferred" width="62%">
-</p>
-
-
-<!-- A possible empirical test is to estimate delegation outflows as a function of oversaturation while controlling for expected return, reward variance, margin, fixed cost, pool age, historical performance, and operator reputation. -->
-
-**2. Fragmented capacity and search frictions.**
-
-After $k$ increases, the saturation threshold falls. Define the spare capacity of pool $j$ as
-
-$$q_j=\max\\{z_0-\sigma_j,0\\}.$$
-
-Aggregate spare capacity is
-
-$$Q=\sum_j q_j.$$
-
-However, a delegator cannot move stake into aggregate capacity. They must identify a specific pool that:
-
-1. has enough available capacity;
-2. offers an acceptable expected return;
-3. satisfies their quality, performance, or reputation requirements.
-
-For a delegator with stake $x_d$, define the set of acceptable pools as
-
-$$A_d(x_d) = \left\\{j : q_j\geq x_d \quad \text{and} \quad U_{dj}\geq U_{di}+\epsilon_d \right\\},$$
-
-where $i$ is the delegator's current pool and $\epsilon_d$ is the minimum improvement required to justify moving.
-
-Delegator-specific usable capacity is therefore
-
-$$Q_d^{use} = \sum_{j\in A_d(x_d)}q_j.$$
-
-This quantity may be much smaller than aggregate capacity $Q$. Spare capacity may be spread across many small pools, some of which:
-
-- cannot absorb the delegator's full stake;
-- have high fees or low expected returns;
-- have insufficient operating history;
-- have high reward variance;
-- are difficult to discover.
-
-Suppose that a fraction $\alpha_d$ of the pools inspected by delegator \(d\) are acceptable. After inspecting $n$ pools, the probability of finding at least one acceptable alternative is
-
-$$P_d(n) = 1-(1-\alpha_d)^n,$$
-
-which is increasing in $n$. When spare capacity is highly fragmented, $\alpha_d$ is small, and the delegator must inspect many pools before finding a suitable alternative. However, inspecting/searching is costly.
-
-**Coordination friction**
-
-Suppose several delegators identify the same attractive pool. Its remaining capacity becomes
-
-$$q_j^{\mathrm{remaining}} = q_j-\sum_{d\in D_j}x_d,$$
-
-where $D_j$ is the set of delegators moving to pool $j$.
-
-Delegators may make decisions using the initial value of $q_j$. For an incoming delegation \(x_d\), the relevant return should therefore be evaluated at the post-delegation stake:
-
-$$ y_j(\sigma_j+x_d) = (1-m_j)\,\frac{\big[\bar{R}\min\{\sigma_j+x_d,z_0\}-c_j\big]_+}{\sigma_j+x_d}. $$
-
-However, simultaneous inflows can eliminate the available capacity or push the receiving pool above saturation. This can generate:
-
-- herding toward well-known pools;
-- overshooting;
-- repeated redelegation;
-- unused capacity in less visible pools;
-- temporary oscillations around the saturation threshold.
-
-Hence, a pool close to saturation may be highly attractive for a small delegator but unattractive—or unable to accommodate the delegation without oversaturation—for a large delegator or when many small delegators arrive simultaneously to the same pool.
-
-**3. Switching costs, rational inattention, and brand loyalty.**
-
-Let
-
-$$\Delta_d = \max_j U_{dj}-U_{di}$$
-
-denote the maximum utility gain available to delegator $d$ from leaving their current pool $i$ and migrating to the pool $j$.
-
-The delegator switches only when $\Delta_d > \kappa_d,$ where $\kappa_d$ denotes switching costs . Thus, when $\kappa_d>0$, small return improvements do not justify moving.
-
-
-If $\kappa_d$ is heterogeneous across delegators with cumulative distribution $F_\kappa$, the fraction willing to switch for a gain $\Delta_d$ is $F_\kappa(\Delta_d)$.
-
-Suppose that $a_d\in[0,1]$ denotes the probability that delegator $d$ notices and evaluates the change. Thus, when $a_d<1$, some delegators do not reconsider their delegation. The probability of switching is then
-
-$$P_d(\text{switch}\mid\Delta_d)=a_d F_\kappa(\Delta_d).$$
-
-Aggregate stake leaving pool $i$ is
-
-$$M_i = \sum_{d\in i} \sigma_d a_dF_\kappa(\Delta_d),$$
-
-and a mechanical increase in oversaturation will not produce an equivalent outflow. 
-
-
-### Operators changing pledge, margin, or declared fixed cost
-
-After a rise in $k$, pools near or above the new $z_0$ face lower reward per unit of stake at the margin, which intensifies fee competition. To organize operator incentives, let
-
-$$
-f_i=f(\sigma_i,p_i),
-$$
-
-where $p_i$ is the declared pledge. If $f_i>c_i$, operator gross revenue is
-
-$$
-\Pi_i = c_i + (f_i-c_i)\left[m_i + (1-m_i)\frac{\hat p_i}{\sigma_i}\right],
-$$
-
-where $\hat p_i$ is active operator pledge and operator utility/profit is
-
-$$
-U_i = \Pi_i - \hat c_i.
-$$
-
-This makes the main strategic margins explicit:
-
-- **Margin ($m_i$):** holding stake fixed, higher $m_i$ raises operator revenue but reduces delegator return $y_i=(1-m_i)(f_i-c_i)/\sigma_i$. So margin helps short-run extraction but weakens delegation demand.
-- **Declared fixed cost ($c_i$):** higher $c_i$ mechanically raises operator take from rewarded pools, but also lowers delegator returns and competitiveness.
-- **Pledge ($p_i$, $\hat p_i$):** a higher pledge share increases operator capture ceteris paribus, but under higher $k$ the effective pledge choice is constrained by pool splitting: one pool needs less pledge to be competitive, while multi-pool expansion requires pledge to be spread across more pools.
-
-Hence, after a $k$ increase, we expect heterogeneous operator responses: some pools cut margins/costs to defend delegation, while others increase extraction and accept smaller delegated stake.
   
-### Entry or exit of pools
+### Pools viability, entry and exit.
 
-A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$ in the $500\rightarrow1000$ case. Entry is therefore more likely for low-cost operators (or operators with shared infrastructure), while high-cost marginal pools face higher exit risk.
+
+A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$ in the $500\rightarrow1000$ case. 
+
+
+
+
+
+
+
+
+
+
+XXXX
+Entry is therefore more likely for low-cost operators (or operators with shared infrastructure), while high-cost marginal pools face higher exit risk.
 
 Using $f_i=f(\sigma_i,p_i)$, we summarize entry/exit with an operator participation constraint.
 
