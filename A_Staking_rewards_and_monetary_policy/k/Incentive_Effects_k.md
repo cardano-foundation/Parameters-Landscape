@@ -376,7 +376,7 @@ The preceding analysis relies on stylized assumptions regarding both delegator a
 
 
   
-### Pools viability, entry and exit.
+### Pools viability.
 
 We study here the pools viability given the current distribution of stakes, and pools snapshot. As before, we make the exerciso of increasing $k$ from $500$ to $1,000$. A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$ in the $500\rightarrow1000$ case. 
 
@@ -479,7 +479,7 @@ MPOs can split stake across additional pools to keep each pool closer to the new
     
 ### Changes in staking participation
 
-Increasing $k$ does not create a direct incentive for currently unstaked ADA to enter staking. It mainly changes the allocation of stake across pools by lowering the saturation threshold. Therefore, its expected effect on aggregate staking participation is small, while its effect on redelegation patterns may be substantial.
+Increasing $k$ does not create a direct strong incentive for currently unstaked ADA to enter staking (as already discussed there could be some marginal gains in APR in some pools that are nea saturation after the change). It mainly changes the allocation of stake across pools by lowering the saturation threshold. Therefore, its expected effect on aggregate staking participation is small, while its effect on redelegation patterns may be substantial.
     
 
 
