@@ -429,9 +429,11 @@ The next plot shows the characteristics of the pools in each before the change i
 | Theoretical operator reward (ADA), median | 12 | 460 | 933 | 8,790 |
 | Coverage ratio \(r\), median | 0.017 | 0.620 | 1.259 | 11.860 |
 
-We have shown that after the increment in $k$ there are some groups slightly changing their composition. The following plot shows the characteristics of the entrants to different groups (groups may also have leavers but they must be entrants in other groups). 
+Following the increase in $k$, several pool groups experienced subtle compositional shifts. The following analysis examines the baseline characteristics of pools entering these distinct tiers (noting that pools departing one group necessarily appear as entrants in another). Clear structural differences emerge across viability tiers: new entrants reaching the Edge group ($1 \le r < 2$) achieved significantly higher epoch stake ($\approx 70M$ ADA median) despite operating with near-zero pledges. Conversely, entrants in losing tiers ($r < 1$) committed substantially higher capital in active and declared pledges ($\approx 150k$–$190k$ ADA), yet failed to attract delegation, remaining at lower stake levels ($\approx 55M$–$65M$ ADA median). Furthermore, Edge entrants adopted a strategy of higher variable margins ($\approx 10\\%$ median) offset by minimum fixed costs ($170$ ADA), whereas losing entrants set higher fixed costs ($340$ ADA) alongside lower variable margins ($1$–$3\\%$).
 
-
+<p align="center">
+  <img src="plots/pool_viability_k1000_bin_movers_traits_epoch_644.png" alt="Pool viability characteristics bin movers when k goes to 1000" width="62%">
+</p>
 
 
 XXX
@@ -471,73 +473,6 @@ $$C^*=667/6/0.15=741.1 \text{ USD per epoch}.$$
 The plot measures $r=\Pi_i/C^{\*}$, where any $r<1$ indicates not enough rewards to cover costs. Among $2223$ pools, only $274$ would be able to cover the OpEx $C^*$. However, $150$ of them would be on a risky situation ($1\leq r\leq 2$)
 
 
-
-
-
-
-XXXX
-Entry is therefore more likely for low-cost operators (or operators with shared infrastructure), while high-cost marginal pools face higher exit risk.
-
-Using $f_i=f(\sigma_i,p_i)$, we summarize entry/exit with an operator participation constraint.
-
-If $f_i>c_i$, operator gross revenue is
-
-$$
-\Pi_i = c_i + (f_i-c_i)\left[m_i + (1-m_i)\frac{\hat p_i}{\sigma_i}\right],
-$$
-
-and utility is $U_i=\Pi_i-\hat c_i$. Pool $i$ remains active when $U_i\geq 0$, equivalently when $\Pi_i\geq \hat c_i$.
-
-This implies
-
-$$
-f_i\geq f_i^E\equiv c_i+\frac{\hat c_i-c_i}{\left[m_i + (1-m_i)\frac{\hat p_i}{\sigma_i}\right]}.
-$$
-
-Hence, $f_i^E$ is the minimum gross reward required for viability.
-
-The direct effect of increasing $k$ comes from the reward ceiling. With $z_0(k)=1/k$ (or $T/k$ in ADA units), a useful upper bound is
-
-$$
-\bar f(k)\approx\frac{R}{k}.
-$$
-
-So a necessary viability condition is $R/k\geq f_i^E$, and a pool-specific limit is
-
-$$
-k_i^{\max}=\frac{R}{f_i^E}.
-$$
-
-Pools with
-
-$$
-\frac{R}{1000}<f_i^E\leq\frac{R}{500}
-$$
-
-can be viable under $k=500$ but not under $k=1000$, even if saturated.
-
-This ceiling effect is not the full story, because delegation reallocates after the shock. Let $\sigma_i(k)$ be post-adjustment stake. Then
-
-$$
-\Pi_i(k) = c_i + \left[f\big(\sigma_i(k),p_i\big)-c_i\right]\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i(k)}\right],
-$$
-
-and therefore
-
-$$
-U_i(k)=\Pi_i(k)-\hat c_i.
-$$
-
-For weak subsaturated pools, incoming delegation can improve viability while $\partial f_i/\partial\sigma_i>0$. Once saturated, $\partial f_i/\partial\sigma_i=0$, so extra stake no longer relaxes the participation constraint.
-
-At equilibrium, if $A(k)$ is the active set,
-
-$$
-U_i(k)\geq 0\quad\text{for }i\in A(k),
-$$
-
-and non-active pools cannot profitably enter under their best response. The central prediction is therefore: **more active pools, but less than a proportional increase in $k$**, with entry concentrated among low-cost and shared-infrastructure operators rather than necessarily among new independent operators.
-    
 ### Pool splitting by multi-pool operators
 
 MPOs can split stake across additional pools to keep each pool closer to the new, lower $z_0$. This can increase pool count without proportionally reducing operator-level concentration. Splitting is favored by economies of scope, brand portability, and repeated fixed-cost collection, but constrained by extra operating complexity, pledge dilution across pools, and delegator-side search/coordination frictions.
