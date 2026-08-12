@@ -378,12 +378,78 @@ The preceding analysis relies on stylized assumptions regarding both delegator a
   
 ### Pools viability, entry and exit.
 
+We study here the pools viability given the current distribution of stakes, and pools snapshot. As before, we make the exerciso of increasing $k$ from $500$ to $1,000$. A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$ in the $500\rightarrow1000$ case. 
 
-A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$ in the $500\rightarrow1000$ case. 
+Let
+
+$$
+U_i=\Pi_i-\hat c_i,
+\qquad
+\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
+\qquad
+s_i\equiv m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1],
+$$
+
+where $\hat c_i$ denotes the actual fixed costs.
+
+For each pool we calculate its
+
+$$
+\Pi_i=
+\begin{cases}
+f_i, & f_i\le c_i,\\
+c_i+(f_i-c_i)\left[m_i+(1-m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i>c_i,
+\end{cases}
+$$
+
+using their margin, delegation, active and declared pledge, and declared fixed cost in epoch $644$. We do not assume truthful reporting of the cost, i.e., the declared fixed cost is not the actual operating cost that the pools face. In contrast, we assume that all pools have the same operation cost/expenditure ($C^*=\hat c_i$ for all $i$) equal to $667$ USD per month (six epochs), or  
+
+$$C^*=667/6/0.15=741.1 \text{ USD per epoch},$$
+
+where we used a price $0.15 USD/ADA$. The next plot shows the pools' viablity comparison for $k=500$ and $k=1,000$ before any redelegation occurs. Note the improvement in the viability across most of the bins eventhough the increment in $k$ reduces pool revuenes.
+
+<p align="center">
+  <img src="plots/stake_distribution_by_bin_k1000_redelegation_epoch_644.png" alt="Stake distribution by bin e644 after redelegation" width="62%">
+</p>
 
 
 
 
+XXX
+Entry or exit can be analyzed with the participation constraint, which needs to take into account the actual fixed costs $\hat c_i$ and opportunity costs (or outside options). Let
+
+$$
+U_i=\Pi_i-\hat c_i,
+\qquad
+\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
+\qquad
+s_i\equiv m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
+$$
+
+It follows that a pool decides to participate when
+
+$$U_i\ge \underline{U}_i \iff f_i\ge f_i^{\star} \equiv \frac{\underline{U}_i+\hat c_i-(1-s_i)c_i}{s_i},
+$$
+
+where $\underline{U}_i$ denotes the outside option. For simplicity, let's assume $\underline{U}_i=0$, however, a realistic outside option could be an annual return of $3\\%-5\\%$.
+
+Notice that if there is truthful cost reporting ($c_i=\hat c_i$), then the previous condition becomes $f_i\ge c_i$. However, we have already argued that the data do not suggest truthful reporting.
+
+Using actual data from epoch $644$, the following chart shows how many pools during that epoch are at viability risk (note that using only one epoch as a data source may not represent the actual situation of those pools). For each pool we calculate its
+
+$$
+\Pi_i=
+\begin{cases}
+f_i, & f_i\le c_i,\\
+c_i+(f_i-c_i)\left[m_i+(1-m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i>c_i,
+\end{cases}
+$$
+
+using their margin, delegation, active and declared pledge, and declared fixed cost. We consider the case in which the latter is not the actual operating cost that the pools face. In particular, we assume that all pools have the same operation cost/expenditure ($C^*) equal to $667$ USD per month (six epochs), and a token price of $0.15 USD/ADA$ giving 
+
+$$C^*=667/6/0.15=741.1 \text{ USD per epoch}.$$
+
+The plot measures $r=\Pi_i/C^{\*}$, where any $r<1$ indicates not enough rewards to cover costs. Among $2223$ pools, only $274$ would be able to cover the OpEx $C^*$. However, $150$ of them would be on a risky situation ($1\leq r\leq 2$)
 
 
 
