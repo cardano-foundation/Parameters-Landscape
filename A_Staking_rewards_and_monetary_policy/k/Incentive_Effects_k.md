@@ -419,7 +419,17 @@ The next plot shows the characteristics of the pools in each before the change i
   <img src="plots/pool_viability_losing_vs_edge_traits_epoch_644_644.png" alt="Pool viability characteristics" width="62%">
 </p>
 
+| | Losing \(r<0.5\) (n=1624) | Losing \(0.5\leq r<1\) (n=325) | Edge (n=150) | Comfortable+Strong (n=124) |
+|---|---:|---:|---:|---:|
+| Epoch stake (M ADA), median | 0.04 | 14.53 | 38.29 | 35.94 |
+| Active pledge (k ADA), median | 2.1 | 68.9 | 8.0 | 429.0 |
+| Declared pledge (k ADA), median | 1.0 | 50.0 | 0.1 | 10.0 |
+| Declared fixed cost (ADA), median | 340 | 340 | 340 | 340 |
+| Margin (%), median | 1.0 | 2.0 | 5.0 | 100.0 |
+| Theoretical operator reward (ADA), median | 12 | 460 | 933 | 8,790 |
+| Coverage ratio \(r\), median | 0.017 | 0.620 | 1.259 | 11.860 |
 
+We have shown that after the increment in $k$ there are some groups slightly changing their composition. The following plot shows the characteristics of the entrants to different groups (groups may also have leavers but they must be entrants in other groups). 
 
 
 
