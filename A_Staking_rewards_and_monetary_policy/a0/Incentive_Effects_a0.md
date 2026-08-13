@@ -39,9 +39,14 @@ where $\hat{p}_i$ denotes the operator's active pledge, m_i\in[0,1)$ the margin 
 
 When $a_0=0$, declared pledge has no role and the gross pool reward depends only in the delegation/staking level:
 
-$$f(\sigma_i,p_i) = \frac{R\sigma_i}{1+a_0},$$
+$$f(\sigma_i,p_i) = R\sigma_i$$
 
-while, as $a_0$ increases, pools with more declared pledge receive higher rewards than otherwise comparable low-declared-pledge pools. 
+Increasing $a_0$ has a dual effect. From one side, pools with more declared pledge receive higher rewards than otherwise comparable low-declared-pledge pools. However, a higher $a_0$ also reduces the fraction of $R$ to distribute. The second effect is stronger:
+
+$$\frac{\partial f}{\partial a_0}v= -\frac{R}{(1+a_0)^2} \left[ \tilde{\sigma}_i \left( 1-\frac{\tilde{p}_i}{z_0} \right)+\frac{\tilde{p}_i^2}{z_0}\left(1-\frac{\tilde{\sigma}_i}{z_0}\right)\right]\leq 0
+$$
+
+with equality when $$\tilde{p}_i=\tilde{\sigma}_i=z_0.$$
 
 The active pledge role is to determine the operator contribution to total pool stake.
 
