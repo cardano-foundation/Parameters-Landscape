@@ -16,15 +16,38 @@ For the numerical analysis in this section, we use the parameter values below un
 
 ## Design
 
-The parameter $a_0$ determines how strongly a pool’s **declared** pledge affects its rewards. We need to distibguish between declared pledge $p_i$ and active pledge $\hat{p}_i$.
+The parameter $a_0$ determines how strongly a pool’s **declared** pledge affects its rewards. We need to distinguish between declared pledge $p_i$ and active pledge $\hat{p}_i$. The gross reward of pool $i$ is given by:
 
+$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right],$$
 
+where
+ $$\tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
 
+and **the pool operator $i$ utility** is:
 
+$$
+U_i=
+\begin{cases}
+\underbrace{c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right]}_{\Pi_i=\text{Operator gross revenue}}-\hat{c}_i, & \text{if } f(\sigma_i,p_i)>c_i, \\
+f(\sigma_i,p_i)-\hat{c}_i, & \text{otherwise}
+\end{cases}
+$$
 
-When $a_0=0$, declared pledge has no special role beyond contributing to total pool stake. As $a_0$ increases, pools with more declared pledge receive higher rewards than otherwise comparable low-declared-pledge pools.
+where $\hat{p}_i$ denotes the operator's active pledge, m_i\in[0,1)$ the margin or pool's commission, $c_i$ the declared fixed cost, and $\hat{c}_i$ the actual fixed cost.
 
-Without a pledge incentive, an operator with little capital could attract large amounts of delegation or create several pools while committing little stake of their own. A higher $a_0$ makes such strategies more costly because an operator splitting into multiple pools may also need to divide their declared pledge to be attractive, reducing the reward potential of each pool. It therefore strengthens Sybil resistance and encourages operators to have more “skin in the game.”
+> **Note:** The parameter $z_0$, and variables $\sigma_i$ and $p_i$ enter the formulas as relative fractions of the total supply $T$ (for example, $z_0 = T/k$ simplifies to $1/k$ when normalized), whereas $R$ is measured in absolute ADA. With a slight abuse of notation, we use the same symbols regardless of whether these values are normalized. Consequently, the formula yields the fraction of the reward pot $R$ awarded to pool $i$ in that epoch. A pool whose active pledge falls below its declared pledge receives $f(\sigma_i, p_i) = 0$.
+
+When $a_0=0$, declared pledge has no role and the gross pool reward depends only in the delegation/staking level:
+
+$$f(\sigma_i,p_i) = \frac{R\sigma_i}{1+a_0},$$
+
+while, as $a_0$ increases, pools with more declared pledge receive higher rewards than otherwise comparable low-declared-pledge pools. 
+
+The active pledge role is to determine the operator contribution to total pool stake.
+
+Without a declared pledge incentive $a_0$, an operator with little capital could attract large amounts of delegation or create several pools while committing little stake of their own. 
+
+A higher $a_0$ makes such strategies more costly because an operator splitting into multiple pools may also need to divide their declared pledge to be attractive, reducing the reward potential of each pool. It therefore strengthens Sybil resistance and encourages operators to have more “skin in the game.”
 
 The main trade-off is between Sybil resistance and accessibility. A higher $a_0$ discourages highly leveraged and multi-pool strategies, but it also favors wealthy operators and makes it harder for operators with limited capital to compete. A lower $a_0$ reduces barriers to entry and allows competition to depend more on performance, costs, and margins, but provides weaker protection against operators controlling large amounts of delegated stake with little declared pledge.
 
