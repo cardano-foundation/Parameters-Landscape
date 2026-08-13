@@ -16,7 +16,14 @@ For the numerical analysis in this section, we use the parameter values below un
 
 ## Design
 
-The parameter $a_0$ determines how strongly a pool’s **declared** pledge affects its rewards. We need to distinguish between declared pledge $p_i$ and active pledge $\hat{p}_i$. The gross reward of pool $i$ is given by:
+The parameter $a_0$ plays a central role in the reward scheme by determining how strongly a pool’s declared pledge ($p_i$) influences its gross pool rewards. $a_0$ incentivizes pool operators to commit their own capital—giving them "skin in the game"—and serves as a primary defense against Sybil attacks.
+
+Without the $a_0$ pledge incentive, an operator with little capital may attract large amounts of delegation or spin up multiple pools while committing negligible stake of their own. A higher $a_0$ makes these strategies costly: an operator attempting to split their pool into multiple ones while keeping them attractive for delegators, must also divide their declared pledge. However, the latter precisely reduces the reward potential—and thus the attractiveness to delegators—of each pool. Ultimately, setting $a_0$ involves a fundamental trade-off between Sybil resistance and accessibility: A higher $a_0$ strengthens Sybil resistance and discourages heavily leveraged or multi-pool strategies, but it inherently favors wealthy operators, raising barriers to entry for those with limited capital. A lower $a_0$ lowers barriers to entry and allows pools to compete more on performance, fees, and operational efficiency, but it provides weaker protection against operators controlling large amounts of delegated stake with little declared pledge.
+
+## Direct mechanical effects 
+In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus). 
+
+The gross reward of pool $i$ is given by:
 
 $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right],$$
 
@@ -47,20 +54,6 @@ $$\frac{\partial f}{\partial a_0}v= -\frac{R}{(1+a_0)^2} \left[ \tilde{\sigma}_i
 $$
 
 with equality when $$\tilde{p}_i=\tilde{\sigma}_i=z_0.$$
-
-The active pledge role is to determine the operator contribution to total pool stake.
-
-Without a declared pledge incentive $a_0$, an operator with little capital could attract large amounts of delegation or create several pools while committing little stake of their own. 
-
-A higher $a_0$ makes such strategies more costly because an operator splitting into multiple pools may also need to divide their declared pledge to be attractive, reducing the reward potential of each pool. It therefore strengthens Sybil resistance and encourages operators to have more “skin in the game.”
-
-The main trade-off is between Sybil resistance and accessibility. A higher $a_0$ discourages highly leveraged and multi-pool strategies, but it also favors wealthy operators and makes it harder for operators with limited capital to compete. A lower $a_0$ reduces barriers to entry and allows competition to depend more on performance, costs, and margins, but provides weaker protection against operators controlling large amounts of delegated stake with little declared pledge.
-
-
-## Direct mechanical effects 
-In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus). 
-
-
 ### Gross pool rewards
 
 We study this using the partial derivative, which measures how $f(\sigma_i,p_i)$ changes when $a_0$ changes while all other variables are held constant. Since
