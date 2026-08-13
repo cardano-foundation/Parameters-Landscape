@@ -16,7 +16,13 @@ For the numerical analysis in this section, we use the parameter values below un
 
 ## Design
 
-The parameter $a_0$ determines how strongly a pool’s **declared** pledge $p_i$ affects its rewards. When $a_0=0$, pledge has no special role beyond contributing to total pool stake. As $a_0$ increases, pools with more declared pledge receive higher rewards than otherwise comparable low-declared-pledge pools.
+The parameter $a_0$ determines how strongly a pool’s **declared** pledge affects its rewards. We need to distibguish between declared pledge $p_i$ and active pledge $\hat{p}_i$.
+
+
+
+
+
+When $a_0=0$, declared pledge has no special role beyond contributing to total pool stake. As $a_0$ increases, pools with more declared pledge receive higher rewards than otherwise comparable low-declared-pledge pools.
 
 Without a pledge incentive, an operator with little capital could attract large amounts of delegation or create several pools while committing little stake of their own. A higher $a_0$ makes such strategies more costly because an operator splitting into multiple pools may also need to divide their declared pledge to be attractive, reducing the reward potential of each pool. It therefore strengthens Sybil resistance and encourages operators to have more “skin in the game.”
 
