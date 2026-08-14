@@ -72,13 +72,13 @@ The following heatmaps illustrate this dynamic. Total pool stake $\sigma_i$ is m
 
 ![Heatmap Operator Reward when a0 changes](plots/heatmap_operator_reward_a0_cases.png)
 
-The difference heatmap shows that, over a broad range of stake levels, increasing pledge does not fully compensate for an increase in $a_0$. To understand why, first consider a saturated pool ($\sigma_i=z_0$):
+The difference heatmap shows that, over a broad range of stake levels, increasing $p_i$ does not fully compensate for an increase in $a_0$. To understand why, first consider a saturated pool ($\sigma_i=z_0$):
   
 $$f(z_0,p_i) = \frac{R}{1+a_0}\bigl(z_0+a_0 p_i\bigr).$$
 
 Increasing $a_0$ introduces two competing mechanical forces on $f(z_0,p_i)$:
 1. The scaling factor $\frac{1}{1+a_0}$ reduces baseline rewards.
-2. The term $a_0p_i$ gives greater weight to pledge, mitigating this reduction as $p_i$ increases and fully offsetting it when $p_i=z_0$.
+2. The term $a_0p_i$ gives greater weight to declared pledge, mitigating the previous effect as $p_i$ increases and fully offsetting it when $p_i=z_0$.
 
 For operator gross revenue, we have
 
@@ -90,7 +90,7 @@ Hence, the change in **operator gross revenue** (and, equivalently, in operator 
 
 $$\Delta \Pi_i=\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right]\Delta f(\sigma_i,p_i)=\Delta U_i.$$
     
-As active operator pledge rises, the operator capture share $m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}$ rises toward $1$. Thus, even though the absolute reduction in pool gross rewards, $|\Delta f|$, becomes smaller, the operator bears a larger share of that reduction. Consequently, $\Delta\Pi_i$ can become more negative even while $\Delta f$ becomes less negative.
+When the active pledge rises, the share $m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}$ rises toward $1$. Thus, even though the absolute reduction in pool gross rewards, $|\Delta f|$, becomes smaller, the operator bears a larger share of that reduction. Consequently, $\Delta\Pi_i$ can become more negative even while $\Delta f$ becomes less negative.
 
 Away from saturation—for example, when $\sigma_i=50\text{M ADA}$—the decline in $f$ is never fully offset as pledge increases. As a result, $\Delta\Pi_i$ may remain increasingly negative throughout the pledge range.
 
