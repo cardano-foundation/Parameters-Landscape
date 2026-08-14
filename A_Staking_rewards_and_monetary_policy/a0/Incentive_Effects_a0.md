@@ -104,7 +104,12 @@ Bottom line: Higher pledge cushions the decline in the pool gross reward functio
 
 ### Delegator return per unit of stake
 
-The following heatmaps show the return received by delegators per unit of stake. Total pool stake $\sigma_i$ is displayed on the $x$-axis and operator pledge $p_i$ on the $y$-axis, while the grey region represents the infeasible domain $p_i > \sigma_i$. The left and center panels report delegator returns under $a_0 = 0.3$ and $a_0 = 0.6$, respectively. The right panel shows the direct change resulting from the increase in $a_0$. Red regions indicate a reduction in delegator returns, with darker shades representing larger losses.
+The following heatmaps show the return received by delegators per unit of stake
+
+
+$$(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}.$$
+
+Total pool stake $\sigma_i$ is displayed on the $x$-axis and operator pledge $p_i$ on the $y$-axis, while the grey region represents the infeasible domain $p_i > \sigma_i$. The left and center panels report delegator returns under $a_0 = 0.3$ and $a_0 = 0.6$, respectively. The right panel shows the direct change resulting from the increase in $a_0$. Red regions indicate a reduction in delegator returns, with darker shades representing larger losses.
 
 ![Heatmap Delegator Reward when a0 changes](plots/heatmap_delegator_reward_a0_cases.png)
 
@@ -118,7 +123,7 @@ and, when $a_0$ changes, the direct change in the delegator return is
 
 $$\Delta r_i^{D} = \frac{1-m_i}{\sigma_i} \Delta f(\sigma_i,p_i).$$
 
-Consequently, higher pledge mitigates the negative effect of an increase in $a_0$ on delegator returns, even though it may amplify the reduction in operator gross revenue.
+Since $f(\sigma_i,p_i)$ increases with $p_i$, a higher pledge mitigates the negative effect of an increase in $a_0$ on delegator returns, even though it may amplify the reduction in operator gross revenue.
 
   
 ### Reward-pot and treasury flows
@@ -138,21 +143,20 @@ An analysis of epoch 644 demonstrates how varying $a_0$ influences reserve rewar
 This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions **given the current state**.
 
 Changing $a_0$ can affect not only current rewards but also the rank of pools, how much pledge they commit, how they set fees, and where delegation ultimately concentrates.
-
     
 ### Rational behavior
 
-We start from a frictionless baseline consistent with the reward-sharing analysis: forward-looking (non-myopic) players, truthful fixed-cost declaration ($c_i=\hat c_i$), and no strategic changes in declared cost after the parameter shock ($dc_i=0$).
+We start from a frictionless baseline consistent with the reward-sharing analysis: forward-looking (non-myopic) players, truthful fixed-cost declaration ($c_i=\hat c_i$), and no strategic changes in declared cost after the parameter shock.
 
-Under this baseline, ranking for competitive pools is driven by expected saturated outcomes. A convenient proxy is
+Under this baseline, ranking for competitive pools is driven by saturated outcomes:
 
 $$
 P_i(a_0)=f(z_0,p_i)-c_i,
 \qquad
-D_i(a_0)=(1-m_i)\,[P_i(a_0)]_+.
+D_i(a_0)=(1-m_i)P_i(a_0) \quad (\text{if } f(z_0,p_i)>c_i ).
 $$
 
-For saturated pools,
+where,
 
 $$
 f(z_0,p_i)=\frac{R}{1+a_0}(z_0+a_0p_i),
@@ -160,13 +164,9 @@ f(z_0,p_i)=\frac{R}{1+a_0}(z_0+a_0p_i),
 \frac{\partial f(z_0,p_i)}{\partial a_0}=\frac{R(p_i-z_0)}{(1+a_0)^2}\le 0.
 $$
 
-Hence, increasing $a_0$ usually lowers absolute rewards, but less so for high-pledge pools. Relative ordering shifts according to
+Hence, increasing $a_0$ lowers rewards, but less so for high-pledge pools. Hence, a change in $a_0$ may change the rank of pools, induce redelegation, and operators responses. 
 
-$$
-P_i(a_0)-P_j(a_0)=\frac{Ra_0}{1+a_0}(p_i-p_j)-(c_i-c_j),
-$$
 
-so pledge differences receive more weight relative to cost differences.
 
 #### Skin-in-the-game and external delegation ($a_0$ motivation)
 
