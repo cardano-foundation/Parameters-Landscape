@@ -167,10 +167,14 @@ $$
 Hence, increasing $a_0$ lowers gross pool rewards $f()$, but less so for high-pledge pools. As a consequence, a change in $a_0$ may change the rank of pools, induce redelegation, and operators responses. 
 
 
+#### Delegators moving stakes
 
 
 
-### Operator margin and fixed cost choices vs declared pledge
+
+#### Operator changes in pledge, margin and or fixed costs
+
+margin and fixed cost choices vs declared pledge
 
 Since the parameter $a_0$ favours those pools with more declared pledge, we could ask whether those pools with high declared pledge choose lower fees (margin and declared fixed cost) to increase their attractiveness for delegators. The following plots show that this correlation is very weak. On the other hand, the data do not support “high pledge → higher fees” (because high pledge makes the pool competitive, opening the door to keep higher fees without losing stake). The sign goes (weakly) against that.
 
@@ -198,7 +202,7 @@ $$
 
 which captures that pricing and pledge choices are made jointly with their induced stake response. Low-pledge operators are pushed to increase pledged capital and/or reduce margins to retain delegation.-->
 
-### Changes in staking participation.
+#### Changes in staking participation.
 
 We first study the relationship between the level of skin-in-the-game (declared pledge) and external delegation (this is, that delegation that is not active pledge). This helps us to understand whether incentivizing more declared pledge could boost the staking level.
 
@@ -207,6 +211,8 @@ As stated above, the inclusion of $a_0$ in the design aims to put weight in the 
 <p align="center">
   <img src="plots/delegation_vs_declared_pledge_epoch_644.png" alt="Helps a0 in making declared pledge a driver for delegation?" width="62%">
 </p>
+
+Now, we measure the effect of the change of $a_0$ in APR using:
 
 
 
