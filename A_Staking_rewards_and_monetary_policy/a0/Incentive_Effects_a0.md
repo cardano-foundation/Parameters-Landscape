@@ -214,6 +214,8 @@ As stated above, the inclusion of $a_0$ in the design aims to put weight in the 
 
 Now, we measure the effect of the change of $a_0$ in APR using:
 
+$$\text{APR}_i \approx 73(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}$$
+
 
 
 
