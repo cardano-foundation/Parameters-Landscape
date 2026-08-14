@@ -164,7 +164,7 @@ f(z_0,p_i)=\frac{R}{1+a_0}(z_0+a_0p_i),
 \frac{\partial f(z_0,p_i)}{\partial a_0}=\frac{R(p_i-z_0)}{(1+a_0)^2}\le 0.
 $$
 
-Hence, increasing $a_0$ lowers rewards, but less so for high-pledge pools. Hence, a change in $a_0$ may change the rank of pools, induce redelegation, and operators responses. 
+Hence, increasing $a_0$ lowers gross pool rewards $f()$, but less so for high-pledge pools. As a consequence, a change in $a_0$ may change the rank of pools, induce redelegation, and operators responses. 
 
 
 
