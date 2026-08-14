@@ -168,34 +168,9 @@ Hence, increasing $a_0$ lowers gross pool rewards $f()$, but less so for high-pl
 
 
 
-#### Skin-in-the-game and external delegation ($a_0$ motivation)
-
-As stated above, the inclusion of $a_0$ in the design aims to put weight in the skin-in-the-game of opertors. This is done by prizing the declared pledge. To examine whether higher operator declared pledge attract greater external delegation, next plot shows third-party delegation against declared pledge across $n = 2,123$ active pools in epoch 644 on a log-log scale. The OLS regression yield a slope of just $0.18$, indicating a very inelastic relationship: A $100\\%$ increase in declared pledge is associated with only an $18\\%$ increase in third-party delegation. There is substantial delegation leverage at low declared pledges: Even pools with modest declared pledges attract multi-million ADA third-party delegations.
-
-<p align="center">
-  <img src="plots/delegation_vs_declared_pledge_epoch_644.png" alt="Helps a0 in making declared pledge a driver for delegation?" width="62%">
-</p>
 
 
-
-
-<!-- We expect delegators to reallocate toward pools with higher expected return per unit stake,
-
-$$
-(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i}.
-$$
-
-SupposeLet the post-shock delegation update be
-
-$$
-\Delta \sigma_i^D=\eta\,\sigma_i\big(r_i^D-\bar r^D\big),
-\qquad
-\sigma_i'=\sigma_i+\Delta \sigma_i^D,
-$$
-
-with $\bar r^D$ the stake-weighted market benchmark. After an increase in $a_0$, high-pledge pools tend to have higher relative $r_i^D$, so they receive positive net flows in this benchmark.-->
-
-#### Operator margin and fixed cost choices vs declared pledge
+### Operator margin and fixed cost choices vs declared pledge
 
 Since the parameter $a_0$ favours those pools with more declared pledge, we could ask whether those pools with high declared pledge choose lower fees (margin and declared fixed cost) to increase their attractiveness for delegators. The following plots show that this correlation is very weak. On the other hand, the data do not support “high pledge → higher fees” (because high pledge makes the pool competitive, opening the door to keep higher fees without losing stake). The sign goes (weakly) against that.
 
@@ -223,102 +198,31 @@ $$
 
 which captures that pricing and pledge choices are made jointly with their induced stake response. Low-pledge operators are pushed to increase pledged capital and/or reduce margins to retain delegation.-->
 
-#### Entry or exit of pools
+### Changes in staking participation.
 
-Entry and survival follow participation constraints evaluated at post-redelegation stake:
+We first study the relationship between the level of skin-in-the-game (declared pledge) and external delegation (this is, that delegation that is not active pledge). This helps us to understand whether incentivizing more declared pledge could boost the staking level.
+
+As stated above, the inclusion of $a_0$ in the design aims to put weight in the skin-in-the-game of operators. This is done by prizing the declared pledge. To examine whether higher operator declared pledge attract greater external delegation, next plot shows third-party delegation against declared pledge across $n = 2,123$ active pools in epoch 644 on a log-log scale. The OLS regression yield a slope of just $0.18$, indicating a very inelastic relationship: A $100\\%$ increase in declared pledge is associated with only an $18\\%$ increase in third-party delegation. There is substantial delegation leverage at low declared pledges: Even pools with modest declared pledges attract multi-million ADA third-party delegations.
+
+<p align="center">
+  <img src="plots/delegation_vs_declared_pledge_epoch_644.png" alt="Helps a0 in making declared pledge a driver for delegation?" width="62%">
+</p>
+
+
+
+
+<!-- We expect delegators to reallocate toward pools with higher expected return per unit stake,
 
 $$
-U_i\big(a_0,\sigma_i'\big)\ge 0,
+(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i}.
+$$
+
+SupposeLet the post-shock delegation update be
+
+$$
+\Delta \sigma_i^D=\eta\,\sigma_i\big(r_i^D-\bar r^D\big),
 \qquad
-U_i^{\text{entry}}\big(a_0,\sigma_i'\big)-F_i\ge 0,
+\sigma_i'=\sigma_i+\Delta \sigma_i^D,
 $$
 
-where $\sigma_i'=\sigma_i+\Delta\sigma_i^D$ and $F_i$ is setup/friction cost. This combines the direct impact of $a_0$ through $f(\cdot)$ and the indirect impact through redelegation from previous channels.
-
-#### Pool splitting by multi-pool operators
-
-For an MPO operating $n$ pools with total pledge $P$, a simple feasibility condition is
-
-$$
-\hat p_j=\frac{P}{n},
-\qquad
-\Pi^{\text{MPO}}(n)=\sum_{j=1}^{n}\Pi_j\big(a_0,\hat p_j,\sigma_j'\big),
-$$
-
-and splitting is attractive only if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Higher $a_0$ makes low $\hat p_j$ more costly in ranking terms, raising the capital requirement for expansion.
-
-#### Changes in staking participation
-
-Let total staking participation be $S=\sum_i\sigma_i$. A compact reduced-form response is
-
-$$
-\Delta S=\chi\,\big(\bar r_{\text{exp}}-r_{\text{alt}}\big),
-$$
-
-where $\bar r_{\text{exp}}$ is expected aggregate staking return after the policy change and $r_{\text{alt}}$ is the outside option return. This clarifies that the first-order effect of $a_0$ is mostly reallocative, with aggregate participation changing only if expected net returns versus alternatives move enough.
-
-### Behavioral deviations from the rational benchmark
-
-We now introduce frictions that can change the speed and shape of the same five channels.
-
-#### Delegators moving stake
-
-Search costs, inattention, and brand/reputation effects slow migration. One simple frictional law of motion is
-
-$$
-\Delta \sigma_i^{\text{obs}}=\lambda_i\,\Delta \sigma_i^D,
-\qquad 0<\lambda_i<1,
-$$
-
-so realized reallocations are a scaled-down version of the rational benchmark.
-
-#### Operators changing pledge, margin, or declared fixed cost
-
-With bounded rationality and experimentation, operators may only partially adjust each epoch:
-
-$$
-m_{i,t+1}=m_{i,t}+\rho_m\big(m_i^{\*}-m_{i,t}\big),
-\qquad
-\hat p_{i,t+1}=\hat p_{i,t}+\rho_p\big(\hat{p}_i^{\*}-\hat p_{i,t}\big),
-$$
-
-with $0<\rho_m,\rho_p\le 1$. If $\rho_p<\rho_m$, margins move faster than pledge, generating transitional pricing cycles.
-
-#### Entry or exit of pools
-
-Operational inertia and uncertainty can be represented with hysteresis thresholds:
-
-$$
-U_i(a_0,\sigma_i')<-H_i^{\text{exit}},
-\qquad
-U_i^{\text{entry}}(a_0,\sigma_i')>H_i^{\text{entry}},
-$$
-
-with $H_i^{\text{entry}},H_i^{\text{exit}}>0$. This allows weak pools to persist and delays both entry and exit relative to the frictionless benchmark.
-
-#### Pool splitting by multi-pool operators
-
-If MPOs face coordination and infrastructure frictions, net expansion value can be written as
-
-$$
-V^{\text{split}}(n)=\Pi^{\text{MPO}}(n)-K(n),
-$$
-
-where $K(n)$ is increasing and convex. MPOs with lower marginal $K'(n)$ can still split effectively under higher $a_0$, especially when they reallocate internal stake quickly.
-
-#### Changes in staking participation
-
-Behavioral salience can be captured by weighting short-run and long-run returns differently:
-
-$$
-\Delta S_t=\chi_s\big(r_t-r_{\text{alt},t}\big)+\chi_l\,\mathbb E_t\!\left[\sum_{h\ge 1}\beta^h\big(r_{t+h}-r_{\text{alt},t+h}\big)\right],
-$$
-
-with $\chi_s>\chi_l$ under short-term salience. This yields participation responses that can be stronger in the short run than in the rational benchmark.
-
-#### Decentralization
-
-
-
-
-
+with $\bar r^D$ the stake-weighted market benchmark. After an increase in $a_0$, high-pledge pools tend to have higher relative $r_i^D$, so they receive positive net flows in this benchmark.-->
