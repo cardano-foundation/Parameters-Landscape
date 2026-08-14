@@ -44,6 +44,8 @@ where $\hat{p}_i$ denotes the operator's active pledge, m_i\in[0,1)$ the margin 
 
 > **Note:** The parameter $z_0$, and variables $\sigma_i$ and $p_i$ enter the formulas as relative fractions of the total supply $T$ (for example, $z_0 = T/k$ simplifies to $1/k$ when normalized), whereas $R$ is measured in absolute ADA. With a slight abuse of notation, we use the same symbols regardless of whether these values are normalized. Consequently, the formula yields the fraction of the reward pot $R$ awarded to pool $i$ in that epoch. A pool whose active pledge falls below its declared pledge receives $f(\sigma_i, p_i) = 0$.
 
+### Gross pool rewards
+
 When $a_0=0$, declared pledge has no role and the gross pool reward depends only in the delegation/staking level:
 
 $$f(\sigma_i,p_i) = R\sigma_i$$
@@ -54,21 +56,8 @@ $$\frac{\partial f}{\partial a_0}v= -\frac{R}{(1+a_0)^2} \left[ \tilde{\sigma}_i
 $$
 
 with equality when $$\tilde{p}_i=\tilde{\sigma}_i=z_0.$$
-### Gross pool rewards
 
-We study this using the partial derivative, which measures how $f(\sigma_i,p_i)$ changes when $a_0$ changes while all other variables are held constant. Since
-
-$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
-
-then
-    
-$$\frac{\partial f}{\partial a_0} = -\frac{R}{(1+a_0)^2} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right] + \frac{R}{1+a_0} \left[ \tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right]\leq 0,$$
-
-with equality when $\tilde{p}_i = \tilde{\sigma}_i = z_0$.
-
-Increasing $a_0$ reduces total rewards for pools that rely primarily on external delegation rather than operator declared pledge, as $a_0$ penalizes low-declared-pledge pools relative to high-declared-pledge ones.
-
-For a fixed level of declared pledge, this negative impact is more significant for larger pools (left plot). <!-- At first glance, the right plot may suggest that an operator can mitigate this effect by replacing delegations with operator declared pledge, but the operator-revenue analysis below shows that this mitigation is generally incomplete. -->
+For a fixed level of declared pledge, this negative impact is more significant for larger pools (left plot). <!-- At first glance, the right plot may suggest that an operator can mitigate this effect by replacing delegations with declared pledge, but the operator-revenue analysis below shows that this mitigation is generally incomplete. -->
 
 <p align="center">
   <img src="plots/Reward_function_vs_sigma_a0_cases.png" alt="Reward function when a0 changes versus delegation" width="48%">
