@@ -84,23 +84,21 @@ For operator gross revenue, we have
 
 $$\Pi_i=c_i+\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right]\cdot(f(\sigma_i,p_i)-c_i).$$
 
-where $\hat p_i$ is active operator pledge (under full-pledge compliance, $\hat p_i=p_i$).
+where $\hat p_i$ is active operator pledge.
 
-Hence, the change in **operator gross revenue** (and, equivalently, in operator utility/profit if $c_i$ and $\hat{c}_i$ remain constant after the parameter change) is:
+Hence, the change in **operator gross revenue** (and, equivalently, in operator utility/profit if $c_i$ and $\hat{c}_i$) after the change in $a_0$ is:
 
 $$\Delta \Pi_i=\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right]\Delta f(\sigma_i,p_i)=\Delta U_i.$$
     
-When the active pledge rises, the share $m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}$ rises toward $1$. Thus, even though the absolute reduction in pool gross rewards, $|\Delta f|$, becomes smaller, the operator bears a larger share of that reduction. Consequently, $\Delta\Pi_i$ can become more negative even while $\Delta f$ becomes less negative.
+Suppose $\hat p_i=p_i$ and suppose we want to compare the effect of the increment in $a_0$ over two identical pools but with different pledge. As an example, let $\sigma_i = 50M$ ADA, $k=500$, $c_i=170$, and $m_i=5\\%$. Suppose $a_0$ increases from $0.3$ to $0.6$:
 
-Away from saturation—for example, when $\sigma_i=50\text{M ADA}$—the decline in $f$ is never fully offset as pledge increases. As a result, $\Delta\Pi_i$ may remain increasingly negative throughout the pledge range.
-
-As an example, let $\sigma_i = 50M$ ADA, $k=500$, $c_i=170$, and $m_i=5\\%$. Suppose $a_0$ increases from $0.3$ to $0.6$:
-
-| $\hat p_i/\sigma_i$ | $\Delta f$ | $\Delta\Pi_i$ |
+| $p_i/\sigma_i$ | $\Delta f$ | $\Delta\Pi_i$ |
 |---|---|---|
 | $0$ | $-2922$ | $-146$ |
 | $0.5$ | $-2140$ | $-1123$ |
 | $1$ | $-1690$ | $-1690$ |
+
+When the pledge rises, the share $m_i+(1-m_i)\frac{p_i}{\sigma_i}$ rises toward $1$. Thus, even though the absolute reduction in pool gross rewards, $|\Delta f|$, becomes smaller, the operator bears a larger share of that reduction. Consequently, $\Delta\Pi_i$ can become more negative even while $\Delta f$ becomes less negative.
 
 Bottom line: Higher pledge cushions the decline in the pool gross reward function $f(\sigma_i,p_i)$ following an increase in $a_0$. For the operator, however, higher pledge also means bearing a larger share of the remaining reward reduction. Operator gross revenue can therefore fall by more at high pledge, even though the decline in total pool rewards is smaller.
 
