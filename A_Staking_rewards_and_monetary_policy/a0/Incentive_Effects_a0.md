@@ -256,4 +256,4 @@ We can group the pools into different declared pledge:
   <img src="plots/member_apr_a0_by_declared_pledge_epoch_644.png" alt="a0 APR change with a0 increment in groups of declared pledge" width="62%">
 </p>
 
-Notice that the group with the largest declared pledge shows lower APR. In this group, $(f-c)/\sigma_i$ is higher. However, many pools of that subset, controlling near $50\\%%$ of the stake of the subset, set $m_i=1$.
+Notice that the group with the largest declared pledge shows a lower APR. In this group, $(f-c)/\sigma_i$ is higher. However, many pools of that subset, controlling near $50\\%%$ of the stake of the subset, set $m_i=1$. This result in a lower median APR compare with the other sets.
