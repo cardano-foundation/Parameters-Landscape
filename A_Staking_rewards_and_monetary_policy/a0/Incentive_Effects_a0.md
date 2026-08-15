@@ -233,6 +233,10 @@ Using $k=500$, $R\approx 14.97M$ ADA, $T\approx 38.76B$ ADA:
 | \(a_0=0.3\) | $941$ | $1.82\\%$ | $1.66\\%$ |
 | \(a_0=0.6\) | $895$ ($−4.9\\%$)| $1.46\\%$ ($−19.8\\%$)| $1.34\\%$ ($−19.3\\%$) |
 
+<p align="center">
+  <img src="plots/member_apr_a0_0p3_vs_0p6_epoch_644.png" alt="a0 APR change with a0 increment" width="62%">
+</p>
+
 We can group the pools into different declared pledge:
 
 
@@ -240,28 +244,16 @@ We can group the pools into different declared pledge:
 |---|---:|---:|---:|---:|
 | \(p<100\)K | $0.3$ | $668$ | $1.80\\%$ | $1.78\\%$ | 
 | \(p<100\)K | $0.6$ | $636$ ($−4.8\\%$)| $1.43\\%$ ($−20.6\\%$) | $1.43\\%$ ($−19.5\\%$) | 
-|---|---:|---:|---:|---:|
+|<span style="font-size:1px; line-height:1px;">&nbsp;</span>|||||
 | \(100\)K–\(1\)M | $0.3$ | $209$ | $1.90\\%$ | $1.76\\%$ | 
 | \(100\)K–\(1\)M | $0.6$ | $197$ ($−5.7\\%$)| $1.54\\%$ ($−18.9\\%$)| $1.42\\%$ ($−19.3\\%$) | 
-|---|---:|---:|---:|---:|
+|<span style="font-size:1px; line-height:1px;">&nbsp;</span>|||||
 | \(p\geq 1\)M | $0.3$ | $64$ | $1.61\\%$ | $0.98\\%$ | 
 | \(p\geq 1\)M | $0.6$ | $62$ ($−3.1\\%$)| $1.41\\%$ ($−12.4\\%$) | $0.83\\%$ ($−15.5\\%$) | 
 
 
+<p align="center">
+  <img src="plots/member_apr_a0_by_declared_pledge_epoch_644.png" alt="a0 APR change with a0 increment in groups of declared pledge" width="62%">
+</p>
 
-
-<!-- We expect delegators to reallocate toward pools with higher expected return per unit stake,
-
-$$
-(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i}.
-$$
-
-SupposeLet the post-shock delegation update be
-
-$$
-\Delta \sigma_i^D=\eta\,\sigma_i\big(r_i^D-\bar r^D\big),
-\qquad
-\sigma_i'=\sigma_i+\Delta \sigma_i^D,
-$$
-
-with $\bar r^D$ the stake-weighted market benchmark. After an increase in $a_0$, high-pledge pools tend to have higher relative $r_i^D$, so they receive positive net flows in this benchmark.-->
+Notice that the group with the largest declared pledge shows lower APR. In this group, $(f-c)/\sigma_i$ is higher. However, many pools of that subset, controlling near $50\\%%$ of the stake of the subset, set $m_i=1$.
