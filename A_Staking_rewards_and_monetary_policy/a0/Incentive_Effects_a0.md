@@ -172,7 +172,7 @@ Hence, increasing $a_0$ lowers gross pool rewards $f()$, but less so for high-pl
 
 
 
-#### Operator changes in pledge, margin and or fixed costs
+#### Operators changing pledge, margin or declared fixed costs
 
 margin and fixed cost choices vs declared pledge
 
@@ -202,6 +202,9 @@ $$
 
 which captures that pricing and pledge choices are made jointly with their induced stake response. Low-pledge operators are pushed to increase pledged capital and/or reduce margins to retain delegation.-->
 
+#### Pool splitting by multi-pool operators
+
+
 #### Changes in staking participation.
 
 We first study the relationship between the level of skin-in-the-game (declared pledge) and external delegation (this is, that delegation that is not active pledge). This helps us to understand whether incentivizing more declared pledge could boost the staking level.
@@ -214,7 +217,35 @@ As stated above, the inclusion of $a_0$ in the design aims to put weight in the 
 
 Now, we measure the effect of the change of $a_0$ in APR using:
 
-$$\text{APR}_i \approx 73(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}$$
+$$\text{APR}_i \approx 73(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}.$$
+
+
+We measure the Median APR (middle value of the pool-level APR for those pools with $f_i>c_i$) and the Network APR measuring the stake-weighted mean of the APR distribution: 
+
+$$
+\mathrm{Network\,APR}=\frac{\sum_{i:\,f_i>c_i}\sigma_i\,\mathrm{APR}_i}{\sum_{i:f_i>c_i}\sigma_i}.
+$$
+
+Using $k=500$, $R\approx 14.97M$ ADA, $T\approx 38.76B$ ADA:
+
+| Case | Pools (\(f>c\)) | Median APR | Network APR |
+|---|---:|---:|---:|
+| \(a_0=0.3\) | $941$ | $1.82\\%$ | $1.66\\%$ |
+| \(a_0=0.6\) | $895$ ($−4.9\\%$)| $1.46\\%$ ($−19.8\\%$)| $1.34\\%$ ($−19.3\\%$) |
+
+We can group the pools into different declared pledge:
+
+
+| Pledge bin | \(a_0\) | Pools (\(f>c\)) | Median APR | Subset stake-weighted APR | 
+|---|---:|---:|---:|---:|
+| \(p<100\)K | $0.3$ | $668$ | $1.80\\%$ | $1.78\\%$ | 
+| \(p<100\)K | $0.6$ | $636$ ($−4.8\\%$)| $1.43\\%$ ($−20.6\\%$) | $1.43\\%$ ($−19.5\\%$) | 
+|---|---:|---:|---:|---:|
+| \(100\)K–\(1\)M | $0.3$ | $209$ | $1.90\\%$ | $1.76\\%$ | 
+| \(100\)K–\(1\)M | $0.6$ | $197$ ($−5.7\\%$)| $1.54\\%$ ($−18.9\\%$)| $1.42\\%$ ($−19.3\\%$) | 
+|---|---:|---:|---:|---:|
+| \(p\geq 1\)M | $0.3$ | $64$ | $1.61\\%$ | $0.98\\%$ | 
+| \(p\geq 1\)M | $0.6$ | $62$ ($−3.1\\%$)| $1.41\\%$ ($−12.4\\%$) | $0.83\\%$ ($−15.5\\%$) | 
 
 
 
