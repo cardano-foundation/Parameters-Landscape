@@ -251,12 +251,12 @@ def main() -> None:
         box.set_edgecolor("0.2")
 
     ax.set_xticks(positions)
-    ax.set_xticklabels(box_labels, fontsize=FONT_SIZE - 1)
+    ax.set_xticklabels(box_labels, fontsize=FONT_SIZE)
     ymax = max((float(np.max(v)) for v in box_data if len(v)), default=3.0)
     ax.set_ylim(0.0, max(ymax * 1.08, 3.0))
     ax.set_ylabel("Member APR (%)", fontsize=FONT_SIZE)
     ax.grid(axis="y", alpha=0.25)
-    ax.tick_params(axis="y", labelsize=FONT_SIZE)
+    ax.tick_params(axis="both", labelsize=FONT_SIZE)
 
     # Light separators between pledge groups
     for x in (2.925, 5.325):
@@ -270,14 +270,16 @@ def main() -> None:
             Patch(facecolor=COLOR_ALT, alpha=0.75, edgecolor="0.2", label=rf"$a_0={A0_ALT}$"),
         ],
         loc="upper right",
-        fontsize=FONT_SIZE - 1,
+        fontsize=FONT_SIZE,
     )
     fig.suptitle(
-        "Epoch 644 — member APR by declared pledge: "
+        "Epoch 644 — theoretical member APR by declared pledge: "
         rf"$a_0={A0_BASE}$ vs $a_0={A0_ALT}$"
         "\n"
-        rf"($k={k}$; declared pledge = pool_update.active.pledge; "
-        r"pledge-met, $f>c$; $\sigma,p,c,m$ fixed)",
+        rf"($k={k}$, $R={R/1e6:.2f}$M, $T={T/1e9:.2f}$B; "
+        r"$f>c$; $\sigma,p,c,m$ fixed)"
+        "\n"
+        r"APR$=73(1-m)\max\{f-c,0\}/\sigma$",
         fontsize=FONT_SIZE,
     )
     fig.savefig(OUT_PLOT, dpi=200, bbox_inches="tight")

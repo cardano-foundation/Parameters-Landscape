@@ -191,7 +191,7 @@ def main() -> None:
         rf"$a_0={A0_BASE}$ vs $a_0={A0_ALT}$"
         "\n"
         rf"($k={k}$, $R={R/1e6:.2f}$M, $T={T/1e9:.2f}$B; "
-        r"pledge-met, $f>c$; $\sigma,p,c,m$ fixed)"
+        r"$f>c$; $\sigma,p,c,m$ fixed)"
         "\n"
         r"APR$=73(1-m)\max\{f-c,0\}/\sigma$",
         fontsize=FONT_SIZE,
