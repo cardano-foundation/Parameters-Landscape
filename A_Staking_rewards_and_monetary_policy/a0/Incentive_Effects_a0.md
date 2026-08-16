@@ -167,11 +167,6 @@ $$
 Hence, increasing $a_0$ lowers gross pool rewards $f()$, but less so for high-pledge pools. As a consequence, a change in $a_0$ may change the rank of pools, induce redelegation, and operators responses. 
 
 
-#### Delegators moving stakes
-
-
-
-
 #### Operators changing pledge, margin or declared fixed costs
 
 Since the parameter $a_0$ favours those pools with more declared pledge, we could ask whether those pools with high declared pledge choose lower fees (margin and declared fixed cost) to increase their attractiveness for delegators. The following plots show that this correlation is very weak. On the other hand, the data do not support “high pledge → higher fees” (because high pledge makes the pool competitive, opening the door to keep higher fees without losing stake). The sign goes (weakly) against that.
@@ -199,6 +194,81 @@ $$
 $$
 
 which captures that pricing and pledge choices are made jointly with their induced stake response. Low-pledge operators are pushed to increase pledged capital and/or reduce margins to retain delegation.-->
+
+#### Entry exit of pools. Pools viability.
+
+To study entry or exit, we use the participation constraint, which takes into account the actual fixed costs $\hat c_i$ and opportunity costs (or outside options). Let
+
+$$
+U_i=\Pi_i-\hat c_i,
+\qquad
+\Pi_i=c_i+(f(\sigma_i,p_i;a_0)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
+\qquad
+s_i\equiv m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
+$$
+
+It follows that a pool decides to participate when
+
+$$
+U_i\ge \underline{U}_i \iff f_i\ge f_i^{\star} \equiv \frac{\underline{U}_i+\hat c_i-(1-s_i)c_i}{s_i},
+$$
+
+where $\underline{U}_i$ denotes the outside option. For simplicity, let's assume $\underline{U}_i=0$. Notice that if there is truthful cost reporting ($c_i=\hat c_i$), then the previous condition becomes $f_i\ge c_i$. 
+
+Using actual data from epoch $644$, we hold delegation, pledges, margins, and declared fixed costs fixed, and recompute $\Pi_i$ under $a_0=0.3$ and $a_0=0.6$. We assume that declared fixed cost is not the actual operating cost. In particular, all pools face the same OpEx
+
+$$
+C^*=667/6/0.15=741.1\text{ ADA per epoch}.
+$$
+
+We report $r_i=\Pi_i/C^\*$ (equivalently $U_i=\Pi_i-C^*$, so $r_i<1\iff U_i<0$). Among $2223$ pledge-met pools (those in which the active pledge is at least the declared pledge), raising $a_0$ from $0.3$ to $0.6$ reduces the number that cover OpEx from $274$ to $240$ ($-34$), and increases the Losing ($r<1$) count from $1949$ to $1983$. 
+
+<p align="center">
+<img src="plots/pool_viability_a0_0p3_vs_0p6_epoch_644.png" alt="Pools theoretical viability a0=0.3 vs 0.6" width="72%">
+</p>
+
+| Category | $a_0=0.3$ | $a_0=0.6$ | Δ |
+|---|---:|---:|---:|
+| Losing ($r<0.25$) | 1298 | 1338 | +40 |
+| Losing ($0.25\le r<0.5$) | 326 | 327 | +1 |
+| Losing ($0.5\le r<0.75$) | 234 | 227 | -7 |
+| Losing ($0.75\le r<1$) | 91 | 91 | +0 |
+| Edge ($1\le r<2$) | 150 | 132 | -18 |
+| Comfortable ($2\le r<5$) | 41 | 30 | -11 |
+| Strong ($r\ge5$) | 83 | 78 | -5 |
+| **Cover OpEx ($r\ge1$)** | **274** | **240** | **-34** |
+| **Losing ($r<1$)** | **1949** | **1983** | **+34** |
+
+The next chart shows characteristics of Losing and Edge pools under $a_0=0.6$.
+
+<p align="center">
+<img src="plots/pool_viability_losing_vs_edge_traits_a0_0p6_epoch_644.png" alt="Pools characteristics losing and edge under a0=0.6" width="62%">
+</p>
+
+| | Losing \(r<0.5\) (n=1665) | Losing \(0.5\leq r<1\) (n=318) | Edge (n=132) | Comfortable+Strong (n=108) |
+|---|---:|---:|---:|---:|
+| Epoch stake (M ADA), median | 0.05 | 16.33 | 44.63 | 35.88 |
+| Active pledge (k ADA), median | 2.4 | 60.4 | 4.3 | 14569.8 |
+| Declared pledge (k ADA), median | 1.0 | 50.0 | 0.0 | 125.0 |
+| Declared fixed cost (ADA), median | 340 | 340 | 340 | 340 |
+| Margin (%), median | 1.0 | 2.5 | 5.0 | 100.0 |
+| Theoretical operator reward (ADA), median | 12 | 468 | 953 | 7,666 |
+| Coverage ratio \(r\), median | 0.017 | 0.631 | 1.286 | 10.344 |
+
+Relative to $a_0=0.3$, the qualitative split between deep-losing ($r<0.5$) and near-edge losing ($0.5\le r<1$) remains: tiny pools dominate the bottom of the distribution, while mid-sized pools populate $0.5\le r<1$. Raising $a_0$ compresses operator rewards through $1/(1+a_0)$ for typical low-pledge pools, so more mass shifts into deeper Losing bins even though pledge intensity can cushion high-pledge pools.
+
+*Elasticity of viability with respect to $a_0$*
+
+Let $\Delta a_0=0.6-0.3=0.3$. A simple margin semi-elasticity of viability is
+
+$$\eta^{\mathrm{ext}}=\frac{s(0.6)-s(0.3)}{\Delta a_0},
+\qquad
+s(a_0)=\frac{\\# \\{i : r_i(a_0) \ge 1\\} }{N}= \frac{1}{N} \sum_{i=1}^{N} \mathbb{I}(r_i(a_0) \ge 1),
+$$
+
+with $N=2223$ pledge-met pools, giving  $\eta^{\mathrm{ext}}=-0.0510$ (about $-5.10$ percentage points of the viable share per unit of $a_0$).
+
+
 
 #### Pool splitting by multi-pool operators
 
