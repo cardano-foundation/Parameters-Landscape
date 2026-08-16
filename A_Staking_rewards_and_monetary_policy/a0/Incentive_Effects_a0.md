@@ -174,8 +174,6 @@ Hence, increasing $a_0$ lowers gross pool rewards $f()$, but less so for high-pl
 
 #### Operators changing pledge, margin or declared fixed costs
 
-margin and fixed cost choices vs declared pledge
-
 Since the parameter $a_0$ favours those pools with more declared pledge, we could ask whether those pools with high declared pledge choose lower fees (margin and declared fixed cost) to increase their attractiveness for delegators. The following plots show that this correlation is very weak. On the other hand, the data do not support “high pledge → higher fees” (because high pledge makes the pool competitive, opening the door to keep higher fees without losing stake). The sign goes (weakly) against that.
 
 <p align="center">
