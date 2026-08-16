@@ -204,6 +204,61 @@ which captures that pricing and pledge choices are made jointly with their induc
 
 #### Pool splitting by multi-pool operators
 
+In this section, we study how an increase in $a_0$ affects the incentive to split one pool into multiple pools. For this parameter, we focus on each pool theoretical reward
+
+$$
+\Pi_i = c_i + (f_i-c_i)\bigl[m_i+(1-m_i)\hat p_i/\sigma_i\bigr]
+\quad\text{if }f_i>c_i,\quad
+\Pi_i=f_i\text{ otherwise},
+$$
+
+with $f_i=f(\sigma_i,p_i;a_0)$ and $f_i=0$ if active pledge is below declared pledge.
+
+We compare the unsplit reward $\Pi_i$ with the split outcome $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i;a_0)$, where
+
+$$
+\sigma'=\sigma_i/2,\quad p'=p_i/2,\quad \hat p'=\hat p_i/2,\quad
+\text{same }m_i\text{ and declared }c_i\text{ in each half}.
+$$
+
+
+*Scenario A — current $a_0=0.3$*
+
+| Outcome | All pools | Pledge-met only |
+|---|---:|---:|
+| $\Pi$ increases after split | 864 (32.1%) | 864 (38.9%) |
+| $\Pi$ decreases after split | 1171 (43.5%) | 1171 (52.7%) |
+| Unchanged | 659 (24.5%) | 188 (8.5%) |
+
+Median $\Delta\Pi=\Pi_{\mathrm{split}}-\Pi_{\mathrm{unsplit}}$: 0.00 ADA/epoch; mean: 38.45 ADA/epoch.
+
+Under this scenario with $a_0=0.3$, a $1\to 2$ split reduces operator reward for a majority of pools ($52.7\%$ decrease vs $38.9\%$ increase). The next plot shows that gainers are much larger and more pledged.
+
+<p align="center">
+<img src="plots/pool_split_traits_increase_vs_decrease_a0_0p3_epoch_644.png" alt="Operators incentives to split when a0=0.3" width="62%">
+</p>
+
+*Scenario B — $a_0=0.6$*
+
+Declared fixed costs and margins are unchanged; only $a_0$ in $f(\cdot)$ is raised.
+
+| Outcome | All pools | Pledge-met only |
+|---|---:|---:|
+| $\Pi$ increases after split | 818 (30.4%) | 818 (36.8%) |
+| $\Pi$ decreases after split | 1217 (45.2%) | 1217 (54.7%) |
+| Unchanged | 659 (24.5%) | 188 (8.5%) |
+
+Median $\Delta\Pi$: 0.00 ADA/epoch; mean: 9.60 ADA/epoch.
+
+When $a_0$ rises from $0.3$ to $0.6$, splitting becomes slightly less attractive. No pool switches from loser to gainer; $43$ pools switch from gainer to loser. Gainers remain larger and more pledged than losers, and the median stake among gainers rises ($9.61\to 10.88$ M ADA), so a higher size threshold is needed to still benefit from splitting under $a_0=0.6$.
+
+<p align="center">
+<img src="plots/pool_split_traits_increase_vs_decrease_a0_0p6_epoch_644.png" alt="Operators incentives to split when a0=0.6" width="62%">
+</p>
+
+
+Bottom line: Increasing $a_0$ to $0.6$ slightly reduces the incentive for $1\to 2$ splitting. While this confirms that the $a_0$ parameter deters Sybil attacks, its overall effectiveness in achieving this goal appears more modest than expected.
+
 
 #### Changes in staking participation.
 
