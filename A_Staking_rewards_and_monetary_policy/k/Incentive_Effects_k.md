@@ -22,6 +22,13 @@ Increasing $k$ can help more pools compete, but it also lowers the reward ceilin
 4. The network-wide APR gain was modest and partly reflected the exit of weak pools.
 5. The observations are descriptive, not causal, because new low-stake pools and new stake entered in the same period.
 
+**Behavioral and equilibrium discussion**
+1. Increasing $k$ shifted delegation toward smaller, still-undersaturated pools, but the effect was temporary and largely faded as the system rebalanced.
+2. Margin cutting was the main operator response: pools that reduced fees retained or gained stake more often than pools that kept margins unchanged.
+3. The redistributive effect was strongest for smaller pools near the new saturation boundary, while very large pools lost relative reward capacity.
+4. The network-level APR gain was modest and partly reflected the exit of weak pools rather than a clean causal effect of the parameter change alone.
+5. The system-level evidence remains suggestive, not causal, because new low-stake pools and new stake entered in the same window.
+
 **Policy interpretation**
 1. Higher $k$ supports small-pool entry and competition.
 2. It likely improves decentralization in a broad sense, but the evidence is suggestive rather than causal.

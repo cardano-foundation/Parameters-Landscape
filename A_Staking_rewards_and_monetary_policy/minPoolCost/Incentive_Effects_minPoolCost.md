@@ -14,16 +14,23 @@ Reducing minPoolCost is conditionally beneficial. The net effect depends on whic
 3. Whole-network concentration metrics may not improve even when reducer ones improve.
 
 **What the evidence suggests**
-1. Operator fixed-cost reduction was partial: only about $14.0\\%$ of them.
+1. Operator fixed-cost reduction was partial: only about $14.0\%$ of them.
 2. Fixed-cost reducers are generally larger/better positioned than no-reducers.
-3. Among reducers, a majority gained stake ($55.1\\%$).
+3. Among reducers, a majority gained stake ($55.1\%$).
 4. Among reducers, smaller ones are more likely to be gainers than larger reducers.
 5. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only cuts.
+
+**Behavioral and equilibrium discussion**
+1. Cost reductions were selective and limited: only a minority of pools adjusted their declared fixed costs, and those that did were generally stronger or better positioned before the shock.
+2. Fixed-cost reducers were more likely to gain delegation, particularly smaller pools, but the response was concentrated in a subset of operators rather than a broad network-wide effect.
+3. Combining fixed-cost reductions with margin cuts was more effective than fixed-cost reductions alone, suggesting that the competitive response involved coordinated price adjustment rather than cost changes alone.
+4. The decentralization signal was mixed: there was some redistribution toward smaller pools among reducers, but whole-network concentration metrics did not clearly improve.
+5. Operator viability weakened after the cut, showing that lower minPoolCost improved competitiveness for some pools while reducing the economic cushion for many operators.
 
 **Policy interpretation**
 1. Trade-off: lower minPoolCost can improve delegator APR while reducing operator viability.
 2. If the primary objective is short-run small-pool competitiveness, a lower minPoolCost can help, but with a viability trade-off. This trade-off limits the capacity of small pools to follow the reduction.
-5. If the primary objective is long-run decentralization, reducing minPoolCost in isolation is not clearly supportive due to partial participation.
+3. If the primary objective is long-run decentralization, reducing minPoolCost in isolation is not clearly supportive due to partial participation and mixed network outcomes.
 
 ## Parameter values at the current state
 For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
