@@ -75,7 +75,7 @@ $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \fr
 
 A change in the parameter $\rho$ does not translate one-for-one into higher staking rewards, due to the fraction $\tau$ that is taken for the treasury:
 
-$$\frac{\partial R_t}{\partial \rho} = (1 - \tau)\min\{\eta_t, 1\} Q_t<1.$$
+$$\frac{\partial R_t}{\partial \rho} = (1 - \tau)\min\\{\eta_t, 1\\}\cdot Q_t<1.$$
 
 
 ### Operator gross revenue
