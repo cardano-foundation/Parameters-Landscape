@@ -32,6 +32,16 @@ For the numerical analysis in this section, we use the parameter values below un
 
 ## Design
 
+Cardano has a reserve of tokens—the difference between the maximum supply (45B ADA) and the total supply in circulation—with a predefined monetary expansion across time. Each epoch, a certain amount of the reserve $\rho$ (currently 0.3%) is taken to reward pool operators and fund the treasury.
+
+The fraction of that amount that goes to the treasury is denoted by $\tau$ and is currently set to $\tau=20\\%$. Hence, the remaining $80\\%$ goes to the reward pot. Additionally, the reward pot for epoch $t$ is populated with the transaction fees collected during the same epoch. However, because the network needs a full epoch to safely calculate everything, this pot is distributed at the start of epoch $t+2$.
+
+Hence, the final reward pot ($R$) available is:
+
+$$R = (1 - \tau) \cdot (\text{fees} + \rho \cdot \text{reserves})$$
+
+Not all of the pot is actually paid out. Rewards are only paid on active, staked ADA. If less than 100% of the circulating supply is staked, a portion goes unearned. The leftovers are automatically sent back to the reserves.
+
 
 
 ## Direct mechanical effects 
