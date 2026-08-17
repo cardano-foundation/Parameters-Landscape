@@ -8,7 +8,7 @@ Before introducing the table, we present the main formulas that drives incentive
 
 Cardano has a reserve of tokens—the difference between the maximum supply (45B ADA) and the total supply in circulation—with a predefined monetary expansion across time. Each epoch, a certain amount of the reserve $\rho$ (currently 0.3%) is taken to reward pool operators and fund the treasury.
 
-The fraction of that amount that goes to the treasury is denoted by $\tau$ and is currently set to $\tau=20\%$. Hence, the remaining $80\%$ goes to the reward pot. Additionally, the reward pot for epoch $t$ is populated with the transaction fees collected during the same epoch. However, because the network needs a full epoch to safely calculate everything, this pot is distributed at the start of epoch $t+2$.
+The fraction of that amount that goes to the treasury is denoted by $\tau$ and is currently set to $\tau=20\\%$. Hence, the remaining $80\\%$ goes to the reward pot. Additionally, the reward pot for epoch $t$ is populated with the transaction fees collected during the same epoch. However, because the network needs a full epoch to safely calculate everything, this pot is distributed at the start of epoch $t+2$.
 
 Hence, the final reward pot ($R$) available is:
 
