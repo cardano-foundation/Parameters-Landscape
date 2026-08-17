@@ -35,6 +35,8 @@ For the numerical analysis in this section, we use the parameter values below un
 
 Cardano funds staking rewards and its treasury through a combination of transaction fees and predefined monetary expansion from its reserve—the difference between the $45B$ ADA maximum supply and the circulating supply. For each epoch $t$, let's denote the reserve level by $Q_t$, transaction fees by $F_t$, the treasury share parameter by $\tau$ (currently $20\\%$), and the **reserve decay rate** (or monetary expansion parameter) by $\rho$ (currently $0.3\\%$).
 
+> **Note:** Cardano Constitution constrains monetary-expansion changes: $\rho$ must remain between $0.001$ and $0.005$, and the recommended guardrails say it should not vary by more than $±10\\%$ in any $73\text{-epoch}$ period (roughly a year) and should not be changed more than once in any $36\text{-epoch}$ period ($\approx 6\text{ months}$).
+
 The protocol calculates the amount taken from reserves $M_t$ by scaling $\rho$ by a network performance factor $\eta_t$:
 
 $$M_t = \min\\{\eta_t, 1\\} \cdot\rho Q_t$$
@@ -65,7 +67,13 @@ Rewards are only distributed on active, staked ADA. If less than $100\\%$ of the
 In this section we consider the direct effects of **changing** $\rho$ while holding everything else equal (ceteris paribus). 
 
 ### Gross pool rewards
-Because the treasury share is deducted before pool allocation, an increase in $\rho$ does not translate one-for-one into higher staking rewards:
+
+Let $\sigma_i$ denote the total delegation at pool $i$, $p_i$ the declared pledge of the pool, and $z_0$ the saturation threshold. The gross pool reward function is
+
+$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
+
+
+A change in the parameter $\rho$ does not translate one-for-one into higher staking rewards, due to the fraction $\tau$ that is taken for the treasury:
 
 $$\frac{\partial R_t}{\partial \rho} = (1 - \tau)\min\{\eta_t, 1\} Q_t<1.$$
 
