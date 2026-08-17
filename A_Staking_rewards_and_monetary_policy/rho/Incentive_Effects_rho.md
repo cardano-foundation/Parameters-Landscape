@@ -32,23 +32,42 @@ For the numerical analysis in this section, we use the parameter values below un
 
 ## Design
 
-Cardano has a reserve of tokens—the difference between the maximum supply (45B ADA) and the total supply in circulation—with a predefined monetary expansion across time. Each epoch, a certain amount of the reserve $\rho$ (currently 0.3%) is taken to reward pool operators and fund the treasury.
 
-The fraction of that amount that goes to the treasury is denoted by $\tau$ and is currently set to $\tau=20\\%$. Hence, the remaining $80\\%$ goes to the reward pot. Additionally, the reward pot for epoch $t$ is populated with the transaction fees collected during the same epoch. However, because the network needs a full epoch to safely calculate everything, this pot is distributed at the start of epoch $t+2$.
+Cardano funds staking rewards and its treasury through a combination of transaction fees and predefined monetary expansion from its reserve—the difference between the $45B$ ADA maximum supply and the circulating supply. For each epoch $t$, let's denote the reserve level by $Q_t$, transaction fees by $F_t$, the treasury share parameter by $\tau$ (currently $20\\%$), and the **reserve decay rate** (or monetary expansion parameter) by $\rho$ (currently $0.3\\%$).
 
-Hence, the final reward pot ($R$) available is:
+The protocol calculates the amount taken from reserves $M_t$ by scaling $\rho$ by a network performance factor $\eta_t$:
 
-$$R = (1 - \tau) \cdot (\text{fees} + \rho \cdot \text{reserves})$$
+$$M_t = \min\\{\eta_t, 1\\} \cdot\rho Q_t$$
 
-Not all of the pot is actually paid out. Rewards are only paid on active, staked ADA. If less than 100% of the circulating supply is staked, a portion goes unearned. The leftovers are automatically sent back to the reserves.
+Denote $P_t$ to the gross pot:
 
+$$P_t = F_t + M_t = F_t + \min\\{\eta_t, 1\\} \cdot\rho Q_t.$$
+
+> **Note:** In Cardano's design, transaction fees and reserve depletion should act as funding substitutes; as reserves decline, fees progressively should become the primary source of rewards. However, there is not a parameter or function connecting these two reward sources. It was expected that the substitution occur while the market and Cardano usage matures.
+
+
+From this gross pot, a fraction $\tau$ goes to und the treasury, i.e., 
+
+$$G_t = \tau P_t = \tau \left[ F_t + \min\\{\eta_t, 1\\} \cdot\rho Q_t \right]$$
+
+The remaining share $(1 - \tau)$ forms the available pool reward pot for that epoch $R_t$:
+
+$$R_t = (1 - \tau) P_t = (1 - \tau) \left[ F_t + \min\\{\eta_t, 1\\} \cdot\rho Q_t \right]$$,
+
+This $R_t=R$ corresponds to the total pot entering the gross pool reward function:
+
+$$f(\tilde{\sigma}_i, \tilde{p}_i) = \frac{R}{1 + a_0} \left[ \tilde{\sigma}_i + a_0 \tilde{p}_i \frac{\tilde{\sigma}_i - \tilde{p}_i \frac{z_0 - \tilde{\sigma}_i}{z_0}}{z_0} \right]$$
+
+Rewards are only distributed on active, staked ADA. If less than $100\\%$ of the circulating supply is staked, unearned rewards return directly to the reserves.
 
 
 ## Direct mechanical effects 
 In this section we consider the direct effects of **changing** $\rho$ while holding everything else equal (ceteris paribus). 
 
 ### Gross pool rewards
+Because the treasury share is deducted before pool allocation, an increase in $\rho$ does not translate one-for-one into higher staking rewards:
 
+$$\frac{\partial R_t}{\partial \rho} = (1 - \tau)\min\{\eta_t, 1\} Q_t<1.$$
 
 
 ### Operator gross revenue
