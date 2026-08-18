@@ -153,6 +153,21 @@ Next plots show how the reward pot those parameters act on ($\rho$ and $\tau$) h
 
 The following plot illustrates the evolution of the reserves, the total supply, and the staking level. As expected, reserves and total supply are perfectly correlated since the total supply is populated by the reserve depletion. We do not observe such a strong pattern with the staking level (in particular, since epoch 400) suggesting that a large fraction of new tokens release to the market is used for different purposes than securing the protocol.
 
+<p align="center">
+  <img src="plots/reserves_supply_stake.png" alt="Evolution of Reserves, Supply and Stake" width="62%">
+</p>
+
+
+The reward scheme extract a fixed amount from the reserves ($\tau=0.3\\%$ per epoch) to reward the delegators. Naturally, the design implies a decreasing return for delegators. The next plot shows this idea measured by two metrics of reward intensity. One is $R_t/T_t$ (reward pot over total supply), and the other is $R_t/S_t$ (reward pot over staking level). The former will always be decreasing  because of the identity $Reserves_t+T_t=45B$ ADA, implying $R_t/(45B - Reserves_t)$. Since $R_t=\rho Reserves_{t}$, then
+
+$$\frac{R_t}{T_t}=\frac{\rho}{\frac{{45B}{Reserves_t}-1},$$
+
+which is decreasing when $Reserves_t$ decreases.
+
+
+<p align="center">
+  <img src="plots/reward_intensity_R_over_T.png" alt="Evolution of reward intensity" width="62%">
+</p>
 
 
 
