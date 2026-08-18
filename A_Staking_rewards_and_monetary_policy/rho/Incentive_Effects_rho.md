@@ -111,7 +111,38 @@ Therefore, when $\tau$ increases ($\Delta \tau > 0$), $(1 - \tau)$ shrinks, so $
 
 ### Operators and delegators revenue
 
-For both types of players, the direct mechanical effect is proportional to the previous description. Operators would be 
+For both types of players, the direct mechanical effect is proportional to the previous description. The operator groos revenue is given by the epxression:
+
+$$
+\Pi_i=
+\begin{cases}
+\underbrace{c_i+(f(\sigma_i,p_i)-c_i)\left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right]}_{\Pi_i=\text{Operator gross revenue}}, & \text{if } f(\sigma_i,p_i)>c_i, \\
+f(\sigma_i,p_i), & \text{otherwise}
+\end{cases}
+$$
+
+where $\hat{p}_i$ denotes the operator's active pledge, while the operator utility is:
+
+
+$$
+U_i=\Pi-\hat{c}_i
+$$
+
+where $\hat{c}_i$ is the actual operating cost.
+
+On the other hand a delegator $d$ with stake $\sigma_d$ achieves:
+
+$$
+U_d=
+\begin{cases}
+(1-m_i)(f(\sigma_i,p_i)-c_i)\frac{\sigma_d}{\sigma_i}, & \text{if } f(\sigma_i,p_i)>c_i, \\
+0, & \text{otherwise},
+\end{cases}
+$$
+
+with 
+
+$$\sigma_i=\hat{p}\_i + \sum_{j=1}^{D_i}\sigma_j$$  
 
 
 
