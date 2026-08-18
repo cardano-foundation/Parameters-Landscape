@@ -79,27 +79,27 @@ $$\frac{\partial R_t}{\partial \rho} = (1 - \tau)\min\\{\eta_t, 1\\}\cdot Q_t\ge
 
 On the other hand, a change in the parameter $\tau$ 
 
-$$\frac{\partial R_t}{\partial \tau} = -\left[ F_t + \min\\{\eta_t, 1\\} \cdot\rho Q_t \right]$\leq 0.$$
+$$\frac{\partial R_t}{\partial \tau} = -\left[ F_t + \min\\{\eta_t, 1\\} \cdot\rho Q_t \right]\leq 0.$$
 
-Hence, if we change both parameters at the same time, depending on the magnitud of each change, the net effect over $R_t$ could be positive or negative. To find the boundary (such that $R_t$ remains unchanged) for small variations $d\tau$ and $d\rho$, set the total differential $dR_t = 0$:
+If we change both parameters at the same time, depending on the magnitud of each change, the net effect over $R_t$ could be positive or negative. To find the boundary (such that $R_t$ remains unchanged) for small variations $d\tau$ and $d\rho$, set the total differential $dR_t = 0$:
 
 $$dR_t = \frac{\partial R_t}{\partial \tau} d\tau + \frac{\partial R_t}{\partial \rho} d\rho = 0.$$
 
-The partial derivatives are:
+Therefore, the partial derivatives are:
 
-$$\frac{\partial R_t}{\partial \tau} = -[F_t + \rho \min\\{\eta_t, 1\\} Q_t], \qquad \frac{\partial R_t}{\partial \rho} = (1 - \tau) \min\\{\eta_t, 1\\} Q_t $$
+$$\frac{\partial R_t}{\partial \tau} = -[F_t + \rho \min\\{\eta_t, 1\\} Q_t], \qquad \frac{\partial R_t}{\partial \rho} = (1 - \tau) \min\\{\eta_t, 1\\} Q_t.$$
 
-Setting the sum to zero:
+and
 
-$$-[F_t + \rho \min\\{\eta_t, 1\\} Q_t]  d\tau + (1 - \tau) \min\\{\eta_t, 1\\} Q_t d\rho = 0$$
+$$-[F_t + \rho \min\\{\eta_t, 1\\} Q_t]  d\tau + (1 - \tau) \min\\{\eta_t, 1\\} Q_t d\rho = 0,$$
+
+yielding to the relation
 
 $$\frac{d\rho}{d\tau} = \frac{[F_t + \rho \min\\{\eta_t, 1\\} Q_t]}{(1 - \tau) \min\{\eta_t, 1\} Q_t} = \frac{F_t + \rho \min\\{\eta_t, 1\\} Q_t}{(1 - \tau) \min\\{\eta_t, 1\\} Q_t} = \frac{1}{1 - \tau} \left( \frac{F_t}{\min\\{\eta_t, 1\\} Q_t} + \rho \right)$$
 
-For an approach for discrete changes, let's solve 
+For an approach for discrete changes, let's solve for the new value $\rho'$ in terms of the new value $\tau'$:
 
-for the new value $\rho'$ in terms of the new value $\tau'$:
-
-$$\rho' = \frac{1}{\min\\{\eta_t, 1\\} Q_t$} \left[ \frac{1 - \tau}{1 - \tau'} [F_t + \rho \min\\{\eta_t, 1\\} Q_t] - F_t \right]$$
+$$\rho' = \frac{1}{\min\\{\eta_t, 1\\} Q_t$} \left[ \frac{1 - \tau}{1 - \tau'} [F_t + \rho \min\\{\eta_t, 1\\} Q_t] - F_t \right].$$
 
 Equivalently, expressing the change in rho ($\Delta \rho = \rho' - \rho$) in terms of the change in tau ($\Delta \tau = \tau' - \tau$):
 
@@ -109,15 +109,9 @@ Therefore, when $\tau$ increases ($\Delta \tau > 0$), $(1 - \tau)$ shrinks, so $
 
 
 
+### Operators and delegators revenue
 
-
-### Operator gross revenue
-
-
-
-
-### Delegator return per unit of stake
-
+For both types of players, the direct mechanical effect is proportional to the previous description. Operators would be 
 
 
 
