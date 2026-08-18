@@ -160,16 +160,20 @@ The following plot illustrates the evolution of the reserves, the total supply, 
 
 The reward scheme extract a fixed amount from the reserves ($\tau=0.3\\%$ per epoch) to reward the delegators. Naturally, the design implies a decreasing return for delegators. The next plot shows this idea measured by two metrics of reward intensity. One is $R_t/T_t$ (reward pot over total supply), and the other is $R_t/S_t$ (reward pot over staking level). The former will always be decreasing  because of the identity $Reserves_t+T_t=45B$ ADA, implying $R_t/(45B - Reserves_t)$. Since $R_t=\rho Reserves_{t}$, then
 
-$$\frac{R_t}{T_t}=\frac{\rho}{\frac{{45B}{Reserves_t}-1},$$
+$$\frac{R_t}{T_t}=\frac{\rho}{\frac{45B}{Reserves_t}-1},$$
 
 which is decreasing when $Reserves_t$ decreases.
 
 
 <p align="center">
-  <img src="plots/reward_intensity_R_over_T.png" alt="Evolution of reward intensity" width="62%">
+  <img src="plots/reward_intensity_R_over_T.png" alt="Evolution of reward intensity over T" width="62%">
 </p>
 
+The following plot illustrates reward intensity as a function of total stake. Reward intensity is highest at launch due to low aggregate stake, then gradually flattens as the network matures. As shown in the second plot, the relationship appears nearly linear across the observed period from epoch 300 onward with a slope that is mainly driven by the reward pot reduction
 
+<p align="center">
+  <img src="plots/reward_intensity_R_over_S.png" alt="Evolution of reward intensity over S" width="62%">
+</p>
 
 
 
