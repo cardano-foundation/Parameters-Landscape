@@ -144,6 +144,14 @@ with
 
 $$\sigma_i=\hat{p}\_i + \sum_{j=1}^{D_i}\sigma_j$$  
 
+being $D_i$ the set of delegators delegating to pool $i$. 
+
+
+## The evolution of the reward pot
+
+Next plots show how the reward pot those parameters act on ($\rho$ and $\tau$) has moved.
+
+
 
 
 ## Behavioral and equilibrium effects
