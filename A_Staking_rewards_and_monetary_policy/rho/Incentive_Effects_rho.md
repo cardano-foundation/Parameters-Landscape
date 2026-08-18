@@ -1,4 +1,4 @@
-# Incentive effects of changing the Reserve Decay Rate ($\rho$)
+# Incentive effects of changing monetary policy parameters: Reserve decay rate ($\rho$), Treasury share ($\tau$)
 
 ## Summary: Trade-off.
 
@@ -33,7 +33,7 @@ For the numerical analysis in this section, we use the parameter values below un
 ## Design
 
 
-Cardano funds staking rewards and its treasury through a combination of transaction fees and predefined monetary expansion from its reserve—the difference between the $45B$ ADA maximum supply and the circulating supply. For each epoch $t$, let's denote the reserve level by $Q_t$, transaction fees by $F_t$, the treasury share parameter by $\tau$ (currently $20\\%$), and the **reserve decay rate** (or monetary expansion parameter) by $\rho$ (currently $0.3\\%$).
+Cardano funds staking rewards and its treasury through a combination of transaction fees and predefined monetary expansion from its reserve—the difference between the $45B$ ADA maximum supply and the circulating supply. For each epoch $t$, let's denote the reserve level by $Q_t$, transaction fees by $F_t$, the **treasury share** parameter by $\tau$ (currently $20\\%$), and the **reserve decay rate** (or monetary expansion parameter) by $\rho$ (currently $0.3\\%$). Because the treasury share and reserve decay rate remain constant across epochs, they do not carry a subscript $t$.
 
 > **Note:** Cardano Constitution constrains monetary-expansion changes: $\rho$ must remain between $0.001$ and $0.005$, and the recommended guardrails say it should not vary by more than $±10\\%$ in any $73\text{-epoch}$ period (roughly a year) and should not be changed more than once in any $36\text{-epoch}$ period ($\approx 6\text{ months}$).
 
@@ -75,7 +75,40 @@ $$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \fr
 
 A change in the parameter $\rho$ does not translate one-for-one into higher staking rewards, due to the fraction $\tau$ that is taken for the treasury:
 
-$$\frac{\partial R_t}{\partial \rho} = (1 - \tau)\min\\{\eta_t, 1\\}\cdot Q_t<1.$$
+$$\frac{\partial R_t}{\partial \rho} = (1 - \tau)\min\\{\eta_t, 1\\}\cdot Q_t\geq 0.$$
+
+On the other hand, a change in the parameter $\tau$ 
+
+$$\frac{\partial R_t}{\partial \tau} = -\left[ F_t + \min\\{\eta_t, 1\\} \cdot\rho Q_t \right]$\leq 0.$$
+
+Hence, if we change both parameters at the same time, depending on the magnitud of each change, the net effect over $R_t$ could be positive or negative. To find the boundary (such that $R_t$ remains unchanged) for small variations $d\tau$ and $d\rho$, set the total differential $dR_t = 0$:
+
+$$dR_t = \frac{\partial R_t}{\partial \tau} d\tau + \frac{\partial R_t}{\partial \rho} d\rho = 0.$$
+
+The partial derivatives are:
+
+$$\frac{\partial R_t}{\partial \tau} = -[F_t + \rho \min\\{\eta_t, 1\\} Q_t], \qquad \frac{\partial R_t}{\partial \rho} = (1 - \tau) \min\\{\eta_t, 1\\} Q_t $$
+
+Setting the sum to zero:
+
+$$-[F_t + \rho \min\\{\eta_t, 1\\} Q_t]  d\tau + (1 - \tau) \min\\{\eta_t, 1\\} Q_t d\rho = 0$$
+
+$$\frac{d\rho}{d\tau} = \frac{[F_t + \rho \min\\{\eta_t, 1\\} Q_t]}{(1 - \tau) \min\{\eta_t, 1\} Q_t} = \frac{F_t + \rho \min\\{\eta_t, 1\\} Q_t}{(1 - \tau) \min\\{\eta_t, 1\\} Q_t} = \frac{1}{1 - \tau} \left( \frac{F_t}{\min\\{\eta_t, 1\\} Q_t} + \rho \right)$$
+
+For an approach for discrete changes, let's solve 
+
+for the new value $\rho'$ in terms of the new value $\tau'$:
+
+$$\rho' = \frac{1}{\min\\{\eta_t, 1\\} Q_t$} \left[ \frac{1 - \tau}{1 - \tau'} [F_t + \rho \min\\{\eta_t, 1\\} Q_t] - F_t \right]$$
+
+Equivalently, expressing the change in rho ($\Delta \rho = \rho' - \rho$) in terms of the change in tau ($\Delta \tau = \tau' - \tau$):
+
+$$\Delta \rho = \frac{\Delta \tau}{1 - \tau - \Delta \tau} \cdot \frac{F_t + \rho [\min\\{\eta_t, 1\\} Q_t]}{\min\\{\eta_t, 1\\} Q_t}$$
+
+Therefore, when $\tau$ increases ($\Delta \tau > 0$), $(1 - \tau)$ shrinks, so $\rho$ must increase ($\Delta \rho > 0$) to compensate. The sensitivity depends on the fraction of total rewards coming from $F_t$ versus $\rho [\min\\{\eta_t, 1\\} Q_t]$.
+
+
+
 
 
 ### Operator gross revenue
