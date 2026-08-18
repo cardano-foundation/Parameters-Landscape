@@ -151,6 +151,10 @@ being $D_i$ the set of delegators delegating to pool $i$.
 
 Next plots show how the reward pot those parameters act on ($\rho$ and $\tau$) has moved.
 
+The following plot illustrates the evolution of the reserves, the total supply, and the staking level. As expected, reserves and total supply are perfectly correlated since the total supply is populated by the reserve depletion. We do not observe such a strong pattern with the staking level (in particular, since epoch 400) suggesting that a large fraction of new tokens release to the market is used for different purposes than securing the protocol.
+
+
+
 
 
 
