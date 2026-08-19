@@ -207,9 +207,13 @@ not through the raw parameter value itself. If the reward pot shrinks, a pool's 
 
 #### Delegators moving stake
 
-Delegators allocate stake based on expected net return. A negative shock to the reward budget should therefore shift delegation away from low-yield pools and toward pools that preserve higher net return per unit of stake. This mechanism is strongest for marginal pools whose reward margin is already thin. 
+Delegators allocate stake based on expected net return. A negative shock to the reward budget should therefore shift delegation away from low-yield pools and toward pools that preserve higher net return per unit of stake. This mechanism is strongest for marginal pools whose reward margin is already thin.
 
+Using desirability
 
+$$D_i=(1-m_i)\max\{f(\sigma_i,p_i)-c_i,0\}/\sigma_i,$$
+
+we can see how a change in $\rho$ affects the rank of the current snapshot of pools. This is shown in the next plot. It shows 
 
 
 
