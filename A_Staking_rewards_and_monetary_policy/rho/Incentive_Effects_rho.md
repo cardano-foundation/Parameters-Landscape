@@ -216,7 +216,11 @@ $$
 $$
 
 
-Hence, maintaining APR can require very large percentage increases in fees given the low level that current fees represent for the reward pot.
+Hence, maintaining APR can require very large percentage increases in fees given the low level that current fees represent for the reward pot. The following plot illustrate the necessary increment in fees to keep the current APR.
+
+<p align="center">
+  <img src="plots/fee_path_constant_apr.png" alt="Necessary Fee increment to keep APR" width="62%">
+</p>
 
 
 
