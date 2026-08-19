@@ -240,6 +240,8 @@ $$U_i = \Pi_i - \hat c_i \geq \underline U_i,$$
 
 where $\Pi_i$ is operator revenue and $\underline U_i$ is the outside option. When $\rho$ falls or $\tau$ rises, the participation constraint becomes binding for a larger set of pools, especially those with modest delegation, weak pledge, or high declared costs.
 
+On the other had, a higher $\rho$ or a lower $\tau$ help to improve the pools viabilty. 
+
 #### Pool splitting by multi-pool operators
 
 A reduction in the reward budget may also change the attractiveness of running multiple pools rather than one integrated pool. Splitting can preserve operator income by reusing the same fixed-cost structure across multiple entities, but it also fragments delegation and may dilute pledge-based competitiveness. In a lower-reward environment, the benefit from splitting is likely weaker unless the operator can preserve total income by reallocating stake and fee-setting strategically. The effect is therefore more about budget dilution than about a direct pledge-based incentive, as in the $a_0$ case.
