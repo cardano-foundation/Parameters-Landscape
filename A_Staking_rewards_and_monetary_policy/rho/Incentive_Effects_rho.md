@@ -207,21 +207,30 @@ not through the raw parameter value itself. If the reward pot shrinks, a pool's 
 
 #### Delegators moving stake
 
-Delegators allocate stake based on expected net return. A negative shock to the reward budget should therefore shift delegation away from low-yield pools and toward pools that preserve higher net return per unit of stake. This mechanism is strongest for marginal pools whose reward margin is already thin.
+Delegators allocate stake based on expected net return. A negative shock to the reward budget should therefore shift delegation away from low-yield pools and toward pools that preserve higher net return per unit of stake. This mechanism is strongest for marginal pools whose reward margin is already thin. In practice, the response is likely gradual because stake is persistent and because delegators face search and inertia costs, but the direction of the response is straightforward: lower expected APR should reduce the attractiveness of weak or high-cost pools.
 
-Using desirability
+We can see the effect of increasing $\rho$ on pool ranking by observing how the pools desirability changes in epoch $644$
 
-$$D_i=(1-m_i)\max\{f(\sigma_i,p_i)-c_i,0\}/\sigma_i,$$
+$$D_i=(1-m_i)\max\\{f(\sigma_i,p_i)-c_i,0\\}/\sigma_i.$$
 
-we can see how a change in $\rho$ affects the rank of the current snapshot of pools. This is shown in the next plot. It shows 
+The effect is shown in the next plot. It shows how pools' rank changes when we increase $\rho$ from $0.3\\%$ to $0.42\\%$. For instance, if a pool is the $200th$ most desirable under $\rho=0.003$ and becomes the $210th$ most desirable under $\rho=0.0042$, it's plotted at coordinate $(200, 210)$. Points above the diagonal lost rank (became relatively less attractive), points below gained rank.
 
+<p align="center">
+  <img src="plots/pool_desirability_rho_0p003_vs_0p0042_epoch_644.png" alt="Rank changes when rho increase" width="50%" height="50%">
+</p>
 
+We next identify who the rank winners and losers are.
 
-In practice, the response is likely gradual because stake is persistent and because delegators face search and inertia costs, but the direction of the response is straightforward: lower expected APR should reduce the attractiveness of weak or high-cost pools.
+<p align="center">
+  <img src="plots/pool_desirability_rank_traits_rho_epoch_644.png" alt="Pools characteristics for Rank changes when rho increase" width="50%" height="50%">
+</p>
+
+Pools that gain desirability rank are those with low margins and meaningful pledge. Pools that lose rank are large-stake pools with minimal pledge and high margins. The mechanism is straightforward: because $D_i$ definition a uniform scaling of $f$ benefits pools with lower $m_i$ disproportionately. High-margin pools see a smaller absolute gain in $D_i$, so they slip in the ranking.
+
 
 #### Operators changing pledge, margin, or declared fixed cost
 
-Operators have a direct incentive to stabilize revenue by changing margins $m_i$, declared fixed costs $c_i$, or pledge commitments $\hat p_i$ when the aggregate reward budget falls. The key trade-off is between preserving operator revenue and maintaining delegation. A higher treasury share $\tau$ or a lower reserve draw reduces the pool-level surplus before the fee structure is adjusted, so the pressure to cut margin or lower declared cost is strongest for pools whose expected reward is close to the participation threshold. Pools with stronger pledge and higher delegation have more room to absorb the shock without immediately losing competitiveness.
+Operators have a direct incentive to stabilize revenue by adjusting margins ($m_i$), declared fixed costs ($c_i$), or pledge commitments ($\hat{p}_i$) when the aggregate reward budget contracts. The core trade-off lies between preserving operator revenue and retaining delegation. Because a higher treasury share ($\tau$) or a lower reserve draw reduces pool-level surplus before fee adjustments, the pressure to cut margins or lower declared costs is strongest for pools operating near the delegator participation threshold. Conversely, pools with substantial pledge and high delegation have greater capacity to absorb these shocks without losing competitiveness. This strategic behavior directly links to the participation threshold and entry/exit incentives analyzed in the next section.
 
 #### Entry or exit of pools
 
