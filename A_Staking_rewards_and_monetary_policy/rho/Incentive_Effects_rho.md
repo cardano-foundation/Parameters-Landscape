@@ -1,20 +1,37 @@
 # Incentive effects of changing monetary policy parameters: Reserve decay rate ($\rho$), Treasury share ($\tau$)
 
-## Summary: Trade-off.
+## Summary: Trade-off from changing the monetary policy parameters
 
+Increasing $\rho$ raises the reserve draw and can expand the reward pot, while increasing $\tau$ reduces the share of rewards that reaches pools. Together, these parameters determine how fast rewards are extracted from the reserve and how much of the resulting payout remains available to operators and delegators.
 
 **Pros**
+1. A higher $\rho$ can increase the reward pot and temporarily raise pool and delegator yield.
+2. A lower $\tau$ leaves more of the gross pot available for staking rewards and can support stronger delegation incentives.
+3. Reward-pot increases can improve pool viability for some pools, especially those already near the participation threshold.
 
 **Risks**
+1. A higher $\tau$ directly lowers the share of rewards available to pools and compresses net APR.
+2. Even when $\rho$ rises, the reward pot can still fall in real terms because reserve depletion and total supply growth dilute the effect.
+3. If the reward budget contracts persistently, marginal pools face lower viability, redelegation pressure, and stronger entry/exit dynamics.
+4. Aggregate reward intensity is mechanically declining as reserves shrink and total supply expands, so the benefits of higher $\rho$ are often temporary.
 
+**Historical dynamics**
+1. The reward pot is driven by reserve depletion and transaction fees, not by the reward-sharing function itself.
+2. Reward intensity $R_t/T_t$ and $R_t/S_t$ declines mechanically as reserves shrink and circulating supply grows.
+3. Aggregate APR falls over time unless fees rise enough to offset the reserve draw and treasury extraction.
+4. These dynamics create a persistent downward pressure on pool-level competitiveness unless operators cut margins or lower declared costs.
 
-**What the evidence suggests**
-
-
-**Behavioral and equilibrium discussion**
+**Behavioral and equilibrium conclusions**
+1. Delegators reallocate toward pools that preserve higher net return per unit of stake when the reward pot shrinks or when the treasury share rises.
+2. Operators react by adjusting margins, declared fixed costs, and pledge strategies, but the response is constrained by pool size and viability.
+3. Entry and exit is especially sensitive near the participation threshold: marginal pools are more likely to exit when the reward budget falls.
+4. Pool splitting becomes more attractive only when a larger reward pot can support multiple smaller entities without diluting competitiveness.
+5. The main equilibrium response to changes in $\rho$ and $\tau$ is therefore a reduction in the number of marginally viable pools and a reallocation of stake toward the highest-yield pools, rather than a structural change in the reward-sharing formula itself.
 
 **Policy interpretation**
-
+1. Increasing $\rho$ can temporarily expand the reward budget, but the effect is partly offset by reserve depletion and by the growth of total supply.
+2. Increasing $\tau$ directly lowers the share of rewards reaching pools and therefore weakens net APR and pool viability.
+3. The policy trade-off is between a stronger near-term reward budget and a lower long-run reward intensity, with the largest losses concentrated in marginal pools.
 
 ## Parameter values at the current state
 For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
