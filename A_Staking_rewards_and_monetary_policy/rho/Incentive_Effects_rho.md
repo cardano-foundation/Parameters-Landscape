@@ -279,7 +279,17 @@ An increase in the monetary expansion rate ($\rho$) expands the total reward pot
 
 #### Changes in staking participation
 
-While an increase in $\rho$ expands the total reward pot ($R_t$) and theoretically boosts yields to incentivize non-participating holders to delegate, its empirical impact on total staking participation remains constrained. This limited efficacy stems from the marginal improvement in overall pool viability; even a $40\\%$ increase in $\rho$ yields only a modest uplift in Annual Percentage Rate (APR) across the epoch $644$ pool snapshot. Furthermore, because the protocol's reward mechanism exhibits a structural downward trajectory over time, forward-looking stakers internalize these diminishing returns, thereby dampening their long-term responsiveness to temporary or static expansions in $\rho$.
+The following figure illustrates the impact of a $40\\%$ increase in $\rho$ on delegator APR, defined as:
+
+$$\text{APR}_i = 73(1 - m_i) \frac{\max(f_i - c_i, 0)}{\sigma_i}$$
+
+The relative increase in APR exceeds $40\\%$ primarily because the marginal gains are magnified for pools operating near the break-even threshold ($f_i \approx c_i$). Furthermore, the expansion in total rewards lowers the barrier to profitability, enlarging the set of viable pools that satisfy the eligibility condition ($f_i > c_i$).
+
+<p align="center">
+<img src="plots/member_apr_rho_0p003_vs_0p0042_epoch_644.png" alt="Delegators APR in pool snapshot when rho increases" width="62%">
+</p>
+
+
 
 ## Interaction effects (ToDo)
 
