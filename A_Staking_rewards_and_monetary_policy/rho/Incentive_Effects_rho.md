@@ -207,7 +207,13 @@ not through the raw parameter value itself. If the reward pot shrinks, a pool's 
 
 #### Delegators moving stake
 
-Delegators allocate stake based on expected net return and risk-adjusted competitiveness. A negative shock to the reward budget should therefore shift delegation away from low-yield pools and toward pools that preserve higher net return per unit of stake. This mechanism is strongest for marginal pools whose reward margin is already thin. In practice, the response is likely gradual because stake is persistent and because delegators face search and inertia costs, but the direction of the response is straightforward: lower expected APR should reduce the attractiveness of weak or high-cost pools.
+Delegators allocate stake based on expected net return. A negative shock to the reward budget should therefore shift delegation away from low-yield pools and toward pools that preserve higher net return per unit of stake. This mechanism is strongest for marginal pools whose reward margin is already thin. 
+
+
+
+
+
+In practice, the response is likely gradual because stake is persistent and because delegators face search and inertia costs, but the direction of the response is straightforward: lower expected APR should reduce the attractiveness of weak or high-cost pools.
 
 #### Operators changing pledge, margin, or declared fixed cost
 
