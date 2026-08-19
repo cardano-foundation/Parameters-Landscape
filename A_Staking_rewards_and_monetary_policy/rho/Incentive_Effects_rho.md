@@ -177,8 +177,46 @@ The following plot illustrates reward intensity as a function of total stake. Re
 </p>
 
 
-The following plot shows the variation in the APR across time. We illustrate the lower-bound (when pledge is zero), measured as $73\frac{R}{(1+a_0)T}$ and the upper-bound measured as $73\frac{R}{T}$. Notice that the APR is always decreasing. This is by design, since $R$ decreases when the reserves are diminishing (because the design takes a fixed amount $\rho=0.3\\%$ per epoch of a reducing reserve pot), while the amount of tokens supply ($T$) increases while those tokens from the reserves are released.
+The following plot shows the variation in gross APR over time. We illustrate the lower bound (zero pledge), calculated as $73 \cdot \frac{R}{(1+a_0)T}$, and the upper bound, calculated as $73 \cdot \frac{R}{T}$. The theoretical APR is strictly decreasing across epochs. This is by design: available rewards ($R$) decrease as the reserve shrinks (since the protocol draws a fixed fraction $\rho = 0.3\\%$ from a diminishing reserve pot each epoch), while total circulating supply ($T$) expands as those released tokens enter circulation.
 
+<p align="center">
+  <img src="plots/gross_apr.png" alt="Historical APR" width="62%">
+</p>
+
+
+In order to observe an increment in the gross APR, the reward pot $R$ should increase via fees (recall that $R_t=(1 - \tau) \left[ F_t + \rho Q_t \right]$ if we assume that the performance factor is $1$) since this is the only mechanism that allows $R$ to increase. in the following we derive a calculation that shows how much the fees need to increase to keep the APR invariant. Let the annualized staking APR be
+
+$$
+APR_t = 73\frac{R_t}{T_t} =73\frac{(1-\tau)[F_t+\rho Q_t]}{T_t},
+$$
+
+where:
+
+- $F_t$ = transaction fees in epoch $t$,
+- $Q_t$ = reserves,
+- $T_t$ = circulating supply,
+- $\rho$ = reserve decay rate.
+
+Let the laws of motion be
+
+$$
+Q_{t+1}=(1-\rho)Q_t \qquad T_{t+1}=T_t+\rho Q_t.
+$$
+
+To keep APR constant,
+
+$$
+\frac{F_{t+1}+\rho Q_{t+1}}{T_{t+1}} = \frac{F_t+\rho Q_t}{T_t}, 
+$$
+
+giving:
+
+$$
+\Delta F_t = F_{t+1}-F_t =\rho^2Q_t+\frac{\rho Q_t}{T_t}R_t.
+$$
+
+
+Hence, maintaining APR can require very large percentage increases in fees given the low level that current fees represent for the reward pot.
 
 
 
