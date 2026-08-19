@@ -238,9 +238,35 @@ Entry or exit decisions are governed by whether expected pool utility exceeds th
 
 $$U_i = \Pi_i - \hat c_i \geq \underline U_i,$$
 
-where $\Pi_i$ is operator revenue and $\underline U_i$ is the outside option. When $\rho$ falls or $\tau$ rises, the participation constraint becomes binding for a larger set of pools, especially those with modest delegation, weak pledge, or high declared costs.
+where $\Pi_i$ is operator revenue and $\underline U_i$ is the outside option (for simplicity, we assume $\underline{U}_i=0$). When $\rho$ falls or $\tau$ rises, the participation constraint becomes binding for a larger set of pools, especially those with modest delegation, weak pledge, or high declared costs. On the other had, a higher $\rho$ or a lower $\tau$ help to improve the pools viabilty. 
 
-On the other had, a higher $\rho$ or a lower $\tau$ help to improve the pools viabilty. 
+Using actual data from epoch $644$, the following chart shows how many pools during that epoch are at viability risk (note that using only one epoch as a data source may not represent the actual situation of those pools). For each pool we calculate its
+
+$$
+\Pi_i=
+\begin{cases}
+f_i, & f_i\le c_i,\\
+c_i+(f_i-c_i)\left[m_i+(1-m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i>c_i,
+\end{cases}
+$$
+
+using their margin, delegation, active and declared pledge, and declared fixed cost. We consider the case in which the latter is not the actual operating cost that the pools face. In particular, we assume that all pools have the same operation cost/expenditure ($C^*$) equal to $667$ USD per month (six epochs), and a token price of $0.15 USD/ADA$ giving 
+
+$$C^*=667/6/0.15=741.1 \text{ USD per epoch}.$$
+
+The plot measures $r=\Pi_i/C^{\*}$, where any $r<1$ indicates not enough rewards to cover costs. Among $2223$ pools, only $274$ would be able to cover the OpEx $C^*$. However, $150$ of them would be on a risky situation ($1\leq r\leq 2$)
+
+<p align="center">
+<img src="plots/pool_viability_rho_0p003_vs_0p0042_epoch_644.png" alt="Pools theoretical viability versus OpCost when rho increases" width="62%">
+</p>
+
+Despite a $40\\%$ increase in the reward pot ($R$), only $59$ pools transition from "unviable" ($r < 1$) to "viable" ($r \ge 1$). The underlying issue is structural rather than parametric: most losing pools hold such low stake that even a $40\\%$ reward expansion fails to generate enough operator revenue to cover operational expenditures (OpEx). The pools that cross the viability threshold are exclusively those that were already operating immediately below $r = 1$. Consequently, increasing $\rho$ is an ineffective lever for rescuing small pools.
+
+Increasing $\rho$ accelerates reserve depletion while yielding only marginal gains in the count of viable stake pools.
+
+
+
+
 
 #### Pool splitting by multi-pool operators
 
