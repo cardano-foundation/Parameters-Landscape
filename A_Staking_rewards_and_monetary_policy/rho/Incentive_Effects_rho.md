@@ -260,21 +260,26 @@ The plot measures $r=\Pi_i/C^{\*}$, where any $r<1$ indicates not enough rewards
 <img src="plots/pool_viability_rho_0p003_vs_0p0042_epoch_644.png" alt="Pools theoretical viability versus OpCost when rho increases" width="62%">
 </p>
 
+
 Despite a $40\\%$ increase in the reward pot ($R$), only $59$ pools transition from "unviable" ($r < 1$) to "viable" ($r \ge 1$). The underlying issue is structural rather than parametric: most losing pools hold such low stake that even a $40\\%$ reward expansion fails to generate enough operator revenue to cover operational expenditures (OpEx). The pools that cross the viability threshold are exclusively those that were already operating immediately below $r = 1$. Consequently, increasing $\rho$ is an ineffective lever for rescuing small pools.
 
-Increasing $\rho$ accelerates reserve depletion while yielding only marginal gains in the count of viable stake pools.
+Increasing $\rho$ accelerates reserve depletion while yielding only small gains in the count of viable stake pools.
 
+The following plot shows the characteristics of those pools that improved their viability (but remained with $r<1$) and those that jump from "unviable" to viable". We can confirm that the latter are larger pools in terms of delegation and pledge.
 
+<p align="center">
+<img src="plots/pool_viability_improvers_traits_rho_epoch_644.png" alt="Pools theoretical viability per characteristic when rho increases" width="62%">
+</p>
 
 
 
 #### Pool splitting by multi-pool operators
 
-A reduction in the reward budget may also change the attractiveness of running multiple pools rather than one integrated pool. Splitting can preserve operator income by reusing the same fixed-cost structure across multiple entities, but it also fragments delegation and may dilute pledge-based competitiveness. In a lower-reward environment, the benefit from splitting is likely weaker unless the operator can preserve total income by reallocating stake and fee-setting strategically. The effect is therefore more about budget dilution than about a direct pledge-based incentive, as in the $a_0$ case.
+An increase in the monetary expansion rate ($\rho$) expands the total reward pot, strengthening the economic incentive to operate multiple pools rather than a single consolidated entity. With a larger gross reward budget, pool operators can capture greater fixed cost fees and avoid saturation caps by splitting delegation across multiple nodes while amortizing actual operational costs. 
 
 #### Changes in staking participation
 
-Finally, the aggregate participation response depends on whether lower reward intensity translates into lower staking. If the skill of pool operators and the willingness to adjust margins are insufficient, a reduction in $R_t$ or a rise in $\tau$ should reduce the equilibrium level of total delegated stake, especially among weaker pools. This is a slower-moving channel than fee adjustment because stake is sticky, but it becomes the most important margin when the reward environment remains weak for a sustained period.
+While an increase in $\rho$ expands the total reward pot ($R_t$) and theoretically boosts yields to incentivize non-participating holders to delegate, its empirical impact on total staking participation remains constrained. This limited efficacy stems from the marginal improvement in overall pool viability; even a $40\\%$ increase in $\rho$ yields only a modest uplift in Annual Percentage Rate (APR) across the epoch $644$ pool snapshot. Furthermore, because the protocol's reward mechanism exhibits a structural downward trajectory over time, forward-looking stakers internalize these diminishing returns, thereby dampening their long-term responsiveness to temporary or static expansions in $\rho$.
 
 ## Interaction effects (ToDo)
 
