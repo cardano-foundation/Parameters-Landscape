@@ -169,11 +169,16 @@ which is decreasing when $Reserves_t$ decreases.
   <img src="plots/reward_intensity_R_over_T.png" alt="Evolution of reward intensity over T" width="62%">
 </p>
 
-The following plot illustrates reward intensity as a function of total stake. Reward intensity is highest at launch due to low aggregate stake, then gradually flattens as the network matures. As shown in the second plot, the relationship appears nearly linear across the observed period from epoch 300 onward with a slope that is mainly driven by the reward pot reduction
+The following plot illustrates reward intensity as a function of total stake. Reward intensity is highest at launch due to low aggregate stake, then gradually flattens as the network matures. As shown in the second plot, the relationship appears nearly linear across the observed period from epoch $300$ onward with a slope that is mainly driven by the reward pot reduction (the OLS slope of $R/S$ is about $-1.14 \times 10^{-6}$ per epoch). During the time window, $R$ is down $45\\%$ while $S$ is down $10\\%$, and the observed slope is about $77\\%$ of the slope that we would have if the staking level $S$ remained constant (and hence, the whole slope was explained by the drop in the reward $R$). This suggests that capital (stakes) was sticky ($S$ does decline, but much less than $R$, so it only partially offsets the reward reduction in $R/S$). If $R$ keeps falling while $S$ falls slowly, gross staking yield will continue trending down.
+
 
 <p align="center">
   <img src="plots/reward_intensity_R_over_S.png" alt="Evolution of reward intensity over S" width="62%">
 </p>
+
+
+The following plot shows the variation in the APR across time. We illustrate the lower-bound (when pledge is zero), measured as $73\frac{R}{(1+a_0)T}$ and the upper-bound measured as $73\frac{R}{T}$. Notice that the APR is always decreasing. This is by design, since $R$ decreases when the reserves are diminishing (because the design takes a fixed amount $\rho=0.3\\%$ per epoch of a reducing reserve pot), while the amount of tokens supply ($T$) increases while those tokens from the reserves are released.
+
 
 
 
