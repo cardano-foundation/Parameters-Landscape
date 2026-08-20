@@ -94,23 +94,23 @@ and the change in $\rho$ or $\tau$ operates through the total reward budget $R_t
 
 The protocol depletes the reserve by a fraction $\rho$ and allocates a share $\tau$ of the gross pot to the treasury. The gross pot is
 
-$$P_t = F_t + \min\{\eta_t,1\}\cdot \rho Q_t,$$
+$$P_t = F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t,$$
 
 where $Q_t$ is the reserve level and $F_t$ are transaction fees. The treasury receives
 
-$$G_t = \tau P_t = \tau \left[ F_t + \min\{\eta_t,1\}\cdot \rho Q_t \right],$$
+$$G_t = \tau P_t = \tau \left[ F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t \right],$$
 
 and the amount available to pools is
 
-$$R_t = (1-\tau)P_t = (1-\tau)\left[ F_t + \min\{\eta_t,1\}\cdot \rho Q_t \right].$$
+$$R_t = (1-\tau)P_t = (1-\tau)\left[ F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t \right].$$
 
 Hence,
 
-$$\frac{\partial R_t}{\partial \rho} = (1-\tau)\min\{\eta_t,1\}\cdot Q_t \geq 0,$$
+$$\frac{\partial R_t}{\partial \rho} = (1-\tau)\min\\{\eta_t,1\\}\cdot Q_t \geq 0,$$
 
 and
 
-$$\frac{\partial R_t}{\partial \tau} = -\left[ F_t + \min\{\eta_t,1\}\cdot \rho Q_t \right] \leq 0.$$
+$$\frac{\partial R_t}{\partial \tau} = -\left[ F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t \right] \leq 0.$$
 
 If both parameters change simultaneously, the net effect on $R_t$ depends on the relative magnitudes of the changes. For a small move around a baseline, the total differential is
 
