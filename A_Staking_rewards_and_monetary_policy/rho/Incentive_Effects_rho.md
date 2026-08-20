@@ -103,11 +103,90 @@ $$R_t = (1-\tau)P_t = (1-\tau)\left[ F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t \rig
 
 Hence,
 
-$$\frac{\partial R_t}{\partial \rho} = (1-\tau)\min\\{\eta_t,1\\}\cdot Q_t \geq 0,$$
+$$\frac{\partial R_t}{\partial \rho} = (1-\tau)\min\\{\eta_t,1\\}\cdot Q_t \geq 0.$$
 
-and
+This derivative represents the absolute rate of change 
+$$\Delta R_t \approx \frac{\partial R_t}{\partial \rho}\Delta \rho$$. Therefore, when $\tau=20\\%$, for an absolute change $\Delta \rho$, we have:
+
+$$\Delta R_t \approx 0.80 \min\\{\eta_t,1\\}\cdot Q_t \cdot \Delta \rho.$$
+
+To determine the percentage change in $R_t$ resulting from a percentage change in $\rho$, we have to evaluate the elasticity:
+
+$$\begin{align*}
+\varepsilon_{R_t, \rho} &= \frac{\partial R_t}{\partial \rho}\cdot \frac{\rho}{R_t},\\
+&=\frac{(1-\tau)\min\\{\eta_t,1\\}\cdot \rho Q_t}{(1-\tau)\left[ F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t \right]},\\
+&= \frac{\min\\{\eta_t,1\\}\cdot \rho Q_t}{F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t}.
+\end{align*}$$
+
+Notice that, since the $(1-\tau)$ cancels out in both numerator and denominator, $\tau = 20\%$ does not scale the percentage response. Instead, the elasticity equals the share of the variable component relative to total gross revenue $F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t$. When the rewards coming from fees $F_t=0$, and increment of $100\\%$, induces an increment of $100\\%$ in $R_t$.
+
+
+Similary, for a change in $\tau$
 
 $$\frac{\partial R_t}{\partial \tau} = -\left[ F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t \right] \leq 0.$$
+
+This derivative represents the absolute rate of change per percentage-point change in $\tau$ ($\Delta \tau$ measured in absolute terms):
+
+$$\Delta R_t \approx -G_t \cdot \Delta \tau$$
+
+An absolute increase in $\tau$ by $10$ percentage points ($\Delta \tau = +0.10$) reduces net revenue by $0.10 \cdot G_t$.
+
+In this case, we compute the elasticity $\varepsilon_{R_t, \tau}$ to determine the percentage change in net revenue $R_t$ resulting from a relative percentage change in $\tau$: 
+
+$$\begin{align*}
+\varepsilon_{R_t, \tau} &= \frac{\partial R_t}{\partial \tau} \cdot \frac{\tau}{R_t},\\
+&= \frac{-G_t \cdot \tau}{(1-\tau)G_t}, \\
+&= -\frac{\tau}{1-\tau}.
+\end{align*}
+$$
+
+In this case, the reward-pot elasticity with respect to $\tau$ depends solely on the current $\tau$. At $\tau = 20\%$:
+
+$$\varepsilon_{R_t, \tau} = -\frac{0.20}{1 - 0.20} = -\frac{0.20}{0.80} = -0.25$$
+
+That is, a $1\%$ relative increase in the tax rate (e.g., from $20\%$ to $20.2\%$) results in a $0.25\%$ decrease in the reward-pot $R_t$.
+
+
+If both parameters change simultaneously, the net effect on $R_t$ depends on the relative magnitudes of the changes. In that case, the total differential is given by
+
+$$dR_t = \frac{\partial R_t}{\partial \tau} d\tau + \frac{\partial R_t}{\partial \rho} d\rho.$$
+
+Suppose we want to keep the net reward pot constant at $R_t = \bar{R}$. The relationship between the reserve decay rate $\rho$ and the treasury share rate $\tau$ defines an explicit iso-reward curve:
+
+$$\rho(\tau) = \frac{\frac{\bar{R}}{1-\tau} - F_t}{\min\\{\eta_t,1\\}Q_t}$$
+
+
+Taking the derivative with respect to $\tau$ yields the exact marginal rate of substitution (or, setting $dR_t = 0$ and solving)
+
+$$
+\begin{align*}
+\frac{d\rho}{d\tau} &= \frac{F_t + \rho\min\\{\eta_t,1\\}Q_t}{(1-\tau)\min\\{\eta_t,1\\}Q_t},\\
+&= \frac{1}{1-\tau}\left( \frac{F_t}{\min\\{\eta_t,1\\}Q_t} + \rho \right)>0
+\end{align*}
+$$
+
+Thus, a higher treasury share must be offset by a higher reserve decay rate to keep the reward pot constant, and the degree of compensation depends on the share of rewards coming from transaction fees versus reserve depletion. Let 
+
+$$\tau(\rho) = 1 - \frac{\bar{R}}{F_t + \min\{\eta_t,1\}\rho Q_t}.$$ 
+
+It follows, that the second derivative is strictly negative:
+
+$$\frac{d^2\tau}{d\rho^2} = -\frac{2\bar{R}\left(\min\\{\eta_t,1\\}Q_t\right)^2}{\left(F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t\right)^3} < 0$$
+
+Small changes in $\tau$ when it is low require moderate adjustments in $\rho$. However, as $\tau$ increases, the required change in $\rho$ accelerates nonlinearly to offset the cumulative effect of $\tau$.
+When rewards come almost entirely from reserve depletion:
+
+$$\frac{d\rho}{d\tau} \approx \frac{\rho}{1-\tau} \implies \frac{d\rho / \rho}{d\tau / (1-\tau)} = 1.$$
+
+The system exhibits constant proportional scaling: the retention rate $(1-\tau)$ and reserve emission $\rho$ trade off $1:1$ in percentage terms.
+
+While keeping $R_t = \bar{R}$ stabilizes staker yield in period $t$, it creates a dynamic penalty for period $t+1$:
+
+$$Q_{t+1} = Q_t - \rho Q_t = (1-\rho)Q_t$$
+
+Raising $\rho$ to maintain constant rewards accelerates reserve depletion. In period $t+1$, the smaller reserve base $Q_{t+1}$ shifts the iso-reward curve upward, requiring an even higher $\rho_{t+1}$ to maintain the same target $\bar{R}$.
+
+XXXX
 
 If both parameters change simultaneously, the net effect on $R_t$ depends on the relative magnitudes of the changes. For a small move around a baseline, the total differential is
 
