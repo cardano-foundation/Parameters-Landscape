@@ -88,7 +88,7 @@ In this section we consider the direct effects of changing $\rho$ and $\tau$ whi
 
 Let $\sigma_i$ denote total delegation to pool $i$, $p_i$ its declared pledge, and $z_0$ the saturation threshold. The pool-level gross reward function remains
 
-$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\{\sigma_i, z_0\}, \qquad \tilde{p}_i = \min\{p_i, z_0\},$$
+$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \tilde{\sigma}_i + a_0\tilde{p}_i \frac{\tilde{\sigma}_i-\tilde{p}_i\frac{z_0-\tilde{\sigma}_i}{z_0}}{z_0} \right], \qquad \tilde{\sigma}_i = \min\\{\sigma_i, z_0\\}, \qquad \tilde{p}_i = \min\\{p_i, z_0\\},$$
 
 and the change in $\rho$ or $\tau$ operates through the total reward budget $R_t$, not through the internal reward-sharing formula.
 
