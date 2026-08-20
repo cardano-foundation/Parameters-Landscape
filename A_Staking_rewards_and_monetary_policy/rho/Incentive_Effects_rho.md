@@ -5,28 +5,25 @@
 Increasing $\rho$ raises the reserve draw and can expand the reward pot, while increasing $\tau$ reduces the share of rewards that reaches pools. Together, these parameters determine how fast rewards are extracted from the reserve and how much of the resulting payout remains available to operators and delegators.
 
 **Pros**
-1. A higher $\rho$ can increase the reward pot and temporarily raise pool and delegator yield.
-2. A lower $\tau$ leaves more of the gross pot available for staking rewards and can support stronger delegation incentives.
-3. Reward-pot increases can improve pool viability for some pools, especially those already near the participation threshold.
+1. A higher $\rho$ or a lower $\tau$ can increase the reward pot and temporarily raise pool and delegator yield.
+2. Reward-pot increases can improve pool viability for some pools, especially those already near the participation threshold.
 
 **Risks**
-1. A higher $\tau$ directly lowers the share of rewards available to pools and compresses net APR.
-2. Even when $\rho$ rises, the reward pot can still fall in real terms because reserve depletion and total supply growth dilute the effect.
-3. If the reward budget contracts persistently, marginal pools face lower viability, redelegation pressure, and stronger entry/exit dynamics.
-4. Aggregate reward intensity is mechanically declining as reserves shrink and total supply expands, so the benefits of higher $\rho$ are often temporary.
+1. A higher $\rho$ increase short-term rewards but accelerates depletion and future expected returns. Aggregate reward intensity is mechanically declining as reserves shrink and total supply expands, so the benefits of higher $\rho$ are often temporary.
+2. Given a fixed $\rho$ and $\tau$, an increment in returns can come only from transaction fees. The requiere levels of transaction fees to keep stable the current return is substantial and increasing in time.
 
 **Historical dynamics**
-1. The reward pot is driven by reserve depletion and transaction fees, not by the reward-sharing function itself.
+1. By design, the reward pot is driven by reserve depletion and transaction fees, not by the staking level or the reward-sharing function itself.
 2. Reward intensity $R_t/T_t$ and $R_t/S_t$ declines mechanically as reserves shrink and circulating supply grows.
 3. Aggregate APR falls over time unless fees rise enough to offset the reserve draw and treasury extraction.
-4. These dynamics create a persistent downward pressure on pool-level competitiveness unless operators cut margins or lower declared costs.
+<--! 4. These dynamics create a persistent downward pressure on pool-level competitiveness unless operators cut margins or lower declared costs. -->
 
-**Behavioral and equilibrium conclusions**
-1. Delegators reallocate toward pools that preserve higher net return per unit of stake when the reward pot shrinks or when the treasury share rises.
+<!-- **Behavioral and equilibrium conclusions**
+<1. Delegators reallocate toward pools that preserve higher net return per unit of stake when the reward pot shrinks or when the treasury share rises.
 2. Operators react by adjusting margins, declared fixed costs, and pledge strategies, but the response is constrained by pool size and viability.
 3. Entry and exit is especially sensitive near the participation threshold: marginal pools are more likely to exit when the reward budget falls.
 4. Pool splitting becomes more attractive only when a larger reward pot can support multiple smaller entities without diluting competitiveness.
-5. The main equilibrium response to changes in $\rho$ and $\tau$ is therefore a reduction in the number of marginally viable pools and a reallocation of stake toward the highest-yield pools, rather than a structural change in the reward-sharing formula itself.
+5. The main equilibrium response to changes in $\rho$ and $\tau$ is therefore a reduction in the number of marginally viable pools and a reallocation of stake toward the highest-yield pools, rather than a structural change in the reward-sharing formula itself. -->
 
 **Policy interpretation**
 1. Increasing $\rho$ can temporarily expand the reward budget, but the effect is partly offset by reserve depletion and by the growth of total supply.
@@ -245,9 +242,6 @@ We next identify who the rank winners and losers are.
 Pools that gain desirability rank are those with low margins and meaningful pledge. Pools that lose rank are large-stake pools with minimal pledge and high margins. The mechanism is straightforward: because $D_i$ definition a uniform scaling of $f$ benefits pools with lower $m_i$ disproportionately. High-margin pools see a smaller absolute gain in $D_i$, so they slip in the ranking.
 
 
-#### Operators changing pledge, margin, or declared fixed cost
-
-Operators have a direct incentive to stabilize revenue by adjusting margins ($m_i$), declared fixed costs ($c_i$), or pledge commitments ($\hat{p}_i$) when the aggregate reward budget contracts. The core trade-off lies between preserving operator revenue and retaining delegation. Because a higher treasury share ($\tau$) or a lower reserve draw reduces pool-level surplus before fee adjustments, the pressure to cut margins or lower declared costs is strongest for pools operating near the delegator participation threshold. Conversely, pools with substantial pledge and high delegation have greater capacity to absorb these shocks without losing competitiveness. This strategic behavior directly links to the participation threshold and entry/exit incentives analyzed in the next section.
 
 #### Entry or exit of pools
 
@@ -290,9 +284,9 @@ The following plot shows the characteristics of those pools that improved their 
 
 
 
-#### Pool splitting by multi-pool operators
+<!-- #### Pool splitting by multi-pool operators
 
-An increase in the monetary expansion rate ($\rho$) expands the total reward pot, strengthening the economic incentive to operate multiple pools rather than a single consolidated entity. With a larger gross reward budget, pool operators can capture greater fixed cost fees and avoid saturation caps by splitting delegation across multiple nodes while amortizing actual operational costs. 
+An increase in the monetary expansion rate ($\rho$) expands the total reward pot, strengthening the economic incentive to operate multiple pools rather than a single consolidated entity. With a larger gross reward budget, pool operators can capture greater fixed cost fees and avoid saturation caps by splitting delegation across multiple nodes while amortizing actual operational costs. -->
 
 #### Changes in staking participation
 
@@ -306,7 +300,7 @@ The relative increase in APR exceeds $40\\%$ primarily because the marginal gain
 <img src="plots/member_apr_rho_0p003_vs_0p0042_epoch_644.png" alt="Delegators APR in pool snapshot when rho increases" width="62%">
 </p>
 
-
+Notice that we observe an important impact on delegators APR but not in pool's viability. The reason is that the two metrics answer different questions. In the delegator APR when $\rho$ rises, $R/T$ rises by about $40\\%$, so $f_i$ rises for most pools, which lifts $(f_i-c_i)/\sigma_i$ and makes APR increase clearly. On the other hand, viability plot tracks operator cost coverage $r_i=\Pi_i/C^*,$ and counts threshold crossings ($r<1$, $1\le r<2$, etc.). Many pools are far below $r=1$, so even a large proportional reward increase does not move many pools into viability. Both results are consistent: delegator APR can rise substantially while the number of truly viable pools changes only modestly, because higher $\rho$ is a multiplicative boost but viability requires enough absolute operator reward to cover fixed OpEx.
 
 ## Interaction effects (ToDo)
 
