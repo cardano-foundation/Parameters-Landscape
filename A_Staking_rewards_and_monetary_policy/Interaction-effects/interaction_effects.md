@@ -17,9 +17,9 @@ This part studies the combined effects of changes in two or more parameters of t
 
 ## k with minPoolCost ($c_{\min}$)
 
-### Direct combined effects
+### Direct combined mechanical effects
 
-The discussion combines a lower minimum fixed cost, $c_{\min}$, with a higher pool target, $k$. In the reward-sharing model, the two parameters act on different margins: $k$ changes the saturation threshold $z_0(k)=1/k,$ while $c_{\min}$ changes the feasible declared fixed cost $c_i$. To keep the direct effects organized, we proceed in this order: gross pool rewards, operator gross revenues, and delegator returns.
+The discussion combines a lower minimum fixed cost, $c_{\min}$, with a higher pool target, $k$. In the reward-sharing model, the two parameters act on different margins: $k$ changes the saturation threshold $z_0(k)=1/k,$ while $c_{\min}$ changes the feasible declared fixed cost $c_i$. 
 
 #### Gross pool rewards $f(\sigma_i,p_i)$
 
@@ -31,7 +31,7 @@ f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\fra
 \widetilde{\sigma}_i=\min\\{\sigma_i,z_0\\},\quad \widetilde{p}_i=\min\\{p_i,z_0\\}.
 $$
 
-Directly, $c_{\min}$ does not enter $f(\cdot)$. The [incentive effects of a change in k](k/Incentive_Effects_k.md) analysis shows that increasing $k$ can increase or reduce $f(\sigma_i,p_i)$ depending on the pool's delegation and pledge (through the new saturation point).
+Note that $c_{\min}$ does not enter $f(\cdot)$. Hence, there is not direct combined effect over $f_i$. The [incentive effects of a change in k](k/Incentive_Effects_k.md) analyses the change of $k$ over $f_i$. 
 
 #### Operator gross revenue $\Pi_i$
 
