@@ -9,26 +9,25 @@ Increasing $\rho$ raises the reserve draw and can expand the reward pot, while i
 2. Reward-pot increases can improve pool viability for some pools, especially those already near the participation threshold.
 
 **Risks**
-1. A higher $\rho$ increase short-term rewards but accelerates depletion and future expected returns. Aggregate reward intensity is mechanically declining as reserves shrink and total supply expands, so the benefits of higher $\rho$ are often temporary.
+1. A higher $\rho$ increase short-term rewards but accelerates depletion and future expected returns. APR is mechanically declining as reserves shrink and total supply expands, so the benefits of higher $\rho$ are often temporary.
 2. Given a fixed $\rho$ and $\tau$, an increment in returns can come only from transaction fees. The requiere levels of transaction fees to keep stable the current return is substantial and increasing in time.
 
 **Historical dynamics**
 1. By design, the reward pot is driven by reserve depletion and transaction fees, not by the staking level or the reward-sharing function itself.
 2. Reward intensity $R_t/T_t$ and $R_t/S_t$ declines mechanically as reserves shrink and circulating supply grows.
 3. Aggregate APR falls over time unless fees rise enough to offset the reserve draw and treasury extraction.
-<--! 4. These dynamics create a persistent downward pressure on pool-level competitiveness unless operators cut margins or lower declared costs. -->
 
-<!-- **Behavioral and equilibrium conclusions**
-<1. Delegators reallocate toward pools that preserve higher net return per unit of stake when the reward pot shrinks or when the treasury share rises.
-2. Operators react by adjusting margins, declared fixed costs, and pledge strategies, but the response is constrained by pool size and viability.
-3. Entry and exit is especially sensitive near the participation threshold: marginal pools are more likely to exit when the reward budget falls.
-4. Pool splitting becomes more attractive only when a larger reward pot can support multiple smaller entities without diluting competitiveness.
-5. The main equilibrium response to changes in $\rho$ and $\tau$ is therefore a reduction in the number of marginally viable pools and a reallocation of stake toward the highest-yield pools, rather than a structural change in the reward-sharing formula itself. -->
+
+**Behavioral and equilibrium conclusions**
+1. An increment in $\rho$ does not affect strongly the desirability rank of pools. Hence, it should not induce a strong redelegation.
+2. Increasing $\rho$ is an ineffective lever for improving viability of currently small pools. Most of them hold such low stake that even a $40\\%$ reward expansion fails to generate enough operator revenue to cover operational expenditures.
+3. On the other hand, an increment in $\rho$ induces a slightly larger increment in delegators APR. This is because the marginal gains are magnified for pools operating near the break-even threshold ($f_i \approx c_i$). 
 
 **Policy interpretation**
-1. Increasing $\rho$ can temporarily expand the reward budget, but the effect is partly offset by reserve depletion and by the growth of total supply.
-2. Increasing $\tau$ directly lowers the share of rewards reaching pools and therefore weakens net APR and pool viability.
-3. The policy trade-off is between a stronger near-term reward budget and a lower long-run reward intensity, with the largest losses concentrated in marginal pools.
+1. Raising $\rho$ boosts the reward pot in the short term, but at the cost of faster reserve depletion.
+2. The benefits are negligible for small pools, though potentially significant for mid-sized and large pools.
+3. Staking rewards become more attractive in the near term.
+4. Increasing $\rho$ is only sustainable if transaction fee growth accelerates enough to offset reserve depletion.
 
 ## Parameter values at the current state
 For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
@@ -259,7 +258,15 @@ The following plot shows the variation in gross APR over time. We illustrate the
   <img src="plots/gross_apr.png" alt="Historical APR" width="62%">
 </p>
 
-To see how large a fee increase would be required to keep APR constant, define the annualized staking APR as
+
+Increasing $\rho$ at a constant $\tau$ produces an immediate boost in APR but accelerates reserve depletion. Consequently, this short-term gain comes at the expense of a lower long-run APR. The following figure illustrates the trajectory when $\rho$ doubles from $0.3\%$ to $0.6\%$, showing that the yield benefits persist for slightly over $200$ epochs (approximately $3$ years).
+
+<p align="center">
+  <img src="plots/gross_apr_forward_rho_comparison.png" alt="Forward APR comparison" width="62%">
+</p>
+
+
+The previous plot suggests that increasing $\rho$ may be a temporary measure to improve the APR, while the ecosystem matures and the fees from transactions increase. Therefore, an interesting question is how large a fee increase would be required to keep APR (at least) constant. We now make this exercise using the current APR as the reference point. Let define the annualized staking APR as
 
 $$
 APR_t = 73\frac{R_t}{T_t} = 73\frac{(1-\tau)[F_t+\rho Q_t]}{T_t},
