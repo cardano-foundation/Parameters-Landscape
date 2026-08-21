@@ -35,20 +35,26 @@ Note that $c_{\min}$ does not enter $f(\cdot)$. Hence, there is not direct combi
 
 #### Operator gross revenue $\Pi_i$
 
-Operator gross revenue is
+The pool operator gross revenue function is
+
+$$\Pi_i=\begin{cases} c_i + (f(\sigma_i,p_i)-c_i) \left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if }  f(\sigma_i,p_i)>c_i, \\ 
+f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
+
+where $\hat{p}_i$ is the operator's active pledge (the stake/delegation owned by the operator). We assume declared and active pledge coincide $p_i=\hat p_i.$
+
+Recall that 
 
 $$
-\Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\underbrace{\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right]}_{s_i\in[0,1]}, \qquad
-\frac{\partial \Pi_i}{\partial c_i}=1-s_i\ge 0
+\Pi_i}{\partial c_i}=1-s_i\ge 0,
 $$
 
-for the region where $f(\sigma_i,p_i)>c_i$. In this direct-effects comparison, we assume declared and active pledge coincide $p_i=\hat p_i.$
+where $s_i= m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1]$.
 
 
-To isolate the direct combined shock ($k\uparrow$, $c_{\min}\downarrow$), keep $(m_i,\hat p_i,\sigma_i)$ fixed and let
+Suppose a combined shock ($k\uparrow$, $c_{\min}\downarrow$), while $(m_i,\hat p_i,\sigma_i)$ remain fixed. and let
 
 $$
-\Delta f_i=f_i' - f_i,
+\Delta f_i=f_i' - f_i ,
 \qquad
 \Delta c_i=c_i'-c_i\le 0.
 $$
