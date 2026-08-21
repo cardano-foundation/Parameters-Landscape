@@ -172,11 +172,15 @@ When rewards come almost entirely from reserve depletion ($F_t\approx 0$, as it 
 
 $$\frac{d\rho}{d\tau} \approx \frac{\rho}{1-\tau} \implies \frac{d\rho / \rho}{d\tau / (1-\tau)} = 1,$$
 
-a $x\\%$ fall in the rate $(1−\tau)$ must be offset by a $x\\%$ rise in $\rho$. The following plot illustrate the relationship where the axes represent levels (not proportional changes). To exemplify, note that when $F_t = 0$:
+a $x\\%$ fall in the rate $(1−\tau)$ must be offset by a $x\\%$ rise in $\rho$. The following plot illustrate the relationship where the axes represent levels (not proportional changes). When $F_t = 0$:
 
-$$\rho(\tau) = \frac{\bar{R}}{(1-\tau)Q_t} = \rho_0 \frac{1-\tau_0}{1-\tau}.$$
+$$\rho(\tau) = \frac{\bar{R}}{(1-\tau)Q_t} = \rho_0 \frac{1-\tau_0}{1-\tau},$$
 
+so, for $\tau_0=20\\%$ and $\rho_0=0.3\\%$, then $\rho(\tau) = 0.0024/(1-\tau).$
 
+<p align="center">
+  <img src="plots/iso_reward_curve_Ft0.png" alt="Iso reward curve" width="62%">
+</p>
 
 The system exhibits constant proportional scaling: the retention rate $(1-\tau)$ and reserve emission $\rho$ trade off $1:1$ in percentage terms.
 
