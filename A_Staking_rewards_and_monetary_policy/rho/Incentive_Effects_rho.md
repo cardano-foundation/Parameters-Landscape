@@ -146,6 +146,7 @@ $$\varepsilon_{R_t, \tau} = -\frac{0.20}{1 - 0.20} = -\frac{0.20}{0.80} = -0.25$
 
 That is, a $1\%$ relative increase in the tax rate (e.g., from $20\%$ to $20.2\%$) results in a $0.25\%$ decrease in the reward-pot $R_t$.
 
+*Joint changes*
 
 If both parameters change simultaneously, the net effect on $R_t$ depends on the relative magnitudes of the changes. In that case, the total differential is given by
 
@@ -165,20 +166,29 @@ $$
 \end{align*}
 $$
 
-Thus, a higher treasury share must be offset by a higher reserve decay rate to keep the reward pot constant, and the degree of compensation depends on the share of rewards coming from transaction fees versus reserve depletion. Let 
+Thus, a higher treasury share must be offset by a higher reserve decay rate to keep the reward pot constant, and the degree of compensation depends on the share of rewards coming from transaction fees versus reserve depletion.
+
+When rewards come almost entirely from reserve depletion ($F_t\approx 0$, as it is the current situation):
+
+$$\frac{d\rho}{d\tau} \approx \frac{\rho}{1-\tau} \implies \frac{d\rho / \rho}{d\tau / (1-\tau)} = 1,$$
+
+a $x\\%$ fall in the rate $(1−\tau)$ must be offset by a $x\\%$ rise in $\rho$. The following plot illustrate the relationship where the axes represent levels (not proportional changes). To exemplify, note that when $F_t = 0$:
+
+$$\rho(\tau) = \frac{\bar{R}}{(1-\tau)Q_t} = \rho_0 \frac{1-\tau_0}{1-\tau}.$$
+
+
+
+The system exhibits constant proportional scaling: the retention rate $(1-\tau)$ and reserve emission $\rho$ trade off $1:1$ in percentage terms.
+
+For the case in which $F_t$ is not negligible, let 
 
 $$\tau(\rho) = 1 - \frac{\bar{R}}{F_t + \min\{\eta_t,1\}\rho Q_t}.$$ 
 
-It follows, that the second derivative is strictly negative:
+Its second derivative is strictly negative:
 
 $$\frac{d^2\tau}{d\rho^2} = -\frac{2\bar{R}\left(\min\\{\eta_t,1\\}Q_t\right)^2}{\left(F_t + \min\\{\eta_t,1\\}\cdot \rho Q_t\right)^3} < 0$$
 
-Small changes in $\tau$ when it is low require moderate adjustments in $\rho$. However, as $\tau$ increases, the required change in $\rho$ accelerates nonlinearly to offset the cumulative effect of $\tau$.
-When rewards come almost entirely from reserve depletion:
-
-$$\frac{d\rho}{d\tau} \approx \frac{\rho}{1-\tau} \implies \frac{d\rho / \rho}{d\tau / (1-\tau)} = 1.$$
-
-The system exhibits constant proportional scaling: the retention rate $(1-\tau)$ and reserve emission $\rho$ trade off $1:1$ in percentage terms.
+Thus, small changes in $\tau$ when it is low require moderate adjustments in $\rho$. However, as $\tau$ increases, the required change in $\rho$ accelerates nonlinearly to offset the cumulative effect of $\tau$.
 
 While keeping $R_t = \bar{R}$ stabilizes staker yield in period $t$, it creates a dynamic penalty for period $t+1$:
 
@@ -186,17 +196,8 @@ $$Q_{t+1} = Q_t - \rho Q_t = (1-\rho)Q_t$$
 
 Raising $\rho$ to maintain constant rewards accelerates reserve depletion. In period $t+1$, the smaller reserve base $Q_{t+1}$ shifts the iso-reward curve upward, requiring an even higher $\rho_{t+1}$ to maintain the same target $\bar{R}$.
 
-XXXX
 
-If both parameters change simultaneously, the net effect on $R_t$ depends on the relative magnitudes of the changes. For a small move around a baseline, the total differential is
-
-$$dR_t = \frac{\partial R_t}{\partial \tau} d\tau + \frac{\partial R_t}{\partial \rho} d\rho = 0,$$
-
-which gives the local trade-off
-
-$$\frac{d\rho}{d\tau} = \frac{F_t + \rho\min\{\eta_t,1\}Q_t}{(1-\tau)\min\{\eta_t,1\}Q_t} = \frac{1}{1-\tau}\left( \frac{F_t}{\min\{\eta_t,1\}Q_t} + \rho \right).$$
-
-Thus, a higher treasury share must be offset by a higher reserve decay rate to keep the reward pot constant, and the degree of compensation depends on the share of rewards coming from transaction fees versus reserve depletion.
+*Effect over delegators and operators*
 
 For both delegators and operators, the direct mechanical effect comes from the change in $R_t$ and therefore in the pool-level reward available after the treasury extraction. The operator gross revenue is
 
