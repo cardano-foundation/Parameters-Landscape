@@ -14,7 +14,7 @@ Increasing $a_0$ strengthens the pledge incentive and improves Sybil resistance,
 2. Small or under-capitalized operators face a steeper entry barrier.
 3. A higher $a_0$ can favor wealthier operators and reduce accessibility for new entrants.
 
-**Behavioral and equilibrium conclusions**
+**Behavioral and equilibrium discussion**
 1. Higher $a_0$ does not strongly induce operators to lower fees or declared fixed costs; the relationship between pledge and pricing is weak.
 2. Pool viability worsens after the shock: fewer pools cover operating costs, and the losing groups expand.
 3. Splitting becomes slightly less attractive when $a_0$ rises, suggesting only a modest deterrent to Sybil-like pool expansion.
