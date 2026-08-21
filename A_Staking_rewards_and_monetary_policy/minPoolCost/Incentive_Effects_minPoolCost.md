@@ -436,7 +436,7 @@ Note that the low ADA price has a direct implication in the previous results. Ho
 | Theoretical operator reward (ADA), median | 12 | 460 | 933 | 8,790 |
 | Coverage ratio \(r\), median | 0.017 | 0.620 | 1.259 | 11.860 |
 
-The old aggregate “Losing” category masks a sharp split. Pools with $r<0.5$ are typically tiny (median stake $\approx 0.04M$ ADA) and earn almost no operator reward, whereas those with $0.5\leq r<1$ already look like mid-sized pools (median stake $\approx 14.5M$ ADA)—still well below Edge on stake, but often with higher active and declared pledge than Edge. Across both losing bands and Edge, the median declared fixed cost remains anchored at $340$ ADA despite `minPoolCost` $=170$ ADA. Lower margins $m_i$ among losing pools do not close the gap: attractiveness is driven more by existing delegation volume than by $m_i$ cuts alone.
+Pools with $r<0.5$ are typically tiny (median stake $\approx 0.04M$ ADA) and earn almost no operator reward, whereas those with $0.5\leq r<1$ already look like mid-sized pools (median stake $\approx 14.5M$ ADA)—still well below Edge on stake, but often with higher active and declared pledge than Edge. Across both losing bands and Edge, the median declared fixed cost remains anchored at $340$ ADA despite `minPoolCost` $=170$ ADA. Lower margins $m_i$ among losing pools do not close the gap: attractiveness is driven more by existing delegation volume than by $m_i$ cuts alone.
 
 #### Pool splitting by multi-pool operators
 
