@@ -281,13 +281,48 @@ Under the baseline pledge influence parameter ($a_0 = 0.3$), doubling the target
 ## Direct combined mechanical effects
 ### Gross pool rewards $f(\sigma_i,p_i)$
 
+From the gross pool rewards:
+
+$$
+f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\frac{\widetilde{\sigma}_i-\widetilde{p}_i\frac{z_0-\widetilde{\sigma}_i}{z_0}}{z_0}\right],
+\qquad
+\widetilde{\sigma}_i=\min\\{\sigma_i,z_0\\},\quad \widetilde{p}_i=\min\\{p_i,z_0\\},
+$$
+
+we plot
+
+<p align="center">
+  <img src="plots/heatmap_f_a0_0p6_c75_interaction.png" alt="Heatmap when a0 increase and minPooCost decreases" width="62%">
+</p>
+
+
 ## Behavioral and equilibrium effects.
 
 As we did for the case with $k$ and `minPoolCost`, we here study the combined effects of increasing $a_0$ and reducing `minPoolCost` given the pools snapshot of epoch $644$.
 
 ### Delegators moving stake.
 
+<p align="center">
+  <img src="plots/desirability_rank_a0_c_interaction_all_epoch_644.png" alt="Desirability a0 increase and minPooCost decreases, all pools, epoch644" width="62%">
+</p>
+
+<p align="center">
+  <img src="plots/desirability_rank_a0_c_interaction_unsaturated_epoch_644.png" alt="Desirability a0 increase and minPooCost decreases, unsaturated pools, epoch644" width="62%">
+</p>
+
 ### Pools viability. Entry or exit of pools.
 
+<p align="center">
+  <img src="plots/pool_viability_a0_c_interaction_all_epoch_644.png" alt="Pools viability a0 increase and minPooCost decreases, all pools, epoch644" width="62%">
+</p>
+
+<p align="center">
+  <img src="plots/pool_viability_a0_c_interaction_unsaturated_epoch_644.png" alt="Pools viability a0 increase and minPooCost decreases, unsaturated pools, epoch644" width="62%">
+</p>
+
 ### Changes in staking participation. Delegators APR.
+
+<p align="center">
+  <img src="plots/member_apr_a0_c_interaction_unsaturated_epoch_644.png" alt="Delegators APR when a0 increase and minPooCost decreases, unsaturated pools, epoch644" width="62%">
+</p>
 
