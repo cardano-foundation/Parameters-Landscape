@@ -91,46 +91,7 @@ Interpretation: pools far from the initial saturation point can have $\Delta f_i
 The following plot, illustrates the combined effect for different combinations of pledge and delegation.
 
 
-
-#### Delegator return per unit stake $r_i^D$
-
-Delegator-facing return per unit stake depends on both gross rewards and fixed costs,
-
-$$
-r_i^D(k,c_i)=(1-m_i)\frac{\max\{f(\sigma_i,p_i;k)-c_i,0\}}{\sigma_i}.
-$$
-
-For pools with positive distributable rewards ($f(\sigma_i,p_i;k)>c_i$),
-
-$$
-\frac{\partial r_i^D}{\partial c_i}<0.
-$$
-
-Hence, lowering $c_{\min}$ raises delegator returns for pools that reduce $c_i$, while increasing $k$ can reduce returns in now-oversaturated large pools. This is the direct push-pull mechanism on delegation incentives.
-
-In summary, at the direct mechanical level, lowering $c_{\min}$ hurts operator gross revenue but helps delegator returns (for pools that cut costs), while increasing $k$ can reduce gross rewards and returns for oversaturated pools. Any net competitiveness gain for smaller pools in realized allocations comes from the equilibrium responses of delegators and operators, which we analyze next.
-
 ### Behavioral and equilibrium effects
-
-#### Rational behavior
-
-We start from the frictionless non-myopic benchmark used throughout the reward-sharing analysis: forward-looking delegators and operators, truthful cost declaration ($c_i=\hat c_i$), and best responses after the parameters change.
-
-The joint effect of $k$ and $c_{\min}$ enters through the post-shock ranking term
-
-$$
-P_i(k,c_{\min})=f(z_0(k),p_i)-c_i,
-\qquad
-D_i(k,c_{\min})=(1-m_i)\,[P_i(k,c_{\min})]_+.
-$$
-
-If the floor binds, $c_i=c_{\min}$, and the comparative statics are immediate:
-
-$$
-\frac{\partial P_i}{\partial k}<0,\qquad \frac{\partial P_i}{\partial c_{\min}}=-1.
-$$
-
-So the two changes reinforce each other for large pools and low-margin pools. The higher $k$ makes large pools less attractive through the smaller saturation threshold, while the lower $c_{\min}$ makes small pools more competitive by easing their fixed-cost burden.
 
 ##### Delegators moving stake
 
@@ -151,6 +112,20 @@ To isolate whether a higher $k$ affects pool competitiveness beyond the mechanic
 <p align="center">
   <img src="plots/desirability_rank_interaction_effects_epoch_644.png" alt="Change desirability when k and minPoolCost changes epoch644 w/o oversaturated pools" width="62%">
 </p>
+
+
+##### Pools viability. Entry or exit of pools.
+
+Entry and survival are governed by participation constraints evaluated at post-redelegation stake:
+
+$$
+U_i(k,c_{\min},\sigma_i')\ge 0,
+\qquad
+U_i^{\text{entry}}(k,c_{\min},\sigma_i')-F_i\ge 0.
+$$
+
+The interaction is important: a lower $c_{\min}$ relaxes the fixed-cost burden, but a higher $k$ can still make very large pools less attractive and free up delegation. The combined effect is strongest when the pool is close to the viability margin, because then the entry-exit decision depends on both direct profitability and the stake it can retain after redelegation.
+
 
 
 XXXXX1111111XXXXX
