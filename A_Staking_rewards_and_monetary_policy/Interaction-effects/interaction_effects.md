@@ -121,17 +121,18 @@ To isolate whether a higher $k$ affects pool competitiveness beyond the mechanic
 ##### Pools viability. Entry or exit of pools.
 
 
-$$
-\Pi_i=
-\begin{cases}
-f_i, & f_i\le c_i,\\
-c_i+(f_i-c_i)\left[m_i+(1-m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i>c_i,
-\end{cases}
-$$
+We study the pools viability given the current distribution of stakes, and pools snapshot. We take the case of increasing $k$ from $500$ to $1,000$, and reducing the `minPoolCost` from $170$ ADA to $75`ADA. 
 
-using their margin, delegation, active and declared pledge, and declared fixed cost in epoch $644$. We do not assume truthful reporting of the cost, i.e., the declared fixed cost is not the actual operating cost that the pools face. In contrast, we assume that all pools have the same operation cost/expenditure ($C^*=\hat c_i$ for all $i$) equal to $667$ USD per month (six epochs), or  
+Pool rewards are determined by the standard function:
 
-$$C^*=667/6/0.15=741.1 \text{ USD per epoch},$$
+$$\Pi_i = \begin{cases} f_i, & f_i \le c_i \\ c_i + (f_i - c_i)\left[m_i + (1 - m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i > c_i \end{cases}$$
+
+using epoch 644 snapshots for margins ($m_i$), total stake ($\sigma_i$), pledge ($\hat{p}_i$), and declared fixed costs ($c_i$). Rather than assuming truthful cost reporting, we assign all pools a uniform operational cost:
+
+$$C^* = \frac{667\text{ USD/month}}{6\text{ epochs/month} \times 0.15\text{ USD/ADA}} \approx 741.1\text{ ADA/epoch}$$
+
+
+The next plot shows the pools' viability comparison for $k=500$ and $k=1,000$ before any redelegation occurs. Note the worsen in the viability across all groups.
 
 
 
