@@ -125,7 +125,10 @@ We study the pools viability given the current distribution of stakes, and pools
 
 Pool rewards are determined by the standard function:
 
-$$\Pi_i = \begin{cases} f_i, & f_i \le c_i \\ c_i + (f_i - c_i)\left[m_i + (1 - m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i > c_i \end{cases}$$
+$$\Pi_i = \begin{cases} 
+f_i, & f_i \le c_i, \\ 
+c_i + (f_i - c_i)\left[m_i + (1 - m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i > c_i 
+\end{cases}$$
 
 using epoch 644 snapshots for margins ($m_i$), total stake ($\sigma_i$), pledge ($\hat{p}_i$), and declared fixed costs ($c_i$). Rather than assuming truthful cost reporting, we assign all pools a uniform operational cost:
 
