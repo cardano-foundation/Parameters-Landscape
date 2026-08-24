@@ -166,6 +166,10 @@ Isolating pools that remain unsaturated throughout isolates the parameter effect
 
 
 
+
+
+
+
 XXXXXX11111XXXXXX
 
 ##### Pool splitting by multi-pool operators
@@ -186,68 +190,6 @@ Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Raisin
 XXXXXXXXXXXXXXX
 
 
-#### Behavioral deviations from the rational benchmark
-
-We now keep the same five channels but allow market frictions, bounded rationality, and coordination limits.
-
-##### Delegators moving stake
-
-Observed migration is dampened by search costs and inattention:
-
-$$
-\Delta\sigma_i^{\text{obs}}=\lambda_i\,\Delta\sigma_i^D,
-\qquad 0<\lambda_i<1.
-$$
-
-This matters more under the combined reform because the new destination set is larger but also more fragmented; even if the rational benchmark favors reallocation, actual migration can remain slow if acceptable alternatives are hard to find.
-
-##### Operators changing pledge, margin, or declared fixed cost
-
-With partial adjustment, operators move gradually toward the new optimum:
-
-$$
-c_{i,t+1}=\max\{c_{\min},\;c_{i,t}+\rho_c(c_i^{\*}-c_{i,t})\},
-$$
-$$
-m_{i,t+1}=m_{i,t}+\rho_m(m_i^{\*}-m_{i,t}),
-\qquad
-\hat p_{i,t+1}=\hat p_{i,t}+\rho_p(\hat p_i^{\*}-
-\hat p_{i,t}),
-$$
-
-with $0<\rho_c,\rho_m,\rho_p\le 1$. In practice, this means that fee cuts, pledge reshuffling, and pool splitting need not happen at the same speed.
-
-##### Entry or exit of pools
-
-Hysteresis can be represented by thresholds around participation:
-
-$$
-U_i(k,c_{\min},\sigma_i')<-H_i^{\text{exit}},
-\qquad
-U_i^{\text{entry}}(k,c_{\min},\sigma_i')>H_i^{\text{entry}},
-$$
-
-with $H_i^{\text{entry}},H_i^{\text{exit}}>0$. This allows weak pools to persist longer than the rational benchmark predicts, especially when delegators are slow to reallocate from large pools after $k$ increases.
-
-##### Pool splitting by multi-pool operators
-
-Include coordination costs in expansion value:
-
-$$
-V^{\text{split}}(n)=\Pi^{\text{MPO}}(n)-K(n),
-$$
-
-where $K(n)$ is increasing and convex. The combined proposal can make splitting attractive, but only for operators with enough organizational capacity to keep the coordination cost below the added revenue from a larger $k$ and a lower fixed-cost floor.
-
-##### Changes in staking participation
-
-If delegators overweight short-run gains or losses, participation reacts to a salience-weighted objective:
-
-$$
-\Delta S_t=\chi_s\big(r_t-r_{\text{alt},t}\big)+\chi_l\,\mathbb E_t\!\left[\sum_{h\ge 1}\beta^h\big(r_{t+h}-r_{\text{alt},t+h}\big)\right],
-$$
-
-with $\chi_s>\chi_l$ under short-term salience. This can delay the full reallocation implied by the rational benchmark, even when the combined reform improves the long-run positioning of smaller pools.
 
 ## k with a0
 
