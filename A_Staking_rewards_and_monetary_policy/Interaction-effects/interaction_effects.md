@@ -163,8 +163,17 @@ Isolating pools that remain unsaturated throughout isolates the parameter effect
 
 ##### Changes in staking participation. Delegators APR
 
+We measure the effect of an increment in $k$ together with a reduction in `minPoolCost` over the delegators' APR using,
+
+$$\text{APR}_i \approx 73(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i},$$
+
+where $a_0=0.3$, $R=14.9M$ ADA, and $T=38.8B$ ADA. We take the snapshot of epoch 644 and we calculate what would be the APR after the shocks, i.e., without any redelegation and operators response that the shock may trigger. Additionally, we focus only on those pools that remain unsaturated after the change in $k$, which would be the ones that may attract new delegators (or redelegation).
 
 
+
+
+
+In Panel A, the effect over APR is negligible because most (post-k-increment) unsaturated pools sit far below the new saturation point, so shrinking \(z_0\) barely moves the pledge term $a_0 \tilde p_i\cdot\frac{\tilde\sigma_i-\tilde p_i(z_0-\tilde\sigma_i)/z_0}{z_0}$, and most also have a low pledge share \(p/\sigma\). Large absolute gains in \(f\) are rare and concentrated in a few high-pledge pools near the new cap. Thus APR is not invariant to \(k\) for unsaturated pools—they improve slightly when pledge is positive—but the improvement is too small to appear in the two-decimal median APR.
 
 
 
