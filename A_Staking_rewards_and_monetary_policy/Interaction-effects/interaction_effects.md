@@ -11,17 +11,14 @@ For the numerical analysis in this section, we use the parameter values below un
 | $\rho$ | Reserve decay rate.  | 0.3%  |
 | $\tau$ | Treasury share.| 20% | 
 
-# Current design
 
-This part studies the combined effects of changes in two or more parameters of the current rewards scheme design.
+# k with minPoolCost ($c_{\min}$)
 
-## k with minPoolCost ($c_{\min}$)
-
-### Direct combined mechanical effects
+## Direct combined mechanical effects
 
 The discussion combines a lower minimum fixed cost, $c_{\min}$, with a higher pool target, $k$. In the reward-sharing model, the two parameters act on different margins: $k$ changes the saturation threshold $z_0(k)=1/k,$ while $c_{\min}$ changes the feasible declared fixed cost $c_i$. 
 
-#### Gross pool rewards $f(\sigma_i,p_i)$
+### Gross pool rewards $f(\sigma_i,p_i)$
 
 Gross pool rewards are
 
@@ -33,7 +30,7 @@ $$
 
 Note that $c_{\min}$ does not enter $f(\cdot)$. Hence, there is not direct combined effect over $f_i$. The [incentive effects of a change in k](k/Incentive_Effects_k.md) analyses the change of $k$ over $f_i$. 
 
-#### Operator gross revenue $\Pi_i$
+### Operator gross revenue $\Pi_i$
 
 The pool operator gross revenue function is
 
@@ -95,9 +92,9 @@ The following heatmap illustrates the previous discussion for different combinat
 </p>
 
 
-### Behavioral and equilibrium effects
+## Behavioral and equilibrium effects
 
-##### Delegators moving stake
+### Delegators moving stake
 
 From a purely rational perspective (more precisely, following the model in ), the delegators choose pools based on pools' desirability $D_i(k)$ that may change when there is a change in $k$ and $c_i$ (recall that, while the former is a change imposed by the protocol, the latter is a decision of each pool):
 
@@ -118,7 +115,7 @@ To isolate whether a higher $k$ affects pool competitiveness beyond the mechanic
 </p>
 
 
-##### Pools viability. Entry or exit of pools.
+### Pools viability. Entry or exit of pools.
 
 
 We study the pools viability given the current distribution of stakes, and pools snapshot. We take the case of increasing $k$ from $500$ to $1,000$, and reducing the `minPoolCost` from $170$ ADA to $75`ADA. 
@@ -164,7 +161,7 @@ Isolating pools that remain unsaturated throughout isolates the parameter effect
 | C | $k=500$, all $c_i\to75$ | 90 | 1922 |
 | D | $k\to1000$, all $c_i\to75$ | 90 | 1922 |
 
-##### Changes in staking participation. Delegators APR
+### Changes in staking participation. Delegators APR
 
 We measure the effect of an increment in $k$ together with a reduction in `minPoolCost` over the delegators' APR using,
 
@@ -195,11 +192,13 @@ $$
 Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Raising $k$ increases the pressure to split because it lowers the saturation threshold, while lowering $c_{\min}$ reduces the fixed-cost penalty of maintaining additional pools. The combined reform therefore strengthens split incentives for medium-to-large operators, especially those able to reallocate pledge across multiple pools. -->
 
 
-## k with a0
+# k with a0
 
 In this part, the discussion combines a higher $a_0$ (to induce more skin in the game) and a higher pool target $k$ (to reduce concentration among larger pools).
 
-#### Gross pool rewards $f(\sigma_i,p_i)$
+## Direct combined mechanical effects
+
+### Gross pool rewards $f(\sigma_i,p_i)$
 
 Again, the gross pool rewards are given by:
 
@@ -215,11 +214,11 @@ The next plot shows the effect of both increments into a pools with different co
   <img src="plots/heatmap_f_k1000_a0_0p6_interaction.png" alt="Heatmap f when k and a0 increase" width="62%">
 </p>
 
-### Behavioral and equilibrium effects
+## Behavioral and equilibrium effects
 
 As we did for the case with $k$ and `minPoolCost`, we here study the combined effects of $k$ and $a_0$ given the pools snapshot of epoch 644.
 
-##### Delegators moving stake
+### Delegators moving stake
 
 To assess how parameter changes affect delegator incentives before market participants can respond (redelegations, new pools margins, new pools creation, etc), we evaluate pool desirability rankings using snapshot data from epoch 644. In the full pool population (first figure), increasing $k$ drastically disrupts relative desirability. As highlighted by the red markers, this change is heavily driven by newly oversaturated pools. Conversely, raising $a_0$ alone to $0.6$ (Panel C) preserves relative ranks. This could indicate that large pledges are uncommon, which would limit the reach of $a_0$ to only a few pools
 
@@ -234,7 +233,7 @@ We next isolate pools that remain unsaturated ($\sigma \le z_0(1000)$). Examinin
 </p>
 
 
-##### Pools viability. Entry or exit of pools.
+### Pools viability. Entry or exit of pools.
 
 We next assess the static impact over pool viability of parameter changes prior to any operator adjustment or delegator rebalancing. 
 
@@ -249,8 +248,6 @@ and the (uniform) actual operational cost is
 
 $$C^* = \frac{667\text{ USD/month}}{6\text{ epochs/month} \times 0.15\text{ USD/ADA}} \approx 741.1\text{ ADA/epoch}.$$
 
-
-
 We evaluate  using actual margins, pledges, and delegations recorded in the epoch $644$ snapshot. As shown in the figure below, raising from $k=500$ to $k=1000$ in isolation (Panel A) slightly reduces the number of pools covering baseline operating expenditure ($C^* = 741.1\text{ ADA}$) from $274$ to $254$, primarily because newly oversaturated pools face capped rewards. Increasing the pledge influence parameter from $a_0 = 0.3$ to $0.6$ produces a more pronounced contraction: viable pools drop to $240$ under $k=500$ (Panel C) and further to $219$ when combined with $k=1000$ (Panel B). Therefore, in the absence of dynamic redelegation, strengthening pledge requirements (higher $a_0$) harms low-pledge pools while increasing $k$ penalizes pools that cross the lowered saturation cap.
 
 <p align="center">
@@ -264,16 +261,33 @@ When restricting the analysis exclusively to the set of pools that remain unsatu
 </p>
 
 
-##### Changes in staking participation. Delegators APR
+### Changes in staking participation. Delegators APR.
 
+To quantify delegator returns under higher saturation targets ($k$) and strengthened pledge influence ($a_0$), we estimate the annual percentage rate for pool $i$ as:
+
+$$\text{APR}_i \approx 73(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i},$$
+
+using fixed macroeconomic network values of $R=14.9\text{M}$ ADA and $T=38.8\text{B}$ ADA. We apply these parameter shocks directly to the static distribution of margins, pledges, and delegations recorded at epoch $644$. We abstain of considering potential reallocation fo delegation and other player responses. We consider the subset of pools that remains unsaturated under the increased $k$, as these represent the viable targets that would naturally absorb migrating stake in subsequent rebalancing phases.
+
+Under the baseline pledge influence parameter ($a_0 = 0.3$), doubling the target pool parameter from $k=500$ to $k=1000$ (Panel A) produces zero change in member returns, maintaining an identical median APR of $1.69\%$. On the other hand, increasing the pledge influence factor to $a_0 = 0.6$ (Panels B and C) triggers a noticeable systemic decline in member profitability: the median APR falls from $1.69\%$ to $1.34\%$. 
 
 <p align="center">
   <img src="plots/member_apr_k_a0_interaction_unsaturated_epoch_644.png" alt="Delegators APR when k and a0 increase, unsaturated pools, epoch644" width="62%">
 </p>
 
-XXXXXXXXXXXXXXX
 
+# a0 with minPoolCost
 
-## a0 with minPoolCost
+## Direct combined mechanical effects
+### Gross pool rewards $f(\sigma_i,p_i)$
 
+## Behavioral and equilibrium effects.
+
+As we did for the case with $k$ and `minPoolCost`, we here study the combined effects of increasing $a_0$ and reducing `minPoolCost` given the pools snapshot of epoch $644$.
+
+### Delegators moving stake.
+
+### Pools viability. Entry or exit of pools.
+
+### Changes in staking participation. Delegators APR.
 
