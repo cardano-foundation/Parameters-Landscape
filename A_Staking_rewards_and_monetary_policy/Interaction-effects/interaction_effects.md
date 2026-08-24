@@ -147,21 +147,19 @@ So the two changes reinforce each other for large pools and low-margin pools. Th
 
 ##### Delegators moving stake
 
-Delegators choose pools by expected net return per unit stake,
+From a purely rational perspective (more precisely, following the model in ), the delegators choose pools based on pools' desirability $D_i(k)$ that may change when there is a change in $k$ and $c_i$ (recall that, while the former is a change imposed by the protocol, the latter is a decision of each pool):
 
 $$
-r_i^D=(1-m_i)\frac{\max\{f(\sigma_i,p_i;k)-c_i,0\}}{\sigma_i}.
+D_i(k, c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
 $$
 
-A simple adjustment rule is
+Once $k$ increases, the saturation threshold falls and many pools become oversaturated, so delegators in those pools may have incentives to redelegate. The figure shows the immediate change in pools' desirability rankings when $k$ increases from $500$ to $1,000$, before any redelegation occurs. The increase in $k$ alone already produces substantial reshuffling of the ranking (Panel A), driven especially by pools that become oversaturated, whose desirability deteriorates sharply relative to unsaturated pools. By comparison, reducing declared fixed costs while keeping $k=500$ has a much smaller effect on the ranking (Panel C). When the increase in $k$ is combined with a common lower fixed cost (Panels B and D), the ranking changes even more. Overall, the figure suggests that the change in the saturation threshold is the main source of the immediate redistribution of pool competitiveness, while changes in fixed costs can further amplify these effects.
 
-$$
-\Delta\sigma_i^D=\eta\,\sigma_i\big(r_i^D-\bar r^D\big),
-\qquad
-\sigma_i'=\sigma_i+\Delta\sigma_i^D.
-$$
 
-Under the combined proposal, delegators leave oversaturated large pools more readily and are more willing to reallocate toward smaller pools because the new destination set is both larger (due to higher $k$) and better compensated (due to lower $c_{\min}$).
+
+
+XXXXX1111111XXXXX
+
 
 ##### Operators changing pledge, margin, or declared fixed cost
 
@@ -214,6 +212,11 @@ $$
 $$
 
 The increase in $k$ can raise the incentives to re-delegate and can therefore support higher participation if delegators view the new set of pools as more attractive. The lower $c_{\min}$ works in the same direction by improving the net returns of the small pools that become more relevant after the increase in $k$. In the rational benchmark, the combined effect is therefore more likely to redistribute stake across pools than to reduce total staking participation.
+
+
+
+XXXXXXXXXXXXXXX
+
 
 #### Behavioral deviations from the rational benchmark
 
