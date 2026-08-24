@@ -97,8 +97,15 @@ def scatter_panel(
     ra = ranks_from_d(da)
 
     unsat = ~over
-    ax.scatter(rb[unsat], ra[unsat], s=6, alpha=0.35, color="#4c78a8", label="Unsaturated")
-    ax.scatter(rb[over], ra[over], s=12, alpha=0.6, color="#dc2626", label="Oversaturated")
+    ax.scatter(rb[unsat], ra[unsat], s=6, alpha=0.35, color="#4c78a8", label=r"$\sigma \leq z_0(1000)$")
+    ax.scatter(
+        rb[over],
+        ra[over],
+        s=12,
+        alpha=0.6,
+        color="#dc2626",
+        label=r"Would oversaturate at $k=1000$",
+    )
     lim = int(max(rb.max(), ra.max())) + 10
     ax.plot([1, lim], [1, lim], color="grey", linestyle="--", linewidth=1, alpha=0.6)
     ax.set_xlabel(xlabel, fontsize=FONT_SIZE)
@@ -117,7 +124,7 @@ def scatter_panel(
         0.95,
         f"Rank corr: {corr:.4f}\n"
         f"Mean |Δrank|: {changes.mean():.1f}\n"
-        f"n={len(rb)} (oversat: {int(over.sum())})",
+        f"n={len(rb)} (would oversat. at $k=1000$: {int(over.sum())})",
         transform=ax.transAxes,
         ha="left",
         va="top",
@@ -224,7 +231,7 @@ def main() -> None:
     )
 
     fig.suptitle(
-        "Epoch 644 — desirability ranking (oversaturated in red)\n"
+        "Epoch 644 — desirability ranking (red: would oversaturate at $k=1000$)\n"
         + rf"$R={R/1e6:.2f}$M ADA, $T={T/1e9:.2f}$B, $a_0={a0}$, "
         + rf"$z_0(500)={z0_500/1e6:.1f}$M, $z_0(1000)={z0_1000/1e6:.1f}$M",
         fontsize=FONT_SIZE,
