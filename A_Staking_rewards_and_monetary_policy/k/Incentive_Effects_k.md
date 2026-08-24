@@ -424,7 +424,7 @@ The preceding analysis relies on stylized assumptions regarding both delegator a
   
 ### Pools viability.
 
-We study here the pools viability given the current distribution of stakes, and pools snapshot. As before, we make the exerciso of increasing $k$ from $500$ to $1,000$. A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$ in the $500\rightarrow1000$ case. 
+We study here the pools viability given the current distribution of stakes, and pools snapshot. As before, we make the exercise of increasing $k$ from $500$ to $1,000$. A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$ in the $500\rightarrow1000$ case. 
 
 Let
 
