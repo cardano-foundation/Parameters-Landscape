@@ -42,13 +42,12 @@ f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
 where $\hat{p}_i$ is the operator's active pledge (the stake/delegation owned by the operator). We assume declared and active pledge coincide $p_i=\hat p_i.$
 
-Recall that 
+Note that 
 
 $$
-\Pi_i}{\partial c_i}=1-s_i\ge 0,
+\frac{\partial \Pi_i}{\partial c_i}=1-s_i\ge 0,\qquad s_i= m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
 $$
 
-where $s_i= m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1]$.
 
 
 Suppose a combined shock ($k\uparrow$, $c_{\min}\downarrow$), while $(m_i,\hat p_i,\sigma_i)$ remain fixed. and let
