@@ -49,8 +49,7 @@ $$
 $$
 
 
-
-Suppose a combined shock ($k\uparrow$, $c_{\min}\downarrow$), while $(m_i,\hat p_i,\sigma_i)$ remain fixed. and let
+After a combined shock ($k\uparrow$, $c_{\min}\downarrow$), will all pools be benefited? Suppose a combined shock while $(m_i,\hat p_i,\sigma_i)$ remain fixed. and let
 
 $$
 \Delta f_i=f_i' - f_i ,
@@ -71,39 +70,27 @@ $$
 s_i>s_i^*\equiv\frac{-\Delta c_i}{\Delta f_i-\Delta c_i}.
 $$
 
-Using $s_i=m_i+(1-m_i)\,q_i$ with $q_i\equiv\hat p_i/\sigma_i=p_i/\sigma_i$, the equivalent pledge-share threshold is
+Using $s_i=m_i+(1-m_i)q_i$ where $q_i\equiv\hat p_i/\sigma_i=p_i/\sigma_i$ (since we assumed $p_i=\hat p_i$), the equivalent pledge-share threshold is
 
 $$
 q_i > q_i^{\*}\equiv\frac{s_i^{\*}-m_i}{1-m_i} =\frac{\frac{-\Delta c_i}{\Delta f_i-\Delta c_i}-m_i}{1-m_i}.
 $$
 
-Interpretation: pools far from the initial saturation point can have $\Delta f_i>0$ after $k$ increases, so they may offset the revenue loss from lowering $c_i$. Pools with low $q_i$ (and low effective $s_i$) are less able to offset that loss and are more likely to be harmed under the direct-effect comparison.
+Interpretation: pools far from the initial saturation point can have $\Delta f_i>0$ after $k$ increases, so they may offset the revenue loss from lowering $c_i$. Pools with low $q_i$ (and low effective $s_i$) are less able to offset that loss and are more likely to be harmed by the combined change, and they will probably not choose a lower $c_i$ after a reduction in `minPoolCost`.
 
-As a numerical illustration, take the baseline margin $m_i=5\\%$ and a binding fixed-cost reduction from $170$ ADA to $75$ ADA, so
+> *Example:* As a numerical illustration, take the baseline margin $m_i=5\\%$ and a binding fixed-cost reduction from $170$ ADA to $75$ ADA, so
+> $$\Delta c_i=75-170=-95\text{ ADA}.$$
+> Suppose that, for a given pool below the new saturation point, the direct effect of increasing $k$ from $500$ to $1000$ raises gross rewards by
+> $$\Delta f_i=150\text{ ADA}.$$
+> Then the operator-revenue threshold becomes
+> $$s_i^\*=\frac{95}{150+95}=\frac{95}{245}\approx 0.388,$$
+> and, using $m_i=0.05$,
+> $$q_i^\*=\frac{0.388-0.05}{0.95}\approx 0.356.$$
+> Therefore, under this example, a pool benefits mechanically from the combined shock only if its pledge share satisfies $p_i/\sigma_i=\hat p_i/\sigma_i\gtrsim 35.6\%$. Pools with lower pledge share are still hurt in operator revenue terms, even though their gross reward rises with the higher $k$.
 
-$$
-\Delta c_i=75-170=-95\text{ ADA}.
-$$
+The following plot, illustrates the combined effect for different combinations of pledge and delegation.
 
-Suppose that, for a given pool below the old saturation point, the direct effect of increasing $k$ from $500$ to $1000$ raises gross rewards by
 
-$$
-\Delta f_i=150\text{ ADA}.
-$$
-
-Then the operator-revenue threshold becomes
-
-$$
-s_i^*=\frac{95}{150+95}=\frac{95}{245}\approx 0.388,
-$$
-
-and, using $m_i=0.05$,
-
-$$
-q_i^*=\frac{0.388-0.05}{0.95}\approx 0.356.
-$$
-
-Therefore, under this example, a pool benefits mechanically from the combined shock only if its pledge share satisfies $p_i/\sigma_i=\hat p_i/\sigma_i\gtrsim 35.6\%$. Pools with lower pledge share are still hurt in direct operator revenue terms, even though their gross reward rises with the higher $k$.
 
 #### Delegator return per unit stake $r_i^D$
 
