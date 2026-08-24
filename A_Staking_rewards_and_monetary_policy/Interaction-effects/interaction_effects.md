@@ -185,7 +185,7 @@ In Panel A, the effect over APR is negligible because most (post-k-increment) un
 
 XXXXXX11111XXXXXX
 
-##### Pool splitting by multi-pool operators
+<!-- ##### Pool splitting by multi-pool operators
 
 For an MPO controlling $n$ pools,
 
@@ -194,7 +194,7 @@ $$
 \qquad c_j\ge c_{\min}.
 $$
 
-Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Raising $k$ increases the pressure to split because it lowers the saturation threshold, while lowering $c_{\min}$ reduces the fixed-cost penalty of maintaining additional pools. The combined reform therefore strengthens split incentives for medium-to-large operators, especially those able to reallocate pledge across multiple pools.
+Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Raising $k$ increases the pressure to split because it lowers the saturation threshold, while lowering $c_{\min}$ reduces the fixed-cost penalty of maintaining additional pools. The combined reform therefore strengthens split incentives for medium-to-large operators, especially those able to reallocate pledge across multiple pools. -->
 
 
 ## k with a0
@@ -213,7 +213,62 @@ $$
 
 The next plot shows the effect of both increments into a pools with different combinations of pledge and delegation.
 
+<p align="center">
+  <img src="plots/heatmap_f_k1000_a0_0p6_interaction.png" alt="Heatmap f when k and a0 increase" width="62%">
+</p>
 
+### Behavioral and equilibrium effects
+
+As we did for the case with $k$ and `minPoolCost`, we here study the combined effects of $k$ and $a_0$ given the pools snapshot of epoch 644.
+
+##### Delegators moving stake
+
+
+<p align="center">
+  <img src="plots/desirability_rank_k_a0_interaction_all_epoch_644.png" alt="Desirability when k and a0 increase, epoch644" width="62%">
+</p>
+
+<p align="center">
+  <img src="plots/desirability_rank_k_a0_interaction_unsaturated_epoch_644.png" alt="Desirability when k and a0 increase only unsaturated pools, epoch644" width="62%">
+</p>
+
+
+##### Pools viability. Entry or exit of pools.
+
+We next assess the static impact over pool viability of parameter changes prior to any operator adjustment or delegator rebalancing. 
+
+Although we already presented the equations above, we present them here again for completeness. Pool rewards comes from:
+
+$$\Pi_i = \begin{cases} 
+f_i, & f_i \le c_i, \\ 
+c_i + (f_i - c_i)\left[m_i + (1 - m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i > c_i ,
+\end{cases}$$
+
+and the (uniform) actual operational cost is
+
+$$C^* = \frac{667\text{ USD/month}}{6\text{ epochs/month} \times 0.15\text{ USD/ADA}} \approx 741.1\text{ ADA/epoch}.$$
+
+
+
+We evaluate  using actual margins, pledges, and delegations recorded in the epoch $644$ snapshot. As shown in the figure below, raising from $k=500$ to $k=1000$ in isolation (Panel A) slightly reduces the number of pools covering baseline operating expenditure ($C^* = 741.1\text{ ADA}$) from $274$ to $254$, primarily because newly oversaturated pools face capped rewards. Increasing the pledge influence parameter from $a_0 = 0.3$ to $0.6$ produces a more pronounced contraction: viable pools drop to $240$ under $k=500$ (Panel C) and further to $219$ when combined with $k=1000$ (Panel B). Therefore, in the absence of dynamic redelegation, strengthening pledge requirements (higher $a_0$) harms low-pledge pools while increasing $k$ penalizes pools that cross the lowered saturation cap.
+
+<p align="center">
+  <img src="plots/pool_viability_k_a0_interaction_all_epoch_644.png" alt="Pools viability when k and a0 increase, all pools, epoch644" width="62%">
+</p>
+
+When restricting the analysis exclusively to the set of pools that remain unsaturated after raising $k$, the direct effect of $k$ disappears entirely. In contrast, increasing pledge influence to $a_0 = 0.6$ (Panels B and C) reduces viable pools identically. This confirms that the viability losses observed from higher $k$ in the full population are strictly an artifact of saturation capping on static stake distributions, whereas increasing $a_0$ exerts a direct, structural penalty on unsaturated pools with insufficient pledge.
+
+<p align="center">
+  <img src="plots/pool_viability_k_a0_interaction_unsaturated_epoch_644.png" alt="Pools viability when k and a0 increase, unsaturated pools, epoch644" width="62%">
+</p>
+
+
+##### Changes in staking participation. Delegators APR
+
+
+<p align="center">
+  <img src="plots/member_apr_k_a0_interaction_unsaturated_epoch_644.png" alt="Delegators APR when k and a0 increase, unsaturated pools, epoch644" width="62%">
+</p>
 
 XXXXXXXXXXXXXXX
 
