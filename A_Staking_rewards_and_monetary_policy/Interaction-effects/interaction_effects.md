@@ -88,7 +88,11 @@ Interpretation: pools far from the initial saturation point can have $\Delta f_i
 > $$q_i^\*=\frac{0.388-0.05}{0.95}\approx 0.356.$$
 > Therefore, under this example, a pool benefits mechanically from the combined shock only if its pledge share satisfies $p_i/\sigma_i=\hat p_i/\sigma_i\gtrsim 35.6\%$. Pools with lower pledge share are still hurt in operator revenue terms, even though their gross reward rises with the higher $k$.
 
-The following plot, illustrates the combined effect for different combinations of pledge and delegation.
+The following heatmap illustrates the previous discussion for different combinations of pledge and delegation.
+
+<p align="center">
+  <img src="plots/heatmap_operator_reward_pct_k1000_c75_epoch_644.png" alt="Heatmap combined effect minPoolCost and high k epoch644" width="62%">
+</p>
 
 
 ### Behavioral and equilibrium effects
