@@ -183,8 +183,6 @@ In Panel A, the effect over APR is negligible because most (post-k-increment) un
 
 
 
-XXXXXX11111XXXXXX
-
 <!-- ##### Pool splitting by multi-pool operators
 
 For an MPO controlling $n$ pools,
@@ -223,13 +221,13 @@ As we did for the case with $k$ and `minPoolCost`, we here study the combined ef
 
 ##### Delegators moving stake
 
-To assess how parameter changes affect delegator incentives before market participants can respond, we evaluate pool desirability rankings using snapshot data from epoch 644 ($n = 859$ pools with non-zero member rewards, where $z_0$ drops from $77.5\text{M}$ to $38.8\text{M}$ as $k$ moves from $500$ to $1000$). In the full pool population (first figure), increasing $k$ drastically disrupts relative desirability: under $k \to 1000$ (Panels A and B), rank correlation drops to $0.6279$ and $0.6824$, respectively, with a massive mean absolute rank shift of $\sim 143\text{--}154$ positions. As highlighted by the red markers ($175$ pools that cross into saturation at $k=1000$), this disruption is heavily driven by newly oversaturated pools tumbling toward the bottom of the rankings due to reward capping. Conversely, raising $a_0$ alone to $0.6$ (Panel C) preserves relative ranks almost perfectly (rank correlation of $0.9981$, mean shift of $9.6$), indicating that pledge scaling has a much smoother impact on delegator preferences across the active pool distribution.
+To assess how parameter changes affect delegator incentives before market participants can respond (redelegations, new pools margins, new pools creation, etc), we evaluate pool desirability rankings using snapshot data from epoch 644. In the full pool population (first figure), increasing $k$ drastically disrupts relative desirability. As highlighted by the red markers, this change is heavily driven by newly oversaturated pools. Conversely, raising $a_0$ alone to $0.6$ (Panel C) preserves relative ranks. This could indicate that large pledges are uncommon, which would limit the reach of $a_0$ to only a few pools
 
 <p align="center">
   <img src="plots/desirability_rank_k_a0_interaction_all_epoch_644.png" alt="Desirability when k and a0 increase, epoch644" width="62%">
 </p>
 
-Because the rank collapses in the first figure are predominantly caused by pools being mechanically pushed past the saturation ceiling under a static stake assumption, isolating pools that remain unsaturated ($\sigma \le z_0(1000)$) provides a clearer view of the intrinsic ranking dynamics. Examining this unsaturated cohort ($n = 684$) reveals where delegators would actually find stable incentives during a transition. As shown below, once oversaturated pools are excluded, raising $k$ alone (Panel A) produces a near-perfect rank preservation (correlation of $0.9998$, mean rank shift of just $1.1$). Similarly, increasing $a_0$ with or without $k$ (Panels B and C) yields rank correlations above $0.997$ and minor rank movements ($\sim 8\text{--}8.5$ positions). This demonstrates that the severe desirability distortions triggered by $k$ are strictly localized to pools exceeding the new cap, while the relative attractiveness among unsaturated options remains exceptionally robust.
+We next isolate pools that remain unsaturated ($\sigma \le z_0(1000)$). Examining this unsaturated cohort ($n = 684$) reveals where delegators would actually find stable incentives during a transition. As shown below, once oversaturated pools are excluded, raising $k$ alone (Panel A) produces a near-perfect rank preservation. Similar for the case of increasing $a_0$, with or without $k$ (Panels B and C). This demonstrates that the severe desirability change triggered by $k$ are mainly localized in pools exceeding the new cap, while the relative attractiveness among unsaturated options remains robust.
 
 <p align="center">
   <img src="plots/desirability_rank_k_a0_interaction_unsaturated_epoch_644.png" alt="Desirability when k and a0 increase only unsaturated pools, epoch644" width="62%">
