@@ -197,17 +197,27 @@ $$
 Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Raising $k$ increases the pressure to split because it lowers the saturation threshold, while lowering $c_{\min}$ reduces the fixed-cost penalty of maintaining additional pools. The combined reform therefore strengthens split incentives for medium-to-large operators, especially those able to reallocate pledge across multiple pools.
 
 
+## k with a0
+
+In this part, the discussion combines a higher $a_0$ (to induce more skin in the game) and a higher pool target $k$ (to reduce concentration among larger pools).
+
+#### Gross pool rewards $f(\sigma_i,p_i)$
+
+Again, the gross pool rewards are given by:
+
+$$
+f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\frac{\widetilde{\sigma}_i-\widetilde{p}_i\frac{z_0-\widetilde{\sigma}_i}{z_0}}{z_0}\right],
+\qquad
+\widetilde{\sigma}_i=\min\\{\sigma_i,z_0\\},\quad \widetilde{p}_i=\min\\{p_i,z_0\\}.
+$$
+
+The next plot shows the effect of both increments into a pools with different combinations of pledge and delegation.
 
 
 
 XXXXXXXXXXXXXXX
 
 
+## a0 with minPoolCost
 
-## k with a0
 
-## rho with tau
-
-# Interaction with potential new parameters
-
-## a0 with pledge leverage L
