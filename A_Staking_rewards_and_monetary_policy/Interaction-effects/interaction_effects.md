@@ -120,15 +120,18 @@ To isolate whether a higher $k$ affects pool competitiveness beyond the mechanic
 
 ##### Pools viability. Entry or exit of pools.
 
-Entry and survival are governed by participation constraints evaluated at post-redelegation stake:
 
 $$
-U_i(k,c_{\min},\sigma_i')\ge 0,
-\qquad
-U_i^{\text{entry}}(k,c_{\min},\sigma_i')-F_i\ge 0.
+\Pi_i=
+\begin{cases}
+f_i, & f_i\le c_i,\\
+c_i+(f_i-c_i)\left[m_i+(1-m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i>c_i,
+\end{cases}
 $$
 
-The interaction is important: a lower $c_{\min}$ relaxes the fixed-cost burden, but a higher $k$ can still make very large pools less attractive and free up delegation. The combined effect is strongest when the pool is close to the viability margin, because then the entry-exit decision depends on both direct profitability and the stake it can retain after redelegation.
+using their margin, delegation, active and declared pledge, and declared fixed cost in epoch $644$. We do not assume truthful reporting of the cost, i.e., the declared fixed cost is not the actual operating cost that the pools face. In contrast, we assume that all pools have the same operation cost/expenditure ($C^*=\hat c_i$ for all $i$) equal to $667$ USD per month (six epochs), or  
+
+$$C^*=667/6/0.15=741.1 \text{ USD per epoch},$$
 
 
 
