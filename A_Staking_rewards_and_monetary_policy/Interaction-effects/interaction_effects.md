@@ -98,7 +98,7 @@ The following heatmap illustrates the previous discussion for different combinat
 
 ### Delegators moving stake
 
-From a purely rational perspective (more precisely, following the model in [Brünjes et al. (2020)](/References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) ), the delegators choose pools based on pools' desirability $D_i(k)$ that may change when there is a change in $k$ and $c_i$ (recall that, while the former is a change imposed by the protocol, the latter is a decision of each pool):
+From a purely rational perspective (more precisely, following the model in [Brünjes et al. (2020)](/Incentive-Mechanisms/Parameters-Landscape/References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) ), the delegators choose pools based on pools' desirability $D_i(k)$ that may change when there is a change in $k$ and $c_i$ (recall that, while the former is a change imposed by the protocol, the latter is a decision of each pool):
 
 $$
 D_i(k, c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
