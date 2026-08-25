@@ -5,14 +5,25 @@
 
 
 **Pros**
-1. **$k$ with `minPoolCost`:** Higher $k$ leaves unsaturated-pool viability unchanged.
-2. **$k$ with $a_0$:** Higher $k$ leaves unsaturated-pool rankings nearly unchanged.
-3. **$a_0$ with `minPoolCost`:** Lower fixed costs increase delegator APR.
+1. **Larger $k$ with lower `minPoolCost`:**
+   1. Delegators' APR improves, particularly in small pools.
+   2. It induces redelegation from initially large pools to smaller ones.
+   3. Higher $k$ leaves unsaturated-pool viability mainly unchanged.
+2. **Larger $k$ with larger $a_0$:**
+   1. Larger $k$ should favor mid-size highly pledged pools near the new saturation point. A larger $a_0$ should reinforce this benefit (through the pledge channel).
+3. **Larger $a_0$ with lower `minPoolCost':**
+   1. 
+6. **$a_0$ with `minPoolCost`:** Lower fixed costs increase delegator APR.
 
 **Risks**
-1. **$k$ with `minPoolCost`:** The combined change reduces pools covering operating costs from 274 to 152.
-2. **$k$ with $a_0$:** Higher $k$ strongly reshuffles rankings through newly oversaturated pools.
-3. **$a_0$ with `minPoolCost`:** Higher $a_0$ with lower fixed costs reduces operator viability.
+1. **Larger $k$ with lower `minPoolCost`:**
+   1. Small pools viability is negatively affected if they choose to reduce their declared fixed cost.
+   2. Small pools may not reduce their declared fixed cost but hence they do not benefit from a better attractiveness for delegators and they will not migrate toward them.
+3. **Larger $k$ with larger $a_0$:**
+   1. The positive effect over the highly pledged pools is rather limited since no many pools have this condition.
+   2. All other pools not highly pledge are harmed in terms of viability and in terms of delegators APR.
+4. **$k$ with $a_0$:** Higher $k$ strongly reshuffles rankings through newly oversaturated pools.
+5. **$a_0$ with `minPoolCost`:** Higher $a_0$ with lower fixed costs reduces operator viability.
 
 **Behavioral and equilibrium discussion**
 1. Fixed-cost changes reorder unsaturated-pool rankings more than $a_0$ changes.
