@@ -12,9 +12,9 @@ For the numerical analysis in this section, we use the parameter values below un
 | $\tau$ | Treasury share.| 20% | 
 
 
-# Increasing $k$ with a reduction in minPoolCost ($c_{\min}$)
+# Increment in $k$ with a reduction in minPoolCost ($c_{\min}$)
 
-The individual effects can be found in the corresponding files for the [parameter k](../k/Incentive_Effects_k.md) and them `minPoolCost`
+The individual effects can be found in the corresponding files for the [parameter k](../k/Incentive_Effects_k.md) and for [`minPoolCost`](../minPoolCost/Incentive_Effects_minPoolCost.md).
 
 ## Direct combined mechanical effects
 
@@ -30,7 +30,7 @@ f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\fra
 \widetilde{\sigma}_i=\min\\{\sigma_i,z_0\\},\quad \widetilde{p}_i=\min\\{p_i,z_0\\}.
 $$
 
-Note that $c_{\min}$ does not enter $f(\cdot)$. Hence, there is not direct combined effect over $f_i$. The [incentive effects of a change in k](k/Incentive_Effects_k.md) analyses the change of $k$ over $f_i$. 
+Note that $c_{\min}$ does not enter $f(\cdot)$. Hence, there is not direct combined effect over $f_i$. The [incentive effects of a change in k](../k/Incentive_Effects_k.md) analyses the change of $k$ over $f_i$. 
 
 ### Operator gross revenue $\Pi_i$
 
@@ -194,9 +194,11 @@ $$
 Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Raising $k$ increases the pressure to split because it lowers the saturation threshold, while lowering $c_{\min}$ reduces the fixed-cost penalty of maintaining additional pools. The combined reform therefore strengthens split incentives for medium-to-large operators, especially those able to reallocate pledge across multiple pools. -->
 
 
-# k with a0
+# Increments in $k$ and $a_0$
 
 In this part, the discussion combines a higher $a_0$ (to induce more skin in the game) and a higher pool target $k$ (to reduce concentration among larger pools).
+
+The individual effects can be found in the corresponding files for the [parameter k](../k/Incentive_Effects_k.md) and for the [parameter a0](../a0/Incentive_Effects_a0.md).
 
 ## Direct combined mechanical effects
 
@@ -278,7 +280,9 @@ Under the baseline pledge influence parameter ($a_0 = 0.3$), doubling the target
 </p>
 
 
-# a0 with minPoolCost
+# Increment of $a_0$ with reduction of `minPoolCost`
+
+The individual effects can be found in the corresponding files for the [parameter a0](../a0/Incentive_Effects_ao.md) and for the [parameter `minPoolCost`](../minPoolCost/Incentive_Effects_minPoolCost.md).
 
 ## Direct combined mechanical effects
 ### Gross pool rewards $f(\sigma_i,p_i)$
