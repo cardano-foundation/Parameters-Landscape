@@ -12,18 +12,20 @@
 2. **Larger $k$ with larger $a_0$:**
    1. Larger $k$ should favor mid-size highly pledged pools near the new saturation point. A larger $a_0$ should reinforce this benefit (through the pledge channel).
 3. **Larger $a_0$ with lower `minPoolCost':**
-   1. 
-6. **$a_0$ with `minPoolCost`:** Lower fixed costs increase delegator APR.
+   1. This interaction should improve delegators APR, particularly in small pools, with a stronger effects on highly pledge pools (due to a larger $a_0$).
+   2. Since small pools usually need to rely on pledge to attract delegators, the interaction of these parameters may help them.
+
 
 **Risks**
 1. **Larger $k$ with lower `minPoolCost`:**
    1. Small pools viability is negatively affected if they choose to reduce their declared fixed cost.
    2. Small pools may not reduce their declared fixed cost but hence they do not benefit from a better attractiveness for delegators and they will not migrate toward them.
-3. **Larger $k$ with larger $a_0$:**
+2. **Larger $k$ with larger $a_0$:**
    1. The positive effect over the highly pledged pools is rather limited since no many pools have this condition.
    2. All other pools not highly pledge are harmed in terms of viability and in terms of delegators APR.
-4. **$k$ with $a_0$:** Higher $k$ strongly reshuffles rankings through newly oversaturated pools.
-5. **$a_0$ with `minPoolCost`:** Higher $a_0$ with lower fixed costs reduces operator viability.
+3. **Larger $a_0$ with lower `minPoolCost':**
+   1. Higher $a_0$ with lower fixed costs reduces operator viability.
+   2. These operators would benefit if they managed to attract new delegations.
 
 **Behavioral and equilibrium discussion**
 1. Fixed-cost changes reorder unsaturated-pool rankings more than $a_0$ changes.
