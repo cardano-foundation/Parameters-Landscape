@@ -348,6 +348,12 @@ As we did for the case with $k$ and `minPoolCost`, we here study the combined ef
 
 #### Changes in staking participation. Delegators APR.
 
+These four boxplots illustrate how adjusting the pledge influence factor ($a_0$) and pool fixed costs ($c_i$) impacts delegator returns (APR) under fixed Cardano network parameters ($k = 500$, $R = 14.97\text{M}$, $T = 38.76\text{B}$).
+
+Increasing the pledge influence factor from $a_0 = 0.3$ to $a_0 = 0.6$ without adjusting pool costs causes a substantial decline in overall delegator APR (Panel A). Because higher $a_0$ values shift reward distribution toward operator pledge, this drop suggests that the majority of active pools do not hold enough pledge to benefit from the change, thereby penalizing delegator returns across most pools under current configurations.
+
+Conversely, lowering pool fixed costs counteracts this decline: reducing fixed costs across all pools to $c_i = 75$ under the current $a_0$ increases median APR (Panel C), while pairing low fixed costs ($c_i = 170$ or $c_i = 75$) with $a_0 = 0.6$ cushions the yield drop for delegators (Panels B and D).
+
 <p align="center">
   <img src="plots/member_apr_a0_c_interaction_unsaturated_epoch_644.png" alt="Delegators APR when a0 increase and minPooCost decreases, unsaturated pools, epoch644" width="62%">
 </p>
