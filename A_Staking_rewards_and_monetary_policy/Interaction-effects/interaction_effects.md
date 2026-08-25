@@ -328,13 +328,21 @@ As we did for the case with $k$ and `minPoolCost`, we here study the combined ef
 
 #### Delegators moving stake.
 
+As we did above, we measure the incentive of delegators to migrate to another pool by considering the desirability $D_i$ of each pool. Following the theoretical model, delegators should choose those pools that are more desirable, where we define desirability as:
+
+
+$$
+D_i(k, c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
+$$
+
+
+The four-panel comparison demonstrates that standardizing and lowering the declared fixed cost ($c_i$) acts as a far stronger driver of pool rank mobility than increasing the pledge factor ($a_0$). Simply raising the pledge factor while preserving declared costs (Panel A) leaves relative desirability rankings virtually unchanged. In contrast, reducing fixed costs across the network (Panels B, C, and D) dramatically increases rank dispersion—particularly for mid-tier pools.
+
 <p align="center">
   <img src="plots/desirability_rank_a0_c_interaction_all_epoch_644.png" alt="Desirability a0 increase and minPooCost decreases, all pools, epoch644" width="62%">
 </p>
 
-<p align="center">
-  <img src="plots/desirability_rank_a0_c_interaction_unsaturated_epoch_644.png" alt="Desirability a0 increase and minPooCost decreases, unsaturated pools, epoch644" width="62%">
-</p>
+
 
 #### Pools viability. Entry or exit of pools.
 
