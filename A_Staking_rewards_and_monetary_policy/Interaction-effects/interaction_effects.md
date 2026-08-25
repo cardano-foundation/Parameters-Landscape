@@ -12,7 +12,9 @@ For the numerical analysis in this section, we use the parameter values below un
 | $\tau$ | Treasury share.| 20% | 
 
 
-# k with minPoolCost ($c_{\min}$)
+# Increasing $k$ with a reduction in minPoolCost ($c_{\min}$)
+
+The individual effects can be found in the corresponding files for the [parameter k](A_Staking_rewards_and_monetary_policy/k/Incentive_Effects_k.md) and them `minPoolCost`
 
 ## Direct combined mechanical effects
 
