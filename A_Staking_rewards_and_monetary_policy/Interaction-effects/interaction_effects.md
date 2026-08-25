@@ -14,7 +14,7 @@ For the numerical analysis in this section, we use the parameter values below un
 
 # Increasing $k$ with a reduction in minPoolCost ($c_{\min}$)
 
-The individual effects can be found in the corresponding files for the [parameter k](A_Staking_rewards_and_monetary_policy/k/Incentive_Effects_k.md) and them `minPoolCost`
+The individual effects can be found in the corresponding files for the [parameter k](Incentive-Mechanisms/Parameters-Landscape/A_Staking_rewards_and_monetary_policy/k/Incentive_Effects_k.md) and them `minPoolCost`
 
 ## Direct combined mechanical effects
 
