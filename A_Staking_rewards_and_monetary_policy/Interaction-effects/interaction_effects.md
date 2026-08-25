@@ -1,3 +1,24 @@
+# Interaction effects among parameters
+
+## Summary: 
+
+
+
+**Pros**
+1. 
+
+**Risks**
+1. 
+
+**Behavioral and equilibrium discussion**
+1. 
+
+**Policy interpretation**
+1. 
+
+
+
+
 For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
 
 | Symbol | Parameter | Value |
