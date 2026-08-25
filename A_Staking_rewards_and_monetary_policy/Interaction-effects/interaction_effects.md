@@ -5,16 +5,23 @@
 
 
 **Pros**
-1. 
+1. **$k$ with `minPoolCost`:** Higher $k$ leaves unsaturated-pool viability unchanged.
+2. **$k$ with $a_0$:** Higher $k$ leaves unsaturated-pool rankings nearly unchanged.
+3. **$a_0$ with `minPoolCost`:** Lower fixed costs increase delegator APR.
 
 **Risks**
-1. 
+1. **$k$ with `minPoolCost`:** The combined change reduces pools covering operating costs from 274 to 152.
+2. **$k$ with $a_0$:** Higher $k$ strongly reshuffles rankings through newly oversaturated pools.
+3. **$a_0$ with `minPoolCost`:** Higher $a_0$ with lower fixed costs reduces operator viability.
 
 **Behavioral and equilibrium discussion**
-1. 
+1. Fixed-cost changes reorder unsaturated-pool rankings more than $a_0$ changes.
+2. Higher $k$ alone does not change viability among unsaturated pools.
+3. Higher $a_0$ reduces viability among unsaturated pools.
 
 **Policy interpretation**
-1. 
+1. Higher-$k$ ranking effects are concentrated in oversaturated pools.
+2. In the epoch-$644$ snapshot, median APR falls from $1.69\%$ to $1.34\%$ when $a_0$ rises from $0.3$ to $0.6$.
 
 ## Parameter values at the current state
 
