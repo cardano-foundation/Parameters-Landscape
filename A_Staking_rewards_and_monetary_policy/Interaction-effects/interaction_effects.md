@@ -79,7 +79,7 @@ The pool operator gross revenue function is
 $$\Pi_i=\begin{cases} c_i + (f(\sigma_i,p_i)-c_i) \left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if }  f(\sigma_i,p_i)>c_i, \\ 
 f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
-where $\hat{p}_i$ is the operator's active pledge (the stake/delegation owned by the operator). We assume declared and active pledge coincide $p_i=\hat p_i.$
+where $\hat{p}_i$ is the operator's active pledge (the stake/delegation owned by the operator). We assume that the declared and active pledge coincide $p_i=\hat p_i.$
 
 Note that 
 
@@ -251,6 +251,49 @@ f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\fra
 \qquad
 \widetilde{\sigma}_i=\min\\{\sigma_i,z_0\\},\quad \widetilde{p}_i=\min\\{p_i,z_0\\}.
 $$
+
+With some abuse of notation, let $1/k$ denote the new saturation point under an increased value of $k$. We want to  evaluate Tthe interaction effect between an increment $k$ and an increment in $a_0$. In particular, we want to show that, in some cases, increasing $a_0$ reinforces the effect of a larger $k$.
+
+When the pool remains below the new saturation point ($p_i \le \sigma_i < 1/k$), the gross pool reward can be written as:
+
+$$f_i = \frac{R}{1+a_0} \left[ \sigma_i + a_0\left( p_i k(\sigma_i-p_i) + p_i^2\sigma_i k^2 \right) \right],$$
+
+therefore:
+
+$$\frac{\partial f_i}{\partial k} = \frac{Ra_0}{1+a_0} \left[ p_i(\sigma_i-p_i) + 2p_i^2\sigma_i k \right] > 0 \quad (\text{for } p_i > 0).$$
+
+Differentiating with respect to $a_0$ demonstrates that increasing $a_0$ reinforces the positive reward effect of raising $k$:
+
+$$\frac{\partial^2 f_i}{\partial a_0 \partial k} = \frac{R}{(1+a_0)^2} \left[ p_i(\sigma_i-p_i) + 2p_i^2\sigma_i k \right] > 0$$
+
+When the pool's stake exceeds the new saturation point but its pledge does not ($p_i < 1/k \le \sigma_i$), the reward function becomes:
+
+$$f_i = \frac{R}{1+a_0} \left( \frac{1}{k} + a_0 p_i \right)$$
+
+Now, the marginal effect of $k$ is negative, but a higher $a_0$ mitigates this decline since:
+
+$$\frac{\partial f_i}{\partial k} = -\frac{R}{(1+a_0)k^2} < 0, \qquad \frac{\partial^2 f_i}{\partial a_0 \partial k} = \frac{R}{(1+a_0)^2k^2} > 0$$
+
+Finally, when both stake and pledge meet or exceed the saturation threshold ($1/k \le p_i \le \sigma_i$), the reward simplifies to 
+
+$$f_i = \frac{R}{k}, \implies \frac{\partial f_i}{\partial k} = \frac{-R}{k^2} \implies \frac{\partial^2 f_i}{\partial a_0 \partial k} = 0$$, 
+
+and the cross-effect vanishes entirely. 
+
+Summarizing:
+
+$$
+\frac{\partial^2 f_i}{\partial a_0 \partial k} =  
+\begin{cases} 
+\dfrac{R}{(1+a_0)^2} \left[ p_i(\sigma_i-p_i) + 2p_i^2\sigma_i k \right] > 0, & \text{if } \sigma_i < 1/k, \\ 
+\dfrac{R}{(1+a_0)^2k^2} > 0, \text{if } & p_i < 1/k \le \sigma_i, \\ 
+0, & \text{if } 1/k \le p_i \le \sigma_i. 
+\end{cases}
+$$
+
+
+XXXX
+
 
 The next plot shows the effect of both increments into a pools with different combinations of pledge and delegation.
 
