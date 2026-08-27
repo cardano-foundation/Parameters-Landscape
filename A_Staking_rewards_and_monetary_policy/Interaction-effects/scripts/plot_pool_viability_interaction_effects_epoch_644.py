@@ -46,12 +46,12 @@ CATEGORY_ORDER = (
 )
 CATEGORY_LABELS = (
     r"$r<0.25$",
-    r"$0.25\leq r<0.5$",
-    r"$0.5\leq r<0.75$",
-    r"$0.75\leq r<1$",
-    "Edge\n" r"($1\leq r<2$)",
-    "Comfortable\n" r"($2\leq r<5$)",
-    "Strong\n" r"($r\geq5$)",
+    "[0.25," "\n" "0.5)",
+    "[0.5," "\n" "0.75)",
+    "[0.75," "\n" "1)",
+    "Edge" "\n" r"$[1,2)$",
+    "Comf." "\n" r"$[2,5)$",
+    "Strong" "\n" r"$\geq5$",
 )
 CATEGORY_COLORS = (
     "#67000d",
@@ -165,10 +165,17 @@ def draw_panel(ax, h_base, h_alt, *, title, legend_base, legend_alt, n_v_base, n
             fontsize=FONT_SIZE - 2,
         )
     ax.set_xticks(x)
-    ax.set_xticklabels(CATEGORY_LABELS, fontsize=FONT_SIZE - 1)
+    ax.set_xticklabels(
+        CATEGORY_LABELS,
+        fontsize=FONT_SIZE - 2,
+        linespacing=0.95,
+    )
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
     ax.set_ylim(0, ymax * 1.22)
-    ax.tick_params(axis="both", labelsize=FONT_SIZE)
+    ax.tick_params(axis="y", labelsize=FONT_SIZE)
+    ax.tick_params(axis="x", labelsize=FONT_SIZE - 2, pad=2)
+    for label in ax.get_xticklabels():
+        label.set_horizontalalignment("center")
     ax.legend(fontsize=FONT_SIZE - 1, loc="upper right")
     ax.set_title(title, fontsize=FONT_SIZE)
     ax.grid(alpha=0.2, axis="y")
@@ -268,7 +275,7 @@ def main() -> None:
     )
     out.to_csv(OUT_CSV, index=False)
 
-    fig, axes = plt.subplots(2, 2, figsize=(16.5, 10.5), constrained_layout=True)
+    fig, axes = plt.subplots(2, 2, figsize=(18.5, 11.0), constrained_layout=True)
     draw_panel(
         axes[0, 0],
         h0,
@@ -321,8 +328,7 @@ def main() -> None:
     fig.suptitle(
         "Epoch 644 — theoretical viability under interaction effects\n"
         + rf"$r=\Pi_i/C^*$, $C^*={C_STAR_ADA:.1f}$ ADA/epoch; "
-        + rf"$R={R/1e6:.2f}$M ADA, $T={T/1e9:.2f}$B, $a_0={a0}$; "
-        + f"pledge-met pools: {n0}",
+        + rf"$R={R/1e6:.2f}$M ADA, $T={T/1e9:.2f}$B, $a_0={a0}$",
         fontsize=FONT_SIZE,
     )
     fig.savefig(OUT_PNG, dpi=160, bbox_inches="tight")

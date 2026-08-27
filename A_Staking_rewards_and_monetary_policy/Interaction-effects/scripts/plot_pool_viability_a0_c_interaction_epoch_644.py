@@ -46,8 +46,13 @@ CATEGORY_ORDER = (
     "edge", "comfortable", "strong",
 )
 CATEGORY_LABELS = (
-    r"$r<0.25$", r"$0.25\leq r<0.5$", r"$0.5\leq r<0.75$", r"$0.75\leq r<1$",
-    "Edge\n" r"($1\leq r<2$)", "Comfortable\n" r"($2\leq r<5$)", "Strong\n" r"($r\geq5$)",
+    r"$r<0.25$",
+    "[0.25," "\n" "0.5)",
+    "[0.5," "\n" "0.75)",
+    "[0.75," "\n" "1)",
+    "Edge" "\n" r"$[1,2)$",
+    "Comf." "\n" r"$[2,5)$",
+    "Strong" "\n" r"$\geq5$",
 )
 CATEGORY_COLORS = (
     "#67000d", "#a50f15", "#de2d26", "#fc9272", "#e76f51", "#4c78a8", "#2a9d8f",
@@ -113,10 +118,17 @@ def draw_panel(ax, h0, h1, *, title, legend0, legend1, v0, l0, v1, l1):
         ax.text(xi - w / 2, a + ymax * 0.012, str(a), ha="center", va="bottom", fontsize=FONT_SIZE - 2)
         ax.text(xi + w / 2, b + ymax * 0.012, str(b), ha="center", va="bottom", fontsize=FONT_SIZE - 2)
     ax.set_xticks(x)
-    ax.set_xticklabels(CATEGORY_LABELS, fontsize=FONT_SIZE - 1)
+    ax.set_xticklabels(
+        CATEGORY_LABELS,
+        fontsize=FONT_SIZE - 2,
+        linespacing=0.95,
+    )
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
     ax.set_ylim(0, ymax * 1.22)
-    ax.tick_params(labelsize=FONT_SIZE)
+    ax.tick_params(axis="y", labelsize=FONT_SIZE)
+    ax.tick_params(axis="x", labelsize=FONT_SIZE - 2, pad=2)
+    for label in ax.get_xticklabels():
+        label.set_horizontalalignment("center")
     ax.legend(fontsize=FONT_SIZE - 1, loc="upper right")
     ax.set_title(title, fontsize=FONT_SIZE)
     ax.grid(alpha=0.2, axis="y")
@@ -129,7 +141,7 @@ def draw_panel(ax, h0, h1, *, title, legend0, legend1, v0, l0, v1, l1):
 
 
 def make_plot(h0, hA, hB, hC, hD, stats, out_path, subtitle):
-    fig, axes = plt.subplots(2, 2, figsize=(14.5, 10.5), constrained_layout=True)
+    fig, axes = plt.subplots(2, 2, figsize=(16.5, 11.0), constrained_layout=True)
     v0, l0 = stats["base"]
     draw_panel(
         axes[0, 0], h0, hA,
@@ -242,12 +254,11 @@ def main() -> None:
     )
     make_plot(
         all_["h0"], all_["hA"], all_["hB"], all_["hC"], all_["hD"], all_["stats"], OUT_ALL,
-        sub_common + f"; all pledge-met pools: {all_['n0']}",
+        sub_common,
     )
-    n_ex = int((pledge_met & ~unsat).sum())
     make_plot(
         uns_["h0"], uns_["hA"], uns_["hB"], uns_["hC"], uns_["hD"], uns_["stats"], OUT_UNSAT,
-        sub_common + rf"; unsaturated only: {uns_['n0']} (excluded oversat.: {n_ex})",
+        sub_common,
     )
 
     def table_block(label, s):
