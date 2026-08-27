@@ -252,9 +252,10 @@ f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\fra
 \widetilde{\sigma}_i=\min\\{\sigma_i,z_0\\},\quad \widetilde{p}_i=\min\\{p_i,z_0\\}.
 $$
 
-With some abuse of notation, let $1/k$ denote the new saturation point under an increased value of $k$. We want to  evaluate Tthe interaction effect between an increment $k$ and an increment in $a_0$. In particular, we want to show that, in some cases, increasing $a_0$ reinforces the effect of a larger $k$.
+<!-- With some abuse of notation, let $1/k$ denote the new saturation point under an increased value of $k$. -->
+We next want to  evaluate the interaction effect between a marginal increment in $k$ and a marginal increment in $a_0$. In particular, we want to show that, in some cases, increasing $a_0$ reinforces the effect of a larger $k$.
 
-When the pool remains below the new saturation point ($p_i \le \sigma_i < 1/k$), the gross pool reward can be written as:
+When the pool remains below the saturation point ($p_i \le \sigma_i < 1/k$), the gross pool reward can be written as:
 
 $$f_i = \frac{R}{1+a_0} \left[ \sigma_i + a_0\left( p_i k(\sigma_i-p_i) + p_i^2\sigma_i k^2 \right) \right],$$
 
@@ -262,11 +263,13 @@ therefore:
 
 $$\frac{\partial f_i}{\partial k} = \frac{Ra_0}{1+a_0} \left[ p_i(\sigma_i-p_i) + 2p_i^2\sigma_i k \right] > 0 \quad (\text{for } p_i > 0).$$
 
-Differentiating with respect to $a_0$ demonstrates that increasing $a_0$ reinforces the positive reward effect of raising $k$:
+The reason is that those unsaturated pools becomes closer to the saturation point once $k$ increases. 
+
+Next, differentiating with respect to $a_0$ demonstrates that increasing $a_0$ reinforces the positive reward effect of raising $k$:
 
 $$\frac{\partial^2 f_i}{\partial a_0 \partial k} = \frac{R}{(1+a_0)^2} \left[ p_i(\sigma_i-p_i) + 2p_i^2\sigma_i k \right] > 0$$
 
-When the pool's stake exceeds the new saturation point but its pledge does not ($p_i < 1/k \le \sigma_i$), the reward function becomes:
+When the pool's stake exceeds the saturation point but its pledge does not ($p_i < 1/k \le \sigma_i$), the reward function becomes:
 
 $$f_i = \frac{R}{1+a_0} \left( \frac{1}{k} + a_0 p_i \right)$$
 
@@ -276,23 +279,58 @@ $$\frac{\partial f_i}{\partial k} = -\frac{R}{(1+a_0)k^2} < 0, \qquad \frac{\par
 
 Finally, when both stake and pledge meet or exceed the saturation threshold ($1/k \le p_i \le \sigma_i$), the reward simplifies to 
 
-$$f_i = \frac{R}{k}, \implies \frac{\partial f_i}{\partial k} = \frac{-R}{k^2} \implies \frac{\partial^2 f_i}{\partial a_0 \partial k} = 0$$, 
+$$f_i = \frac{R}{k}, \implies \frac{\partial f_i}{\partial k} = \frac{-R}{k^2}<0 \implies \frac{\partial^2 f_i}{\partial a_0 \partial k} = 0,$$ 
 
 and the cross-effect vanishes entirely. 
 
 Summarizing:
 
 $$
+\frac{\partial f_i}{\partial k} =  
+\begin{cases} 
+\frac{Ra_0}{1+a_0} \left[ p_i(\sigma_i-p_i) + 2p_i^2\sigma_i k \right] > 0, & \text{if } \sigma_i < 1/k, \\ 
+-\frac{R}{(1+a_0)k^2} < 0, \text{if } & p_i < 1/k \le \sigma_i, \\ 
+\frac{-R}{k^2}<0, & \text{if } 1/k \le p_i \le \sigma_i. 
+\end{cases}
+$$
+
+$$
 \frac{\partial^2 f_i}{\partial a_0 \partial k} =  
 \begin{cases} 
 \dfrac{R}{(1+a_0)^2} \left[ p_i(\sigma_i-p_i) + 2p_i^2\sigma_i k \right] > 0, & \text{if } \sigma_i < 1/k, \\ 
-\dfrac{R}{(1+a_0)^2k^2} > 0, \text{if } & p_i < 1/k \le \sigma_i, \\ 
+\dfrac{R}{(1+a_0)^2k^2} > 0,  & \text{if } p_i < 1/k \le \sigma_i, \\ 
 0, & \text{if } 1/k \le p_i \le \sigma_i. 
 \end{cases}
 $$
 
 
-XXXX
+Previous local derivatives describe marginal adjustments around a fixed state. Suppose we want to analyze a discrete shifts from $(k_0, a_{0,0})$ to $(k_1, a_{0,1})$. This requires evaluating pools that cross saturation boundaries. In particular, consider pools located in the transition interval:
+
+$$\frac{1}{k_1} \le \sigma_i < \frac{1}{k_0}, \qquad k_1 > k_0$$
+
+These pools were unsaturated under $k_0$ but become saturated under $k_1$. Holding $a_0$ constant, the discrete reward difference is:
+
+$$\Delta_k f_i = \frac{R}{1+a_0} \left[ \left(\frac{1}{k_1} - \sigma_i\right) + a_0 \left( \min\left\\{p_i, \frac{1}{k_1}\right\\} - A_i \right) \right]$$
+
+where $A_i = p_i k_0(\sigma_i - p_i) + p_i^2 \sigma_i k_0^2$. The first term, $1/k_1 - \sigma_i \le 0$, captures the mechanical loss from the lower saturation ceiling, while the second term captures the pledge incentive. For unsaturated pledge levels ($p_i < 1/k_1$), expanding the terms yields:
+
+$$\Delta_k f_i = \frac{R}{1+a_0} \left[ -\left(\sigma_i - \frac{1}{k_1}\right) + a_0 p_i (1 - k_0 \sigma_i)(1 + k_0 p_i) \right]$$
+
+A pool achieves a net positive reward change ($\Delta_k f_i > 0$) if and only if:
+
+$$\sigma_i - \frac{1}{k_1} < a_0 p_i (1 - k_0 \sigma_i)(1 + k_0 p_i)$$
+
+Because the pledge term is strictly increasing in $p_i$ via $\frac{\partial}{\partial p_i}[p_i(1 - k_0 \sigma_i)(1 + k_0 p_i)] = (1 - k_0 \sigma_i)(1 + 2k_0 p_i) > 0$, higher pledge values expand the feasible stake interval $\frac{1}{k_1} \le \sigma_i < \bar{\sigma}_i$ over which a pool benefits from increasing $k$, where the upper boundary is:
+
+$$\bar{\sigma}_i = \frac{\frac{1}{k_1} + a_0 p_i (1 + k_0 p_i)}{1 + a_0 k_0 p_i (1 + k_0 p_i)}$$
+
+When pledge is also saturated post-transition ($p_i \ge 1/k_1$), this incentive is capped because post-change pledge no longer yields marginal gains (as we saw with the local derivatives).
+
+Supose now a simultaneous increase in $k$ and $a_0$ from $(k_0, a_{0,0})$ to $(k_1, a_{0,1})$. The discrete interaction effect is defined by the difference-in-differences:
+
+$$I_i = \left[ f_i(k_1, a_{0,1}) - f_i(k_0, a_{0,1}) \right] - \left[ f_i(k_1, a_{0,0}) - f_i(k_0, a_{0,0}) \right]$$
+
+For pools crossing the saturation threshold, $I_i > 0$. Increasing $a_0$ mitigates saturation losses or amplifies gains, directly explaining the rightmost panel of the heatmap (see below). In the heatmap, pools with $\sigma_i \ge 1/k_1 \approx 38.8\text{M}$ ADA and high pledge ($p_i \approx 35\text{M}$–$40\text{M}$ ADA) fall within the positive boundary $\sigma_i < \bar{\sigma}_i$, yielding a net gain of $+20\%$ to $+40\%$ (green region) despite reaching the lower saturation threshold.
 
 
 The next plot shows the effect of both increments into a pools with different combinations of pledge and delegation.
