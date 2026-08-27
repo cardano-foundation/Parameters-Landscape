@@ -116,7 +116,7 @@ def draw_panel(
     ax.text(
         s_max / 3.0,
         2.0 * s_max / 3.0,
-        r"$p_i=\sigma_i$" "\n(infeasible area)",
+        r"$p_i>\sigma_i$" "\n(infeasible area)",
         fontsize=FONT_SIZE - 1,
         ha="center",
         va="center",
