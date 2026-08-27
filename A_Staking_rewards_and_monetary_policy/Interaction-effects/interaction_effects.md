@@ -1,31 +1,29 @@
 # Interaction effects among parameters
 
-## Summary: 
-
-
+## Summary:
 
 **Pros**
-1. **Larger $k$ with lower `minPoolCost`:**
-   1. Delegators' APR improves, particularly in small pools.
-   2. It induces redelegation from initially large pools to smaller ones.
-   3. Higher $k$ leaves unsaturated-pool viability mainly unchanged.
-2. **Larger $k$ with larger $a_0$:**
-   1. Larger $k$ should favor mid-size highly pledged pools near the new saturation point. A larger $a_0$ should reinforce this benefit (through the pledge channel).
-3. **Larger $a_0$ with lower `minPoolCost':**
-   1. This interaction should improve delegators APR, particularly in small pools, with a stronger effects on highly pledge pools (due to a larger $a_0$).
-   2. Since small pools usually need to rely on pledge to attract delegators, the interaction of these parameters may help them.
-
+1. **$k$ with lower `minPoolCost`:**
+   1. Delegator APR improves, particularly for small pools.
+   2. The interaction induces redelegation from initially large pools toward smaller ones.
+   3. Higher $k$ leaves unsaturated-pool viability largely unchanged.
+2. **$k$ with larger $a_0$:**
+   1. Higher $k$ tends to favor mid-sized, highly pledged pools near the new saturation point.
+   2. A larger $a_0$ reinforces this benefit through the pledge channel.
+3. **$a_0$ with lower `minPoolCost`:**
+   1. This interaction improves delegator APR, particularly for small pools.
+   2. The effect is stronger for highly pledged pools because a larger $a_0$ amplifies the pledge channel.
 
 **Risks**
-1. **Larger $k$ with lower `minPoolCost`:**
-   1. Small pools viability is negatively affected if they choose to reduce their declared fixed cost.
-   2. Small pools may not reduce their declared fixed cost but hence they do not benefit from a better attractiveness for delegators and they will not migrate toward them.
-2. **Larger $k$ with larger $a_0$:**
-   1. The positive effect over the highly pledged pools is rather limited since no many pools have this condition.
-   2. All other pools not highly pledge are harmed in terms of viability and in terms of delegators APR.
-3. **Larger $a_0$ with lower `minPoolCost':**
+1. **$k$ with lower `minPoolCost`:**
+   1. Small-pool viability is negatively affected if they reduce their declared fixed cost.
+   2. Small pools may not reduce their declared fixed cost, so they do not benefit from greater delegator attractiveness and do not attract migration.
+2. **$k$ with larger $a_0$:**
+   1. The positive effect on highly pledged pools is limited because relatively few pools satisfy the condition.
+   2. All other pools are harmed in terms of viability and delegator APR.
+3. **$a_0$ with lower `minPoolCost`:**
    1. Higher $a_0$ with lower fixed costs reduces operator viability.
-   2. These operators would benefit if they managed to attract new delegations.
+   2. These operators would benefit only if they can attract new delegations.
 
 **Behavioral and equilibrium discussion**
 1. Fixed-cost changes reorder unsaturated-pool rankings more than $a_0$ changes.
@@ -52,13 +50,13 @@ For the numerical analysis in this section, we use the parameter values below un
 | $\tau$ | Treasury share.| 20% | 
 
 
-## Increment in $k$ with a reduction in minPoolCost ($c_{\min}$)
+## Increment in $k$ with a reduction in `minPoolCost` ($c_{\min}$)
 
-The individual effects can be found in the corresponding files for the [parameter k](../k/Incentive_Effects_k.md) and for [`minPoolCost`](../minPoolCost/Incentive_Effects_minPoolCost.md).
+The individual effects can be found in the corresponding files for [parameter $k$](../k/Incentive_Effects_k.md) and [`minPoolCost`](../minPoolCost/Incentive_Effects_minPoolCost.md).
 
 ### Direct combined mechanical effects
 
-The discussion combines a lower minimum fixed cost, $c_{\min}$, with a higher pool target, $k$. In the reward-sharing model, the two parameters act on different margins: $k$ changes the saturation threshold $z_0(k)=1/k,$ while $c_{\min}$ changes the feasible declared fixed cost $c_i$. 
+This section combines a lower minimum fixed cost, $c_{\min}$, with a higher pool target, $k$. In the reward-sharing model, the two parameters act on different margins: $k$ changes the saturation threshold $z_0(k)=1/k$, while $c_{\min}$ changes the feasible declared fixed cost $c_i$.
 
 #### Gross pool rewards $f(\sigma_i,p_i)$
 
@@ -67,31 +65,30 @@ Gross pool rewards are
 $$
 f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\frac{\widetilde{\sigma}_i-\widetilde{p}_i\frac{z_0-\widetilde{\sigma}_i}{z_0}}{z_0}\right],
 \qquad
-\widetilde{\sigma}_i=\min\\{\sigma_i,z_0\\},\quad \widetilde{p}_i=\min\\{p_i,z_0\\}.
+\widetilde{\sigma}_i=\min\{\sigma_i,z_0\},\quad \widetilde{p}_i=\min\{p_i,z_0\}.
 $$
 
-Note that $c_{\min}$ does not enter $f(\cdot)$. Hence, there is not direct combined effect over $f_i$. The [incentive effects of a change in k](../k/Incentive_Effects_k.md) analyses the change of $k$ over $f_i$. 
+Note that $c_{\min}$ does not enter $f(\cdot)$. Hence, there is no direct combined effect on $f_i$. The [incentive effects of a change in $k$](../k/Incentive_Effects_k.md) analyze the effect of $k$ on $f_i$.
 
 #### Operator gross revenue $\Pi_i$
 
 The pool operator gross revenue function is
 
-$$\Pi_i=\begin{cases} c_i + (f(\sigma_i,p_i)-c_i) \left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if }  f(\sigma_i,p_i)>c_i, \\ 
+$$\Pi_i=\begin{cases} c_i + (f(\sigma_i,p_i)-c_i) \left[m_i +(1-m_i)\frac{\hat{p}_i}{\sigma_i}\right], & \text{if } f(\sigma_i,p_i)>c_i, \\ 
 f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
-where $\hat{p}_i$ is the operator's active pledge (the stake/delegation owned by the operator). We assume that the declared and active pledge coincide $p_i=\hat p_i.$
+where $\hat{p}_i$ is the operator's active pledge (the stake or delegation owned by the operator). We assume that declared and active pledge coincide, so $p_i=\hat p_i$.
 
-Note that 
+Note that
 
 $$
 \frac{\partial \Pi_i}{\partial c_i}=1-s_i\ge 0,\qquad s_i= m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\in[0,1].
 $$
 
-
-After a combined shock ($k\uparrow$, $c_{\min}\downarrow$), will all pools be benefited? Suppose a combined shock while $(m_i,\hat p_i,\sigma_i)$ remain fixed. and let
+After a combined shock ($k\uparrow$, $c_{\min}\downarrow$), will all pools benefit? Suppose a combined shock while $(m_i,\hat p_i,\sigma_i)$ remain fixed, and let
 
 $$
-\Delta f_i=f_i' - f_i ,
+\Delta f_i=f_i' - f_i,
 \qquad
 \Delta c_i=c_i'-c_i\le 0.
 $$
@@ -109,15 +106,15 @@ $$
 s_i>s_i^*\equiv\frac{-\Delta c_i}{\Delta f_i-\Delta c_i}.
 $$
 
-Using $s_i=m_i+(1-m_i)q_i$ where $q_i\equiv\hat p_i/\sigma_i=p_i/\sigma_i$ (since we assumed $p_i=\hat p_i$), the equivalent pledge-share threshold is
+Using $s_i=m_i+(1-m_i)q_i$, where $q_i\equiv\hat p_i/\sigma_i=p_i/\sigma_i$ (since we assumed $p_i=\hat p_i$), the equivalent pledge-share threshold is
 
 $$
 q_i > q_i^{\*}\equiv\frac{s_i^{\*}-m_i}{1-m_i} =\frac{\frac{-\Delta c_i}{\Delta f_i-\Delta c_i}-m_i}{1-m_i}.
 $$
 
-Interpretation: pools far from the initial saturation point can have $\Delta f_i>0$ after $k$ increases, so they may offset the revenue loss from lowering $c_i$. Pools with low $q_i$ (and low effective $s_i$) are less able to offset that loss and are more likely to be harmed by the combined change, and they will probably not choose a lower $c_i$ after a reduction in `minPoolCost`.
+Interpretation: pools far from the initial saturation point can have $\Delta f_i>0$ after $k$ increases, so they may offset the revenue loss from lowering $c_i$. Pools with low $q_i$ (and low effective $s_i$) are less able to offset that loss and are more likely to be harmed by the combined change; they will probably not choose a lower $c_i$ after a reduction in `minPoolCost`.
 
-> *Example:* As a numerical illustration, take the baseline margin $m_i=5\\%$ and a binding fixed-cost reduction from $170$ ADA to $75$ ADA, so
+> *Example:* As a numerical illustration, take the baseline margin $m_i=5\%$ and a binding fixed-cost reduction from $170$ ADA to $75$ ADA, so
 > $$\Delta c_i=75-170=-95\text{ ADA}.$$
 > Suppose that, for a given pool below the new saturation point, the direct effect of increasing $k$ from $500$ to $1000$ raises gross rewards by
 > $$\Delta f_i=150\text{ ADA}.$$
@@ -130,56 +127,51 @@ Interpretation: pools far from the initial saturation point can have $\Delta f_i
 The following heatmap illustrates the previous discussion for different combinations of pledge and delegation.
 
 <p align="center">
-  <img src="plots/heatmap_operator_reward_pct_k1000_c75_epoch_644.png" alt="Heatmap combined effect minPoolCost and high k epoch644" width="62%">
+  <img src="plots/heatmap_operator_reward_pct_k1000_c75_epoch_644.png" alt="Heatmap of the combined effect of minPoolCost and high $k$ in epoch 644" width="62%">
 </p>
-
 
 ### Behavioral and equilibrium effects
 
 #### Delegators moving stake
 
-From a purely rational perspective (more precisely, following the model in [Brünjes et al. (2020)](/Incentive-Mechanisms/Parameters-Landscape/References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) ), the delegators choose pools based on pools' desirability $D_i(k)$ that may change when there is a change in $k$ and $c_i$ (recall that, while the former is a change imposed by the protocol, the latter is a decision of each pool):
+From a purely rational perspective (more precisely, following the model in [Brünjes et al. (2020)](/Incentive-Mechanisms/Parameters-Landscape/References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf)), delegators choose pools based on their desirability $D_i(k)$, which may change when $k$ and $c_i$ change (recall that the former is imposed by the protocol, while the latter is a decision of each pool):
 
 $$
-D_i(k, c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
+D_i(k, c_i)=(1-m_i)\frac{\max\{f(\sigma_i,p_i;k)-c_i,0\}}{\sigma_i}.
 $$
 
-Once $k$ increases, the saturation threshold falls and many pools become oversaturated, so delegators in those pools may have incentives to redelegate. The figure shows the immediate change in pools' desirability rankings when $k$ increases from $500$ to $1,000$, before any redelegation occurs. The increase in $k$ alone already produces substantial reshuffling of the ranking (Panel A), driven especially by pools that become oversaturated, whose desirability deteriorates sharply relative to unsaturated pools. By comparison, reducing declared fixed costs (when `minPoolCost` is reducing and assuming that all pools choose $c_i=$`minPoolCost`) while keeping $k=500$ has a much smaller effect on the ranking (Panel C). When the increase in $k$ is combined with a common lower fixed cost (Panels B and D), the ranking changes even more. Overall, the figure suggests that the change in the saturation threshold is the main source of the immediate redistribution of pool competitiveness, while changes in fixed costs can further amplify these effects.
+Once $k$ increases, the saturation threshold falls and many pools become oversaturated, so delegators in those pools may have incentives to redelegate. The figure shows the immediate change in pool desirability rankings when $k$ increases from $500$ to $1,000$, before any redelegation occurs. The increase in $k$ alone already produces substantial reshuffling of rankings (Panel A), driven especially by pools that become oversaturated, whose desirability deteriorates sharply relative to unsaturated pools. By comparison, reducing declared fixed costs while keeping $k=500$ has a much smaller effect on the ranking (Panel C). When the increase in $k$ is combined with a common lower fixed cost (Panels B and D), the ranking changes even more. Overall, the figure suggests that the change in the saturation threshold is the main source of the immediate redistribution of pool competitiveness, while changes in fixed costs can further amplify these effects.
 
 <p align="center">
-  <img src="plots/desirability_rank_interaction_with_oversaturated_epoch_644.png" alt="Change desirability when k and minPoolCost changes epoch644" width="62%">
+  <img src="plots/desirability_rank_interaction_with_oversaturated_epoch_644.png" alt="Change in desirability when $k$ and minPoolCost change in epoch 644" width="62%">
 </p>
 
-To isolate whether a higher $k$ affects pool competitiveness beyond the mechanical effect of creating newly oversaturated pools, the following figure repeats the previous exercise after excluding pools that would be oversaturated under $k=1,000$. This restriction is informative because it separates the effect of the lower saturation threshold from changes in desirability among pools that remain unsaturated. Panel A shows that, for these pools, increasing $k$ alone leaves the desirability ranking virtually unchanged. This indicates that the large reshuffling observed in the previous figure is driven overwhelmingly by pools crossing the new saturation threshold, rather than by a general change in the relative attractiveness of unsaturated pools. By contrast, reducing declared fixed costs produces substantially more reordering (Panels B–D), showing that changes in $c_i$ can alter relative competitiveness even among pools unaffected by saturation. Thus, the two parameters operate through different channels: a higher $k$ mainly changes rankings through saturation, whereas lower fixed costs can reshuffle rankings more broadly among unsaturated pools.
+To isolate whether a higher $k$ affects pool competitiveness beyond the mechanical effect of creating newly oversaturated pools, the following figure repeats the previous exercise after excluding pools that would be oversaturated under $k=1,000$. This restriction separates the effect of the lower saturation threshold from changes in desirability among pools that remain unsaturated. Panel A shows that, for these pools, increasing $k$ alone leaves the desirability ranking virtually unchanged. This indicates that the large reshuffling observed in the previous figure is driven overwhelmingly by pools crossing the new saturation threshold, rather than by a general change in the relative attractiveness of unsaturated pools. By contrast, reducing declared fixed costs produces substantially more reordering (Panels B–D), showing that changes in $c_i$ can alter relative competitiveness even among pools unaffected by saturation. Thus, the two parameters operate through different channels: a higher $k$ mainly changes rankings through saturation, whereas lower fixed costs can reshuffle rankings more broadly among unsaturated pools.
 
 <p align="center">
-  <img src="plots/desirability_rank_interaction_effects_epoch_644.png" alt="Change desirability when k and minPoolCost changes epoch644 w/o oversaturated pools" width="62%">
+  <img src="plots/desirability_rank_interaction_effects_epoch_644.png" alt="Change in desirability when $k$ and minPoolCost change in epoch 644, excluding oversaturated pools" width="62%">
 </p>
-
 
 #### Pools viability. Entry or exit of pools.
 
-
-We study the pools viability given the current distribution of stakes, and pools snapshot. We take the case of increasing $k$ from $500$ to $1,000$, and reducing the `minPoolCost` from $170$ ADA to $75`ADA. 
+We study pool viability given the current distribution of stakes and the pool snapshot. We consider the case of increasing $k$ from $500$ to $1,000$ and reducing `minPoolCost` from $170$ ADA to $75$ ADA.
 
 Pool rewards are determined by the standard function:
 
 $$\Pi_i = \begin{cases} 
-f_i, & f_i \le c_i, \\ 
-c_i + (f_i - c_i)\left[m_i + (1 - m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i > c_i 
+ f_i, & f_i \le c_i, \\ 
+ c_i + (f_i - c_i)\left[m_i + (1 - m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i > c_i 
 \end{cases}$$
 
-using epoch 644 snapshots for margins ($m_i$), total stake ($\sigma_i$), pledge ($\hat{p}_i$), and declared fixed costs ($c_i$). Rather than assuming truthful cost reporting, we assign all pools a uniform operational cost:
+using epoch-$644$ snapshots for margins ($m_i$), total stake ($\sigma_i$), pledge ($\hat{p}_i$), and declared fixed costs ($c_i$). Rather than assuming truthful cost reporting, we assign all pools a uniform operational cost:
 
-$$C^* = \frac{667\text{ USD/month}}{6\text{ epochs/month} \times 0.15\text{ USD/ADA}} \approx 741.1\text{ ADA/epoch}$$
+$$C^* = \frac{667\text{ USD/month}}{6\text{ epochs/month} \times 0.15\text{ USD/ADA}} \approx 741.1\text{ ADA/epoch}.$$
 
-
-The next plot shows the pools' viability comparison for $k=500$ and $k=1,000$ before any redelegation occurs, for different fixed cost declaration. Panel A shows only the increment in $k$ with the declared fixed cost of the snapshot. Panels B assumes all pools declared the minimum feasible fixed cost $c_i=170$ ADA. Panels C-D consider the case in which the `minPoolCost`was reduced to $75$ ADA and that all pools declare $c_i=75$ ADA. Note the worsen in the viability across all groups.
+The next plot shows the pool viability comparison for $k=500$ and $k=1,000$ before any redelegation occurs, under different fixed-cost declarations. Panel A shows only the increase in $k$ with the declared fixed costs from the snapshot. Panel B assumes that all pools declare the minimum feasible fixed cost $c_i=170$ ADA. Panels C and D consider the case in which `minPoolCost` is reduced to $75$ ADA and all pools declare $c_i=75$ ADA. Note the worsening of viability across all groups.
 
 <p align="center">
-  <img src="plots/pool_viability_interaction_effects_epoch_644.png" alt="Pools viability interaction minPoolCost and k for e644" width="62%">
+  <img src="plots/pool_viability_interaction_effects_epoch_644.png" alt="Pool viability under interaction of minPoolCost and $k$ in epoch 644" width="62%">
 </p>
-
 
 | Panel | Scenario | Cover | Losing |
 |:---|:---|---:|---:|
@@ -203,20 +195,19 @@ Isolating pools that remain unsaturated throughout isolates the parameter effect
 | C | $k=500$, all $c_i\to75$ | 90 | 1922 |
 | D | $k\to1000$, all $c_i\to75$ | 90 | 1922 |
 
-#### Changes in staking participation. Delegators APR
+#### Changes in staking participation: delegator APR
 
-We measure the effect of an increment in $k$ together with a reduction in `minPoolCost` over the delegators' APR using,
+We measure the effect of an increase in $k$ together with a reduction in `minPoolCost` on delegators' APR using
 
-$$\text{APR}_i \approx 73(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i},$$
+$$\text{APR}_i \approx 73(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i},$$
 
-where $a_0=0.3$, $R=14.9M$ ADA, and $T=38.8B$ ADA. We take the snapshot of epoch 644 and we calculate what would be the APR after the shocks, i.e., without any redelegation and operators response that the shock may trigger. Additionally, we focus only on those pools that remain unsaturated after the change in $k$, which would be the ones that may attract new delegators (or redelegation).
+where $a_0=0.3$, $R=14.9\text{M}$ ADA, and $T=38.8\text{B}$ ADA. We take the epoch-$644$ snapshot and compute the APR after the shocks, i.e., without any redelegation or operator response. Additionally, we focus only on pools that remain unsaturated after the change in $k$, because these are the pools that may attract new delegators or redelegation.
 
 <p align="center">
-  <img src="plots/member_apr_interaction_unsaturated_epoch_644.png" alt="Delegators APR interaction minPoolCost and k for e644" width="62%">
+  <img src="plots/member_apr_interaction_unsaturated_epoch_644.png" alt="Delegator APR under interaction of minPoolCost and $k$ in epoch 644" width="62%">
 </p>
 
-
-In Panel A, the effect over APR is negligible because most (post-k-increment) unsaturated pools sit far below the new saturation point, so shrinking \(z_0\) barely moves the pledge term $a_0 \tilde p_i\cdot\frac{\tilde\sigma_i-\tilde p_i(z_0-\tilde\sigma_i)/z_0}{z_0}$, and most also have a low pledge share \(p/\sigma\). Large absolute gains in \(f\) are rare and concentrated in a few high-pledge pools near the new cap. Thus APR is not invariant to \(k\) for unsaturated pools—they improve slightly when pledge is positive—but the improvement is too small to appear in the two-decimal median APR.
+In Panel A, the effect on APR is negligible because most post-$k$-increase unsaturated pools sit far below the new saturation point, so shrinking $z_0$ barely moves the pledge term $a_0 \tilde p_i\cdot\frac{\tilde\sigma_i-\tilde p_i(z_0-\tilde\sigma_i)/z_0}{z_0}$, and most also have a low pledge share $p/\sigma$. Large absolute gains in $f$ are rare and concentrated in a few high-pledge pools near the new cap. Thus APR is not invariant to $k$ for unsaturated pools: it improves slightly when pledge is positive, but the improvement is too small to appear in the two-decimal median APR.
 
 
 
@@ -400,9 +391,10 @@ Under the baseline pledge influence parameter ($a_0 = 0.3$), doubling the target
 
 ## Increment of $a_0$ with reduction of `minPoolCost`
 
-The individual effects can be found in the corresponding files for the [parameter a0](../a0/Incentive_Effects_ao.md) and for the [parameter `minPoolCost`](../minPoolCost/Incentive_Effects_minPoolCost.md).
+The individual effects can be found in the corresponding files for [parameter $a_0$](../a0/Incentive_Effects_a0.md) and [`minPoolCost`](../minPoolCost/Incentive_Effects_minPoolCost.md).
 
 ### Direct combined mechanical effects
+
 #### Gross pool rewards $f(\sigma_i,p_i)$
 
 From the gross pool rewards:
@@ -410,61 +402,56 @@ From the gross pool rewards:
 $$
 f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\frac{\widetilde{\sigma}_i-\widetilde{p}_i\frac{z_0-\widetilde{\sigma}_i}{z_0}}{z_0}\right],
 \qquad
-\widetilde{\sigma}_i=\min\\{\sigma_i,z_0\\},\quad \widetilde{p}_i=\min\\{p_i,z_0\\},
+\widetilde{\sigma}_i=\min\{\sigma_i,z_0\},\quad \widetilde{p}_i=\min\{p_i,z_0\},
 $$
 
 we plot
 
 <p align="center">
-  <img src="plots/heatmap_f_a0_0p6_c75_interaction.png" alt="Heatmap when a0 increase and minPooCost decreases" width="62%">
+  <img src="plots/heatmap_f_a0_0p6_c75_interaction.png" alt="Heatmap when $a_0$ increases and minPoolCost decreases" width="62%">
 </p>
 
+### Behavioral and equilibrium effects
 
-### Behavioral and equilibrium effects.
+As we did for the case with $k$ and `minPoolCost`, we here study the combined effects of increasing $a_0$ and reducing `minPoolCost` given the pool snapshot from epoch $644$.
 
-As we did for the case with $k$ and `minPoolCost`, we here study the combined effects of increasing $a_0$ and reducing `minPoolCost` given the pools snapshot of epoch $644$.
+#### Delegators moving stake
 
-#### Delegators moving stake.
-
-As we did above, we measure the incentive of delegators to migrate to another pool by considering the desirability $D_i$ of each pool. Following the theoretical model, delegators should choose those pools that are more desirable, where we define desirability as:
-
+As we did above, we measure the incentive of delegators to migrate to another pool by considering the desirability $D_i$ of each pool. Following the theoretical model, delegators should choose those pools that are more desirable, and we define desirability as
 
 $$
-D_i(k, c_i)=(1-m_i)\frac{\max\\{f(\sigma_i,p_i;k)-c_i,0\\}}{\sigma_i}.
+D_i(k, c_i)=(1-m_i)\frac{\max\{f(\sigma_i,p_i;k)-c_i,0\}}{\sigma_i}.
 $$
 
-
-The four-panel comparison demonstrates that standardizing and lowering the declared fixed cost ($c_i$) acts as a far stronger driver of pool rank mobility than increasing the pledge factor ($a_0$). Simply raising the pledge factor while preserving declared costs (Panel A) leaves relative desirability rankings virtually unchanged. In contrast, reducing fixed costs across the network (Panels B, C, and D) dramatically increases rank dispersion—particularly for mid-tier pools.
+The four-panel comparison demonstrates that standardizing and lowering the declared fixed cost ($c_i$) is a far stronger driver of pool rank mobility than increasing the pledge factor ($a_0$). Simply raising the pledge factor while preserving declared costs (Panel A) leaves relative desirability rankings virtually unchanged. In contrast, reducing fixed costs across the network (Panels B, C, and D) dramatically increases rank dispersion, particularly for mid-tier pools.
 
 <p align="center">
-  <img src="plots/desirability_rank_a0_c_interaction_all_epoch_644.png" alt="Desirability a0 increase and minPooCost decreases, all pools, epoch644" width="62%">
+  <img src="plots/desirability_rank_a0_c_interaction_all_epoch_644.png" alt="Desirability under $a_0$ increase and minPoolCost reduction, all pools, epoch 644" width="62%">
 </p>
-
-
 
 #### Pools viability. Entry or exit of pools.
 
-From the operator perspective, the vast majority of pools already operate at a deficit under baseline conditions, failing to cover basic operational expenses ($C^*$). Increasing the pledge factor $a_0$ further concentrates operator rewards into a small subset of heavily pledged pools, driving more marginal pools into unprofitability. When low fixed costs are used, operator margins contract even more. Therefore, a lower declared fixed costs combined with higher pledge ($a_0$) severely degrades the economic viability of smaller and mid-sized stake pool operators, making long-term sustainability attainable only for elite, high-pledge, and heavily delegated operations. Note, however, that our model fixes each pool's declared cost at $c_i = \text{minPoolCost}$. Smaller pools that rely heavily on fixed fee revenue would not voluntarily lower this parameter. Yet, as demonstrated in the next subsection and in the desirability discussion, maintaining higher fixed fees directly depresses delegator APR, eroding the pool's competitive appeal.
+From the operator perspective, the vast majority of pools already operate at a deficit under baseline conditions, failing to cover basic operational expenses ($C^*$). Increasing the pledge factor $a_0$ further concentrates operator rewards into a small subset of heavily pledged pools, driving more marginal pools into unprofitability. When low fixed costs are used, operator margins contract even more. Therefore, lower declared fixed costs combined with higher pledge ($a_0$) severely degrade the economic viability of smaller and mid-sized stake pool operators, making long-term sustainability attainable only for elite, high-pledge, and heavily delegated operations. Note, however, that our model fixes each pool's declared cost at $c_i=\text{minPoolCost}$. Smaller pools that rely heavily on fixed fee revenue would not voluntarily lower this parameter. Yet, as demonstrated in the next subsection and in the desirability discussion, maintaining higher fixed fees directly depresses delegator APR, eroding the pool's competitive appeal.
 
 <p align="center">
-  <img src="plots/pool_viability_a0_c_interaction_all_epoch_644.png" alt="Pools viability a0 increase and minPooCost decreases, all pools, epoch644" width="62%">
+  <img src="plots/pool_viability_a0_c_interaction_all_epoch_644.png" alt="Pool viability under $a_0$ increase and minPoolCost reduction, all pools, epoch 644" width="62%">
 </p>
 
 Removing oversaturated pools does not alter the dynamic mentioned above.
 
 <p align="center">
-  <img src="plots/pool_viability_a0_c_interaction_unsaturated_epoch_644.png" alt="Pools viability a0 increase and minPooCost decreases, unsaturated pools, epoch644" width="62%">
+  <img src="plots/pool_viability_a0_c_interaction_unsaturated_epoch_644.png" alt="Pool viability under $a_0$ increase and minPoolCost reduction, unsaturated pools, epoch 644" width="62%">
 </p>
 
-#### Changes in staking participation. Delegators APR.
+#### Changes in staking participation: delegator APR
 
-These four boxplots illustrate how adjusting the pledge influence factor ($a_0$) and pool fixed costs ($c_i$) impacts delegator returns (APR) under fixed Cardano network parameters ($k = 500$, $R = 14.97\text{M}$, $T = 38.76\text{B}$).
+These four boxplots illustrate how adjusting the pledge influence factor ($a_0$) and pool fixed costs ($c_i$) affect delegator returns (APR) under fixed Cardano network parameters ($k=500$, $R=14.97\text{M}$, $T=38.76\text{B}$).
 
-Increasing the pledge influence factor from $a_0 = 0.3$ to $a_0 = 0.6$ without adjusting pool costs causes a substantial decline in overall delegator APR (Panel A). Because higher $a_0$ values shift reward distribution toward operator pledge, this drop suggests that the majority of active pools do not hold enough pledge to benefit from the change, thereby penalizing delegator returns across most pools under current configurations.
+Increasing the pledge influence factor from $a_0=0.3$ to $a_0=0.6$ without adjusting pool costs causes a substantial decline in overall delegator APR (Panel A). Because higher $a_0$ values shift reward distribution toward operator pledge, this drop suggests that the majority of active pools do not hold enough pledge to benefit from the change, thereby penalizing delegator returns across most pools under current configurations.
 
-Conversely, lowering pool fixed costs counteracts this decline: reducing fixed costs across all pools to $c_i = 75$ under the current $a_0$ increases median APR (Panel C), while pairing low fixed costs ($c_i = 170$ or $c_i = 75$) with $a_0 = 0.6$ cushions the yield drop for delegators (Panels B and D).
+Conversely, lowering pool fixed costs counteracts this decline: reducing fixed costs across all pools to $c_i=75$ under the current $a_0$ increases median APR (Panel C), while pairing low fixed costs ($c_i=170$ or $c_i=75$) with $a_0=0.6$ cushions the yield drop for delegators (Panels B and D).
 
 <p align="center">
-  <img src="plots/member_apr_a0_c_interaction_unsaturated_epoch_644.png" alt="Delegators APR when a0 increase and minPooCost decreases, unsaturated pools, epoch644" width="62%">
+  <img src="plots/member_apr_a0_c_interaction_unsaturated_epoch_644.png" alt="Delegator APR when $a_0$ increases and minPoolCost decreases, unsaturated pools, epoch 644" width="62%">
 </p>
 
