@@ -314,26 +314,23 @@ $$\Delta_k f_i = \frac{R}{1+a_0} \left[ \left(\frac{1}{k_1} - \sigma_i\right) + 
 
 where $A_i = p_i k_0(\sigma_i - p_i) + p_i^2 \sigma_i k_0^2$. The first term, $1/k_1 - \sigma_i \le 0$, captures the mechanical loss from the lower saturation ceiling, while the second term captures the pledge incentive.  When $p_i < 1/k_1$:
 
-$$\Delta_k f_i = \frac{R}{1+a_0} \left[ -\left(\sigma_i - \frac{1}{k_1}\right) + a_0 p_i (1 - k_0 \sigma_i)(1 + k_0 p_i) \right]$$
+$$\Delta_k f_i = \frac{R}{1+a_0} \left[ -\left(\sigma_i - \frac{1}{k_1}\right) + a_0 p_i (1 - k_0 \sigma_i)(1 + k_0 p_i) \right]>0$$
 
-Notice that a pool achieves a net positive reward change ($\Delta_k f_i > 0$) if and only if:
+if and only if:
 
 $$\sigma_i - \frac{1}{k_1} < a_0 p_i (1 - k_0 \sigma_i)(1 + k_0 p_i)$$
 
-Because the pledge term is strictly increasing in $p_i$ via $\frac{\partial}{\partial p_i}[p_i(1 - k_0 \sigma_i)(1 + k_0 p_i)] = (1 - k_0 \sigma_i)(1 + 2k_0 p_i) > 0$, higher pledge values expand the feasible stake interval $\frac{1}{k_1} \le \sigma_i < \bar{\sigma}_i$ over which a pool benefits from increasing $k$, where the upper boundary is:
+The right-hand side is strictly increasing in $p_i$. Hence, a higher pledge expand the feasible stake interval $\frac{1}{k_1} \le \sigma_i < \bar{\sigma}_i$ over which a pool benefits from increasing $k$, where the upper boundary is defined as:
 
 $$\bar{\sigma}_i = \frac{\frac{1}{k_1} + a_0 p_i (1 + k_0 p_i)}{1 + a_0 k_0 p_i (1 + k_0 p_i)}$$
 
-When $p_i \ge 1/k_1$, a post-change pledge no longer yields marginal gains (as we saw with the local derivatives).
+On the other hand, from the expression for $\Delta_k f_i $, we have $\min\left\\{p_i, 1/k_1\right\\}=1/k_1$ when $p_i \ge 1/k_1$. Thus, in that case, a post-change pledge no longer yields marginal gains (as we saw with the local derivatives).
 
 Supose now a simultaneous increase in $k$ and $a_0$ from $(k_0, a_{0,0})$ to $(k_1, a_{0,1})$. The discrete interaction effect is defined by the difference-in-differences:
 
 $$I_i = \left[ f_i(k_1, a_{0,1}) - f_i(k_0, a_{0,1}) \right] - \left[ f_i(k_1, a_{0,0}) - f_i(k_0, a_{0,0}) \right]$$
 
-For pools crossing the saturation threshold, $I_i > 0$. Increasing $a_0$ mitigates saturation losses or amplifies gains, directly explaining the rightmost panel of the heatmap (see below). In the heatmap, pools with $\sigma_i \ge 1/k_1 \approx 38.8\text{M}$ ADA and high pledge ($p_i \approx 35\text{M}$–$40\text{M}$ ADA) fall within the positive boundary $\sigma_i < \bar{\sigma}_i$, yielding a net gain of $+20\%$ to $+40\%$ (green region) despite reaching the lower saturation threshold.
-
-
-The next plot shows the effect of both increments into a pools with different combinations of pledge and delegation.
+For pools crossing the saturation threshold, $I_i > 0$. Increasing $a_0$ mitigates saturation losses or amplifies gains, directly explaining the rightmost panel of the heatmap (see below). In the heatmap, pools with $\sigma_i \ge 1/k_1 \approx 38.8\text{M}$ ADA and high pledge ($p_i \approx 35\text{M}$–$40\text{M}$ ADA) fall within the positive boundary $\sigma_i < \bar{\sigma}_i$, yielding a net gain of $+20\%$ to $+40\%$ (green region) despite reaching the lower saturation threshold. The next plot shows that results by showing the effect of both increments into a pool with different combinations of pledge and delegation.
 
 <p align="center">
   <img src="plots/heatmap_f_k1000_a0_0p6_interaction.png" alt="Heatmap f when k and a0 increase" width="62%">
