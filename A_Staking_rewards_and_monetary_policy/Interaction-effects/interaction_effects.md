@@ -308,15 +308,15 @@ Previous local derivatives describe marginal adjustments around a fixed state. N
 
 $$\frac{1}{k_1} \le \sigma_i < \frac{1}{k_0}, \qquad k_1 > k_0$$
 
-These pools were unsaturated under $k_0$ but become saturated under $k_1$. Holding $a_0$ constant, the discrete reward difference is:
+These pools were unsaturated under $k_0$ but become saturated under $k_1$. Holding $a_0$ constant, the discrete reward difference becomes:
 
 $$\Delta_k f_i = \frac{R}{1+a_0} \left[ \left(\frac{1}{k_1} - \sigma_i\right) + a_0 \left( \min\left\\{p_i, \frac{1}{k_1}\right\\} - A_i \right) \right]$$
 
-where $A_i = p_i k_0(\sigma_i - p_i) + p_i^2 \sigma_i k_0^2$. The first term, $1/k_1 - \sigma_i \le 0$, captures the mechanical loss from the lower saturation ceiling, while the second term captures the pledge incentive. For unsaturated pledge levels ($p_i < 1/k_1$), expanding the terms yields:
+where $A_i = p_i k_0(\sigma_i - p_i) + p_i^2 \sigma_i k_0^2$. The first term, $1/k_1 - \sigma_i \le 0$, captures the mechanical loss from the lower saturation ceiling, while the second term captures the pledge incentive.  When $p_i < 1/k_1$:
 
 $$\Delta_k f_i = \frac{R}{1+a_0} \left[ -\left(\sigma_i - \frac{1}{k_1}\right) + a_0 p_i (1 - k_0 \sigma_i)(1 + k_0 p_i) \right]$$
 
-A pool achieves a net positive reward change ($\Delta_k f_i > 0$) if and only if:
+Notice that a pool achieves a net positive reward change ($\Delta_k f_i > 0$) if and only if:
 
 $$\sigma_i - \frac{1}{k_1} < a_0 p_i (1 - k_0 \sigma_i)(1 + k_0 p_i)$$
 
@@ -324,7 +324,7 @@ Because the pledge term is strictly increasing in $p_i$ via $\frac{\partial}{\pa
 
 $$\bar{\sigma}_i = \frac{\frac{1}{k_1} + a_0 p_i (1 + k_0 p_i)}{1 + a_0 k_0 p_i (1 + k_0 p_i)}$$
 
-When pledge is also saturated post-transition ($p_i \ge 1/k_1$), this incentive is capped because post-change pledge no longer yields marginal gains (as we saw with the local derivatives).
+When $p_i \ge 1/k_1$, a post-change pledge no longer yields marginal gains (as we saw with the local derivatives).
 
 Supose now a simultaneous increase in $k$ and $a_0$ from $(k_0, a_{0,0})$ to $(k_1, a_{0,1})$. The discrete interaction effect is defined by the difference-in-differences:
 
