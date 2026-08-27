@@ -289,7 +289,7 @@ $$
 \frac{\partial f_i}{\partial k} =  
 \begin{cases} 
 \frac{Ra_0}{1+a_0} \left[ p_i(\sigma_i-p_i) + 2p_i^2\sigma_i k \right] > 0, & \text{if } \sigma_i < 1/k, \\ 
--\frac{R}{(1+a_0)k^2} < 0, \text{if } & p_i < 1/k \le \sigma_i, \\ 
+-\frac{R}{(1+a_0)k^2} < 0,  & \text{if } p_i < 1/k \le \sigma_i, \\ 
 \frac{-R}{k^2}<0, & \text{if } 1/k \le p_i \le \sigma_i. 
 \end{cases}
 $$
@@ -304,7 +304,7 @@ $$
 $$
 
 
-Previous local derivatives describe marginal adjustments around a fixed state. Suppose we want to analyze a discrete shifts from $(k_0, a_{0,0})$ to $(k_1, a_{0,1})$. This requires evaluating pools that cross saturation boundaries. In particular, consider pools located in the transition interval:
+Previous local derivatives describe marginal adjustments around a fixed state. Now, we want to evaluate pools that cross saturation thresholds. For this purpose, we use a discrete shift from $(k_0, a_{0,0})$ to $(k_1, a_{0,1})$. In particular, consider pools located in the transition interval:
 
 $$\frac{1}{k_1} \le \sigma_i < \frac{1}{k_0}, \qquad k_1 > k_0$$
 
