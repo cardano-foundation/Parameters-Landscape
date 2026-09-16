@@ -88,7 +88,7 @@ f(\sigma_i,p_i), & \text{otherwise} \end{cases}$$
 
 where $\hat{p}_i$ is the operator's active pledge (the stake/delegation owned by the operator).
     
-Consider a reduction in `minPoolCost` and that the operator declares $c_i=$`minPoolCost`. Note that this assumption contrasts with [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) setting where there is incentive compatibility, i.e., each operator declares their actual cost. However, the heavy concentration at 340 and 170 ADA in the [histogram](fig-min-pool-cost-644) suggests parameter inertia or active competitive optimization rather than truthful cost revelation. 
+Consider a reduction in `minPoolCost` and that the operator declares $c_i=$`minPoolCost`. Note that this assumption contrasts with [Brünjes et al. (2020)](../../References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf) setting where there is incentive compatibility, i.e., each operator declares their actual cost. However, the heavy concentration at 340 and 170 ADA in the [histogram](#fig-min-pool-cost-644) suggests parameter inertia or active competitive optimization rather than truthful cost revelation.
 
 The next plot shows the effect of a reduction in `minPoolCost` on pool operator gross reward.
 
@@ -304,7 +304,7 @@ Changing $c_{min}$ does not modify gross rewards $f(\sigma_i,p_i)$ directly, but
 
 ### Rational behavior
 
-In [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf), `minPoolCost` ($c_{min}$) is not a parameter of the theoretical model. The paper initially treats costs as publicly known. Later, it allows an operator to declare a cost $\hat{c}\_i$ different from its true cost $c_i$, and argues that truthful declaration is a dominant strategy at the perfect equilibrium.
+In [Brünjes et al. (2020)](../../References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf), `minPoolCost` ($c_{min}$) is not a parameter of the theoretical model. The paper initially treats costs as publicly known. Later, it allows an operator to declare a cost $\hat{c}\_i$ different from its true cost $c_i$, and argues that truthful declaration is a dominant strategy at the perfect equilibrium.
 
 In such a case of truthful declaration, the reduction in `minPoolCost` would have a limited effect: only those pools with an actual fixed cost $c\_{min}^{new} < \hat{c}\_i < c\_{min}^{original}$ would redeclare their fixed cost. Although this should trigger a new equilibrium, the impact may be moderated. In particular, lowering $c_{min}$ does not change the equilibrium number or size of pools. It can instead change which operators run the $k$ pools.
 
@@ -356,7 +356,7 @@ U_i=\Pi_i-\hat c_i,
 \Pi_i=c_i+(f(\sigma_i,p_i)-c_i)\left[m_i+(1-m_i)\frac{\hat p_i}{\sigma_i}\right],
 $$
 
-where $\hat c_i$ is the actual operating cost and $c_i$ the declared cost. Following [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf), operators should declare their actual cost (unless this declaration is constrained by `minPoolCost`). However, actual data shows behavior different from what is theoretically predicted. The [histogram](fig-min-pool-cost-644) shows clusters around declared costs of $340$ ADA and $170$ ADA. Moreover, once `minPoolCost` was reduced, many pools preferred to stay with $c_i = 340$ ADA instead of reducing it to $170$ ADA and gaining competitiveness. Both aspects suggest that not all pools may be declaring their actual costs.
+where $\hat c_i$ is the actual operating cost and $c_i$ the declared cost. Following [Brünjes et al. (2020)](../../References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf), operators should declare their actual cost (unless this declaration is constrained by `minPoolCost`). However, actual data shows behavior different from what is theoretically predicted. The [histogram](#fig-min-pool-cost-644) shows clusters around declared costs of $340$ ADA and $170$ ADA. Moreover, once `minPoolCost` was reduced, many pools preferred to stay with $c_i = 340$ ADA instead of reducing it to $170$ ADA and gaining competitiveness. Both aspects suggest that not all pools may be declaring their actual costs.
 
 When `minPoolCost` is lowered, some operators may use a lower $c_i$ to become more competitive and gain delegation. However, we already pointed out that a potential consequence of reducing $c_{min}$ is that very small pool operators may not have room to reduce their fixed costs without losing economic viability. The next plot shows the $n=559$ pools that get a reward during epoch $644$ (i.e., they produced a block). The plot shows how much reward (in percentage) these operators would lose if they report $170$ ADA instead of $340$ ADA. The figures are considerable and may prevent those pools from declaring a lower fixed cost. Note that in the first bin there are $86$ pools: $64$ of them lose exactly $0\\%$ because they all have a margin $m_i=100\\%$, while $22$ losses belong to the range $(0,2.5\\%).
 
@@ -376,7 +376,7 @@ Theoretically, a lower $c_{min} leads to lower equilibrium margins $m_i$, intens
   <img src="plots/fixed_cost_margin_bubbles_epoch_644.png" alt="Bubbles fixed costs versus margin" width="62%">
 </p>
 
-As an intriguing side note, in the preceding figures—[fixed cost versus stake size](id="fig-bubble-c-versus-size") and [fixed cost versus size](fig-bubble-c-versus-margin)—the total number of pools choosing the minimum allowable fixed cost ($170$ ADA) approaches $500$, aligning remarkably well with the target pool parameter $k$.
+As an intriguing side note, in the preceding figures—[fixed cost versus stake size](#fig-bubble-c-versus-size) and [fixed cost versus size](#fig-bubble-c-versus-margin)—the total number of pools choosing the minimum allowable fixed cost ($170$ ADA) approaches $500$, aligning remarkably well with the target pool parameter $k$.
 
 #### Entry or exit of pools
 
@@ -593,7 +593,7 @@ where $K(n)$ is increasing and convex. A lower floor may still fail to induce ex
 
 ## Interaction effects (ToDo)
 
-See the file analysis in the [interaction effects file](Interaction-effects/interaction_effects.md)
+See the file analysis in the [interaction effects file](../Interaction-effects/interaction_effects.md)
 
 
 

@@ -395,7 +395,7 @@ Notice that we observe an important impact on delegators APR but not in pool's v
 
 ## Interaction effects (ToDo)
 
-See the file analysis in the [interaction effects file](Interaction-effects/interaction_effects.md)
+See the file analysis in the [interaction effects file](../Interaction-effects/interaction_effects.md)
 
 
 

@@ -335,7 +335,7 @@ This section identifies potential behavioral (or second-order) effects—primari
     
 ### Rational behavior
 
-We first discuss the equilibrium effects of increasing $k$ ($500 \to 1000$) following [Brünjes et al. (2020)](References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf). Doubling $k$ halves the pool saturation threshold:
+We first discuss the equilibrium effects of increasing $k$ ($500 \to 1000$) following [Brünjes et al. (2020)](../../References/papers/reward-sharing-schemes_brunjes-kiayias-et-al_2020.pdf). Doubling $k$ halves the pool saturation threshold:
 
 $$z_0(k) = \frac{1}{k}: \qquad \frac{1}{500} \longrightarrow \frac{1}{1000}$$, 
 
@@ -557,4 +557,4 @@ Even under a best-case redelegation scenario—where stake from newly saturated 
 
 ## Interaction effects
 
-See the file analysis in the [interaction effects file](Interaction-effects/interaction_effects.md)
+See the file analysis in the [interaction effects file](../Interaction-effects/interaction_effects.md)
