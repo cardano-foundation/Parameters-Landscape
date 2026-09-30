@@ -459,7 +459,7 @@ where we used a price $0.15 USD/ADA$. The next plot shows the pools' viability c
 </p>
 
 
-The next plot shows the characteristics of the pools in each before the change in $k$.
+The next plot shows the characteristics of the pools in each bin/group before the change in $k$.
 
 <p align="center">
   <img src="plots/pool_viability_losing_vs_edge_traits_epoch_644.png" alt="Pool viability characteristics" width="62%">
