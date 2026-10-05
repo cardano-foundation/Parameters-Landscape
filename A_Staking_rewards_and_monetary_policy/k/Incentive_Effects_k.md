@@ -413,7 +413,7 @@ Delegators in pools that become oversaturated following the increase in $k$ are 
 
 
 <p align="center">
-  <img src="plots/stake_distribution_by_bin_epoch_644.png" alt="Stake distribution by bin e644" width="62%">
+  <img src="plots/stake_distribution_by_bin_excl_inactive_pools_epoch644.png" alt="Stake distribution by bin e644" width="62%">
 </p>
 
 
