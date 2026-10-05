@@ -459,11 +459,11 @@ c_i+(f_i-c_i)\left[m_i+(1-m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i>c_i,
 \end{cases}
 $$
 
-using their margin, delegation, active and declared pledge, and declared fixed cost in epoch $644$. We do not assume truthful reporting of the cost, i.e., the declared fixed cost is not the actual operating cost that the pools face. In contrast, we assume that all pools have the same operation cost/expenditure ($C^*=\hat c_i$ for all $i$) equal to $667$ USD per month (six epochs), or  
+using their margin, delegation, active and declared pledge, and declared fixed cost in epoch $644$. We do not assume truthful reporting of the cost, i.e., the declared fixed cost is not the actual operating cost that the pools face. In contrast, we assume that all pools have the same operation cost/expenditure ($C^*=\hat c_i$ for all $i$) equal to $667$ USD per month or, equivalently, six epochs (for a foundational analysis of monthly operating costs, see [Lopez de Lara (2026)](https://input-output-hk.github.io/spo-incentives/pdf-viewer.html?file=references/previous-analasys/spo-incentives-analysis_lopez-de-lara_2025.pdf)), or  
 
 $$C^*=667/6/0.15=741.1 \text{ USD per epoch},$$
 
-where we used a price $0.15 USD/ADA$ ([Lopez de Lara (2026)](https://input-output-hk.github.io/spo-incentives/pdf-viewer.html?file=references/previous-analasys/spo-incentives-analysis_lopez-de-lara_2025.pdf)). The next plot shows the pools' viability comparison for $k=500$ and $k=1,000$ before any redelegation occurs. Note the worsen in the viability across all groups.
+where we used a price $0.15 USD/ADA$. The next plot shows the pools' viability comparison for $k=500$ and $k=1,000$ before any redelegation occurs. Note the worsen in the viability across all groups.
 
 <p align="center">
   <img src="plots/pool_viability_k500_vs_k1000_epoch_644.png" alt="Pool viability comparison e644 k from 500 to 1000" width="62%">
