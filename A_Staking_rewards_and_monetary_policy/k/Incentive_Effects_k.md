@@ -417,9 +417,9 @@ Delegators in pools that become oversaturated following the increase in $k$ are 
 </p>
 
 
-Suppose that, after an increment in $k$ from $500$ to $1,000$ (which, using epoch-644 parameters, implies \(z_0=T/k\approx38.8\)M ADA since \(T=38.764\)B ADA), all delegation in pools with more than $40M$ ADA redelegate to smaller pools (that is, we assume no delegation leaves the ecosystem while we use $40M$ and not $38.8M$ for simplicity). We rank pools receiving delegation using 
+Suppose that, after an increment in $k$ from $500$ to $1,000$ (which, using epoch-644 parameters, implies $`z_0 = T/k \approx 38.8`$M ADA since $`T=38.8`$B ADA), all delegation in pools with more than $40M$ ADA redelegate to smaller pools (that is, we assume no delegation leaves the ecosystem while we use $40M$ and not $38.8M$ for simplicity). We rank pools receiving delegation using 
 
-$$D_i=(1-m_i)\max\{f(\sigma_i,p_i)-c_i,0\}/\sigma_i.$$
+$$D_i=(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}.$$
 
 If all delegators were rational and there were not market frictions, stake should be redelegated in that rank order, filling each pool up to the \(40\)M cap before moving to the next. The next plot shows this idealized result. Under this exercise, $205$ pools hold $12.73B$ ADA that must move. That stake is fully absorbed by $2,489$ receivers with about $90.9B$ ADA of free capacity (this is, nothing left unredelegated). Interestingly, the $0–5M$ pool count falls because some of these small pools were well-ranked receivers that started below $5M$ ADA, absorb inflows and jump to $40M$ ADA.
 
