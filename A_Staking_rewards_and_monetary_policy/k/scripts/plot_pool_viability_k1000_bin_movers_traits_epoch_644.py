@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 r"""
-Characteristics of NEW ENTRANTS to losing / edge groups when k: 500 -> 1000.
+Characteristics of pools that move across viability groups when k: 500 -> 1000.
 
-Same three aggregated groups as pool_viability_losing_vs_edge_traits_epoch_644.png:
-  - Losing ($r<0.5$):     losing_lt_025, losing_025_050
-  - Losing ($0.5\leq r<1$): losing_050_075, losing_075_100
-  - Edge ($1\leq r<2$):   edge
+Groups (same aggregation as the traits plot):
+  - Losing ($r<0.5$)
+  - Losing ($0.5\leq r<1$)
+  - Edge ($1\leq r<2$)
+  - Comfortable ($2\leq r<5$)
+  - Strong ($r\geq5$)
 
-A pool is an entrant to group G at k=1000 if category_k1000 is in G and
-category_k500 is not in G. Leavers and comfortable/strong bins are excluded.
+For each group, n in the tick label is the net change in group size
+(k=1000 minus k=500). Negative n means the group shrank.
+Boxplots show the pools that drove that change: entrants if n≥0,
+leavers if n<0.
 
-Writes:
-  pool_viability_k1000_bin_movers_traits_epoch_644.png
-  pool_viability_k1000_bin_movers_epoch_644.csv
-  pool_viability_k1000_bin_movers_epoch_644.md
+Active pools only.
 """
 
 from __future__ import annotations
@@ -28,7 +29,7 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
+POOLS_CSV = DIR / "staking_pools_koios_epoch_644.csv"
 VIABILITY_CSV = DIR / "pool_viability_k500_vs_k1000_epoch_644.csv"
 OUT_PLOT = DIR / "pool_viability_k1000_bin_movers_traits_epoch_644.png"
 OUT_CSV = DIR / "pool_viability_k1000_bin_movers_epoch_644.csv"
@@ -66,19 +67,22 @@ GROUPS: tuple[tuple[str, frozenset[str], str], ...] = (
         frozenset({"edge"}),
         "Edge\n" r"($1\leq r<2$)",
     ),
+    (
+        "comfortable",
+        frozenset({"comfortable"}),
+        "Comfortable\n" r"($2\leq r<5$)",
+    ),
+    (
+        "strong",
+        frozenset({"strong"}),
+        "Strong\n" r"($r\geq5$)",
+    ),
 )
-GROUP_COLORS = ("#67000d", "#de2d26", "#e76f51")
+GROUP_COLORS = ("#67000d", "#de2d26", "#e76f51", "#4c78a8", "#2a9d8f")
 
 
 def in_group(series: pd.Series, cats: frozenset[str]) -> pd.Series:
     return series.isin(cats)
-
-
-def entrants_for_group(df: pd.DataFrame, group_id: str, cats: frozenset[str]) -> pd.DataFrame:
-    entered = in_group(df["category_k1000"], cats) & ~in_group(df["category_k500"], cats)
-    out = df[entered].copy()
-    out["target_group"] = group_id
-    return out
 
 
 def main() -> None:
@@ -102,35 +106,61 @@ def main() -> None:
         & df["category_k1000"].isin(ALL_CATS)
     ].copy()
 
-    entrant_frames: list[pd.DataFrame] = []
-    group_counts: dict[str, int] = {}
-    for group_id, cats, _label in GROUPS:
-        sub = entrants_for_group(df, group_id, cats)
-        group_counts[group_id] = len(sub)
-        entrant_frames.append(sub)
+    mover_frames: list[pd.DataFrame] = []
+    plotted: dict[str, pd.DataFrame] = {}
+    n_net: dict[str, int] = {}
+    n_in: dict[str, int] = {}
+    n_out: dict[str, int] = {}
 
-    entrants = pd.concat(entrant_frames, ignore_index=True)
-    entrants = entrants.sort_values(
-        ["target_group", "ratio_k1000"], ascending=[True, False]
+    for group_id, cats, _label in GROUPS:
+        was = in_group(df["category_k500"], cats)
+        now = in_group(df["category_k1000"], cats)
+        entrants = df[now & ~was].copy()
+        leavers = df[was & ~now].copy()
+        n_in[group_id] = len(entrants)
+        n_out[group_id] = len(leavers)
+        n_net[group_id] = int(now.sum()) - int(was.sum())
+        if n_net[group_id] >= 0:
+            sub = entrants
+            sub["move"] = "entrant"
+        else:
+            sub = leavers
+            sub["move"] = "leaver"
+        sub["target_group"] = group_id
+        plotted[group_id] = sub
+        if not sub.empty:
+            mover_frames.append(sub)
+
+    movers = (
+        pd.concat(mover_frames, ignore_index=True)
+        if mover_frames
+        else pd.DataFrame()
     )
-    entrants.to_csv(OUT_CSV, index=False)
+    if not movers.empty:
+        movers = movers.sort_values(
+            ["target_group", "ratio_k1000"], ascending=[True, False]
+        )
+    movers.to_csv(OUT_CSV, index=False)
 
     md_lines = [
-        "# Epoch 644 — new entrants to losing / edge groups ($k=500 \\to k=1000$)\n",
-        f"$C^*={C_STAR_ADA:.1f}$ ADA/epoch. Pledge-met pools only. Entrants only.\n",
+        "# Epoch 644 — viability-group movers ($k=500 \\to k=1000$)\n\n",
+        "Active pools only. Tick-label $n$ is net group-size change. "
+        "Boxes are entrants if $n\\ge 0$, leavers if $n<0$.\n",
     ]
     for group_id, _cats, label in GROUPS:
         label_flat = label.replace("\n", " ")
-        n = group_counts[group_id]
-        md_lines.append(f"\n## {label_flat} — {n} new entrants\n")
-        sub = entrants[entrants["target_group"] == group_id]
+        md_lines.append(
+            f"\n## {label_flat} — net $n={n_net[group_id]:+d}$ "
+            f"(in {n_in[group_id]}, out {n_out[group_id]})\n"
+        )
+        sub = plotted[group_id]
         if sub.empty:
-            md_lines.append("_No entrants._\n")
+            md_lines.append("_No movers plotted._\n")
             continue
         md_lines.append(
             "| Ticker | Pool ID | $r$ ($k=500$) | $r$ ($k=1000$) | "
-            "From | To | Stake (M ADA) |\n"
-            "|:---|:---|---:|---:|:---|:---|---:|\n"
+            "From | To | Stake (M ADA) | Move |\n"
+            "|:---|:---|---:|---:|:---|:---|---:|:---|\n"
         )
         for _, row in sub.iterrows():
             ticker = row["pool_ticker"] if pd.notna(row["pool_ticker"]) else "—"
@@ -138,36 +168,42 @@ def main() -> None:
                 f"| {ticker} | `{row['pool_id']}` | "
                 f"{row['ratio_k500']:.3f} | {row['ratio_k1000']:.3f} | "
                 f"{row['category_k500']} | {row['category_k1000']} | "
-                f"{row['sigma_ada']/1e6:.2f} |\n"
+                f"{row['sigma_ada']/1e6:.2f} | {row['move']} |\n"
             )
     OUT_MD.write_text("".join(md_lines))
 
     trait_groups = [
-        (label, entrants[entrants["target_group"] == group_id], color)
+        (label, plotted[group_id], color)
         for (group_id, _cats, label), color in zip(GROUPS, GROUP_COLORS)
     ]
     labels_with_n = [
-        f"{label}\n(n={group_counts[group_id]})"
+        f"{label}\n(n={n_net[group_id]})"
         for (group_id, _cats, label) in GROUPS
     ]
 
-    fig, axes = plt.subplots(3, 3, figsize=(13.5, 9.5), constrained_layout=True)
+    fig, axes = plt.subplots(3, 3, figsize=(16.0, 9.8), constrained_layout=True)
 
     def series_by_group(col: str, transform=None) -> list[np.ndarray]:
         out: list[np.ndarray] = []
         for _label, sub, _color in trait_groups:
             if sub.empty:
-                out.append(np.array([]))
+                out.append(np.array([np.nan]))
                 continue
             vals = sub[col].astype(float)
             if transform is not None:
                 vals = transform(vals)
-            out.append(vals.dropna().to_numpy())
+            arr = vals.dropna().to_numpy()
+            out.append(arr if len(arr) else np.array([np.nan]))
         return out
 
-    def box_groups(ax, data: list[np.ndarray], ylabel: str, title: str) -> None:
+    def box_groups(
+        ax, data: list[np.ndarray], ylabel: str, title: str, *, log_y: bool = False
+    ) -> None:
+        plot_data = data
+        if log_y:
+            plot_data = [np.clip(np.nan_to_num(v, nan=1e-3), 1e-3, None) for v in data]
         bp = ax.boxplot(
-            data,
+            plot_data,
             tick_labels=labels_with_n,
             patch_artist=True,
             widths=0.55,
@@ -177,9 +213,11 @@ def main() -> None:
         for patch, color in zip(bp["boxes"], GROUP_COLORS):
             patch.set_facecolor(color)
             patch.set_alpha(0.75)
+        if log_y:
+            ax.set_yscale("log")
         ax.set_ylabel(ylabel, fontsize=FONT_SIZE)
         ax.set_title(title, fontsize=FONT_SIZE)
-        ax.tick_params(axis="both", labelsize=FONT_SIZE - 1)
+        ax.tick_params(axis="both", labelsize=FONT_SIZE - 2)
 
     box_groups(
         axes[0, 0],
@@ -192,12 +230,14 @@ def main() -> None:
         series_by_group("active_pledge_ada", lambda s: s / 1e3),
         "Active pledge (k ADA)",
         "Active pledge",
+        log_y=True,
     )
     box_groups(
         axes[0, 2],
         series_by_group("declared_pledge_ada", lambda s: s / 1e3),
         "Declared pledge (k ADA)",
         "Declared pledge",
+        log_y=True,
     )
     box_groups(
         axes[1, 0],
@@ -225,30 +265,41 @@ def main() -> None:
     )
     axes[2, 1].axis("off")
     axes[2, 2].axis("off")
+    note_lines = ["Net change $n$ ($k=500\\to k=1000$):"]
+    for group_id, _cats, label in GROUPS:
+        lab = label.replace("\n", " ")
+        note_lines.append(
+            f"• {lab}: $n={n_net[group_id]}$ "
+            f"(in {n_in[group_id]}, out {n_out[group_id]})"
+        )
+    note_lines.append("Boxes: entrants if $n\\geq 0$, leavers if $n<0$.")
     axes[2, 1].text(
         0.0,
-        0.9,
-        f"New entrants only ($k=500 \\to k=1000$):\n"
-        f"• Losing ($r<0.5$): {group_counts['losing_deep']}\n"
-        f"• Losing ($0.5\\leq r<1$): {group_counts['losing_near']}\n"
-        f"• Edge ($1\\leq r<2$): {group_counts['edge']}\n"
-        f"Total unique: {len(entrants)}",
+        0.95,
+        "\n".join(note_lines),
         ha="left",
         va="top",
-        fontsize=FONT_SIZE,
+        fontsize=FONT_SIZE - 1,
     )
 
     fig.suptitle(
-        "Epoch 644 — characteristics of new entrants to losing / edge groups\n"
+        "Epoch 644 — characteristics of pools moving across viability groups\n"
         rf"($k=500 \to k=1000$, $C^*={C_STAR_ADA:.1f}$ ADA/epoch, $r=\Pi_i/C^*$; "
-        "pledge-met pools)",
+        "Active pools only)",
         fontsize=FONT_SIZE,
     )
     fig.savefig(OUT_PLOT, dpi=160)
 
-    print(f"entrants: losing_deep={group_counts['losing_deep']}, "
-          f"losing_near={group_counts['losing_near']}, edge={group_counts['edge']}")
-    print(f"total unique entrants: {len(entrants)}")
+    print(
+        "net n: "
+        + ", ".join(f"{gid}={n_net[gid]}" for gid, *_ in GROUPS)
+    )
+    print(
+        "in/out: "
+        + ", ".join(
+            f"{gid}=+{n_in[gid]}/-{n_out[gid]}" for gid, *_ in GROUPS
+        )
+    )
     print(f"wrote {OUT_PLOT}")
     print(f"wrote {OUT_CSV}")
     print(f"wrote {OUT_MD}")
