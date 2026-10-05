@@ -496,7 +496,7 @@ Following the increase in $k$, several pool groups experienced subtle compositio
 
 ### Pool splitting by multi-pool operators
 
-MPOs can split stake across additional pools to keep each pool closer to the new, lower $z_0$. This can increase pool count without proportionally reducing operator-level concentration. Splitting is favored by economies of scope, brand portability, and repeated fixed-cost collection, but constrained by extra operating complexity, pledge dilution across pools, and delegator-side search/coordination frictions.
+Any operator that suddenly becomes oversturated can split stake across additional pools to keep each pool closer to the new, lower $z_0$. This can increase pool count without proportionally reducing operator-level concentration. Splitting is favored by brand portability and repeated fixed-cost rewards, but constrained by extra operating complexity, pledge dilution across pools, and delegators search/coordination frictions.
 
 An increase in $k$ lowers the saturation pivot $(z_0=1/k$ and can affect the incentive to operate one pool versus several through opposing channels. On one side, a lower $z_0$ caps gross reward $f(\sigma_i,p_i)$ earlier in stake, so large unsplit pools earn less per epoch and fixed cost $c_i$ is harder to cover. On the other side, smaller post-split pools allows the operator to collect more fixed-costs. Thus, raising $k$ has an ambiguous overall effect on multi-pool operation. Which effect dominates may depend on stake size relative to the new $z_0$, margins, pledge, declared costs, and realized delegation responses.
 
