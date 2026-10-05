@@ -421,7 +421,7 @@ Suppose that, after an increment in $k$ from $500$ to $1,000$ (which, using epoc
 
 $$D_i=(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}.$$
 
-If all delegators were rational and there were not market frictions, stake should be redelegated in that rank order, filling each pool up to the \(40\)M cap before moving to the next. The next plot shows this idealized result. Under this exercise, $205$ pools hold $12.73B$ ADA that must move. That stake is fully absorbed by $2,489$ receivers with about $90.9B$ ADA of free capacity (this is, nothing left unredelegated). Interestingly, the $0–5M$ pool count falls because some of these small pools were well-ranked receivers that started below $5M$ ADA, absorb inflows and jump to $40M$ ADA.
+If all delegators were rational and there were not market frictions, stake should be redelegated in that rank order, filling each pool up to the \(40\)M cap before moving to the next. The next plot shows this idealized result. Under this exercise, $210$ pools hold $12.95$B ADA that must move.  That stake is fully absorbed by $673$ receivers with \(D_i>0\) and about $19.73$B ADA of free capacity (this is, nothing left unredelegated). There are another $379$ pools with \(D_i=0\) and $13.99$B ADA of spare capacity, but they were not receivers. Interestingly, the $0–5$M pool count falls because some of these small pools were well-ranked receivers that started below $5$M ADA, absorb inflows and jump to $40$M ADA.
 
 <p align="center">
   <img src="plots/stake_distribution_by_bin_k1000_redelegation_epoch_644.png" alt="Stake distribution by bin e644 after redelegation" width="62%">
