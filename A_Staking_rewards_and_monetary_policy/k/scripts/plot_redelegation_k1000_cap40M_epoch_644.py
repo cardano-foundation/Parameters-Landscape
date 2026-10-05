@@ -305,32 +305,34 @@ def main() -> None:
                 )
     ax_n.legend(fontsize=FONT_SIZE - 1, frameon=False, loc="upper right")
 
+    s0_b = s0 / 1e3  # M ADA → B ADA
+    s1_b = s1 / 1e3
     ax_s.bar(
-        x - width / 2, s0, width, color=COLOR_BASE, edgecolor="0.2", label="Current"
+        x - width / 2, s0_b, width, color=COLOR_BASE, edgecolor="0.2", label="Current"
     )
     ax_s.bar(
         x + width / 2,
-        s1,
+        s1_b,
         width,
         color=COLOR_NEW,
         edgecolor="0.2",
         label="After redelegation",
     )
-    ax_s.set_ylabel("Aggregate stake (M ADA)", fontsize=FONT_SIZE)
+    ax_s.set_ylabel("Aggregate stake (B ADA)", fontsize=FONT_SIZE)
     ax_s.set_xlabel("Epoch stake bin (M ADA)", fontsize=FONT_SIZE)
     ax_s.set_title("Aggregate stake per bin", fontsize=FONT_SIZE)
     ax_s.tick_params(labelsize=FONT_SIZE - 1)
     ax_s.grid(axis="y", alpha=0.25)
     ax_s.legend(fontsize=FONT_SIZE - 1, frameon=False)
-    ymax_s = max(float(np.max(s0)), float(np.max(s1))) * 1.18
+    ymax_s = max(float(np.max(s0_b)), float(np.max(s1_b))) * 1.18
     ax_s.set_ylim(0, ymax_s)
-    for i, (v_cur, v_aft) in enumerate(zip(s0, s1)):
+    for i, (v_cur, v_aft) in enumerate(zip(s0_b, s1_b)):
         for xpos, v in ((i - width / 2, v_cur), (i + width / 2, v_aft)):
             if v > 0:
                 ax_s.text(
                     xpos,
                     v + ymax_s * 0.01,
-                    f"{v:.0f}",
+                    f"{v:.2f}",
                     ha="center",
                     va="bottom",
                     fontsize=FONT_SIZE - 3,
