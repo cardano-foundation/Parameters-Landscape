@@ -463,7 +463,7 @@ using their margin, delegation, active and declared pledge, and declared fixed c
 
 $$C^*=667/6/0.15=741.1 \text{ USD per epoch},$$
 
-where we used a price $0.15 USD/ADA$. The next plot shows the pools' viability comparison for $k=500$ and $k=1,000$ before any redelegation occurs. Note the worsen in the viability across all groups.
+where we used a price $0.15 USD/ADA$ ([Lopez de Lara (2026)](https://input-output-hk.github.io/spo-incentives/pdf-viewer.html?file=references/previous-analasys/spo-incentives-analysis_lopez-de-lara_2025.pdf)). The next plot shows the pools' viability comparison for $k=500$ and $k=1,000$ before any redelegation occurs. Note the worsen in the viability across all groups.
 
 <p align="center">
   <img src="plots/pool_viability_k500_vs_k1000_epoch_644.png" alt="Pool viability comparison e644 k from 500 to 1000" width="62%">
