@@ -476,15 +476,17 @@ The next plot shows the characteristics of the pools in each bin/group before th
   <img src="plots/pool_viability_losing_vs_edge_traits_epoch_644.png" alt="Pool viability characteristics" width="62%">
 </p>
 
-| | Losing \(r<0.5\) (n=1624) | Losing \(0.5\leq r<1\) (n=325) | Edge (n=150) | Comfortable+Strong (n=124) |
-|---|---:|---:|---:|---:|
-| Epoch stake (M ADA), median | 0.04 | 14.53 | 38.29 | 35.94 |
-| Active pledge (k ADA), median | 2.1 | 68.9 | 8.0 | 429.0 |
-| Declared pledge (k ADA), median | 1.0 | 50.0 | 0.1 | 10.0 |
-| Declared fixed cost (ADA), median | 340 | 340 | 340 | 340 |
-| Margin (%), median | 1.0 | 2.0 | 5.0 | 100.0 |
-| Theoretical operator reward (ADA), median | 12 | 460 | 933 | 8,790 |
-| Coverage ratio \(r\), median | 0.017 | 0.620 | 1.259 | 11.860 |
+
+
+| | Losing \(r<0.5\) (n=636) | Losing \(0.5\leq r<1\) (n=317) | Edge (n=168) | Comfortable (n=54) | Strong (n=87) |
+|---|---:|---:|---:|---:|---:|
+| Epoch stake (M ADA), median | 0.76 | 12.60 | 37.79 | 20.30 | 50.00 |
+| Active pledge (k ADA), median | 42.2 | 119.8 | 29.7 | 28.8 | 74,512.9 |
+| Declared pledge (k ADA), median | 10.0 | 50.0 | 0.2 | 0.2 | 200.0 |
+| Declared fixed cost (ADA), median | 330 | 340 | 340 | 340 | 340 |
+| Margin (%), median | 1.0 | 2.0 | 4.0 | 10.0 | 100.0 |
+| Theoretical operator reward (ADA), median | 179 | 468 | 915 | 1,840 | 10,730 |
+| Coverage ratio \(r\), median | 0.241 | 0.632 | 1.234 | 2.483 | 14.478 |
 
 Following the increase in $k$, several pool groups experienced subtle compositional shifts. The following analysis examines the baseline characteristics of pools entering these distinct tiers (noting that pools departing one group necessarily appear as entrants in another). Clear structural differences emerge across viability tiers: new entrants reaching the Edge group ($1 \le r < 2$) achieved significantly higher epoch stake ($\approx 70M$ ADA median) despite operating with near-zero pledges. Conversely, entrants in losing tiers ($r < 1$) committed substantially higher capital in active and declared pledges ($\approx 150k$–$190k$ ADA), yet failed to attract delegation, remaining at lower stake levels ($\approx 55M$–$65M$ ADA median). Furthermore, Edge entrants adopted a strategy of higher variable margins ($\approx 10\\%$ median) offset by minimum fixed costs ($170$ ADA), whereas losing entrants set higher fixed costs ($340$ ADA) alongside lower variable margins ($1$–$3\\%$).
 
