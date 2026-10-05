@@ -331,7 +331,16 @@ The data shows that surviving pools were inherently higher-yielding at baseline,
 
 ## Behavioral and equilibrium effects
 
-This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions **given the current state**.
+This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions **given the state** at epoch 644. The following table summarizes it.
+
+
+| epoch 644 | Number | Stake (B ADA) | Declared pledge (B ADA) | Active pledge (B ADA) |
+|---|---:|---:|---:|---:|
+| Inactive pools ($^*$) | 1,648 | 0.08 | 2.06 | 0.03 |
+| Active pools| 1,262 | 21.31 | 1.96 | 5.09 |
+| Total | 2,910 | 21.40 | 4.01 | 5.11 |
+
+($^*$) We consider as inactive pools those that do not have stake, with un-met pledge (i.e., active pledge lower than declared pledge), and/or they do not produce any block in the last 3 months (15 epochs).
     
 ### Rational behavior
 
@@ -388,15 +397,17 @@ The tables below summarize how doubling $k$ drives oversaturation, quantifying b
 | $T$  | $38.8B$ ADA |
 | $S$  | $21.4B$ ADA|
 | $S / T$ | 55.2% |
-| Pools with $\sigma_i>0$ | 2,694 |
+| Active pools | 1,262 |
+| Inactive pools | 1,648 |
 
-| Quantity | $k=500$ | $k=1000$ | 
-| :--- | ---: | ---: | 
-| $z_0(k)$ (M ADA) | 77.5 | 38.8 |
-| Oversaturated pools (count) | 7 | 211 | 
-| Oversaturated pools (% of pools) | 0.26% | 7.8% | 
-| $E(k)$ - Stake above saturation (B ADA) | 0.08 | 4.79 | 
-| $E(k)$ (% of $S$) | 0.4% | 22.4% | 
+| Quantity | \(k=500\) | \(k=1000\) |
+| :--- | ---: | ---: |
+| \(z_0(k)\) (M ADA) | 77.5 | 38.8 |
+| Oversaturated pools (count) | 7 | 214 |
+| Oversaturated pools (% of pools) | 0.55% | 16.96% |
+| \(E(k)\) - Stake above saturation (B ADA) | 0.07 | 4.81 |
+| \(E(k)\) (% of \(S\)) | 0.35% | 22.58% |
+
 
 Delegators in pools that become oversaturated following the increase in $k$ are expected to respond by redelegating to unsaturated pools. However, the possibility that some of this stake exits the ecosystem entirely cannot be ruled out.
 
