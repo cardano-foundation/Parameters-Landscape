@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """
 Theoretical pool viability — epoch 644 snapshot, k=500 vs k=1000.
+Restricted to Active pools (not σ=0, not unmet pledge, not zero blocks
+in epochs 630–644).
 
 Side-by-side grouped bars: same colour palette per bin, k=1000 bars hatched.
 Same formula and C* as plot_pool_viability_before_redelegation_epoch_644.py.
@@ -23,7 +25,8 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
+POOLS_CSV = DIR / "staking_pools_koios_epoch_644.csv"
+FLAGS_CSV = DIR / "inactive_pool_flags_koios_epoch_644_last15.csv"
 PARAMS_JSON = DIR / "f_reward_params_epoch_644.json"
 OUT_PLOT = DIR / "pool_viability_k500_vs_k1000_epoch_644.png"
 OUT_CSV = DIR / "pool_viability_k500_vs_k1000_epoch_644.csv"
@@ -149,11 +152,17 @@ def main() -> None:
     r_over_t = R / T
 
     df = pd.read_csv(POOLS_CSV)
+    flags = pd.read_csv(FLAGS_CSV)
+    df = df.merge(flags[["pool_id", "in_union"]], on="pool_id", how="left")
+    if df["in_union"].isna().any():
+        raise RuntimeError("Missing inactivity flags for some pools")
+    df = df.loc[df["in_union"] == 0].copy()
+
     sigma = pd.to_numeric(
         df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce"
     ) / 1e6
     declared_pledge = pd.to_numeric(df["pool_update.active.pledge"], errors="coerce") / 1e6
-    active_pledge = pd.to_numeric(df["pledged"], errors="coerce") / 1e6
+    active_pledge = pd.to_numeric(df["live_pledge"], errors="coerce") / 1e6
     fixed_cost = pd.to_numeric(df["pool_update.active.fixed_cost"], errors="coerce") / 1e6
     margin = pd.to_numeric(df["pool_update.active.margin"], errors="coerce")
 
@@ -232,15 +241,14 @@ def main() -> None:
               bbox_to_anchor=(0.99, 0.72))
     ax.set_title(
         "Epoch 644 — theoretical viability: $k=500$ vs $k=1000$\n"
-        rf"($C^*={C_STAR_ADA:.1f}$ ADA/epoch, $r=\Pi_i/C^*$; same pools & parameters)",
+        rf"($C^*={C_STAR_ADA:.1f}$ ADA/epoch, $r=\Pi_i/C^*$; Active pools only)",
         fontsize=FONT_SIZE,
     )
     ax.text(
         0.98, 0.97,
-        f"Pledge-met pools: {n_an500}\n"
+        f"Active pools: {n_an500}\n"
         f"$k=500$: cover OpEx {n_v500}, losing {n_l500}\n"
-        f"$k=1000$: cover OpEx {n_v1000}, losing {n_l1000}\n"
-        f"Pledge not met (excluded): {n_pledge_unmet}",
+        f"$k=1000$: cover OpEx {n_v1000}, losing {n_l1000}",
         transform=ax.transAxes,
         ha="right", va="top", fontsize=FONT_SIZE,
         bbox=dict(boxstyle="round,pad=0.4", facecolor="white", edgecolor="0.75", alpha=0.95),
