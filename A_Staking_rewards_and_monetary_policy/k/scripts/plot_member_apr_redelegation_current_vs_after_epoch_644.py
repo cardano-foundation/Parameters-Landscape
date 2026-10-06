@@ -2,6 +2,9 @@
 """
 Boxplot: theoretical member APR — current snapshot vs after idealized redelegation.
 
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644).
+
 Current:  epoch-644 stakes, k=500, declared c_i, pledge-met, f > c.
 After:    post-redelegation stakes (k=1000 cap-40M exercise), k=1000, same rules.
 
@@ -36,6 +39,7 @@ FONT_SIZE = 12
 EPOCHS_PER_YEAR = 73.0
 K_CURRENT = 500
 K_AFTER = 1000
+CAP_ADA = 40e6
 COLOR_CURRENT = "#4c78a8"
 COLOR_AFTER = "#e76f51"
 MEDIAN_COLOR = "#111111"
@@ -99,6 +103,20 @@ def network_apr_pct(
     sig = sigma[eligible]
     vals = apr[eligible]
     return 100.0 * float(np.average(vals, weights=sig))
+
+
+def nakamoto_coefficient(stakes: np.ndarray, threshold: float = 0.5) -> int:
+    s = np.sort(np.asarray(stakes, dtype=float))
+    s = s[s > 0][::-1]
+    if s.size == 0:
+        return 0
+    c = np.cumsum(s)
+    return int(np.searchsorted(c, threshold * c[-1], side="left") + 1)
+
+
+def n_at_cap(stakes: np.ndarray) -> int:
+    s = np.asarray(stakes, dtype=float)
+    return int(((s >= CAP_ADA) & (s < CAP_ADA + 5e6)).sum())
 
 
 def main() -> None:
@@ -190,7 +208,8 @@ def main() -> None:
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
     fig.suptitle(
         "Epoch 644 — theoretical member APR: current vs after redelegation\n"
-        r"(pledge-met pools with $f>c$; declared $c_i$; APR$=73(1-m)\max\{f-c,0\}/\sigma$)",
+        r"(Active, pledge-met pools with $f>c$; declared $c_i$; "
+        r"APR$=73(1-m)\max\{f-c,0\}/\sigma$)",
         fontsize=FONT_SIZE,
     )
     ax.text(
@@ -216,17 +235,53 @@ def main() -> None:
     fig.savefig(OUT_PLOT, dpi=200, bbox_inches="tight")
     plt.close(fig)
 
+    n_active_cur = int((sigma > 0).sum())
+    n_active_aft = int((sigma_after > 0).sum())
+    n_donors_cur = int((sigma > CAP_ADA).sum())
+    n_donors_aft = int((sigma_after > CAP_ADA).sum())
+    n_recv_cur = int(((sigma > 0) & (sigma <= CAP_ADA)).sum())
+    n_recv_aft = int(((sigma_after > 0) & (sigma_after <= CAP_ADA)).sum())
+    n_cap_cur = n_at_cap(sigma)
+    n_cap_aft = n_at_cap(sigma_after)
+    max_cur = float(sigma.max()) / 1e6
+    max_aft = float(sigma_after.max()) / 1e6
+    med_stake_cur = float(np.median(sigma[sigma > 0])) / 1e6
+    med_stake_aft = float(np.median(sigma_after[sigma_after > 0])) / 1e6
+    tot_cur = float(sigma.sum()) / 1e9
+    tot_aft = float(sigma_after.sum()) / 1e9
+    nak_cur = nakamoto_coefficient(sigma)
+    nak_aft = nakamoto_coefficient(sigma_after)
+    med_apr_cur = float(np.median(cur_vals))
+    med_apr_aft = float(np.median(aft_vals))
+    mean_apr_cur = float(np.mean(cur_vals))
+    mean_apr_aft = float(np.mean(aft_vals))
+
     md = f"""# Member APR — current vs after redelegation (epoch 644)
 
-Current: epoch-644 stakes, $k={K_CURRENT}$, $z_0={z0_current/1e6:.2f}$M ADA.
+Active pools only. Current: epoch-644 stakes, $k={K_CURRENT}$, $z_0={z0_current/1e6:.2f}$M ADA.
 After: post-redelegation stakes ($k={K_AFTER}$ cap-40M exercise), $k={K_AFTER}$, $z_0={z0_after/1e6:.2f}$M ADA.
 
-Pledge-met pools with $f>c$ only.
+The theoretical delegator APR for pool $i$ is
+$\\mathrm{{APR}}_i = 73\\,(1-m_i)\\,\\max\\{{f(\\sigma_i,p_i)-c_i,\\,0\\}}/\\sigma_i$.
+Median APR is evaluated on pledge-met pools with $f_i>c_i$.
+
+| Quantity | Current ($k=500$) | After redelegation ($k=1000$) |
+|:---|---:|---:|
+| Active pools | {n_active_cur:,} | {n_active_aft:,} |
+| Donors $(\\sigma>40$M$)$ | {n_donors_cur:,} | {n_donors_aft:,} |
+| Receivers $(0<\\sigma\\le 40$M$)$ | {n_recv_cur:,} | {n_recv_aft:,} |
+| Pools at cap $40$M | {n_cap_cur:,} | {n_cap_aft:,} |
+| Max pool stake | {max_cur:.1f}M ADA | {max_aft:.1f}M ADA |
+| Median pool stake | {med_stake_cur:.2f}M ADA | {med_stake_aft:.2f}M ADA |
+| **Median APR** ($f>c$, pledge-met) | **{med_apr_cur:.2f}%** | **{med_apr_aft:.2f}%** |
+| Pools with $f>c$ (APR sample) | {len(cur_vals):,} | {len(aft_vals):,} |
+| Nakamoto $N$ | {nak_cur:,} | {nak_aft:,} |
+| Total stake | {tot_cur:.2f}B ADA | {tot_aft:.2f}B ADA |
 
 | Case | Pools ($f>c$) | Median APR | Mean APR | Network APR |
 |:---|---:|---:|---:|---:|
-| Current ($k=500$) | {len(cur_vals)} | {np.median(cur_vals):.2f}% | {np.mean(cur_vals):.2f}% | {net_cur:.2f}% |
-| After redelegation ($k=1000$) | {len(aft_vals)} | {np.median(aft_vals):.2f}% | {np.mean(aft_vals):.2f}% | {net_aft:.2f}% |
+| Current ($k=500$) | {len(cur_vals):,} | {med_apr_cur:.2f}% | {mean_apr_cur:.2f}% | {net_cur:.2f}% |
+| After redelegation ($k=1000$) | {len(aft_vals):,} | {med_apr_aft:.2f}% | {mean_apr_aft:.2f}% | {net_aft:.2f}% |
 """
     OUT_MD.write_text(md, encoding="utf-8")
 
