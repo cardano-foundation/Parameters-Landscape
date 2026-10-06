@@ -96,11 +96,8 @@ $$
 Thus, increasing $k$ elevates $f_i$ for pools below saturation, but reduces $f_i$ once the pool becomes constrained by the lower saturation limit. The following plot illustrates the first line of previous equation, showing the effect of the cap over the gross pool rewards.
 
 <p align="center">
-  <img src="plots/pool_gross_reward_vs_sigma_k500_k1000.png" alt="Gross Pool Reward and cap when k changes" width="80%">
+  <img src="plots/pool_gross_reward_vs_sigma_k500_k1000.png" alt="Gross Pool Reward and cap when k changes" width="62%">
 </p>
-
-
-
 
 
 The next plot illustrates a discrete increment of $k$ from $500$ (left) to $1000$ (center), with the net difference shown on the right. Each heatmap displays the gross reward $f(\sigma_i, p_i)$ for a pool as a function of its delegation ($x$-axis) and pledge ($y$-axis), where darker green indicates higher rewards. Doubling $k$ halves the saturation threshold from $z_0 = 77\text{M ADA}$ to $z_0 = 38.5\text{M ADA}$ (marked by the vertical line in the center plot). Consequently, rewards for pools exceeding $38.5\text{M ADA}$ decrease—reflected in the muted green tones—because their rewards are capped earlier. The difference plot on the right highlights this shift: while larger pools experience reduced yields, medium-sized pools operating near the new $z_0$ now occupy the optimal reward band.
