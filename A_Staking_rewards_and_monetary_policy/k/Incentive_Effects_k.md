@@ -494,15 +494,48 @@ Following the increase in $k$, several pool groups experienced subtle compositio
   <img src="plots/pool_viability_k1000_bin_movers_traits_epoch_644.png" alt="Pool viability characteristics bin movers when k goes to 1000" width="62%">
 </p>
 
-### Pool splitting by multi-pool operators
+### Pool splitting incentives
 
-Any operator that suddenly becomes oversturated can split stake across additional pools to keep each pool closer to the new, lower $z_0$. This can increase pool count without proportionally reducing operator-level concentration. Splitting is favored by brand portability and repeated fixed-cost rewards, but constrained by extra operating complexity, pledge dilution across pools, and delegators search/coordination frictions.
+An operator may divide an existing pool into two or more pools, but doing so dilutes the pledge benefit. To illustrate this, consider the initial gross reward
 
-An increase in $k$ lowers the saturation pivot $(z_0=1/k$ and can affect the incentive to operate one pool versus several through opposing channels. On one side, a lower $z_0$ caps gross reward $f(\sigma_i,p_i)$ earlier in stake, so large unsplit pools earn less per epoch and fixed cost $c_i$ is harder to cover. On the other side, smaller post-split pools allows the operator to collect more fixed-costs. Thus, raising $k$ has an ambiguous overall effect on multi-pool operation. Which effect dominates may depend on stake size relative to the new $z_0$, margins, pledge, declared costs, and realized delegation responses.
+$$f(\sigma_i,p_i) = \frac{R}{1+a_0} \left[ \sigma_i+ a_0 p_i \frac{ \sigma_i-p_i\frac{z_0-\sigma_i}{z_0}}{z_0}\right],$$
 
-We study this using a split exercise. Since we want to compare how the incentive to split is affected by an increment on $k$, we consider only the cohort of pools at epoch 644 that do not become overdsaturated after the increment in $k$ to $1000$. Otherwise, the new oversaturated pools will have trivially incentives to split.
+where we assume $0<p_i\leq\sigma_i\leq z_0$, and abstract from differences in pool performance. Suppose the operator splits the pool into two identical pools, each with $\sigma_i'=\sigma_i/2$ and $p_i'=p_i/2$. The gross reward of each new pool is then
 
-For each pool we compute theoretical
+$$f'(\sigma_i,p_i) = f\left(\frac{\sigma_i}{2},\frac{p_i}{2}\right) = \frac{R}{1+a_0} \left[ \frac{\sigma_i}{2} + a_0\frac{p_i}{2} \frac{\frac{\sigma_i}{2} - \frac{p_i}{2} \frac{z_0-\frac{\sigma_i}{2}}{z_0}}{z_0}\right].$$
+
+Consequently,
+
+$$f(\sigma_i,p_i)-2f'(\sigma_i,p_i)=\frac{Ra_0p_i}{(1+a_0)z_0}\left[\frac{\sigma_i-p_i}{2}+\frac{3p_i\sigma_i}{4z_0}\right]>0.$$
+
+Thus, splitting an unsaturated pool reduces aggregate gross rewards, even when all stake is retained. If $p_i=0$ or $a_0=0$, the difference is zero.
+
+The operator's revenue, however, also depends on how pool rewards are distributed. Assume that the operator's own stake equals the declared pledge, $p_i=\hat p_i$, and that each new pool retains the original margin $m_i$ and declared fixed cost $c_i$. Provided that each new pool earns at least $c_i$, the operator receives
+
+$$c_i+\bigl(f(\sigma_i,p_i)-c_i\bigr)\left[m_i+(1-m_i)\frac{p_i}{\sigma_i}\right]$$
+
+before splitting, and
+
+$$2c_i+2\bigl(f'(\sigma_i,p_i)-c_i\bigr)\left[m_i+(1-m_i)\frac{p_i}{\sigma_i}\right]$$
+
+after splitting. The ratio $p_i/\sigma_i$ is unchanged because pledge and total stake are divided proportionally. Comparing these expressions, splitting increases the operator's revenue if and only if
+
+$$(1-m_i)\left(1-\frac{p_i}{\sigma_i}\right)c_i>\left[m_i+(1-m_i)\frac{p_i}{\sigma_i}\right]\bigl[f(\sigma_i,p_i)-2f'(\sigma_i,p_i)\bigr].$$
+
+The left-hand side captures the additional revenue from collecting a second fixed fee, while the right-hand side captures the operator's share of the lost gross rewards. The additional fee reallocates rewards toward the operator; it does not generate additional pool rewards. Whether splitting increases profit also depends on additional operating expenses and the operator's ability to retain and redistribute delegation. If a pool earns less than its declared fixed cost, the operator receives only the available rewards, so the revenue expressions above must be adjusted.
+
+Holding stake, pledge, and other parameters fixed, the gross reward loss from splitting increases with $k$ while the original pool remains unsaturated, strengthening the incentive to keep stake together. To see this, note that
+
+$$f(\sigma_i,p_i)-2f'(\sigma_i,p_i)=\frac{Ra_0p_i}{1+a_0}\left[\frac{k(\sigma_i-p_i)}{2}+\frac{3p_i\sigma_i k^2}{4}\right],$$
+
+while 
+$$\frac{\partial}{\partial k}\left[f(\sigma_i,p_i)-2f'(\sigma_i,p_i)\right]=\frac{Ra_0p_i}{1+a_0}\left[\frac{\sigma_i-p_i}{2}+\frac{3p_i\sigma_i k}{2}
+\right]>0.$$
+This calculation applies while the original pool remains unsaturated, meaning $k\sigma_i<1$.
+
+If the lower threshold makes the original pool oversaturated, however, splitting can allow stake previously above the cap to contribute to rewards. The comparison must then use the capped reward formula, replacing stake and pledge by $\min(\sigma_i,z_0)$ and $\min(p_i,z_0)$ in the gross reward calculation, and applying the same caps separately to each new pool. The unsaturated-pool inequality above therefore does not establish that splitting reduces gross rewards in this case. The overall incentive depends on stake relative to the new saturation threshold, pledge, fees, operating expenses, and delegation responses. A higher $k$ may consequently encourage more pools without producing a corresponding increase in the number of independent operators.
+
+We illustrate the previous discussion using an exercise. We compare how the incentive to split is affected by an increment on $k$, by considering the cohort of pools at epoch 644 that do not become overdsaturated after the increment in $k$ to $1000$. For each pool we compute theoretical
 
 $$
 \Pi_i = c_i + (f_i-c_i)\bigl[m_i+(1-m_i)\hat p_i/\sigma_i\bigr]
@@ -510,34 +543,29 @@ $$
 \Pi_i=f_i\text{ otherwise},
 $$
 
-with \(f_i=f(\sigma_i,p_i)\) and \(f_i=0\) if active pledge is below declared pledge.
-
-Suppose each pool becomes two halves with
+with \(f_i=f(\sigma_i,p_i)\) and \(f_i=0\) if active pledge is below declared pledge. Suppose each pool becomes two halves with
 
 $$
 \sigma'=\sigma_i/2,\quad p'=\hat p'=p_i/2,\quad
 \text{same }m_i\text{ and declared }c\text{ in each half}.
 $$
 
-We compare the unsplit reward $\Pi_i$ with $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i)$.
+We compare the unsplit reward $\Pi_i$ with $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i)$. The analysis is restricted to Active pools with \(\sigma_i \leq z_0(k=1{,}000)\) (1,048 of 1,262 Active pools; 214 oversaturated at \(k=1{,}000\) excluded). The following table shows the number of non-saturated pools that gain or lose after splitting. Note that, although theoretically $f()$ is negativelly affected by splitting, most of pools gain from that behavior. A potential explanation is the fixed-cost collection discussed above.
 
-**Scenario A — current \(k=500\)**
+We compare the unsplit operator reward $\Pi_i$ with the sum of rewards after a proportional split into two identical pools, $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i)$. The exercise is restricted to Active pools that remain unsaturated after the increment, $\sigma_i\leq z_0(k=1,000)$ (1,048 of 1,262 Active pools; 214 oversaturated at $k=1,000$ excluded). The table reports how many of these pools gain or lose in $\Pi$ from splitting.
 
-The analysis is restricted to pools with $\sigma_i \leq z_0 (k=1,000)$ ($2,483$ of $2,694$ pools; $211$ newly oversaturated pools excluded).
+Although splitting an unsaturated pool strictly reduces aggregate gross rewards, $f(\sigma_i,p_i)-2f'(\sigma_i,p_i)>0$, operator revenue $\Pi$ rises for a majority of the cohort. This is possible when the extra declared fixed fee on the second pool outweighs the operator’s share of the lost gross rewards, but the table does not identify that channel.
 
 ## Cohort-restricted results
 
-| | Scenario A (k=500) | Scenario B (k=1000) |
+| | Scenario A (\(k=500\)) | Scenario B (\(k=1000\)) |
 |:---|---:|---:|
-| Cohort  | 2,483 | 2,483 |
-| Pledge-met (active pledge larger than declared pledge)| 2,012 | 2,012 |
-| Π increases (pledge-met) | 695 (34.5%) | 694 (34.5%) |
-| Π decreases (pledge-met) | 1,143 (56.8%) | 1,147 (57.0%) |
-| Unchanged (pledge-met) | 174 (8.6%) | 171 (8.5%) |
-| Median ΔΠ | 0.00 ADA/epoch | 0.00 ADA/epoch |
-| Mean ΔΠ | 63.86 ADA/epoch | 62.66 ADA/epoch |
-
-Among unsaturated pools, raising $k$ from $500$ to $1,000$ barely shifts split incentives: a majority of pools still lose from splitting ($\approx 57\\%$). The k increment mainly reshapes incentives for pools that cross the new saturation threshold — not for those already below it.
+| Cohort | 1,048 | 1,048 |
+| \(\Pi\) increases  | 659 (62.9%) | 658 (62.8%) |
+| \(\Pi\) decreases  | 364 (34.7%) | 366 (34.9%) |
+| Unchanged  | 25 (2.4%) | 24 (2.3%) |
+| Median \(\Delta\Pi\) | 134.49 ADA/epoch | 134.34 ADA/epoch |
+| Mean \(\Delta\Pi\) | 145.56 ADA/epoch | 145.00 ADA/epoch |
 
 
 ### Changes in staking participation
