@@ -533,9 +533,8 @@ $$\frac{\partial}{\partial k}\left[f(\sigma_i,p_i)-2f'(\sigma_i,p_i)\right]=\fra
 \right]>0.$$
 This calculation applies while the original pool remains unsaturated, meaning $k\sigma_i<1$.
 
-If the lower threshold makes the original pool oversaturated, however, splitting can allow stake previously above the cap to contribute to rewards. The comparison must then use the capped reward formula, replacing stake and pledge by $\min(\sigma_i,z_0)$ and $\min(p_i,z_0)$ in the gross reward calculation, and applying the same caps separately to each new pool. The unsaturated-pool inequality above therefore does not establish that splitting reduces gross rewards in this case. The overall incentive depends on stake relative to the new saturation threshold, pledge, fees, operating expenses, and delegation responses. A higher $k$ may consequently encourage more pools without producing a corresponding increase in the number of independent operators.
 
-We illustrate the previous discussion using an exercise. We compare how the incentive to split is affected by an increment on $k$, by considering the cohort of pools at epoch 644 that do not become overdsaturated after the increment in $k$ to $1000$. For each pool we compute theoretical
+We illustrate the previous discussion using an exercise. We compare how the incentive to split is affected by an increment on $k$, by considering the cohort of pools at epoch 644 that do not become overdsaturated after the increment in $k$ to $1000$. For each pool we compute
 
 $$
 \Pi_i = c_i + (f_i-c_i)\bigl[m_i+(1-m_i)\hat p_i/\sigma_i\bigr]
@@ -550,13 +549,10 @@ $$
 \text{same }m_i\text{ and declared }c\text{ in each half}.
 $$
 
-We compare the unsplit reward $\Pi_i$ with $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i)$. The analysis is restricted to Active pools with \(\sigma_i \leq z_0(k=1{,}000)\) (1,048 of 1,262 Active pools; 214 oversaturated at \(k=1{,}000\) excluded). The following table shows the number of non-saturated pools that gain or lose after splitting. Note that, although theoretically $f()$ is negativelly affected by splitting, most of pools gain from that behavior. A potential explanation is the fixed-cost collection discussed above.
-
 We compare the unsplit operator reward $\Pi_i$ with the sum of rewards after a proportional split into two identical pools, $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c_i,m_i)$. The exercise is restricted to Active pools that remain unsaturated after the increment, $\sigma_i\leq z_0(k=1,000)$ (1,048 of 1,262 Active pools; 214 oversaturated at $k=1,000$ excluded). The table reports how many of these pools gain or lose in $\Pi$ from splitting.
 
 Although splitting an unsaturated pool strictly reduces aggregate gross rewards, $f(\sigma_i,p_i)-2f'(\sigma_i,p_i)>0$, operator revenue $\Pi$ rises for a majority of the cohort. This is possible when the extra declared fixed fee on the second pool outweighs the operator’s share of the lost gross rewards, but the table does not identify that channel.
 
-## Cohort-restricted results
 
 | | Scenario A (\(k=500\)) | Scenario B (\(k=1000\)) |
 |:---|---:|---:|
@@ -567,6 +563,7 @@ Although splitting an unsaturated pool strictly reduces aggregate gross rewards,
 | Median \(\Delta\Pi\) | 134.49 ADA/epoch | 134.34 ADA/epoch |
 | Mean \(\Delta\Pi\) | 145.56 ADA/epoch | 145.00 ADA/epoch |
 
+If the lower threshold makes the original pool oversaturated, however, splitting can allow stake previously above the cap to contribute to rewards. The comparison must then use the capped reward formula, replacing stake and pledge by $\min(\sigma_i,z_0)$ and $\min(p_i,z_0)$ in the gross reward calculation, and applying the same caps separately to each new pool. The unsaturated-pool inequality above therefore does not establish that splitting reduces gross rewards in this case. The overall incentive depends on stake relative to the new saturation threshold, pledge, fees, operating expenses, and delegation responses. A higher $k$ may consequently encourage more pools without producing a corresponding increase in the number of independent operators.
 
 ### Changes in staking participation
 
