@@ -208,8 +208,7 @@ def main() -> None:
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
     fig.suptitle(
         "Epoch 644 — theoretical member APR: current vs after redelegation\n"
-        r"(Active, pledge-met pools with $f>c$; declared $c_i$; "
-        r"APR$=73(1-m)\max\{f-c,0\}/\sigma$)",
+        r"(Active pools; APR$=73(1-m)\max\{f-c,0\}/\sigma$)",
         fontsize=FONT_SIZE,
     )
     ax.text(
