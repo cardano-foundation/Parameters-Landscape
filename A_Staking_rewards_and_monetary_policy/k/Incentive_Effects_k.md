@@ -93,7 +93,7 @@ $$
 \end{cases}
 $$
 
-Thus, increasing $k$ elevates $f_i$ for pools below saturation, but reduces $f_i$ once the pool becomes constrained by the lower saturation limit. The following plot illustrates the first line of previous equation, showing the effect of the cap over the gross pool rewards.
+Thus, increasing $k$ elevates $f_i$ for pools below saturation, but reduces $f_i$ once the pool becomes constrained by the lower saturation limit. The plot below illustrates the first line of the previous equation, showing the cap's effect on gross pool rewards—specifically, how the maximum achievable reward for a pool decreases as $k$ increases
 
 <p align="center">
   <img src="plots/pool_gross_reward_vs_sigma_k500_k1000.png" alt="Gross Pool Reward and cap when k changes" width="62%">
