@@ -529,8 +529,10 @@ Holding stake, pledge, and other parameters fixed, the gross reward loss from sp
 $$f(\sigma_i,p_i)-2f'(\sigma_i,p_i)=\frac{Ra_0p_i}{1+a_0}\left[\frac{k(\sigma_i-p_i)}{2}+\frac{3p_i\sigma_i k^2}{4}\right],$$
 
 while 
+
 $$\frac{\partial}{\partial k}\left[f(\sigma_i,p_i)-2f'(\sigma_i,p_i)\right]=\frac{Ra_0p_i}{1+a_0}\left[\frac{\sigma_i-p_i}{2}+\frac{3p_i\sigma_i k}{2}
 \right]>0.$$
+
 This calculation applies while the original pool remains unsaturated, meaning $k\sigma_i<1$.
 
 
