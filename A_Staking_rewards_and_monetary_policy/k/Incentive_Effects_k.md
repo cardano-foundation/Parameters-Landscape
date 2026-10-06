@@ -569,32 +569,6 @@ If the lower threshold makes the original pool oversaturated, however, splitting
 
 ### Changes in staking participation
 
-Increasing the $k$ parameter does not inherently create a strong incentive for unstaked ADA to enter the ecosystem unless the resulting redelegation alters stake distributions enough to improve overall network yield—measured here by the median APR as a metric of network attractiveness. To evaluate this effect, we compare the current median APR of active pools against the counterfactual median APR under an "idealized" redelegation scenario where delegators rank and select pools strictly based on desirability ($D_i$), once $k$ increases. The theoretical delegator APR for pool $i$ is computed as:
-
-$$\mathrm{APR}_i = 73\,(1-m_i)\,\frac{\max\\{f(\sigma_i,p_i)-c_i,\,0\\}}{\sigma_i}$$
-
-The table below reports the median theoretical delegator APR evaluated at the current pool snapshot and after the redelegation when $k=1000$ across pledge-met pools satisfying $f_i > c_i$:
-
-
-| Quantity | Current (k=500) | After redelegation (k=1000) |
-|:---|---:|---:|
-| Active pools | 2,694 | 2,489 |
-| Donors $(\sigma>40M)$ | 205 | 0 |
-| Receivers $(0<\sigma\le40M$) | 2,489 | 2,489 |
-| Pools at cap $40M$ | 26 | 490 |
-| Max pool stake | 114.2M ADA | 40.0M ADA |
-| Median pool stake | 0.10M ADA | 0.04M ADA |
-| **Median APR $f>c$, pledge-met)** | **1.82%** | **1.97%** |
-| Pools with $f>c$ (APR sample) | 941 | 736 |
-| Nakamoto $N$ | 160 | 268 |
-| Total stake | 21.40B ADA | 21.40B ADA |
-
-<p align="center">
-  <img src="plots/member_apr_redelegation_current_vs_after_epoch_644.png" alt="APR distribution current vs after k increment e644" width="62%">
-</p>
-
-Even under a best-case redelegation scenario—where stake from newly saturated pools is optimally reallocated following the increase in $k$—the median APR rises by only an $8\\%$ relative gain. Such a marginal increase is unlikely to incentivize new capital inflow; furthermore, because this model assumes optimal delegator behavior, it represents an upper bound on potential yield improvement.
-
 Another way of understanding the effect of the change in $k$ is whether it induces a change in the staking participation. In the previous section, we identified that increasing $k$ may reduce the gross pool reward for unsaturated pools before any response. In this section, we consider an idealized redelegation scenario where delegators rank and select pools strictly based on desirability ($D_i$), once $k$ increases, and we evaluate how the resulting redelegation alters stake distributions enough to change the overall network yield—measured by the median APR as a metric of network attractiveness. The theoretical delegator APR for pool \(i\) is
 
 $$\mathrm{APR}_i = 73\,(1-m_i)\,\frac{\max\\{f(\sigma_i,p_i)-c_i,\,0\\}}{\sigma_i}.$$
