@@ -2,10 +2,12 @@
 """
 Box plots of member APR for undersaturated pools around the k=150→500 change.
 
-Three groups (positive APR only, matching the summary table):
-  k=150: all undersaturated pools (σ_228 ≤ z0(k=500))
-  k=150: survivors to epoch 285
+Three groups (all Active undersaturated pools; APR=0 when f≤c):
+  k=150: all Active undersaturated pools (σ_228 ≤ z0(k=500))
+  k=150: Active survivors to epoch 285
   k=500: survivors, fees adjusted (m,c from epoch 285)
+
+Active = not (σ=0 ∪ unmet pledge ∪ zero blocks in the prior 15 epochs).
 
 Style matches member_apr_boxplot_cohort_426_500.png (peach boxes, orange medians).
 """
@@ -93,14 +95,9 @@ def main() -> None:
     apr_150 = "member_apr_simple_k150"
     apr_500 = "member_apr_simple_k500_feeadjusted"
 
-    g_all = 100.0 * cohort[apr_150].dropna()
-    g_all = g_all[g_all > 0].to_numpy()
-
-    g_surv_150 = 100.0 * survivors[apr_150].dropna()
-    g_surv_150 = g_surv_150[g_surv_150 > 0].to_numpy()
-
-    g_surv_500 = 100.0 * survivors[apr_500].dropna()
-    g_surv_500 = g_surv_500[g_surv_500 > 0].to_numpy()
+    g_all = (100.0 * cohort[apr_150].dropna()).clip(lower=0.0).to_numpy()
+    g_surv_150 = (100.0 * survivors[apr_150].dropna()).clip(lower=0.0).to_numpy()
+    g_surv_500 = (100.0 * survivors[apr_500].dropna()).clip(lower=0.0).to_numpy()
 
     fig, ax = plt.subplots(figsize=(9.5, 5.0), constrained_layout=True)
     draw_boxes(
@@ -112,9 +109,9 @@ def main() -> None:
         ],
     )
     fig.suptitle(
-        "Member APR around the $k$ increment (undersaturated pools)\n"
+        "Member APR around the $k$ increment (Active undersaturated pools)\n"
         rf"($\sigma_{{228}}\leq z_0(k=500)={Z0_K500/1e6:.2f}$M ADA; "
-        r"positive APR pools only ($f>c$))"
+        r"APR $=0$ if $f\leq c$)"
         "\n"
         "(numbers above boxes are medians)",
         fontsize=FONT_SIZE + 1,
@@ -124,7 +121,7 @@ def main() -> None:
 
     print(f"Wrote {OUT_PLOT}")
     print(
-        f"n positive: all={len(g_all)}, surv150={len(g_surv_150)}, "
+        f"n (incl. zeros): all={len(g_all)}, surv150={len(g_surv_150)}, "
         f"surv500={len(g_surv_500)}"
     )
     print(
@@ -132,6 +129,12 @@ def main() -> None:
         f"all={np.median(g_all):.2f}, "
         f"surv150={np.median(g_surv_150):.2f}, "
         f"surv500={np.median(g_surv_500):.2f}"
+    )
+    print(
+        "means (%): "
+        f"all={np.mean(g_all):.2f}, "
+        f"surv150={np.mean(g_surv_150):.2f}, "
+        f"surv500={np.mean(g_surv_500):.2f}"
     )
 
 
