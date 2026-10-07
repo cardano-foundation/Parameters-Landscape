@@ -184,7 +184,7 @@ $$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
 | \(T\) | 32.04B ADA | 33.03B ADA |
 | \(S\) (all pools) | 17.35B ADA | 23.16B ADA |
 | \(S\) (Active) | 17.31B ADA | 23.12B ADA |
-| \(S\) (all) \(/\) \(T\) | 54.2% | 70.1% |
+| $S/T$ (all pools) | 54.2% | 70.1% |
 | Active pools | 725 | 1,594 |
 | — continuing to 285 | 532 | — |
 | — exited by 285 | 193 | — |
@@ -193,16 +193,16 @@ where we do not consider Inactive pools, i.e., pools with zero stake, with activ
 
 | Quantity | Epoch 228, \(k=150\) | Epoch 228, \(k=500\) | Epoch 285, \(k=500\) |
 | :--- | ---: | ---: | ---: |
-| \(z_0(k)\) (M ADA) | 213.58 | 64.07 | 66.06 |
+| $z_0(k)$ (M ADA) | 213.58 | 64.07 | 66.06 |
 | Oversaturated pools (count) | 0 | 109 | 4 |
 | Oversaturated pools (% of Active) | 0.00% | 15.03% | 0.25% |
 | — continuing to 285 | — | 89 | — |
 | — exited by 285 | — | 20 | — |
-| Unsaturated pools (\(\sigma_i\leq z_0\)) | 725 | 616 | 1,590 |
+| Unsaturated pools ($\sigma_i\leq z_0$) | 725 | 616 | 1,590 |
 | — continuing to 285 | — | 443 | — |
 | — exited by 285 | — | 173 | — |
-| \(E(k)\) - Stake above saturation (B ADA) | 0.00 | 6.14 | 0.02 |
-| \(E(k)\) (% of \(S\)) | 0.00% | 35.41% | 0.09% |
+| $E(k)$ - Stake above saturation (B ADA) | 0.00 | 6.14 | 0.02 |
+| $E(k)$ (% of \(S\)) | 0.00% | 35.41% | 0.09% |
 
 
 Main observations:
