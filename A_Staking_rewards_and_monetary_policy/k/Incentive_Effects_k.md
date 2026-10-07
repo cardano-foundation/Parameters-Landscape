@@ -316,7 +316,7 @@ The plot shows a moderate impact of the increment of $3.33x$. on $k$ in the oper
 
 ### APR
 
-As discussed above, a change in $k$ has no immediate **direct** impact on delegator returns for pools that remain undersaturated after the parameter adjustment. However, subsequent stake migration—whether through redelegation or new entrants—alters pool sizes and ultimately changes delegator returns. Because aggregate data cannot distinguish between redistributed existing stake and brand-new incoming stake, we focus on the immediate change in APR on those subset of pools prior to any stake movement.
+In this part, we want to use the past evidence to measure how was the impact (if any) of the past change in $k$ into the delegators' return. As discussed above, a change in $k$ has no important and immediate direct impact on delegator returns for pools that remain undersaturated after the parameter adjustment. However, subsequent stake migration—whether through redelegation or new entrants—alters pool sizes and ultimately changes delegator returns. Because aggregate data cannot distinguish between redistributed existing stake and brand-new incoming stake, we focus on the immediate change in APR on those subset of pools prior to any stake movement.
 
 To evaluate how shifting $k=150 \to 500$ affects delegator returns, we calculate the annualized delegator yield
 
@@ -334,7 +334,6 @@ This measures net yield per ADA after deducting fixed costs ($c_i$) and variable
 <p align="center">
   <img src="plots/member_apr_boxplot_undersaturated_k150_vs_k500.png" alt="APR changes when k changed based on Data" width="62%">
 </p>
-
 
 
 The data shows that surviving pools were inherently higher-yielding at baseline, with $51.6\\%$ ($393/762$) generating positive returns (median positive APR of $4.14\\%$), whereas only $13.1\\%$ ($38/290$) of exiting pools produced positive returns (median positive APR of $3.03\\%$). The change in $k$ may be responsible in purging underperforming operators, and  yielding a slight upward shift in both overall median positive APR (from $4.07\\%$ to $4.14\\%$) and mean positive APR (from $3.63\\%$ to $3.71\\%$) of the network. Notice that APR for surviving pools remain invariant under the counterfactual $k=500$ parameterization. This suggests that surviving operators may have adjusted their margins and fixed costs sufficiently to absorb protocol parameter changes and preserve steady yields for their delegators. That is, the increase in $k$ enhanced network-wide attractiveness by marginally lifting average delegator APR—a direct result of the exit of weak pools.
