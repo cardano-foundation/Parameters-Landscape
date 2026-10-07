@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Margin / fixed-cost strategy changes among epoch-228 cohort pools that survive
-to epoch 285, and stake outcomes 228→285 by strategy.
+Margin / fixed-cost strategy changes among Active epoch-228 pools that remain
+Active at 285, and stake outcomes 228→285 by strategy.
 
-Sample: all pools with σ>0 at epoch 228 that are still present at 285
-(full cohort of 1,161 active pools; not restricted to unsaturated).
+Active = not (σ=0 ∪ unmet pledge ∪ zero blocks in the prior 15 epochs).
+Exited = Active at 228 but not Active at 285.
+Not restricted to unsaturated pools.
 """
 
 from __future__ import annotations
@@ -50,17 +51,23 @@ def fetch_T_ada(epoch: int) -> float:
 
 def load_epoch(epoch: int) -> pd.DataFrame:
     df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    flags = pd.read_csv(DIR / f"inactive_pool_flags_epoch_{epoch}_last15.csv")
     stake_lov = pd.to_numeric(
         df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce"
     )
-    return pd.DataFrame(
+    out = pd.DataFrame(
         {
             "pool_id": df["pool_id"],
             "stake_ada": stake_lov.fillna(0.0) / 1e6,
             "margin": pd.to_numeric(df["pool_update.active.margin"], errors="coerce"),
-            "fixed_cost": pd.to_numeric(df["pool_update.active.fixed_cost"], errors="coerce"),
+            "fixed_cost": pd.to_numeric(
+                df["pool_update.active.fixed_cost"], errors="coerce"
+            ),
         }
-    ).set_index("pool_id")
+    )
+    out = out.merge(flags[["pool_id", "in_union"]], on="pool_id", how="left")
+    out["active"] = out["in_union"] == 0
+    return out.set_index("pool_id")
 
 
 def dir_label(delta: pd.Series, name: str) -> pd.Series:
@@ -99,9 +106,9 @@ def main() -> None:
     a = load_epoch(E0)
     b = load_epoch(E1)
 
-    cohort = a[a["stake_ada"] > 0].index
-    common = cohort.intersection(b.index)
-    exited = cohort.difference(b.index)
+    cohort = a.index[a["active"]]
+    common = cohort.intersection(b.index[b["active"]])
+    exited = cohort.difference(b.index[b["active"]])
     aa = a.loc[common]
     bb = b.loc[common]
 
@@ -190,8 +197,8 @@ def main() -> None:
     annotate_bars(ax, bars, max(vals + [1]))
 
     fig1.suptitle(
-        f"Fee-parameter changes 228→285 among epoch-228 cohort survivors\n"
-        f"(cohort $n={len(cohort)}$; surviving with complete $m,c$: $n={len(aa)}$; "
+        "Fee-parameter changes 228→285 among Active epoch-228 cohort survivors\n"
+        f"(Active $n={len(cohort)}$; continuing with complete $m,c$: $n={len(aa)}$; "
         f"exited $n={len(exited)}$)",
         fontsize=FONT_SIZE,
     )
@@ -232,14 +239,24 @@ def main() -> None:
         annotate_bars(ax, bars, y_max, fontsize=panel_fs)
 
     fig2.suptitle(
-        f"Stake outcomes by fee strategy, epoch-228 cohort survivors (228→285)\n"
-        f"(cohort $n={len(cohort)}$; $n={len(aa)}$ with complete $m,c$)",
+        "Stake outcomes by fee strategy, Active epoch-228 cohort survivors (228→285)\n"
+        f"(Active $n={len(cohort)}$; $n={len(aa)}$ with complete $m,c$)",
         fontsize=FONT_SIZE + 3,
     )
     fig2.savefig(OUT_STRAT, dpi=300)
     print(f"Wrote {OUT_STRAT}")
     print(f"Wrote {OUT_CSV}")
-    print({"n_cohort": len(cohort), "n_surviving_complete": len(aa), "n_exited": len(exited)})
+    c_ada = aa["fixed_cost"] / 1e6
+    n_minpc = int(np.isclose(c_ada.to_numpy(dtype=float), 340.0).sum())
+    print(
+        {
+            "n_active_cohort": len(cohort),
+            "n_continuing_complete": len(aa),
+            "n_exited": len(exited),
+            "n_at_minPoolCost_340": n_minpc,
+            "pct_at_minPoolCost_340": round(100.0 * n_minpc / len(aa), 1) if len(aa) else None,
+        }
+    )
 
 
 if __name__ == "__main__":
