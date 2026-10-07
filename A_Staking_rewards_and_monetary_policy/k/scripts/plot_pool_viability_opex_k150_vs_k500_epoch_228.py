@@ -5,6 +5,9 @@ Operator viability at epoch 228 under k=150 vs counterfactual k=500.
 Uses theoretical gross pool reward f(σ,p;z0) (not realized epoch rewards),
 holding each pool's σ, pledges, margin, and declared cost fixed.
 
+Sample: Active pools at epoch 228.
+Active = not (σ=0 ∪ unmet pledge ∪ zero blocks in the prior 15 epochs).
+
   f = (R/T)/(1+a0) * [σ̃ + a0 p̃ * inner / z0]
   σ̃ = min(σ, z0),  p̃ = min(p_declared, z0)
   inner = σ̃ - p̃ (z0 - σ̃)/z0
@@ -168,6 +171,9 @@ def draw_panel(ax, counts: dict[str, int], title: str, note: str) -> None:
 
 def main() -> None:
     df = pd.read_csv(POOLS_CSV)
+    flags = pd.read_csv(DIR / "inactive_pool_flags_epoch_228_last15.csv")
+    df = df.merge(flags[["pool_id", "in_union"]], on="pool_id", how="left")
+    df = df[df["in_union"] == 0].reset_index(drop=True)
     sigma = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce")
         .fillna(0.0)
@@ -291,7 +297,8 @@ def main() -> None:
         )
 
     fig.suptitle(
-        "Epoch 228 — theoretical viability vs OpEx under $k=150$ vs $k=500$\n"
+        "Epoch 228 — theoretical viability vs OpEx under $k=150$ vs $k=500$ "
+        f"(Active $n={len(out)}$)\n"
         rf"($C^*={C_STAR:.1f}$ ADA/epoch from $\$667$/mo at $\$0.11$/ADA; "
         rf"$r=\Pi_i/C^*$; $R={R_ADA/1e6:.1f}$M, $a_0={A0}$; stake/pledge held fixed)",
         fontsize=FONT_SIZE,
@@ -308,29 +315,34 @@ def main() -> None:
     def losing_total(counts: dict[str, int]) -> int:
         return sum(counts[c] for c in CAT_ORDER if c.startswith("losing_"))
 
+    def pct(a: int, b: int) -> str:
+        if a == 0:
+            return ""
+        return f"{100.0 * (b - a) / a:+.1f}\\%"
+
+    n_rew = c150["n_rewarded"]
+    n_pledge_gt = int((out["declared_pledge_ada"] > out["epoch_stake_ada"]).sum())
+    lose150, lose500 = losing_total(c150["counts"]), losing_total(c500["counts"])
     md = f"""# Theoretical operator viability — epoch 228 ($k=150$ vs $k=500$)
 
-Hold each pool's epoch-228 stake $\\sigma_i$, declared pledge $p_i$, active pledge $\\hat p_i$,
+Hold each Active pool's epoch-228 stake $\\sigma_i$, declared pledge $p_i$, active pledge $\\hat p_i$,
 margin $m_i$, and declared fixed cost $c_i$ fixed. Recompute gross reward $f(\\sigma_i,p_i;z_0)$
 and operator reward $\\Pi_i$ under $z_0=T/k$ for $k\\in\\{{150,500\\}}$.
 
+Active $n={len(out)}$ (of which ${n_pledge_gt}$ have declared pledge exceeding stake).
 Assumptions: $T={T_ADA/1e9:.2f}$B ADA, $R={R_ADA/1e6:.1f}$M ADA, $a_0={A0}$,
 ADA price $\\$ {ADA_USD}$, monthly OpEx $\\$667$ ⇒
 $C^*=(667/6)/{ADA_USD}={C_STAR:.1f}$ ADA/epoch.
 $r=\\Pi_i/C^*$.
 
-| | $k=150$ ($z_0={Z0_K150/1e6:.2f}$M) | $k=500$ ($z_0={Z0_K500/1e6:.2f}$M) |
-| :--- | ---: | ---: |
-| Pools (theory rewarded) | {c150['n_rewarded']} | {c500['n_rewarded']} |
-| Cover OpEx ($r\\ge 1$) | {c150['n_viable']} | {c500['n_viable']} |
-| Losing ($r<0.25$) | {c150['counts']['losing_lt_025']} | {c500['counts']['losing_lt_025']} |
-| Losing ($0.25\\le r<0.5$) | {c150['counts']['losing_025_050']} | {c500['counts']['losing_025_050']} |
-| Losing ($0.5\\le r<0.75$) | {c150['counts']['losing_050_075']} | {c500['counts']['losing_050_075']} |
-| Losing ($0.75\\le r<1$) | {c150['counts']['losing_075_100']} | {c500['counts']['losing_075_100']} |
-| Losing (all $0<r<1$) | {losing_total(c150['counts'])} | {losing_total(c500['counts'])} |
-| Edge ($1\\le r<2$) | {c150['counts']['edge']} | {c500['counts']['edge']} |
-| Comfortable ($2\\le r<5$) | {c150['counts']['comfortable']} | {c500['counts']['comfortable']} |
-| Strong ($r\\ge 5$) | {c150['counts']['strong']} | {c500['counts']['strong']} |
+| | $k=150$ | $k=500$  | Variation |
+| :--- | ---: | ---: |---: |
+| Pools  | ${n_rew}$ | ${c500['n_rewarded']}$ ||
+| Cover OpEx ($r\\ge 1$) | ${c150['n_viable']}$ | ${c500['n_viable']}$ | ${pct(c150['n_viable'], c500['n_viable'])}$ |
+| Losing ($0<r<1$) | ${lose150}$ | ${lose500}$ | ${pct(lose150, lose500)}$ |
+| Edge ($1\\le r<2$) | ${c150['counts']['edge']}$ | ${c500['counts']['edge']}$ | ${pct(c150['counts']['edge'], c500['counts']['edge'])}$ |
+| Comfortable ($2\\le r<5$) | ${c150['counts']['comfortable']}$ | ${c500['counts']['comfortable']}$ | ${pct(c150['counts']['comfortable'], c500['counts']['comfortable'])}$ |
+| Strong ($r\\ge 5$) | ${c150['counts']['strong']}$ | ${c500['counts']['strong']}$ | ${pct(c150['counts']['strong'], c500['counts']['strong'])}$ |
 
 Note: pledge columns in the historical CSV may be stamped from a later `pool_list`;
 active pledge uses the `pledged` field (same convention as the epoch-644 viability script).
