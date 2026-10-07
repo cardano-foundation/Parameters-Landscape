@@ -293,19 +293,19 @@ The two panels answer different questions—left: composition and stake realloca
 
 ### Pools Viability
 
-We recompute operator rewards $\Pi_i$ under $k=150$ and the counterfactual $k=500$, using the state parameters at epoch $228$: $T=32.04B$ ADA, $R = 29.7M$ ADA, $a_0=0.3$, and holding each pool’s stake, pledges, margin, and declared cost fixed. With operational expenditure (or OpEx) $C^* = 667$ per month and ADA price at $0.11$ USD (the one corresponding at epoch $228$), we get 
+We recompute operator rewards $\Pi_i$ under $k=150$ and the counterfactual $k=500$, using the state parameters at epoch $228$: $T=32.04B$ ADA, $R = 29.7M$ ADA, $a_0=0.3$, and holding each pool’s stake, pledges, margin, and declared cost fixed. With operational expenditure (or OpEx) $C^* = 667$ per month (see [Lopez de Lara (2026)](https://input-output-hk.github.io/spo-incentives/pdf-viewer.html?file=references/previous-analasys/spo-incentives-analysis_lopez-de-lara_2025.pdf))) and ADA price at $0.11$ USD (the one corresponding at epoch $228$), we get 
 
 $$C^* = 667/6/0.11= 1010.6 \quad \text{ADA per epoch}$$. 
 
-Let $r = \Pi_i / C^{\*}$. Among $1'077$ pools with theoretical reward ($84$ out of $1'161$ are pools where the declared pledge exceeds the epoch-228 stake), $148$ cover $C^*$ under $k=150$, of which 65 are on the edge $1\le r<2$. Under $k=500$ with the same delegation, only $134$ remain viable and the “Strong” group $r\ge 5$ falls from 32 to 10 — large pools are capped by the lower saturation point.
+Let $r = \Pi_i / C^{*}$. Among $707$ pools with theoretical reward ($18$ out of $725$ are pools where the declared pledge exceeds the epoch-228 stake), $148$ cover $C^*$ under $k=150$, of which 65 are on the edge $1\le r<2$. Under $k=500$ with the same delegation, only $134$ remain viable and the “Strong” group $r\ge 5$ falls from 32 to 10 — large pools are capped by the lower saturation point.
 
 The plot shows a moderate impact of the increment of $3.33x$. on $k$ in the operators' viability before any redelegation or operator resonse.
 
 | | $k=150$ | $k=500$  | Variation |
 | :--- | ---: | ---: |---: |
-| Pools  | $1077$ | $1077$ ||
+| Pools  | $707$ | $707$ ||
 | Cover OpEx ($r\ge 1$) | $148$ | $134$ | $-9.5\\%$ |
-| Losing ($0<r<1$) | $929$ | $943$ | $1.5\\%$ |
+| Losing ($0<r<1$) | $559$ | $573$ | $2.5\\%$ |
 | Edge ($1\le r<2$) | $65$ | $71$ | $9.2\\%$ |
 | Comfortable ($2\le r<5$) | $51$ | $53$ | $3.9\\%$ |
 | Strong ($r\ge 5$) | $32$ | $10$ | $-68.8\\%$ |
