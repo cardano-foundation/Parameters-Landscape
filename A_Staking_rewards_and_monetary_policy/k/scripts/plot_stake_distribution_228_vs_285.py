@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-Compare pool stake distributions at epoch 228 vs epoch 285 via ECDFs.
+Compare Active-pool stake distributions at epoch 228 vs epoch 285 via ECDFs.
+
+Active = not (σ=0 ∪ unmet pledge ∪ zero blocks in the prior 15 epochs).
+Exited = Active at 228 but not Active at 285.
 
 Lines:
-  - green dashed: epoch 228, all pools
-  - green solid:  epoch 228, only pools that continue to 285
-  - coral:        epoch 285, all pools
+  - green dashed: epoch 228, all Active pools
+  - green solid:  epoch 228, only Active pools that continue to 285
+  - coral:        epoch 285, all Active pools
 """
 
 from __future__ import annotations
@@ -32,13 +35,17 @@ MIN_STAKE = 1.0  # ADA
 
 def load_epoch(epoch: int) -> pd.DataFrame:
     df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    flags = pd.read_csv(DIR / f"inactive_pool_flags_epoch_{epoch}_last15.csv")
     stake = (
-        pd.to_numeric(df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce")
+        pd.to_numeric(
+            df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce"
+        )
         / 1e6
     )
-    return pd.DataFrame(
-        {"pool_id": df["pool_id"], "stake_ada": stake.fillna(0.0)}
-    ).set_index("pool_id")
+    out = pd.DataFrame({"pool_id": df["pool_id"], "stake_ada": stake.fillna(0.0)})
+    out = out.merge(flags[["pool_id", "in_union"]], on="pool_id", how="left")
+    out["active"] = out["in_union"] == 0
+    return out.set_index("pool_id")
 
 
 def ecdf(x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
@@ -66,13 +73,13 @@ def main() -> None:
     a = load_epoch(E0)
     b = load_epoch(E1)
 
-    ids_228 = a.index[a["stake_ada"] >= MIN_STAKE]
-    continuing = ids_228.intersection(b.index)
-    exited = ids_228.difference(b.index)
+    ids_228 = a.index[a["active"]]
+    continuing = ids_228.intersection(b.index[b["active"]])
+    exited = ids_228.difference(b.index[b["active"]])
 
     s0_all = a.loc[ids_228, "stake_ada"].to_numpy()
     s0_cont = a.loc[continuing, "stake_ada"].to_numpy()
-    s1_all = b.loc[b["stake_ada"] >= MIN_STAKE, "stake_ada"].to_numpy()
+    s1_all = b.loc[b["active"], "stake_ada"].to_numpy()
 
     rows = [
         summarize(f"epoch_{E0}_all", s0_all, n_exited=int(len(exited))),
@@ -94,7 +101,7 @@ def main() -> None:
         linewidth=2.0,
         linestyle="--",
         label=(
-            f"Epoch {E0} — all pools "
+            f"Epoch {E0} — all Active pools "
             f"(n={len(s0_all)}; median={np.median(s0_all)/1e6:.2f} M)"
         ),
     )
@@ -117,7 +124,7 @@ def main() -> None:
         color=COLOR_285,
         linewidth=2.0,
         label=(
-            f"Epoch {E1} — all pools "
+            f"Epoch {E1} — all Active pools "
             f"(n={len(s1_all)}; median={np.median(s1_all)/1e6:.2f} M)"
         ),
     )
@@ -132,9 +139,9 @@ def main() -> None:
     ax.set_xlabel("Epoch stake (ADA, log scale)", fontsize=FONT_SIZE)
     ax.set_ylabel("Fraction of pools ≤ stake", fontsize=FONT_SIZE)
     ax.set_title(
-        f"Pool stake distribution: epoch {E0} vs epoch {E1}\n"
-        f"(solid green = {E0} pools that still exist at {E1}; "
-        f"dashed green = all {E0} pools, incl. {len(exited)} that exited)",
+        f"Active-pool stake distribution: epoch {E0} vs epoch {E1}\n"
+        f"(dashed green = all Active {E0}; solid = continuers; "
+        f"orange = all Active {E1})",
         fontsize=FONT_SIZE,
     )
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
@@ -144,10 +151,17 @@ def main() -> None:
     fig.savefig(OUT, dpi=300)
     print(f"Wrote {OUT}")
     print(f"Wrote {OUT_CSV}")
+    new_285 = b.index[b["active"]].difference(ids_228)
+    s_new = b.loc[new_285, "stake_ada"].to_numpy()
     for r in rows:
         print(
             f"  {r['series']}: n={r['n']} median={r['median_ADA']/1e6:.3f}M"
         )
+    print(
+        f"  new Active at {E1}: n={len(s_new)} median={np.median(s_new)/1e6:.3f}M"
+        if len(s_new)
+        else f"  new Active at {E1}: n=0"
+    )
 
 
 if __name__ == "__main__":

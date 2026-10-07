@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """
-Stake-distribution ECDF for the epoch-228 pool cohort.
+Stake-distribution ECDF for the Active epoch-228 pool cohort.
+
+Active = not (σ=0 ∪ unmet pledge ∪ zero blocks in the prior 15 epochs).
+Exited = Active at 228 but not Active at 285.
 
 Lines:
-  - green dashed: epoch 228, all pools (incl. those that exit by 285)
-  - green solid:  epoch 228, only continuing pools
+  - green dashed: epoch 228, all Active pools (incl. those that exit by 285)
+  - green solid:  epoch 228, only continuing Active pools
   - coral:        epoch 285 stake of those continuing pools
                   (new-at-285 pools excluded)
 """
@@ -33,13 +36,17 @@ MIN_STAKE = 1.0  # ADA
 
 def load_epoch(epoch: int) -> pd.DataFrame:
     df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    flags = pd.read_csv(DIR / f"inactive_pool_flags_epoch_{epoch}_last15.csv")
     stake = (
-        pd.to_numeric(df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce")
+        pd.to_numeric(
+            df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce"
+        )
         / 1e6
     )
-    return pd.DataFrame(
-        {"pool_id": df["pool_id"], "stake_ada": stake.fillna(0.0)}
-    ).set_index("pool_id")
+    out = pd.DataFrame({"pool_id": df["pool_id"], "stake_ada": stake.fillna(0.0)})
+    out = out.merge(flags[["pool_id", "in_union"]], on="pool_id", how="left")
+    out["active"] = out["in_union"] == 0
+    return out.set_index("pool_id")
 
 
 def ecdf(x: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
@@ -67,9 +74,9 @@ def main() -> None:
     a = load_epoch(E0)
     b = load_epoch(E1)
 
-    ids_228 = a.index[a["stake_ada"] >= MIN_STAKE]
-    continuing = ids_228.intersection(b.index)
-    exited = ids_228.difference(b.index)
+    ids_228 = a.index[a["active"]]
+    continuing = ids_228.intersection(b.index[b["active"]])
+    exited = ids_228.difference(b.index[b["active"]])
 
     s0_all = a.loc[ids_228, "stake_ada"].to_numpy()
     s0_cont = a.loc[continuing, "stake_ada"].to_numpy()
@@ -100,7 +107,7 @@ def main() -> None:
         linewidth=2.0,
         linestyle="--",
         label=(
-            f"Epoch {E0} — all pools "
+            f"Epoch {E0} — all Active pools "
             f"(n={len(s0_all)}; median={np.median(s0_all)/1e6:.2f} M)"
         ),
     )
@@ -123,7 +130,7 @@ def main() -> None:
         color=COLOR_285,
         linewidth=2.0,
         label=(
-            f"Epoch {E1} — only pools present at {E0} that continue "
+            f"Epoch {E1} — only Active {E0} pools that continue "
             f"(n={len(s1_cont)}; median={np.median(s1_cont)/1e6:.2f} M)"
         ),
     )
@@ -138,9 +145,9 @@ def main() -> None:
     ax.set_xlabel("Epoch stake (ADA, log scale)", fontsize=FONT_SIZE)
     ax.set_ylabel("Fraction of pools ≤ stake", fontsize=FONT_SIZE)
     ax.set_title(
-        f"Stake distribution of the epoch-{E0} pool cohort\n"
-        f"(solid green = {E0} continuing pools; dashed green = all {E0}, "
-        f"incl. {len(exited)} exits; orange = those continuing pools at {E1})",
+        f"Stake distribution of the Active epoch-{E0} pool cohort\n"
+        f"(dashed green = all Active {E0}; solid = continuers at {E0}; "
+        f"orange = those pools at {E1})",
         fontsize=FONT_SIZE,
     )
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
@@ -150,10 +157,16 @@ def main() -> None:
     fig.savefig(OUT, dpi=300)
     print(f"Wrote {OUT}")
     print(f"Wrote {OUT_CSV}")
+    s0_ex = a.loc[exited, "stake_ada"].to_numpy()
     for r in rows:
         print(
             f"  {r['series']}: n={r['n']} median={r['median_ADA']/1e6:.3f}M"
         )
+    print(
+        f"  exited: n={len(s0_ex)} median={np.median(s0_ex)/1e6:.3f}M"
+        if len(s0_ex)
+        else "  exited: n=0"
+    )
 
 
 if __name__ == "__main__":
