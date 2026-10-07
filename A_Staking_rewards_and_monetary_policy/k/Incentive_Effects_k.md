@@ -260,7 +260,7 @@ The data reveals two distinct strategic profiles among operators. First, total s
 </p>
 
 
-Next, we plot the operator adjustments to declared fixed costs and we see that they were minimal, primarily because $91\%$ of the surviving cohort ($775$ out of $851$ pools) were already operating at the mandatory minimum threshold (minPoolCost = $340\text{ ADA}$). The left panel tracks pools that modified their margin fee (regardless of changes to other parameters), the center panel displays pools that adjusted their fixed costs (regardless of other changes), and the right panel isolates pools that changed strictly a single parameter—either margin or fixed cost—in either direction.
+Next, we plot the operator adjustments to declared fixed costs and we see that they were minimal, primarily because $95.7%$ of the surviving cohort ($509$ out of $532$ pools) were already operating at the mandatory minimum threshold (minPoolCost = $340\text{ ADA}$). The left panel tracks pools that modified their margin fee (regardless of changes to other parameters), the center panel displays pools that adjusted their fixed costs (regardless of other changes), and the right panel isolates pools that changed strictly a single parameter—either margin or fixed cost—in either direction.
 
 <p align="center">
   <img src="plots/cohort_mi_ci_change_counts_228_285.png" alt="Pools change in other  parameters when k increases" width="62%">
@@ -274,10 +274,10 @@ Nakamoto $N$: minimum number of pools (ranked by active stake) whose aggregate e
 
 | Epoch | Nakamoto \(N\) | Snapshot pools | Aggregate stake of \(N\) | Total active stake | Share | Min-agg declared pledge | Min-agg active pledge |
 |------:|---------------:|---------------:|-------------------------:|-------------------:|------:|------------------------:|----------------------:|
-| 228 | 57 | 1,161 | 8.76B ADA | 17.35B ADA | 50.48% | 59.0M ADA | 101.6M ADA |
-| 285 | 195 | 2,813 | 11.59B ADA | 23.16B ADA | 50.06% | 1.09B ADA | 1.23B ADA |
+| 228 | 57 | 725 | 8.76B ADA | 17.31B ADA | 50.59% | 59.0M ADA | 101.6M ADA |
+| 285 | 195 | 1,594 | 11.59B ADA | 23.12B ADA | 50.14% | 1.09B ADA | 1.23B ADA |
 
-The next figure compares observed stake distributions before and after the \(k\) increment via CDFs .
+The Nakamoto coefficient does not inform how is the distribution of stake across pools. Then, we next compare the stake distributions before and after the \(k\) increment via CDFs .
 
 - *Left panel (epoch-228 cohort)*. The plot addresses whether increasing $k$ led to a broader distribution of smaller pools by comparing all epoch-228 pools (dashed green) with those that survived to epoch 285 (solid green for their epoch-228 state, orange for epoch 285). Because exiting pools were almost entirely micro-operators with a median stake of around $0.07\text{M ADA}$, their departure naturally raised the baseline median stake of remaining pools from $0.33\text{M}$ to $0.78\text{M ADA}$. Subsequent redelegation and new incomers went into small and mid-sized pools. As a result, the median stake of surviving pools nearly doubled to $1.34\text{M ADA}$. This is, the system achieved a broader, more balanced distribution across epoch-228 cohort pools.
 - *Right panel (full snapshots)*. This plot compares the overall stake distribution across all active pools at epoch 228 (dashed green) with the full ecosystem snapshot at epoch 285 (orange), including new entrant pools that joined after the parameter change. Over this period, the total pool count grew substantially from $1,161$ to $2,810$. Because a large influx of new, low-stake pools entered the system, the overall curve shifts upward and to the left, dropping the ecosystem-wide median stake from $0.33\text{M}$ to $0.16\text{M ADA}$. Thus, while tracking the surviving cohort alone shows capital shifting into mid-sized pools and out of saturated giants, taking the full snapshot at epoch 285 shows a simultaneous expansion in the absolute number of small, newly created pools. 
