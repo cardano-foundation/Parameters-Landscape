@@ -219,15 +219,17 @@ Main observations:
 
 Following the increase in $k$, delegators in newly oversaturated pools migrated to those that remained undersaturated. While some delegators left the ecosystem, overall staking participation increased, indicating that departing delegators were offset by new entrants. 
 
-The next two plots illustrate how many pools gained or lost delegation, along with the magnitude of those shifts. The left bin contains those pools that were inactive at epoch 228 (mainly because they were not producing blocks in the previous 3 months). Interestingly, they gain stake for epoch 285 and start producing blocks, becoming active. 
-Among the set of **active pools present at epoch 228 and that remained unsaturated after the increment in $k$**, the dynamics show that small pools ($0\text{--}5\text{M ADA}$) experienced the largest total staking gains, and also the highest exit rates ($287$ pools). Because total staking grew, these aggregate plots cannot isolate new incoming stake from redistributed existing stake (to disentangle whether a pool gained capital from redelegations or new entrants, individual redelegation trajectories must be tracked, data that we do not have in the snapshots).
+The next two plots illustrate how many pools gained or lost delegation, along with the magnitude of those shifts. The left bin contains those pools that were inactive at epoch 228 (mainly because they were not producing blocks in the previous 3 months). Interestingly, some of them gained stake for epoch 285 and start producing blocks, becoming active. 
+Among the set of **active pools present at epoch 228 and that remained unsaturated after the increment in $k$**, the dynamics show that small pools ($0\text{--}5\text{M ADA}$) experienced the largest total staking gains, and also a high exit rates. Because total staking grew, these aggregate plots cannot isolate new incoming stake from redistributed existing stake (to disentangle whether a pool gained capital from redelegations or new entrants, individual redelegation trajectories must be tracked, data that we do not have in the snapshots).
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
   <img src="plots/unsaturated_delegation_by_stake_bin_228_285.png" alt="Unsaturated Pools change  measure in numb pools when k increases" width="48%">
   <img src="plots/unsaturated_agg_stake_change_by_stake_bin_228_285.png" alt="Unsaturated Pools change measured in agg delegation when k increases" width="48%">
 </div>
 
-The following plots illustrate the characteristics of that set of pools grouped by their post-adjustment outcome (gain, lose, flat, or exit by epoch 285). The top set of panels covers all $1,052$ pools that were undersaturated under the new $k=500$, while the bottom set focuses strictly on the subset of $900$ small pools holding $0\text{--}5\text{M ADA}$ of initial stake. 
+The following plots illustrate the characteristics of that set of **active pools at epoch 228** grouped by their post-adjustment outcome (gain, lose, flat, or exit by epoch 285). 
+
+The top set of panels covers all $1,052$ pools that were undersaturated under the new $k=500$, while the bottom set focuses strictly on the subset of $900$ small pools holding $0\text{--}5\text{M ADA}$ of initial stake. 
 
 The data reveals that operator pledge served as the primary differentiator for stake attraction, with gaining pools maintaining a substantially higher median declared pledge ($30\text{k ADA}$) than those that lost stake ($10\text{k ADA}$), went flat ($0.2\text{k ADA}$), or exited ($3.6\text{--}5\text{k ADA}$). Additionally, gaining pools operated with slightly lower median profit margins ($1.8\%$) compared to losing or flat pools ($2.0\%$), suggesting delegators favored lower-cost fee structures paired with higher declared pledge. On the other hand, pools that remained flat or exited were characterized by near-zero initial pledge, and extremely low initial stake.
 
