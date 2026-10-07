@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """
 Boxplots of pool characteristics by delegation outcome (gain / lose / flat / exit)
-among pools 0–5M stake bin, unsaturated under k=500 at epoch 228.
+among Active pools in the 0–5M stake bin, unsaturated under k=500 at epoch 228.
 
+Active = not (σ=0 ∪ unmet pledge ∪ zero blocks in the prior 15 epochs).
+Exited = Active-unsaturated at 228 but not Active at 285.
 Characteristics are from the epoch-228 snapshot (initial values).
 """
 
@@ -16,7 +18,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import requests
 
 DIR = Path(__file__).resolve().parent
 OUT = DIR / "unsaturated_characteristics_by_outcome_0_5M_228_285.png"
@@ -28,21 +29,7 @@ COLOR_LOSE = "#b23a3a"
 COLOR_FLAT = "#6b7280"
 COLOR_EXIT = "#7c3aed"
 MEDIAN_COLOR = "#111111"
-KOIOS = "https://api.koios.rest/api/v1"
-TOKEN_PATH = DIR / ".koios_api_token"
-
-
-def fetch_T_ada(epoch: int) -> float:
-    headers = {"accept": "application/json"}
-    if TOKEN_PATH.exists():
-        tok = TOKEN_PATH.read_text(encoding="utf-8").strip()
-        if tok:
-            headers["Authorization"] = f"Bearer {tok}"
-    r = requests.get(
-        f"{KOIOS}/totals", params={"_epoch_no": epoch}, headers=headers, timeout=60
-    )
-    r.raise_for_status()
-    return float(r.json()[0]["supply"]) / 1e6
+T_228_ADA = 32.03687470708404e9
 
 
 def load_epoch(epoch: int) -> pd.DataFrame:
@@ -65,7 +52,8 @@ def load_epoch(epoch: int) -> pd.DataFrame:
     delegators = pd.to_numeric(
         df["epochs.0.data.delegators"].fillna(df["delegators"]), errors="coerce"
     )
-    return pd.DataFrame(
+    flags = pd.read_csv(DIR / f"inactive_pool_flags_epoch_{epoch}_last15.csv")
+    out = pd.DataFrame(
         {
             "pool_id": df["pool_id"],
             "stake_ada": stake,
@@ -75,22 +63,25 @@ def load_epoch(epoch: int) -> pd.DataFrame:
             "fixed_cost_ada": fixed_cost,
             "delegators": delegators,
         }
-    ).set_index("pool_id")
+    )
+    out = out.merge(flags[["pool_id", "in_union"]], on="pool_id", how="left")
+    out["active"] = out["in_union"] == 0
+    return out.set_index("pool_id")
 
 
 def main() -> None:
-    T = fetch_T_ada(E0)
-    z0 = T / K_POST
+    z0 = T_228_ADA / K_POST
 
     a = load_epoch(E0)
-    b_stake = load_epoch(E1)[["stake_ada"]]
+    b = load_epoch(E1)
+    active_285 = b.index[b["active"]]
 
-    unsat_all = a[(a["stake_ada"] > 0) & (a["stake_ada"] <= z0)].index
+    unsat_all = a[(a["active"]) & (a["stake_ada"] > 0) & (a["stake_ada"] <= z0)].index
     unsat = a.loc[unsat_all][a.loc[unsat_all, "stake_ada"] <= 5e6].index
-    continuing = unsat.intersection(b_stake.index)
-    exited = unsat.difference(b_stake.index)
+    continuing = unsat.intersection(active_285)
+    exited = unsat.difference(active_285)
 
-    d = b_stake.loc[continuing, "stake_ada"] - a.loc[continuing, "stake_ada"]
+    d = b.loc[continuing, "stake_ada"] - a.loc[continuing, "stake_ada"]
 
     gain_idx = d[d > 0].index
     lose_idx = d[d < 0].index
@@ -98,10 +89,14 @@ def main() -> None:
     exit_idx = exited
 
     groups = [
-        (f"Gain\n($n={len(gain_idx)}$)", a.loc[gain_idx], COLOR_GAIN),
-        (f"Lose\n($n={len(lose_idx)}$)", a.loc[lose_idx], COLOR_LOSE),
-        (f"Flat\n($n={len(flat_idx)}$)", a.loc[flat_idx], COLOR_FLAT),
-        (f"Exit\n($n={len(exit_idx)}$)", a.loc[exit_idx], COLOR_EXIT),
+        (name, df_g, color)
+        for name, df_g, color in [
+            (f"Gain\n($n={len(gain_idx)}$)", a.loc[gain_idx], COLOR_GAIN),
+            (f"Lose\n($n={len(lose_idx)}$)", a.loc[lose_idx], COLOR_LOSE),
+            (f"Flat\n($n={len(flat_idx)}$)", a.loc[flat_idx], COLOR_FLAT),
+            (f"Exit\n($n={len(exit_idx)}$)", a.loc[exit_idx], COLOR_EXIT),
+        ]
+        if len(df_g) > 0
     ]
 
     panels = [
@@ -169,8 +164,8 @@ def main() -> None:
         ax.set_ylim(cur_ylim[0], cur_ylim[1] * 1.15 if cur_ylim[1] > 0 else cur_ylim[1])
 
     fig.suptitle(
-        "Epoch 228 — characteristics of 0–5M pools by delegation outcome (228→285)\n"
-        rf"(0–5M stake bin, unsaturated under $k={K_POST}$, $z_0={z0/1e6:.1f}$M ADA; "
+        "Epoch 228 — characteristics of Active 0–5M pools by delegation outcome (228→285)\n"
+        rf"(Active, 0–5M stake, unsaturated under $k={K_POST}$, $z_0={z0/1e6:.1f}$M ADA; "
         f"$n={len(unsat)}$ pools). Numbers above boxes are medians.",
         fontsize=FONT_SIZE,
     )
