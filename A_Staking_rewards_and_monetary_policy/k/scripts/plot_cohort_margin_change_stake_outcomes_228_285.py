@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Margin changes among epoch-228 cohort pools that survive to epoch 285,
+Margin changes among Active epoch-228 pools that remain Active at 285,
 and stake outcomes (gain / lose / flat) within each margin strategy.
 
-Sample: all pools with σ>0 at epoch 228 that are still present at 285
-(not restricted to unsaturated pools).
+Active = not (σ=0 ∪ unmet pledge ∪ zero blocks in the prior 15 epochs).
+Exited = Active at 228 but not Active at 285.
 """
 
 from __future__ import annotations
@@ -35,25 +35,30 @@ OUT_MD = DIR / "cohort_margin_change_stake_outcomes_228_285.md"
 
 def load_epoch(epoch: int) -> pd.DataFrame:
     df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    flags = pd.read_csv(DIR / f"inactive_pool_flags_epoch_{epoch}_last15.csv")
     stake_lov = pd.to_numeric(
         df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce"
     )
-    return pd.DataFrame(
+    out = pd.DataFrame(
         {
             "pool_id": df["pool_id"],
             "stake_ada": stake_lov.fillna(0.0) / 1e6,
             "margin": pd.to_numeric(df["pool_update.active.margin"], errors="coerce"),
         }
-    ).set_index("pool_id")
+    )
+    out = out.merge(flags[["pool_id", "in_union"]], on="pool_id", how="left")
+    out["active"] = out["in_union"] == 0
+    return out.set_index("pool_id")
 
 
 def main() -> None:
     a = load_epoch(E0)
     b = load_epoch(E1)
 
-    cohort = a[a["stake_ada"] > 0].index
-    surviving = cohort.intersection(b.index)
-    exited = cohort.difference(b.index)
+    cohort = a.index[a["active"]]
+    active_285 = b.index[b["active"]]
+    surviving = cohort.intersection(active_285)
+    exited = cohort.difference(active_285)
 
     aa = a.loc[surviving]
     bb = b.loc[surviving]
@@ -81,7 +86,7 @@ def main() -> None:
             {
                 "margin_strategy": lab,
                 "n_pools": n,
-                "share_of_surviving_pct": 100.0 * n / len(aa) if len(aa) else float("nan"),
+                "share_of_sample_pct": 100.0 * n / len(aa) if len(aa) else float("nan"),
                 "stake_gain": g,
                 "stake_lose": l,
                 "stake_flat": f,
@@ -94,10 +99,8 @@ def main() -> None:
 
     pd.DataFrame(rows).to_csv(OUT_CSV, index=False)
 
-    # --- Plot: left = margin change counts; right = stake outcomes by margin ---
     fig, axes = plt.subplots(1, 2, figsize=(12.5, 5.2), constrained_layout=True)
 
-    # Left panel
     ax = axes[0]
     labs = [r[0] for r in stake_counts]
     ns = [r[1] for r in stake_counts]
@@ -113,22 +116,30 @@ def main() -> None:
         ax.text(
             bar.get_x() + bar.get_width() / 2,
             n + ymax * 0.02,
-            f"{n}\n({100*n/len(aa):.1f}%)",
+            f"{n}\n({100 * n / len(aa):.1f}%)",
             ha="center",
             va="bottom",
             fontsize=FONT_SIZE - 2,
         )
 
-    # Right panel: grouped bars gain/lose/flat within each margin strategy
     ax = axes[1]
     x = np.arange(len(labs))
-    width = 0.25
     gain_vals = [r[2][0] for r in stake_counts]
     lose_vals = [r[2][1] for r in stake_counts]
     flat_vals = [r[2][2] for r in stake_counts]
-    b1 = ax.bar(x - width, gain_vals, width, color=COLOR_GAIN, label="stake gain", edgecolor="0.2")
-    b2 = ax.bar(x, lose_vals, width, color=COLOR_LOSE, label="stake lose", edgecolor="0.2")
-    b3 = ax.bar(x + width, flat_vals, width, color=COLOR_FLAT, label="stake flat", edgecolor="0.2")
+    show_flat = any(v > 0 for v in flat_vals)
+    width = 0.25 if show_flat else 0.32
+    series = [
+        (gain_vals, COLOR_GAIN, "stake gain", -width if show_flat else -width / 2),
+        (lose_vals, COLOR_LOSE, "stake lose", 0.0 if show_flat else width / 2),
+    ]
+    if show_flat:
+        series.append((flat_vals, COLOR_FLAT, "stake flat", width))
+    drawn = []
+    for vals, color, label, offset in series:
+        drawn.append(
+            ax.bar(x + offset, vals, width, color=color, label=label, edgecolor="0.2")
+        )
     ax.set_xticks(x)
     ax.set_xticklabels([f"{lab}\n(n={n})" for lab, n in zip(labs, ns)], fontsize=FONT_SIZE)
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
@@ -138,7 +149,7 @@ def main() -> None:
     ax.grid(axis="y", alpha=0.25)
     ymax2 = max(gain_vals + lose_vals + flat_vals + [1]) * 1.18
     ax.set_ylim(0, ymax2)
-    for bars in (b1, b2, b3):
+    for bars in drawn:
         for bar in bars:
             v = int(bar.get_height())
             if v > 0:
@@ -151,8 +162,8 @@ def main() -> None:
                 )
 
     fig.suptitle(
-        f"Epoch 228 cohort survivors at 285: margin changes and stake outcomes\n"
-        f"(cohort $n={len(cohort)}$; surviving $n={len(surviving)}$; "
+        "Epoch 228 Active cohort at 285: margin changes and stake outcomes\n"
+        f"(Active $n={len(cohort)}$; continuing $n={len(surviving)}$; "
         f"with complete margins $n={len(aa)}$; exited $n={len(exited)}$)",
         fontsize=FONT_SIZE,
     )
@@ -162,9 +173,10 @@ def main() -> None:
     md_lines = [
         "# Cohort 228 → 285: margin changes and stake outcomes",
         "",
-        f"Sample: all pools with $\\sigma_i>0$ at epoch 228 that survive to epoch 285 "
-        f"($n={len(aa)}$ with complete margins; cohort $n={len(cohort)}$, "
-        f"exited $n={len(exited)}$).",
+        "Active = complement of Inactive; Inactive = $\\sigma=0$ $\\cup$ unmet pledge "
+        "$\\cup$ zero blocks in the prior 15 epochs. Sample: Active pools at epoch 228 "
+        f"that remain Active at 285 ($n={len(aa)}$ with complete margins; "
+        f"Active cohort $n={len(cohort)}$, exited $n={len(exited)}$).",
         "",
         "| Margin strategy | Pools | Share | Stake gain | Stake lose | Stake flat | "
         "Net $\\Delta\\sigma$ (M ADA) | Median $\\Delta\\sigma$ (ADA) |",
@@ -173,7 +185,7 @@ def main() -> None:
     for r in rows:
         md_lines.append(
             f"| {r['margin_strategy']} | {r['n_pools']} | "
-            f"{r['share_of_surviving_pct']:.1f}% | "
+            f"{r['share_of_sample_pct']:.1f}% | "
             f"{r['stake_gain']} | {r['stake_lose']} | {r['stake_flat']} | "
             f"{r['agg_dstake_net_ADA']/1e6:+.1f} | "
             f"{r['median_dstake_ADA']:,.0f} |"
