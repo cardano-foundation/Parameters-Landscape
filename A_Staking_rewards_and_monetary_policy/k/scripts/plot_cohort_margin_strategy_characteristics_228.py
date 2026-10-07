@@ -3,8 +3,10 @@
 Box-plot characteristics at epoch 228 for margin-change cohorts (228→285).
 
 Three panels: stake, declared pledge, active pledge — comparing
-margin reducers / increasers / no-change among surviving cohort pools.
+margin reducers / increasers / no-change among Active pools that remain
+Active at 285.
 
+Active = not (σ=0 ∪ unmet pledge ∪ zero blocks in the prior 15 epochs).
 Style matches cost_reducer_vs_nonreducer_characteristics_426.png
 (peach boxes, orange medians).
 """
@@ -38,10 +40,11 @@ METRICS = [
 
 def load_epoch(epoch: int) -> pd.DataFrame:
     df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    flags = pd.read_csv(DIR / f"inactive_pool_flags_epoch_{epoch}_last15.csv")
     stake = pd.to_numeric(
         df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce"
     )
-    return pd.DataFrame(
+    out = pd.DataFrame(
         {
             "pool_id": df["pool_id"],
             "stake": stake.fillna(0.0) / 1e6,
@@ -52,7 +55,10 @@ def load_epoch(epoch: int) -> pd.DataFrame:
             "active_pledge": pd.to_numeric(df["pledged"], errors="coerce") / 1e6,
             "margin": pd.to_numeric(df["pool_update.active.margin"], errors="coerce"),
         }
-    ).set_index("pool_id")
+    )
+    out = out.merge(flags[["pool_id", "in_union"]], on="pool_id", how="left")
+    out["active"] = out["in_union"] == 0
+    return out.set_index("pool_id")
 
 
 def draw_boxes(
@@ -117,8 +123,8 @@ def main() -> None:
     a = load_epoch(E0)
     b = load_epoch(E1)
 
-    cohort = a[a["stake"] > 0].index
-    surviving = cohort.intersection(b.index)
+    cohort = a.index[a["active"]]
+    surviving = cohort.intersection(b.index[b["active"]])
     aa = a.loc[surviving]
     bb = b.loc[surviving]
     ok = aa["margin"].notna() & bb["margin"].notna()
@@ -146,9 +152,9 @@ def main() -> None:
             scale=scale,
         )
     fig.suptitle(
-        f"Margin reducers / increasers / no change ({E0}→{E1}): "
+        f"Active pools: margin reducers / increasers / no change ({E0}→{E1}): "
         f"characteristics at epoch {E0}\n"
-        "(numbers above boxes are medians)",
+        f"(continuing Active $n={len(aa)}$; numbers above boxes are medians)",
         fontsize=FONT_SIZE + 1,
     )
     fig.savefig(OUT, dpi=200, bbox_inches="tight")
@@ -160,6 +166,15 @@ def main() -> None:
         f"Increasers={int(increasers.sum())}, "
         f"No change={int(no_change.sum())}"
     )
+    for name, mask in groups:
+        st = aa.loc[mask, "stake"]
+        dec = aa.loc[mask, "declared_pledge"]
+        act = aa.loc[mask, "active_pledge"]
+        print(
+            f"  {name}: n={int(mask.sum())} "
+            f"stake Q1/med/Q3={st.quantile(0.25)/1e6:.2f}/{st.median()/1e6:.2f}/{st.quantile(0.75)/1e6:.2f}M "
+            f"decl med={dec.median()/1e3:.1f}k act med={act.median()/1e3:.1f}k"
+        )
 
 
 if __name__ == "__main__":
