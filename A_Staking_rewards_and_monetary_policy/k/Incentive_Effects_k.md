@@ -251,16 +251,16 @@ We also want to see the reaction of the operators. The next plot tracks margin r
 <img src="plots/cohort_margin_change_stake_outcomes_228_285.png" alt="Pools changing margin when k changed" width="62%">
 </p>
 
-The following plots compare pools characteristics—total stake, declared pledge, and active pledge—across the $851$ surviving pools categorized by their subsequent margin fee decisions (reducers, increasers, and no change). 
+The following plots compare pools characteristics—total stake, declared pledge, and active pledge—across the $532$ surviving pools categorized by their subsequent margin fee decisions (reducers, increasers, and no change).
 
-The data reveals two distinct strategic profiles among operators. First, total stake strongly influenced fee changes: margin reducers ($n=156$) had smaller stake sizes, whereas margin increasers ($n=116$) were substantially larger, reaching upper quartiles above $17\text{M ADA}$. Second, pledge played a key role in fee cuts: pools that reduced margins held a median declared and active pledge of $41\text{k ADA}$—roughly double the $20\text{k ADA}$ median pledge of pools that increased or kept margins constant. This indicates that while larger pools leveraged existing stake to raise fees, it was smaller, higher-pledge operators that aggressively lowered margins to compete for incoming delegators.
+The data reveals two distinct strategic profiles among operators. First, total stake strongly influenced fee changes: margin reducers ($n=103$) had smaller stake sizes, whereas margin increasers ($n=90$) were substantially larger, reaching upper quartiles above $31\text{M ADA}$. Second, pledge played a key role in fee cuts: pools that reduced margins held a median declared and active pledge of $50\text{k ADA}$—more than double the $20\text{k ADA}$ median pledge of pools that increased margins. This indicates that while larger pools leveraged existing stake to raise fees, it was smaller, higher-pledge operators that aggressively lowered margins to compete for incoming delegators.
 
 <p align="center">
 <img src="plots/cohort_margin_strategy_characteristics_228.png" alt="Pools characteristics of those changing margin when k changed" width="62%">
 </p>
 
 
-The following plot illustrates that operator adjustments to declared fixed costs were minimal, primarily because $91\%$ of the surviving cohort ($775$ out of $851$ pools) were already operating at the mandatory minimum threshold (minPoolCost = $340\text{ ADA}$). The left panel tracks pools that modified their margin fee (regardless of changes to other parameters), the center panel displays pools that adjusted their fixed costs (regardless of other changes), and the right panel isolates pools that changed strictly a single parameter—either margin or fixed cost—in either direction.
+Next, we plot the operator adjustments to declared fixed costs and we see that they were minimal, primarily because $91\%$ of the surviving cohort ($775$ out of $851$ pools) were already operating at the mandatory minimum threshold (minPoolCost = $340\text{ ADA}$). The left panel tracks pools that modified their margin fee (regardless of changes to other parameters), the center panel displays pools that adjusted their fixed costs (regardless of other changes), and the right panel isolates pools that changed strictly a single parameter—either margin or fixed cost—in either direction.
 
 <p align="center">
   <img src="plots/cohort_mi_ci_change_counts_228_285.png" alt="Pools change in other  parameters when k increases" width="62%">
