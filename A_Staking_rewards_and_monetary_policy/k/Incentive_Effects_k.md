@@ -118,14 +118,14 @@ $$
 
 where $\hat{p}_i$ represents the operator's active pledge (the stake or delegation owned by the operator), and $c_i$ denotes the fixed pool cost (minPoolCost).
 
-An increase in $k$ alters $f(\sigma_i, p_i)$ without directly affecting the margin $m_i$ or $c_i$. However, because this change shifts the relative weight of $f(\sigma_i, p_i)$ within $\Pi_i$, it may ultimately lead the operator to adjust $m_i$ and $c_i$—a decision dynamics studied in later sections. The next plot shows the effect of increasing $k$ in $\Pi_i$.
+An increase in $k$ alters $f(\sigma_i, p_i)$ without directly affecting the margin $m_i$ or $c_i$. However, because this change shifts the relative weight of $f(\sigma_i, p_i)$ within $\Pi_i$, it may ultimately lead the operator to adjust $m_i$ and $c_i$—a decision dynamics studied in later sections. The next plot shows the effect of increasing $k$ in $\Pi_i$, under a fixed cost of $c_i = 170\text{ ADA}$ and a margin of $m_i = 5\%$.
 
 <p align="center">
   <img src="plots/pool_operator_reward_vs_sigma_k500_k1000.png" alt="Pool Operator Reward when k changes" width="62%">
 </p>
 
 
-The following figure plots net operator rewards under a fixed cost of $c_i = 170\text{ ADA}$ and a margin of $m_i = 5\%$. As in the previous figure, the panels compare $k = 500$ (left) and $k = 1000$ (center) across total delegation ($x$-axis) and pledge ($y$-axis), with the rightmost panel showing the net change between the two scenarios. 
+Using the same fixed cost and margin, rhe following figure plots net operator rewards for any combination of pledge and stake. As in the previous heatmap, the panels compare $k = 500$ (left) and $k = 1000$ (center) across total delegation ($x$-axis) and pledge ($y$-axis), with the rightmost panel showing the net change between the two scenarios. 
 
 <p align="center">
 <img src="plots/heatmap_operator_reward_k_cases.png" alt="Heatmap Operator Reward when k changes" width="80%">
