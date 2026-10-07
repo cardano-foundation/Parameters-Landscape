@@ -137,7 +137,7 @@ Because the protocol reimburses operators for their declared fixed costs ($c_i$)
 
 Increasing $k$ affects the delegator return per unit of stake,
 
-$$\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i},$$
+$$\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i},$$
 
 through the reward function $f(\sigma_i,p_i)$, as detailed above. The following plots illustrate the shift in delegator returns per unit of stake when $k$ increases from $500$ to $1,000$. The right panel zooms in on the region around the maximums to highlight the marginal reward increase for delegators in newly near-saturated pools. In contrast, delegators in pools that become oversaturated face a reduction in returns, making redelegation to another pool advantageous.
 
