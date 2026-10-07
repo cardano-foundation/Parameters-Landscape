@@ -297,7 +297,7 @@ We recompute operator rewards $\Pi_i$ under $k=150$ and the counterfactual $k=50
 
 $$C^* = 667/6/0.11= 1010.6 \quad \text{ADA per epoch}$$. 
 
-Let $r = \Pi_i / C^{*}$. Among $707$ pools with theoretical reward ($18$ out of $725$ are pools where the declared pledge exceeds the epoch-228 stake), $148$ cover $C^*$ under $k=150$, of which 65 are on the edge $1\le r<2$. Under $k=500$ with the same delegation, only $134$ remain viable and the “Strong” group $r\ge 5$ falls from 32 to 10 — large pools are capped by the lower saturation point.
+Let $r = \Pi_i / C^\*$. Among $707$ pools with theoretical reward ($18$ out of $725$ are pools where the declared pledge exceeds the epoch 228 stake), $148$ cover $C^\*$ under $k=150$, of which 65 are on the edge $1\le r<2$. Under $k=500$ with the same delegation, only $134$ remain viable and the “Strong” group $r\ge 5$ falls from 32 to 10 — large pools are capped by the lower saturation point.
 
 The plot shows a moderate impact of the increment of $3.33x$. on $k$ in the operators' viability before any redelegation or operator resonse.
 
