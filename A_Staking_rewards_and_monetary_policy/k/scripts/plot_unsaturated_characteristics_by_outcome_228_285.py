@@ -137,30 +137,40 @@ def main() -> None:
         ax.set_ylabel(ylabel, fontsize=FONT_SIZE)
         ax.set_title(title, fontsize=FONT_SIZE)
         ax.tick_params(axis="both", labelsize=FONT_SIZE - 1)
-        # Annotate medians
-        for i, arr in enumerate(data_lists, start=1):
-            if arr.size == 0:
+        medians: list[float] = []
+        tops: list[float] = []
+        for i, arr in enumerate(data_lists):
+            medians.append(float(np.median(arr)) if arr.size else float("nan"))
+            cap = box["caps"][2 * i + 1]
+            tops.append(float(np.max(cap.get_ydata())))
+        y0, y1_auto = ax.get_ylim()
+        if col == "margin":
+            ax.set_ylim(0.0, 6.0)
+        else:
+            ax.set_ylim(y0, y1_auto + 0.22 * (y1_auto - y0))
+        y0, y1 = ax.get_ylim()
+        span = y1 - y0 if y1 > y0 else 1.0
+        pad = 0.03 * span
+        y_labels = [top + pad for top in tops]
+        names = [name for name, _, _ in groups]
+        if col == "margin":
+            gain_i = next(i for i, n in enumerate(names) if n.startswith("Gain"))
+            lose_i = next(i for i, n in enumerate(names) if n.startswith("Lose"))
+            y_labels[lose_i] = y_labels[gain_i]
+        fmt = "{:.1f}" if col != "fixed_cost_ada" else "{:.0f}"
+        for i, med in enumerate(medians, start=1):
+            if not np.isfinite(med):
                 continue
-            med = float(np.median(arr))
-            q1, q3 = np.percentile(arr, [25.0, 75.0])
-            iqr = q3 - q1
-            top = float(min(arr.max(), q3 + 1.5 * iqr))
-            ylim = ax.get_ylim()
-            span = ylim[1] - ylim[0] if ylim[1] > ylim[0] else 1.0
-            y_text = top + 0.04 * span
-            fmt = "{:.1f}" if col != "fixed_cost_ada" else "{:.0f}"
             ax.text(
                 i,
-                y_text,
+                y_labels[i - 1],
                 fmt.format(med),
                 ha="center",
                 va="bottom",
                 fontsize=FONT_SIZE - 2,
                 color=MEDIAN_COLOR,
+                clip_on=True,
             )
-        # Expand ylim to fit text
-        cur_ylim = ax.get_ylim()
-        ax.set_ylim(cur_ylim[0], cur_ylim[1] * 1.15 if cur_ylim[1] > 0 else cur_ylim[1])
 
     fig.suptitle(
         "Epoch 228 — characteristics of Active pools by delegation outcome (228→285)\n"
