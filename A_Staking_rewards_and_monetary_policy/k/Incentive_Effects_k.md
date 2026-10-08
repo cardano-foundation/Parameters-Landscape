@@ -422,8 +422,14 @@ The tables below summarize how doubling $k$ drives oversaturation, quantifying b
 Delegators in pools that become oversaturated following the increase in $k$ are expected to respond by redelegating to unsaturated pools. However, the possibility that some of this stake exits the ecosystem entirely cannot be ruled out.
 
 
-<p align="center">
+<!-- <p align="center">
   <img src="plots/stake_distribution_by_bin_excl_inactive_pools_epoch644.png" alt="Stake distribution by bin e644" width="62%">
+</p> -->
+
+<p align="center" id="fig-stake-dist">
+  <img src="plots/stake_distribution_by_bin_excl_inactive_pools_epoch644.png" alt="Stake distribution by bin e644" width="62%">
+  <br>
+  <em>Figure 1: Stake distribution by bin (Epoch 644).</em>
 </p>
 
 
@@ -473,7 +479,9 @@ using their margin, delegation, active and declared pledge, and declared fixed c
 
 $$C^*=667/6/0.15=741.1 \text{ USD per epoch},$$
 
-where we used a price $0.15 USD/ADA$. The next plot shows the pools' viability comparison for $k=500$ and $k=1,000$ before any redelegation occurs. Groups with $r \geq 1$ reduce their pool count following an increase in $k$, whereas those with $r < 1$ increase theirs. This shift suggests migration between groups, implying a worsening of viability."
+where we used a price $0.15 USD/ADA$. 
+
+The next plot shows the pools' viability comparison for $k=500$ and $k=1,000$ before any redelegation occurs. Groups with $r \geq 1$ reduce their pool count following an increase in $k$, whereas those with $r < 1$ increase theirs. This shift suggests migration between groups, implying a worsening of viability."
 
 <p align="center">
   <img src="plots/pool_viability_k500_vs_k1000_epoch_644.png" alt="Pool viability comparison e644 k from 500 to 1000" width="62%">
