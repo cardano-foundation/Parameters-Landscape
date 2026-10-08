@@ -347,9 +347,9 @@ This section identifies potential behavioral (or second-order) effects—primari
 
 | epoch 644 | Number | Stake (B ADA) | Declared pledge (B ADA) | Active pledge (B ADA) |
 |---|---:|---:|---:|---:|
-| Inactive pools ($^*$) | 1,648 | 0.08 | 2.06 | 0.03 |
-| Active pools| 1,262 | 21.31 | 1.96 | 5.09 |
-| Total | 2,910 | 21.40 | 4.01 | 5.11 |
+| Inactive pools ($^*$) | 1,648 | 0.08 | 2.06 | 0.01 |
+| Active pools| 1,262 | 21.31 | 1.96 | 3.02 |
+| Total | 2,910 | 21.40 | 4.01 | 3.03 |
 
 ($^*$) We consider as inactive pools those that do not have stake, with un-met pledge (i.e., active pledge lower than declared pledge), and/or they do not produce any block in the last 3 months (15 epochs).
     
@@ -382,7 +382,7 @@ Overall, the stylized equilibrium changes from $500$ pools of size $T/500$ to $1
 
 In reality, this benchmark is constrained by market frictions, and several empirical observations confirm that the theoretical model's underlying assumptions do not strictly hold. However, it should be noted that the predicted equilibrium describes an eventual steady state without accounting for the transition path toward it; thus, a current snapshot may simply reflect an intermediate point along that adaptation trajectory.
 
-For instance, only a fraction of $T$ is active stake $S$. With current active stake $S \approx 21.4B$ ADA and $T \approx 38.8B$ ADA, the maximum number of simultaneously saturated pools is bounded by
+For instance, only a fraction of $T$ is active stake $S$. With current active stake $S \approx 21.4$ B ADA and $T \approx 38.8$ B ADA, the maximum number of simultaneously saturated pools is bounded by
 
 $$
 N_{\text{sat}}^{\max}(k)=\frac{S}{T/k}=\frac{S}{T}k\approx 0.552 k,
@@ -413,11 +413,11 @@ The tables below summarize how doubling $k$ drives oversaturation, quantifying b
 
 | Quantity | \(k=500\) | \(k=1000\) |
 | :--- | ---: | ---: |
-| \(z_0(k)\) (M ADA) | 77.5 | 38.8 |
+| $z_0(k)$ (M ADA) | 77.5 | 38.8 |
 | Oversaturated pools (count) | 7 | 214 |
 | Oversaturated pools (% of pools) | 0.55% | 16.96% |
-| \(E(k)\) - Stake above saturation (B ADA) | 0.07 | 4.81 |
-| \(E(k)\) (% of \(S\)) | 0.35% | 22.58% |
+| $E(k)$ - Stake above saturation (B ADA) | 0.07 | 4.81 |
+| $E(k)$ (% of \(S\)) | 0.35% | 22.58% |
 
 
 Delegators in pools that become oversaturated following the increase in $k$ are expected to respond by redelegating to unsaturated pools. However, the possibility that some of this stake exits the ecosystem entirely cannot be ruled out.
@@ -428,11 +428,11 @@ Delegators in pools that become oversaturated following the increase in $k$ are 
 </p>
 
 
-Suppose that, after an increment in $k$ from $500$ to $1,000$ (which, using epoch-644 parameters, implies $`z_0 = T/k \approx 38.8`$M ADA since $`T=38.8`$B ADA), all delegation in pools with more than $40M$ ADA redelegate to smaller pools (that is, we assume no delegation leaves the ecosystem while we use $40M$ and not $38.8M$ for simplicity). We rank pools receiving delegation using 
+Suppose that, after an increment in $k$ from $500$ to $1,000$ (which, using epoch-644 parameters, implies $`z_0 = T/k \approx 38.8`$ M ADA since $`T=38.8`$ B ADA), all delegation in pools with more than $40$ M ADA redelegate to smaller pools (that is, we assume no delegation leaves the ecosystem while we use $40M$ and not $38.8M$ for simplicity). We rank pools receiving delegation using 
 
 $$D_i=(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}.$$
 
-If all delegators were rational and there were not market frictions, stake should be redelegated in that rank order, filling each pool up to the \(40\)M cap before moving to the next. The next plot shows this idealized result. Under this exercise, $210$ pools hold $12.95$B ADA that must move.  That stake is fully absorbed by $673$ receivers with \(D_i>0\) and about $19.73$B ADA of free capacity (this is, nothing left unredelegated). There are another $379$ pools with \(D_i=0\) and $13.99$B ADA of spare capacity, but they were not receivers. Interestingly, the $0–5$M pool count falls because some of these small pools were well-ranked receivers that started below $5$M ADA, absorb inflows and jump to $40$M ADA.
+If all delegators were rational and there were not market frictions, stake should be redelegated in that rank order, filling each pool up to the \(40\)M cap before moving to the next. The next plot shows this idealized result. Under this exercise, $210$ pools hold $12.95$ B ADA that must move.  That stake is fully absorbed by $673$ receivers with $D_i>0$ and about $19.73$ B ADA of free capacity (this is, nothing left unredelegated). There are another $379$ pools with $D_i=0$ and $13.99$ B ADA of spare capacity, but they were not receivers. Interestingly, the $0–5$ M pool count falls because some of these small pools were well-ranked receivers that started below $5$M ADA, absorb inflows and jump to $40$ M ADA.
 
 <p align="center">
   <img src="plots/stake_distribution_by_bin_k1000_redelegation_epoch_644.png" alt="Stake distribution by bin e644 after redelegation" width="62%">
@@ -488,16 +488,16 @@ The next plot shows the characteristics of the pools in each bin/group before th
 </p>
 
 
-
-| | Losing \(r<0.5\) (n=636) | Losing \(0.5\leq r<1\) (n=317) | Edge (n=168) | Comfortable (n=54) | Strong (n=87) |
+| | Losing \(r<0.5\) (n=670) | Losing \(0.5\leq r<1\) (n=318) | Edge (n=149) | Comfortable (n=42) | Strong (n=83) |
 |---|---:|---:|---:|---:|---:|
-| Epoch stake (M ADA), median | 0.76 | 12.60 | 37.79 | 20.30 | 50.00 |
-| Active pledge (k ADA), median | 42.2 | 119.8 | 29.7 | 28.8 | 74,512.9 |
-| Declared pledge (k ADA), median | 10.0 | 50.0 | 0.2 | 0.2 | 200.0 |
-| Declared fixed cost (ADA), median | 330 | 340 | 340 | 340 | 340 |
-| Margin (%), median | 1.0 | 2.0 | 4.0 | 10.0 | 100.0 |
-| Theoretical operator reward (ADA), median | 179 | 468 | 915 | 1,840 | 10,730 |
-| Coverage ratio \(r\), median | 0.241 | 0.632 | 1.234 | 2.483 | 14.478 |
+| Epoch stake (M ADA), median | 0.82 | 14.36 | 38.62 | 16.64 | 50.00 |
+| Active pledge (k ADA), median | 29.8 | 67.1 | 9.3 | 8.3 | 31,239.8 |
+| Declared pledge (k ADA), median | 10.0 | 50.0 | 0.1 | 0.1 | 200.0 |
+| Declared fixed cost (ADA), median | 340 | 340 | 340 | 340 | 340 |
+| Margin (%), median | 1.0 | 2.0 | 5.0 | 10.0 | 100.0 |
+| Theoretical operator reward (ADA), median | 179 | 460 | 925 | 1,963 | 12,958 |
+| Coverage ratio \(r\), median | 0.242 | 0.621 | 1.249 | 2.649 | 17.485 |
+
 
 Following the increase in $k$, several pool groups experienced subtle compositional shifts. The analysis below examines the baseline characteristics of pools entering these distinct tiers—noting that pools departing one group necessarily appear as entrants in another. New entrants to the Losing group ($r < 0.5$) do not exhibit low levels of staking or pledge, but instead feature very low margins and declared costs. Those entering the $0.5 \leq r < 1$ group hold a better stake position, accompanied by slightly higher margins and double the fixed cost. Pools leaving the Edge group share similar characteristics to the latter, suggesting they primarily transition into that tier. Conversely, pools leaving the Comfortable group are characterized by low pledge levels and low declared fixed costs, whereas those leaving the Strong group appear driven by a combination of moderate margins and moderate declared fixed costs.
 
@@ -570,32 +570,33 @@ Although splitting an unsaturated pool strictly reduces aggregate gross rewards,
 | | Scenario A (\(k=500\)) | Scenario B (\(k=1000\)) |
 |:---|---:|---:|
 | Cohort | 1,048 | 1,048 |
-| \(\Pi\) increases  | 659 (62.9%) | 658 (62.8%) |
-| \(\Pi\) decreases  | 364 (34.7%) | 366 (34.9%) |
+| $\Pi$ increases  | 670 (63.9%) | 669 (63.8%) |
+| $\Pi$ decreases  | 353 (33.7%) | 355 (33.9%) |
 | Unchanged  | 25 (2.4%) | 24 (2.3%) |
-| Median \(\Delta\Pi\) | 134.49 ADA/epoch | 134.34 ADA/epoch |
-| Mean \(\Delta\Pi\) | 145.56 ADA/epoch | 145.00 ADA/epoch |
+| Median $\Delta\Pi$ | 151.16 ADA/epoch | 150.61 ADA/epoch |
+| Mean $\Delta\Pi$ | 150.14 ADA/epoch | 149.76 ADA/epoch |
 
-If the lower threshold makes the original pool oversaturated, however, splitting can allow stake previously above the cap to contribute to rewards. The comparison must then use the capped reward formula, replacing stake and pledge by $\min(\sigma_i,z_0)$ and $\min(p_i,z_0)$ in the gross reward calculation, and applying the same caps separately to each new pool. The unsaturated-pool inequality above therefore does not establish that splitting reduces gross rewards in this case. The overall incentive depends on stake relative to the new saturation threshold, pledge, fees, operating expenses, and delegation responses. A higher $k$ may consequently encourage more pools without producing a corresponding increase in the number of independent operators.
+
+If the lower threshold makes the original pool oversaturated, however, splitting can allow stake previously above the cap to contribute to rewards. The comparison must then use the capped reward formula, replacing stake and pledge by $\min\\{\sigma_i,z_0\\}$ and $\min\\{p_i,z_0\\}$ in the gross reward calculation, and applying the same caps separately to each new pool. The unsaturated-pool inequality above therefore does not establish that splitting reduces gross rewards in this case. The overall incentive depends on stake relative to the new saturation threshold, pledge, fees, operating expenses, and delegation responses. A higher $k$ may consequently encourage more pools without producing a corresponding increase in the number of independent operators.
 
 ### Changes in staking participation
 
-Another way of understanding the effect of the change in $k$ is whether it induces a change in the staking participation. In the previous section, we identified that increasing $k$ may reduce the gross pool reward for unsaturated pools before any response. In this section, we consider an idealized redelegation scenario where delegators rank and select pools strictly based on desirability ($D_i$), once $k$ increases, and we evaluate how the resulting redelegation alters stake distributions enough to change the overall network yield—measured by the median APR as a metric of network attractiveness. The theoretical delegator APR for pool \(i\) is
+Another way of understanding the effect of the change in $k$ is whether it induces a change in the staking participation. In the previous section, we identified that increasing $k$ may reduce the gross pool reward for unsaturated pools before any response. In this section, we consider an idealized redelegation scenario where delegators rank and select pools strictly based on desirability ($D_i$), once $k$ increases, and we evaluate how the resulting redelegation alters stake distributions enough to change the overall network yield—measured by the median APR as a metric of network attractiveness. The theoretical delegator APR for pool $i$ is
 
 $$\mathrm{APR}_i = 73\,(1-m_i)\,\frac{\max\\{f(\sigma_i,p_i)-c_i,\,0\\}}{\sigma_i}.$$
 
-The following table reports the median theoretical delegator APR at the current snapshot and after redelegation when $k=1000$, across active pools with \(f_i>c_i\). Notice that we do not assume that operators of oversaturated pools open a new pool. All oversaturated stake migrate to existing pools. We also abstain of considering potential coordination effects among delegators
+The following table reports the median theoretical delegator APR at the current snapshot and after redelegation when $k=1000$, across active pools with $f_i>c_i$. Notice that we do not assume that operators of oversaturated pools open a new pool. All oversaturated stake migrate to existing pools. We also abstain of considering potential coordination effects among delegators
 
-| Quantity | Current (\(k=500\)) | After redelegation (\(k=1000\)) |
+| Quantity | Current ($k=500$) | After redelegation ($k=1000$) |
 |:---|---:|---:|
 | Active pools | 1,262 | 1,052 |
-| Donors (\(\sigma>40\)M) | 210 | 0 |
-| Receivers (\(0<\sigma\le 40\)M) | 1,052 | 1,052 |
-| Pools at cap \(40\)M | 28 | 492 |
+| Donors ($\sigma>40$M) | 210 | 0 |
+| Receivers ($0<\sigma\le 40$M) | 1,052 | 1,052 |
+| Pools at cap $40$M | 28 | 492 |
 | Median pool stake | 4.72M ADA | 16.88M ADA |
-| **Median APR (\(f>c\)** | **1.83%** | **1.97%** |
-| Pools with \(f>c\) (APR sample) | 927 | 717 |
-| Nakamoto \(N\) | 159 | 267 |
+| **Median APR ($f>c$)** | **1.83%** | **1.97%** |
+| Pools with $f>c$ (APR sample) | 927 | 717 |
+| Nakamoto $N$ | 159 | 267 |
 | Total stake | 21.31B ADA | 21.31B ADA |
 
 <p align="center">
