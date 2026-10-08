@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Aggregate stake change (228→285) among pools unsaturated under k=500 at epoch 228,
-by epoch-228 stake bins.
+Aggregate stake change (228→285) among Active pools unsaturated under k=500
+at epoch 228, by epoch-228 stake bins.
 
-Includes pools that exited by 285: their full epoch-228 stake is counted as a loss
-(Δσ = −σ_228) and summed into the red "lose / exit" bar.
+Active = not (σ=0 ∪ unmet pledge ∪ zero blocks in the prior 15 epochs).
+Exited = Active-unsaturated at 228 but not Active at 285: their full
+epoch-228 stake is counted as a loss (Δσ = −σ_228) in the red bar.
 """
 
 from __future__ import annotations
@@ -17,7 +18,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import requests
 
 DIR = Path(__file__).resolve().parent
 OUT = DIR / "unsaturated_agg_stake_change_by_stake_bin_228_285.png"
@@ -28,8 +28,7 @@ FONT_SIZE = 12
 COLOR_GAIN = "#2f6f4e"
 COLOR_LOSE = "#b23a3a"
 COLOR_FLAT = "#6b7280"
-KOIOS = "https://api.koios.rest/api/v1"
-TOKEN_PATH = DIR / ".koios_api_token"
+T_228_ADA = 32.03687470708404e9
 
 BINS = [
     (0.0, 5.0, "0–5"),
@@ -42,28 +41,21 @@ BINS = [
 ]
 
 
-def fetch_T_ada(epoch: int) -> float:
-    headers = {"accept": "application/json"}
-    if TOKEN_PATH.exists():
-        tok = TOKEN_PATH.read_text(encoding="utf-8").strip()
-        if tok:
-            headers["Authorization"] = f"Bearer {tok}"
-    r = requests.get(f"{KOIOS}/totals", params={"_epoch_no": epoch}, headers=headers, timeout=60)
-    r.raise_for_status()
-    return float(r.json()[0]["supply"]) / 1e6
-
-
 def load_epoch(epoch: int) -> pd.DataFrame:
-    df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}_merged.csv")
+    flags = pd.read_csv(DIR / f"inactive_pool_flags_epoch_{epoch}_last15.csv")
     stake_lov = pd.to_numeric(
         df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce"
     )
-    return pd.DataFrame(
+    out = pd.DataFrame(
         {
             "pool_id": df["pool_id"],
             "stake_ada": stake_lov.fillna(0.0) / 1e6,
         }
-    ).set_index("pool_id")
+    )
+    out = out.merge(flags[["pool_id", "in_union"]], on="pool_id", how="left")
+    out["active"] = out["in_union"] == 0
+    return out.set_index("pool_id")
 
 
 def fmt_m(x: float) -> str:
@@ -73,26 +65,64 @@ def fmt_m(x: float) -> str:
 
 
 def main() -> None:
-    T = fetch_T_ada(E0)
-    z0 = T / K_POST
+    z0 = T_228_ADA / K_POST
     a = load_epoch(E0)
     b = load_epoch(E1)
+    active_285 = b.index[b["active"]]
 
-    unsat = a[(a["stake_ada"] > 0) & (a["stake_ada"] <= z0)].index
-    continuing = unsat.intersection(b.index)
-    exited = unsat.difference(b.index)
+    unsat_all = a[(a["stake_ada"] > 0) & (a["stake_ada"] <= z0)]
+    unsat = unsat_all.index[unsat_all["active"]]
+    inactive = unsat_all.index[~unsat_all["active"]]
+    continuing = unsat.intersection(active_285)
+    exited = unsat.difference(active_285)
+    ina_cont = inactive.intersection(b.index)
+    ina_exit = inactive.difference(b.index)
 
     sa_c = a.loc[continuing, "stake_ada"]
     sb_c = b.loc[continuing, "stake_ada"]
     d_c = sb_c - sa_c
     sa_x = a.loc[exited, "stake_ada"]
     d_x = -sa_x  # full stake lost upon exit
+    d_ina = b.loc[ina_cont, "stake_ada"] - a.loc[ina_cont, "stake_ada"]
+    d_ina_x = -a.loc[ina_exit, "stake_ada"]
 
     stake_m_c = sa_c / 1e6
     stake_m_x = sa_x / 1e6
-    labels = [lab for _, _, lab in BINS]
+    labels = ["Inactive"] + [lab for _, _, lab in BINS]
     rows = []
     gain_agg, lose_agg, flat_agg, ns = [], [], [], []
+
+    g_mask_i = d_ina > 0
+    l_mask_i = d_ina < 0
+    f_mask_i = d_ina == 0
+    g_sum_i = float(d_ina[g_mask_i].sum()) if g_mask_i.any() else 0.0
+    l_cont_i = float(d_ina[l_mask_i].sum()) if l_mask_i.any() else 0.0
+    x_sum_i = float(d_ina_x.sum()) if len(ina_exit) else 0.0
+    l_sum_i = l_cont_i + x_sum_i
+    f_sum_i = float(d_ina[f_mask_i].sum()) if f_mask_i.any() else 0.0
+    n_i = int(len(inactive))
+    gain_agg.append(g_sum_i)
+    lose_agg.append(l_sum_i)
+    flat_agg.append(f_sum_i)
+    ns.append(n_i)
+    rows.append(
+        {
+            "stake_bin_M_ADA": "Inactive",
+            "n_pools": n_i,
+            "n_continuing": int(len(ina_cont)),
+            "n_exited": int(len(ina_exit)),
+            "n_gain": int(g_mask_i.sum()),
+            "n_lose_continuing": int(l_mask_i.sum()),
+            "n_flat": int(f_mask_i.sum()),
+            "agg_dstake_gain_ADA": g_sum_i,
+            "agg_dstake_lose_continuing_ADA": l_cont_i,
+            "agg_dstake_exit_ADA": x_sum_i,
+            "agg_dstake_lose_or_exit_ADA": l_sum_i,
+            "agg_dstake_flat_ADA": f_sum_i,
+            "agg_dstake_net_ADA": g_sum_i + l_sum_i + f_sum_i,
+        }
+    )
+
     for lo, hi, lab in BINS:
         mask_c = (stake_m_c >= lo) & (stake_m_c < hi)
         mask_x = (stake_m_x >= lo) & (stake_m_x < hi)
@@ -135,7 +165,7 @@ def main() -> None:
 
     x = np.arange(len(labels))
     width = 0.26
-    fig, ax = plt.subplots(figsize=(11.0, 5.6), constrained_layout=True)
+    fig, ax = plt.subplots(figsize=(12.2, 5.6), constrained_layout=True)
     b1 = ax.bar(x - width, gain_m, width, color=COLOR_GAIN, label="gainers (Σ Δσ)")
     b2 = ax.bar(
         x,
@@ -148,12 +178,15 @@ def main() -> None:
     ax.axhline(0, color="0.35", linewidth=0.8)
     ax.set_xticks(x)
     ax.set_xticklabels([f"{lab}\n(n={n})" for lab, n in zip(labels, ns)], fontsize=FONT_SIZE)
-    ax.set_xlabel("Epoch-228 stake bin (M ADA)", fontsize=FONT_SIZE)
+    ax.set_xlabel(
+        "Epoch-228 stake bin (M ADA); leftmost = Inactive at 228",
+        fontsize=FONT_SIZE,
+    )
     ax.set_ylabel("Aggregate stake change (M ADA)", fontsize=FONT_SIZE)
     ax.set_title(
-        f"Aggregate Δstake 228→285 among pools unsaturated under $k={K_POST}$ at epoch 228\n"
-        f"(n={len(unsat)} unsaturated; {len(continuing)} continuing, {len(exited)} exited; "
-        f"$z_0={z0/1e6:.1f}$ M ADA)",
+        f"Aggregate Δstake 228→285 among unsaturated pools under $k={K_POST}$ at epoch 228\n"
+        f"(Active n={len(unsat)}: {len(continuing)} continuing, {len(exited)} exited; "
+        f"Inactive n={len(inactive)}; $z_0={z0/1e6:.1f}$ M ADA)",
         fontsize=FONT_SIZE,
     )
     ax.tick_params(labelsize=FONT_SIZE)

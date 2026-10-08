@@ -32,7 +32,7 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_228.csv"
+POOLS_CSV = DIR / "staking_pools_full_epoch_228_merged.csv"
 OUT_CSV = DIR / "pool_viability_opex_k150_vs_k500_epoch_228.csv"
 OUT_SUMMARY = DIR / "pool_viability_opex_k150_vs_k500_epoch_228_summary.csv"
 OUT_BARS = DIR / "pool_viability_opex_categories_k150_vs_k500_epoch_228.png"
@@ -182,8 +182,11 @@ def main() -> None:
     p_decl = (
         pd.to_numeric(df["pool_update.active.pledge"], errors="coerce").fillna(0.0) / 1e6
     ).to_numpy()
-    # CSV `pledged` used as active pledge proxy (same convention as epoch-644 script)
-    p_hat = (pd.to_numeric(df["pledged"], errors="coerce").fillna(0.0) / 1e6).to_numpy()
+    # Merged unique-owner Koios live_pledge (p-hat); pledged is the same column.
+    p_hat = (
+        pd.to_numeric(df["live_pledge"].fillna(df["pledged"]), errors="coerce").fillna(0.0)
+        / 1e6
+    ).to_numpy()
     margin = pd.to_numeric(df["pool_update.active.margin"], errors="coerce").fillna(0.0).to_numpy()
     c_decl = (
         pd.to_numeric(df["pool_update.active.fixed_cost"], errors="coerce").fillna(0.0) / 1e6
@@ -344,8 +347,8 @@ $r=\\Pi_i/C^*$.
 | Comfortable ($2\\le r<5$) | ${c150['counts']['comfortable']}$ | ${c500['counts']['comfortable']}$ | ${pct(c150['counts']['comfortable'], c500['counts']['comfortable'])}$ |
 | Strong ($r\\ge 5$) | ${c150['counts']['strong']}$ | ${c500['counts']['strong']}$ | ${pct(c150['counts']['strong'], c500['counts']['strong'])}$ |
 
-Note: pledge columns in the historical CSV may be stamped from a later `pool_list`;
-active pledge uses the `pledged` field (same convention as the epoch-644 viability script).
+Note: active pledge is unique-owner Koios `live_pledge` at epoch 228
+(merged snapshot); declared pledge is CExplorer `pool_update.active.pledge`.
 """
     OUT_MD.write_text(md)
     print(f"Wrote {OUT_MD}")

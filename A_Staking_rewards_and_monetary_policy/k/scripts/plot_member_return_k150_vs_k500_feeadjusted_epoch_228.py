@@ -9,9 +9,11 @@ Member return per ADA for the epoch-228 pool cohort under:
   APR ≈ 73 * ρ                               (simple annualization)
 
 Samples:
-  - k=150: all pools at epoch 228 with σ_228 > 0
-  - k=500 fee-adjusted: the subset surviving to epoch 285, because 285 fees
-    are required; σ and pledge remain fixed at their epoch-228 values.
+  - k=150: Active pools at epoch 228
+  - k=500 fee-adjusted: Active at 228 that remain Active at 285, because 285
+    fees are required; σ and pledge remain fixed at their epoch-228 values.
+
+Active = not (σ=0 ∪ unmet pledge ∪ zero blocks in the prior 15 epochs).
 
 Writes
   member_return_k150_vs_k500_feeadjusted_epoch_228.csv
@@ -30,8 +32,8 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-CSV_228 = DIR / "staking_pools_full_epoch_228.csv"
-CSV_285 = DIR / "staking_pools_full_epoch_285.csv"
+CSV_228 = DIR / "staking_pools_full_epoch_228_merged.csv"
+CSV_285 = DIR / "staking_pools_full_epoch_285_merged.csv"
 OUT_CSV = DIR / "member_return_k150_vs_k500_feeadjusted_epoch_228.csv"
 OUT_PLOT = DIR / "member_return_k150_vs_k500_feeadjusted_epoch_228.png"
 
@@ -46,12 +48,13 @@ COLOR_POS = "#4c78a8"
 COLOR_ZERO = "0.7"
 
 
-def load_epoch(path: Path) -> pd.DataFrame:
+def load_epoch(path: Path, epoch: int) -> pd.DataFrame:
     df = pd.read_csv(path)
+    flags = pd.read_csv(DIR / f"inactive_pool_flags_epoch_{epoch}_last15.csv")
     stake = pd.to_numeric(
         df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce"
     )
-    return pd.DataFrame(
+    out = pd.DataFrame(
         {
             "pool_id": df["pool_id"],
             "ticker": df["pool_name.ticker"],
@@ -64,7 +67,10 @@ def load_epoch(path: Path) -> pd.DataFrame:
             ).fillna(0.0)
             / 1e6,
         }
-    ).set_index("pool_id")
+    )
+    out = out.merge(flags[["pool_id", "in_union"]], on="pool_id", how="left")
+    out["active"] = out["in_union"] == 0
+    return out.set_index("pool_id")
 
 
 def gross_pool_reward(
@@ -142,13 +148,12 @@ def draw_panel(
 
 
 def main() -> None:
-    a_all = load_epoch(CSV_228)
-    b = load_epoch(CSV_285)
+    a_all = load_epoch(CSV_228, 228)
+    b = load_epoch(CSV_285, 285)
 
-    # Starting point: every active pool in the epoch-228 snapshot.
-    a_all = a_all[(a_all["sigma_ada"] > 0) & a_all["margin"].notna()]
-    continuing = a_all.index.intersection(b.index)
-    exited = a_all.index.difference(b.index)
+    a_all = a_all[a_all["active"] & a_all["margin"].notna()]
+    continuing = a_all.index.intersection(b.index[b["active"]])
+    exited = a_all.index.difference(b.index[b["active"]])
     a_cont = a_all.loc[continuing]
     b_cont = b.loc[continuing]
     fee_ok = b_cont["margin"].notna()
@@ -231,7 +236,7 @@ def main() -> None:
         rho150,
         Z0_K150,
         title=rf"$k=150$ with epoch-228 fees ($c,m$)" "\n"
-        rf"(all epoch-228 pools; n={len(rho150)}; "
+        rf"(Active epoch-228 pools; n={len(rho150)}; "
         rf"median APR among positive returns="
         rf"{EPOCHS_PER_YEAR*np.median(rho150[rho150>0])*100:.2f}\%)",
     )

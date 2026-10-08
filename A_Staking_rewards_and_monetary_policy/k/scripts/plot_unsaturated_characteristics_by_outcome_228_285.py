@@ -33,7 +33,7 @@ T_228_ADA = 32.03687470708404e9
 
 
 def load_epoch(epoch: int) -> pd.DataFrame:
-    df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}_merged.csv")
     stake = pd.to_numeric(
         df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce"
     ).fillna(0.0) / 1e6
@@ -42,7 +42,8 @@ def load_epoch(epoch: int) -> pd.DataFrame:
         / 1e6
     )
     active_pledge = (
-        pd.to_numeric(df["pledged"], errors="coerce").fillna(0.0) / 1e6
+        pd.to_numeric(df["live_pledge"].fillna(df["pledged"]), errors="coerce").fillna(0.0)
+        / 1e6
     )
     margin = pd.to_numeric(df["pool_update.active.margin"], errors="coerce")
     fixed_cost = (

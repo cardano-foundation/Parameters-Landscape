@@ -35,7 +35,7 @@ MIN_STAKE = 1.0  # ADA
 
 
 def load_epoch(epoch: int) -> pd.DataFrame:
-    df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}_merged.csv")
     flags = pd.read_csv(DIR / f"inactive_pool_flags_epoch_{epoch}_last15.csv")
     stake = (
         pd.to_numeric(
