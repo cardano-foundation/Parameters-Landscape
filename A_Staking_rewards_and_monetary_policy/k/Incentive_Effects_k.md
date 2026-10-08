@@ -166,9 +166,9 @@ As past evidence of a change in $k$, there is the realized historical jump ($150
 Key findings from this section:
 
 1. The jump in $k$ created a short-lived oversaturation shock: many pools briefly became saturated, but redelegation soon moved stake away.
-2. Delegators moved toward smaller, still-undersaturated pools, especially pools with stronger pledge and lower margins.
+2. Delegators moved toward smaller, still-undersaturated pools, especially pools with stronger active pledge.
 3. Operators that cut margins showed better stake retention and gain outcomes than pools that kept fees unchanged.
-4. The distribution of stake became more balanced within the surviving cohort, but this is only suggestive evidence: it is not a causal estimate of the effect of the $k$ increase alone, and it coincides with a large influx of new low-stake pools and new stake into the ecosystem.
+4. The distribution of stake became more balanced within the surviving cohort. This is suggestive evidence: it is not a causal estimate of the effect of the $k$ increase alone, and it coincides with a large influx of new low-stake pools and new stake into the ecosystem.
 5. The network-wide APR gain was modest and mainly reflected the exit of weak pools and the broader market shift, not a clean, direct causal effect of the parameter change.
 
 These are descriptive patterns rather than causal proof. Because many pools and new stake entered the ecosystem in the same window, we cannot isolate the direct effect of the increase in $k$ on the observed distributional improvement.
@@ -181,34 +181,35 @@ $$E(k) = \sum_{i : \sigma_i>0} \max\\{\sigma_i - z_0(k),0\\}.$$
 
 | Quantity | Epoch 228 | Epoch 285 |
 | :--- | ---: | ---: |
-| \(T\) | 32.04B ADA | 33.03B ADA |
-| \(S\) (all pools) | 17.35B ADA | 23.16B ADA |
-| \(S\) (Active) | 17.31B ADA | 23.12B ADA |
+| $T$ | 32.04B ADA | 33.03B ADA |
+| $S$ (all pools) | 17.35B ADA | 23.16B ADA |
+| $S$ (Active) | 16.21B ADA | 21.83B ADA |
 | $S/T$ (all pools) | 54.2% | 70.1% |
-| Active pools | 725 | 1,594 |
-| — continuing to 285 | 532 | — |
-| — exited by 285 | 193 | — |
+| Total pools | 1,161 | 2,813 |
+| Active pools | 594 | 1,424 |
+| — continuing to 285 | 427 | — |
+| — exited by 285 | 167 | — |
 
-where we do not consider Inactive pools, i.e., pools with zero stake, with active pledge below declared pledge, or that did not produce any block in the previous $15$ epochs (3 months)
+We will not consider Inactive pools, i.e., pools with zero stake, with active pledge below declared pledge, or that did not produce any block in the previous $15$ epochs (3 months).
 
-| Quantity | Epoch 228, \(k=150\) | Epoch 228, \(k=500\) | Epoch 285, \(k=500\) |
+| Quantity | Epoch 228, $k=150$ | Epoch 228, $k=500$ | Epoch 285, $k=500$ |
 | :--- | ---: | ---: | ---: |
 | $z_0(k)$ (M ADA) | 213.58 | 64.07 | 66.06 |
-| Oversaturated pools (count) | 0 | 109 | 4 |
-| Oversaturated pools (% of Active) | 0.00% | 15.03% | 0.25% |
-| — continuing to 285 | — | 89 | — |
-| — exited by 285 | — | 20 | — |
-| Unsaturated pools ($\sigma_i\leq z_0$) | 725 | 616 | 1,590 |
-| — continuing to 285 | — | 443 | — |
-| — exited by 285 | — | 173 | — |
-| $E(k)$ - Stake above saturation (B ADA) | 0.00 | 6.14 | 0.02 |
-| $E(k)$ (% of \(S\)) | 0.00% | 35.41% | 0.09% |
+| Oversaturated pools (count) | 0 | 103 | 4 |
+| Oversaturated pools (% of Active) | 0.00% | 17.34% | 0.28% |
+| — continuing to 285 | — | 82 | — |
+| — exited by 285 | — | 21 | — |
+| Unsaturated pools ($\sigma_i\leq z_0$) | 594 | 491 | 1,420 |
+| — continuing to 285 | — | 345 | — |
+| — exited by 285 | — | 146 | — |
+| $E(k)$ - Stake above saturation (B ADA) | 0.00 | 5.89 | 0.02 |
+| $E(k)$ (% of $S$ Active) | 0.00% | 36.34% | 0.10% |
 
 
 Main observations:
 
 - Before the change ($k=150$), oversaturation was effectively zero.
-- The historical $3.33\times$ jump to $k=500$ moved the system to $109$ oversaturated pools and $E(k)=6.14$B ADA ($35.71\%$ of $S$).
+- The historical $3.33\times$ jump to $k=500$ moved the system to $103$ oversaturated pools and $E(k)=5.89$B ADA ($33.95\%$ of $S$).
 - After enough epochs, the redelegation moved away from oversaturated pools, leaving oversaturated pools again near zero.
 - The snapshot also shows a important increment in the staking level $S$, the ratio $S/T$, and number of pools. However, this does not imply that the change in $k$ triggered that increment.
 
@@ -217,21 +218,20 @@ Main observations:
 
 *Delegators*
 
-Following the increase in $k$, delegators in newly oversaturated pools migrated to those that remained undersaturated. While some delegators left the ecosystem, overall staking participation increased, indicating that departing delegators were offset by new entrants. 
+Following the increase in $k$, delegators in newly oversaturated pools migrated to those that remained undersaturated. While some delegators left the ecosystem, overall staking participation increased, indicating that departing delegators were offset by new entrants.
 
-The next two plots illustrate how many pools gained or lost delegation, along with the magnitude of those shifts. The left bin contains those pools that were inactive at epoch 228 (mainly because they were not producing blocks in the previous 3 months). Interestingly, some of them gained stake for epoch 285 and start producing blocks, becoming active. 
-Among the set of **active pools present at epoch 228 and that remained unsaturated after the increment in $k$**, the dynamics show that small pools ($0\text{--}5\text{M ADA}$) experienced the largest total staking gains, and also a high exit rates. Because total staking grew, these aggregate plots cannot isolate new incoming stake from redistributed existing stake (to disentangle whether a pool gained capital from redelegations or new entrants, individual redelegation trajectories must be tracked, data that we do not have in the snapshots).
+The next two plots illustrate how many pools gained or lost delegation, along with the magnitude of those shifts. The left bin contains those pools that were inactive at epoch 228, mainly because they were not producing blocks in the previous 3 months (unmet pledge now also places a pool in that bin). Interestingly, some of them gained stake by epoch 285 and started producing blocks: of $561$ Inactive pools in that bin, $127$ were Active at epoch 285. Among the set of **active pools present at epoch 228 that remained unsaturated after the increment in $k$** ($n=491$), the dynamics show that small pools ($0\text{--}5\text{M ADA}$) experienced the largest total staking gains ($+996\text{M ADA}$) and also a high exit rate ($143$ of $355$, or $40.3\%$). Because total staking grew, these aggregate plots cannot isolate new incoming stake from redistributed existing stake (to disentangle whether a pool gained capital from redelegations or new entrants, individual redelegation trajectories must be tracked, data that we do not have in the snapshots).
 
 <div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
   <img src="plots/unsaturated_delegation_by_stake_bin_228_285.png" alt="Unsaturated Pools change  measure in numb pools when k increases" width="48%">
   <img src="plots/unsaturated_agg_stake_change_by_stake_bin_228_285.png" alt="Unsaturated Pools change measured in agg delegation when k increases" width="48%">
 </div>
 
-The following plots illustrate the characteristics of that set of **active pools at epoch 228** grouped by their post-adjustment outcome (gain, lose, flat, or exit by epoch 285). 
+The following plots illustrate the characteristics of that set of **active pools at epoch 228** grouped by their post-adjustment outcome (gain, lose, flat, or exit by epoch 285).
 
-The top set of panels covers all active pools that were undersaturated under the new $k=500$, while the bottom set focuses strictly on the subset of $464$ small pools holding $0\text{--}5\text{M ADA}$ of initial stake. 
+The top set of panels covers all active pools that were undersaturated under the new $k=500$ ($n=491$), while the bottom set focuses strictly on the subset of $355$ small pools holding $0\text{--}5\text{M ADA}$ of initial stake.
 
-The data reveals that operator pledge served as the primary differentiator for stake attraction, with gaining pools maintaining a substantially higher median declared pledge ($50\text{k ADA}$) than those that lost stake ($25-27\text{k ADA}$), or exited ($10\text{k ADA}$). Additionally, gaining pools operated with slightly lower median margins compared to losing pools, suggesting delegators favored lower-cost fee structures paired with higher declared pledge. On the other hand, pools that remained exited were characterized by low stake.
+The data reveals that **active** pledge, not declared pledge, is the clearer differentiator for stake attraction. Among all undersaturated Active pools, gaining pools had a median active pledge of $230\text{k ADA}$, versus $202\text{k ADA}$ for those that lost stake and $35\text{k ADA}$ for those that exited; in the $0\text{--}5\text{M}$ subset the corresponding medians are $202\text{k}$, $168\text{k}$, and $27\text{k ADA}$. Median declared pledge no longer ranks gainers above losers ($20\text{k}$ vs $25\text{k ADA}$ in the full undersaturated sample; both $10\text{k ADA}$ in the small-stake subset), while exiters remain lowest ($6.4\text{k}$ and $5.5\text{k ADA}$). Gaining pools still operated with slightly lower median margins than losing pools ($1.77\%$ vs $2.00\%$; $1.76\%$ vs $2.00\%$ in the small-stake subset). Pools that exited were characterized by low stake (median about $0.2\text{M ADA}$).
 
 <p align="center">
 <img src="plots/unsaturated_characteristics_by_outcome_228_285.png" alt="Pools characteristics before gain/loss/flat/exit when k changed" width="62%">
@@ -245,22 +245,22 @@ The data reveals that operator pledge served as the primary differentiator for s
 
 In the previous section, we examined the response of delegators within the cohort of pools active at epoch 228 that were undersaturated following the increase in $k$, aiming to evaluate whether the parameter increment correlated with growth among smaller pools. Note that these observations reflect empirical correlations rather than direct causality.
 
-We also want to see the reaction of the operators. The next plot tracks margin rate changes and delegation outcomes between epochs 228 and 285 across the $532$ surviving pools (both under and oversaturated) that were active at epoch 228. The left panel details operator fee adjustments, showing that the vast majority of surviving pools ($63.7\\%$) kept their margin rate unchanged. The right panel correlates these fee decisions to delegation outcomes (but does not imply causality). Operators who reduced their margin are also those who achieved the highest success rate, with $60$ pools gaining stake compared to $43$ losing stake ($58.3\\%$ gainers). Conversely, those with margins unchanged are also those that were less successful in retaining capital, resulting in $184$ pools losing stake versus $155$ gaining stake ($54.3\\%$ losers). Again, this shows correlation but not that keeping the margin unchanged is a bad strategy to retain stakes. Additionally, because overall market conditions changed significantly over this period—marked by a notable growth in total pools and total ecosystem stake—these parameter shifts reflect operator responses to evolving market competition rather than a direct, causal effect of the increase in $k$.
+We also want to see the reaction of the operators. The next plot tracks margin rate changes and delegation outcomes between epochs 228 and 285 across the $427$ surviving pools (both under and oversaturated) that were active at epoch 228. The left panel details operator fee adjustments, showing that the vast majority of surviving pools ($64.2\%$) kept their margin rate unchanged. The right panel correlates these fee decisions to delegation outcomes (but does not imply causality). Operators who reduced their margin are also those who achieved the highest success rate, with $44$ pools gaining stake compared to $33$ losing stake ($57.1\%$ gainers). Conversely, those with margins unchanged are also those that were less successful in retaining capital, resulting in $154$ pools losing stake versus $120$ gaining stake ($56.2\%$ losers). Again, this shows correlation but not that keeping the margin unchanged is a bad strategy to retain stakes. Additionally, because overall market conditions changed significantly over this period—marked by a notable growth in total pools and total ecosystem stake—these parameter shifts reflect operator responses to evolving market competition rather than a direct, causal effect of the increase in $k$.
 
 <p align="center">
 <img src="plots/cohort_margin_change_stake_outcomes_228_285.png" alt="Pools changing margin when k changed" width="62%">
 </p>
 
-The following plots compare pools characteristics—total stake, declared pledge, and active pledge—across the $532$ surviving pools categorized by their subsequent margin fee decisions (reducers, increasers, and no change).
+The following plots compare pools characteristics—total stake, declared pledge, and active pledge—across the $427$ surviving pools categorized by their subsequent margin fee decisions (reducers, increasers, and no change).
 
-The data reveals two distinct strategic profiles among operators. First, total stake strongly influenced fee changes: margin reducers ($n=103$) had smaller stake sizes, whereas margin increasers ($n=90$) were substantially larger, reaching upper quartiles above $31\text{M ADA}$. Second, pledge played a key role in fee cuts: pools that reduced margins held a median declared and active pledge of $50\text{k ADA}$—more than double the $20\text{k ADA}$ median pledge of pools that increased margins. This indicates that while larger pools leveraged existing stake to raise fees, it was smaller, higher-pledge operators that aggressively lowered margins to compete for incoming delegators.
+The data reveals two distinct strategic profiles among operators. First, total stake strongly influenced fee changes: margin reducers ($n=77$) had smaller stake sizes, whereas margin increasers ($n=76$) were substantially larger, reaching upper quartiles above $37\text{M ADA}$. Second, declared pledge played a key role in fee cuts: pools that reduced margins held a median declared pledge of $50\text{k ADA}$—five times the $10\text{k ADA}$ median declared pledge of pools that increased margins. Median active pledge was also higher among reducers ($258\text{k ADA}$ vs $218\text{k ADA}$), but the gap is much smaller once live pledge is measured. This indicates that while larger pools leveraged existing stake to raise fees, it was smaller operators with higher declared pledge that aggressively lowered margins to compete for incoming delegators.
 
 <p align="center">
 <img src="plots/cohort_margin_strategy_characteristics_228.png" alt="Pools characteristics of those changing margin when k changed" width="62%">
 </p>
 
 
-Next, we plot the operator adjustments to declared fixed costs and we see that they were minimal, primarily because $95.7%$ of the surviving cohort ($509$ out of $532$ pools) were already operating at the mandatory minimum threshold (minPoolCost = $340\text{ ADA}$). The left panel tracks pools that modified their margin fee (regardless of changes to other parameters), the center panel displays pools that adjusted their fixed costs (regardless of other changes), and the right panel isolates pools that changed strictly a single parameter—either margin or fixed cost—in either direction.
+Next, we plot the operator adjustments to declared fixed costs and we see that they were minimal, primarily because $95.3\%$ of the surviving cohort ($407$ out of $427$ pools) were already operating at the mandatory minimum threshold (minPoolCost = $340\text{ ADA}$). The left panel tracks pools that modified their margin fee (regardless of changes to other parameters), the center panel displays pools that adjusted their fixed costs (regardless of other changes), and the right panel isolates pools that changed strictly a single parameter—either margin or fixed cost—in either direction.
 
 <p align="center">
   <img src="plots/cohort_mi_ci_change_counts_228_285.png" alt="Pools change in other  parameters when k increases" width="62%">
@@ -272,10 +272,10 @@ The following table compares decentralization metrics for epoch 228 and epoch 28
 
 Nakamoto $N$: minimum number of pools (ranked by active stake) whose aggregate exceeds 50% of total active stake.
 
-| Epoch | Nakamoto \(N\) | Snapshot pools | Aggregate stake of \(N\) | Total active stake | Share | Min-agg declared pledge | Min-agg active pledge |
+| Epoch | Nakamoto $N$ | Snapshot pools | Aggregate stake of $N$ | Total active stake | Share | Min-agg declared pledge | Min-agg active pledge |
 |------:|---------------:|---------------:|-------------------------:|-------------------:|------:|------------------------:|----------------------:|
-| 228 | 57 | 725 | 8.76B ADA | 17.31B ADA | 50.59% | 59.0M ADA | 101.6M ADA |
-| 285 | 195 | 1,594 | 11.59B ADA | 23.12B ADA | 50.14% | 1.09B ADA | 1.23B ADA |
+| 228 | 52 | 594 | 8.18B ADA | 16.21B ADA | 50.46% | 30.3M ADA | 54.0M ADA |
+| 285 | 183 | 1,424 | 10.93B ADA | 21.83B ADA | 50.06% | 972.5M ADA | 1.04B ADA |
 
 The Nakamoto coefficient $N$ is only a cutoff: the smallest number of largest pools whose combined stake exceeds half of $S$. It says nothing about the rest of the size ranking—whether the typical pool grew or shrank, whether stake moved from saturated giants into the middle, or whether a thicker left tail of small pools appeared. Two snapshots can post a similar (or even larger) $N$ for very different reasons. The CDFs below recover that full distribution before and after the $k$ increment.
 
@@ -297,18 +297,17 @@ We recompute operator rewards $\Pi_i$ under $k=150$ and the counterfactual $k=50
 
 $$C^* = 667/6/0.11= 1010.6 \quad \text{ADA per epoch}$$. 
 
-Let $r = \Pi_i / C^\*$. Among $707$ pools with theoretical reward ($18$ out of $725$ are pools where the declared pledge exceeds the epoch 228 stake), $148$ cover $C^\*$ under $k=150$, of which 65 are on the edge $1\le r<2$. Under $k=500$ with the same delegation, only $134$ remain viable and the “Strong” group $r\ge 5$ falls from 32 to 10 — large pools are capped by the lower saturation point.
-
+Let $r = \Pi_i / C^\*$. Among $593$ pools with theoretical reward ($1$ out of $594$ Active pools is a pool where the declared pledge exceeds the epoch 228 stake), $185$ cover $C^\*$ under $k=150$, of which 93 are on the edge $1\le r<2$. Under $k=500$ with the same delegation, only $170$ remain viable and the “Strong” group $r\ge 5$ falls from 30 to 7 — large pools are capped by the lower saturation point.
 The plot shows a moderate impact of the increment of $3.33x$. on $k$ in the operators' viability before any redelegation or operator resonse.
 
 | | $k=150$ | $k=500$  | Variation |
 | :--- | ---: | ---: |---: |
-| Pools  | $707$ | $707$ ||
-| Cover OpEx ($r\ge 1$) | $148$ | $134$ | $-9.5\\%$ |
-| Losing ($0<r<1$) | $559$ | $573$ | $2.5\\%$ |
-| Edge ($1\le r<2$) | $65$ | $71$ | $9.2\\%$ |
-| Comfortable ($2\le r<5$) | $51$ | $53$ | $3.9\\%$ |
-| Strong ($r\ge 5$) | $32$ | $10$ | $-68.8\\%$ |
+| Pools  | $593$ | $593$ ||
+| Cover OpEx ($r\ge 1$) | $185$ | $170$ | $-8.1\%$ |
+| Losing ($0<r<1$) | $408$ | $423$ | $+3.7\%$ |
+| Edge ($1\le r<2$) | $93$ | $99$ | $+6.5\%$ |
+| Comfortable ($2\le r<5$) | $62$ | $64$ | $+3.2\%$ |
+| Strong ($r\ge 5$) | $30$ | $7$ | $-76.7\%$ |
 
 <p align="center">
   <img src="plots/pool_viability_opex_categories_k150_vs_k500_epoch_228.png" alt="Pools viability when k increases" width="62%">
@@ -326,17 +325,17 @@ This measures net yield per ADA after deducting fixed costs ($c_i$) and variable
 
 | Sample and scenario | Pools | Return $>0$ | Median APR | Mean APR |
 | --- | --- | --- | --- | --- |
-| $k=150$: all undersaturated pools | 616 | 418 | 2.96% | 2.50% |
-| $k=150$: survivors | 443 | 366 | 3.98% | 3.17% |
-| $k=500$: survivors, fees adjusted | 443 | 363 | 3.94% | 3.16% |
-| $k=150$: pools exiting by epoch 285 | 173 | 52 | 0.00% | 0.76% |
+| $k=150$: all undersaturated pools | 491 | 340 | 3.23% | 2.63% |
+| $k=150$: survivors | 345 | 295 | 4.16% | 3.40% |
+| $k=500$: survivors, fees adjusted | 345 | 293 | 4.15% | 3.38% |
+| $k=150$: pools exiting by epoch 285 | 146 | 45 | 0.00% | 0.82% |
 
 <p align="center">
   <img src="plots/member_apr_boxplot_undersaturated_k150_vs_k500.png" alt="APR changes when k changed based on Data" width="62%">
 </p>
 
 
-The data shows that surviving pools were inherently higher-yielding at baseline, with $82.6\%$ ($366/443$) generating positive returns (median APR of $3.98\%$), whereas only $30.1\%$ ($52/173$) of exiting pools produced positive returns (median APR of $0.00\%$). The change in $k$ may be responsible in purging underperforming operators, and yielding a slight upward shift in both overall median APR (from $2.96\%$ to $3.98\%$) and mean APR (from $2.50\%$ to $3.17\%$) of the network. Notice that APR for surviving pools remain invariant under the counterfactual $k=500$ parameterization. This suggests that surviving operators may have adjusted their margins and fixed costs sufficiently to absorb protocol parameter changes and preserve steady yields for their delegators. That is, the increase in $k$ enhanced network-wide attractiveness by marginally lifting average delegator APR—a direct result of the exit of weak pools.
+The data shows that surviving pools were inherently higher-yielding at baseline, with $85.5\%$ ($295/345$) generating positive returns (median APR of $4.16\%$), whereas only $30.8\%$ ($45/146$) of exiting pools produced positive returns (median APR of $0.00\%$). The change in $k$ may be responsible in purging underperforming operators, and yielding a slight upward shift in both overall median APR (from $3.23\%$ to $4.16\%$) and mean APR (from $2.63\%$ to $3.40\%$) of the network. Notice that APR for surviving pools remain invariant under the counterfactual $k=500$ parameterization (median $4.16\%$ to $4.15\%$). This suggests that surviving operators may have adjusted their margins and fixed costs sufficiently to absorb protocol parameter changes and preserve steady yields for their delegators. That is, the increase in $k$ enhanced network-wide attractiveness by marginally lifting average delegator APR—a direct result of the exit of weak pools.
 
 
 
