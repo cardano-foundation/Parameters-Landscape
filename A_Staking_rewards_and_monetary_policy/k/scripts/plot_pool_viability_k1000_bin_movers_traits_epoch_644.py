@@ -29,7 +29,7 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_koios_epoch_644.csv"
+POOLS_CSV = DIR / "staking_pools_full_epoch_644_merged.csv"
 VIABILITY_CSV = DIR / "pool_viability_k500_vs_k1000_epoch_644.csv"
 OUT_PLOT = DIR / "pool_viability_k1000_bin_movers_traits_epoch_644.png"
 OUT_CSV = DIR / "pool_viability_k1000_bin_movers_epoch_644.csv"
