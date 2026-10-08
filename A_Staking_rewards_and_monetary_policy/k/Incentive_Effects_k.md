@@ -445,10 +445,6 @@ If all delegators were rational and there were not market frictions, stake shoul
 
 The preceding analysis relies on stylized assumptions regarding both delegator and operator behavior. In practice, delegators do not select pools based solely on the desirability metric $D_i$; they are also influenced by brand reputation, pool loyalty, and/or herding behavior, or they may decide to complete withdrawal from the ecosystem. Similarly, operators—particularly centralized exchanges or multi-pool entities—can launch new pools and actively migrate their existing stake.
 
-
-
-
-  
 ### Pools viability.
 
 We study here the pools viability given the current distribution of stakes, and pools snapshot. As before, we make the exercise of increasing $k$ from $500$ to $1,000$. A higher $k$ creates room for more active pools, but it also lowers the per-pool reward ceiling from about $R/500$ to $R/1000$. 
@@ -480,6 +476,18 @@ using their margin, delegation, active and declared pledge, and declared fixed c
 $$C^*=667/6/0.15=741.1 \text{ USD per epoch},$$
 
 where we used a price $0.15 USD/ADA$. 
+
+We first study how is the viability of the pools grouped by the bins in [Figure 1](#fig-stake-dist). This is shown in the next plot, where we abstain from considering inactive pools.
+
+<p align="center">
+  <img src="plots/stake_distribution_by_bin_viability_r_epoch644.png" alt="Pool viability by bin e644" width="62%">
+</p>
+
+The previous plot illustrate the theoretical expected viability $r=\Pi_i/C^\*$. Dark red is $r<0.5$, salmon $0.5\le r<1$, light green $1\le r<2$, teal $r\ge 2$. After about $30$M ADA, the two green classes are above half the bin in most cases, so the interesting mass of “losers” is the first bin and the next five ($5\text{--}30$M).
+
+In the first bin ($0\text{--}5$M), $98\%$ of pools have $r<1$ and $91\%$ have $r<0.5$. The main reason is that gross reward $f_i(\sigma_i,p_i)$ itself is too small. Median $f_i$ is about $227$ ADA, versus $C^\*\approx 741$, and half the bin has $f_i\le c_i$, so $\Pi_i=f_i$ and $r$ stays below $1$ even when active pledge (the operator’s own share of $\sigma_i$) is high. A large $\hat p/\sigma$ only reallocates a pie that is already below OpEx.
+
+In $5\text{--}30$M, $f_i$ is typically above $c_i$. Declared pledge does not sort green from red. What does is the operator claim $s_i=m_i+(1-m_i)\hat p_i/\sigma_i$ (recall that $\hat p_i$ denotes the active pledge). Green pools are high-margin / near-private (median $m_i\approx 99\%$). Red pools are low-margin, low own-stake, and if anything cheaper on declared cost. So the salmon/red in those five bins are "public" pools that pass a thin member residual to the operator.
 
 The next plot shows the pools' viability comparison for $k=500$ and $k=1,000$ before any redelegation occurs. Groups with $r \geq 1$ reduce their pool count following an increase in $k$, whereas those with $r < 1$ increase theirs. This shift suggests migration between groups, implying a worsening of viability."
 
