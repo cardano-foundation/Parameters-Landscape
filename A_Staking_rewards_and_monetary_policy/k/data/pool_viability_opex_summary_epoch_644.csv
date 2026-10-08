@@ -1,0 +1,14 @@
+quantity,value
+opex_epoch_usd,111.16666666666667
+ada_usd,0.15
+opex_epoch_ada_Cstar,741.1111111111112
+n_pools,2910.0
+n_no_rewards,2008.0
+n_losing,633.0
+n_edge_1_to_2x,151.0
+n_comfortable_2_to_5x,44.0
+n_strong_ge_5x,74.0
+n_rewarded,902.0
+n_viable_now,269.0
+n_viable_now_remain_at_c75,186.0
+n_viable_now_lose_at_c75,83.0
