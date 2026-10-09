@@ -2,6 +2,9 @@
 """
 Declared pledge vs margin (epoch 644).
 
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
 Motivation: a0 tilts the reward function toward declared pledge, so pools that
 commit more pledge already enjoy a larger f(σ,p). If operators use that
 advantage to compete for delegators, we would expect high-pledge pools to also
@@ -20,6 +23,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from a0_common import load_active_pools
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -28,7 +33,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
 OUT_PLOT = DIR / "declared_pledge_vs_margin_epoch_644.png"
 OUT_CSV = DIR / "declared_pledge_vs_margin_epoch_644.csv"
 
@@ -36,7 +40,7 @@ FONT_SIZE = 12
 
 
 def main() -> None:
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     p = pd.to_numeric(df["pool_update.active.pledge"], errors="coerce") / 1e6
     m = pd.to_numeric(df["pool_update.active.margin"], errors="coerce")
 
@@ -93,7 +97,7 @@ def main() -> None:
     ax.set_xlabel(r"Declared pledge $p_i$ (ADA, log scale)", fontsize=FONT_SIZE)
     ax.set_ylabel(r"Margin $m_i$", fontsize=FONT_SIZE)
     ax.set_title(
-        "Epoch 644 — declared pledge vs margin\n"
+        "Epoch 644 — declared pledge vs margin (Active pools)\n"
         r"($a_0$ weights pledge in $f$; do high-$p$ pools also set lower $m$?)",
         fontsize=FONT_SIZE,
     )

@@ -2,8 +2,11 @@
 """
 Member APR by declared-pledge group: a0=0.3 vs a0=0.6 (epoch 644).
 
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
 Declared pledge column: pool_update.active.pledge (lovelace → ADA).
-Three absolute-pledge bins (among complete pools):
+Three absolute-pledge bins (among Active pools):
   Low:  p < 100k
   Mid:  100k ≤ p < 1M
   High: p ≥ 1M
@@ -13,7 +16,7 @@ For each pool and each a0:
   APR_i = 73 (1-m_i) max{f_i - c_i, 0} / σ_i
 
 Boxplot: within each pledge bin, compare a0=0.3 vs 0.6 among
-pledge-met pools with f>c under that a0.
+Active pools with f>c under that a0.
 
 Also reports median APR and subset (stake-weighted) APR per bin × a0.
 
@@ -29,6 +32,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from a0_common import PARAMS_JSON, load_active_pools
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -37,8 +42,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
-PARAMS_JSON = DIR / "f_reward_params_epoch_644.json"
 OUT_PLOT = DIR / "member_apr_a0_by_declared_pledge_epoch_644.png"
 OUT_CSV = DIR / "member_apr_a0_by_declared_pledge_epoch_644.csv"
 OUT_SUMMARY = DIR / "member_apr_a0_by_declared_pledge_epoch_644_summary.csv"
@@ -114,7 +117,7 @@ def main() -> None:
     z0 = float(params["z0_ada"])
     r_over_t = R / T
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"], errors="coerce") / 1e6
     )
@@ -277,7 +280,7 @@ def main() -> None:
         rf"$a_0={A0_BASE}$ vs $a_0={A0_ALT}$"
         "\n"
         rf"($k={k}$, $R={R/1e6:.2f}$M, $T={T/1e9:.2f}$B; "
-        r"$f>c$; $\sigma,p,c,m$ fixed)"
+        r"Active; $f>c$; $\sigma,p,c,m$ fixed)"
         "\n"
         r"APR$=73(1-m)\max\{f-c,0\}/\sigma$",
         fontsize=FONT_SIZE,
@@ -313,8 +316,8 @@ def main() -> None:
 
     md = f"""# Member APR by declared pledge — $a_0={A0_BASE}$ vs $a_0={A0_ALT}$ (epoch 644)
 
-**Declared pledge** is taken from `pool_update.active.pledge` (lovelace → ADA).
-Active pledge (for the pledge-met check) is `pledged`.
+Active pools only. **Declared pledge** is taken from `pool_update.active.pledge`
+(lovelace → ADA). Active pledge (for the pledge-met check) is `pledged`.
 
 Pledge bins (absolute declared pledge):
 - Low: $p < 100$K
@@ -327,7 +330,7 @@ $$
 $$
 
 with $f=0$ when active pledge is below declared. Within each bin, statistics use
-pledge-met pools with $f>c$ under that $a_0$.
+Active pools with $f>c$ under that $a_0$.
 
 **Subset APR** is the stake-weighted mean of $\\mathrm{{APR}}_i$ inside the bin
 (same construction as network APR, restricted to the subset).

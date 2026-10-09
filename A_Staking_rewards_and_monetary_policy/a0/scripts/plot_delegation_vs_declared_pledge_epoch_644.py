@@ -2,6 +2,9 @@
 """
 Correlation: third-party delegation vs declared pledge (epoch 644).
 
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
 Declared pledge        = pool_update.active.pledge   (registered commitment)
 Active pledge          = pledged                    (owner stake actually on chain)
 Third-party delegation = active_stake - pledged      (stake from non-owners)
@@ -22,6 +25,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from a0_common import load_active_pools
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -30,7 +35,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
 OUT_PLOT = DIR / "delegation_vs_declared_pledge_epoch_644.png"
 OUT_CSV = DIR / "delegation_vs_declared_pledge_epoch_644.csv"
 
@@ -47,12 +51,18 @@ def corr_triplet(x: pd.Series, y: pd.Series) -> tuple[float, float, float]:
 
 
 def main() -> None:
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     declared_pledge_ada = (
         pd.to_numeric(df["pool_update.active.pledge"], errors="coerce") / 1e6
     )
     active_pledge_ada = pd.to_numeric(df["pledged"], errors="coerce") / 1e6
-    stake_ada = pd.to_numeric(df["active_stake"], errors="coerce") / 1e6
+    stake_ada = (
+        pd.to_numeric(
+            df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]),
+            errors="coerce",
+        )
+        / 1e6
+    )
 
     out = pd.DataFrame(
         {
@@ -160,9 +170,9 @@ def main() -> None:
     ax.set_xlabel(r"Declared pledge (ADA, log scale)", fontsize=FONT_SIZE)
     ax.set_ylabel(r"Third-party delegation (ADA, log scale)", fontsize=FONT_SIZE)
     ax.set_title(
-        "Epoch 644 — third-party delegation vs declared pledge\n"
+        "Epoch 644 — third-party delegation vs declared pledge (Active)\n"
         r"(declared $=$ pool_update.active.pledge; "
-        r"third-party $=$ active_stake $-$ pledged)",
+        r"third-party $=$ epoch stake $-$ pledged)",
         fontsize=FONT_SIZE,
     )
     ax.tick_params(axis="both", labelsize=FONT_SIZE)

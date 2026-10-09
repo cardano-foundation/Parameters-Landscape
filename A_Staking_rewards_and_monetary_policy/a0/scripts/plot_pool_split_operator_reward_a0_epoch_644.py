@@ -2,6 +2,9 @@
 """
 Pool-split operator-reward comparison at epoch 644 under a0=0.3 vs a0=0.6.
 
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
 Same 1→2 split as the minPoolCost exercise:
   σ' = σ/2,  p' = p/2 (declared),  p̂' = p̂/2 (active),
   same margin m, same declared fixed cost c in each half.
@@ -18,6 +21,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from a0_common import PARAMS_JSON, load_active_pools
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -27,8 +32,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
-PARAMS_JSON = DIR / "f_reward_params_epoch_644.json"
 OUT_CSV = DIR / "pool_split_operator_reward_a0_epoch_644.csv"
 OUT_MD = DIR / "pool_split_operator_reward_a0_epoch_644.md"
 OUT_PLOT = DIR / "pool_split_operator_reward_a0_epoch_644.png"
@@ -367,7 +370,7 @@ def main() -> None:
     k = int(params["k"])
     r_over_t = R / T
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"], errors="coerce") / 1e6
     )
@@ -475,7 +478,7 @@ def main() -> None:
     md = rf"""# Epoch 644 — operator reward if each pool splits in two ($a_0$ scenarios)
 
 Protocol parameters: $k={k}$, $R={R/1e6:.2f}$M ADA, $T={T/1e9:.2f}$B ADA.
-Sample: $n={n}$ pools with complete fields ($\sigma>0$); $n={n_met}$ meet declared pledge.
+Sample: $n={n}$ Active pools with complete fields; $n={n_met}$ meet declared pledge.
 Declared fixed costs and margins are held at the snapshot values in both scenarios.
 
 For each pool we compute theoretical
@@ -614,7 +617,7 @@ When $a_0$ rises from {A0_BASE} to {A0_ALT}, the fraction of pledge-met pools th
     fig.suptitle(
         r"Epoch 644: operator reward $\Pi$ after 1$\to$2 pool split"
         "\n"
-        rf"($a_0\in\{{{A0_BASE},{A0_ALT}\}}$; same $m$, same declared $c_i$ per half; "
+        rf"($a_0\in\{{{A0_BASE},{A0_ALT}\}}$; Active; same $m$, same declared $c_i$ per half; "
         r"half $\sigma$, $p$, $\hat p$)",
         fontsize=FONT_SIZE,
     )

@@ -2,12 +2,15 @@
 """
 Boxplot: theoretical member APR at epoch 644 for a0=0.3 vs a0=0.6.
 
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
 Snapshot stakes, declared costs/margins/pledges held fixed. For each pool:
   f_i(a0) = f(σ_i, p_i; z0, a0) using declared pledge;
             f_i = 0 if active pledge < declared.
   APR_i(a0) = 73 (1-m_i) max{f_i(a0) - c_i, 0} / σ_i
 
-Boxplot groups are pledge-met pools with f > c under that a0.
+Boxplot groups are Active pools with f > c under that a0.
 
 Writes:
   member_apr_a0_0p3_vs_0p6_epoch_644.png
@@ -20,6 +23,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from a0_common import PARAMS_JSON, load_active_pools
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -28,8 +33,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
-PARAMS_JSON = DIR / "f_reward_params_epoch_644.json"
 OUT_PLOT = DIR / "member_apr_a0_0p3_vs_0p6_epoch_644.png"
 OUT_CSV = DIR / "member_apr_a0_0p3_vs_0p6_epoch_644.csv"
 OUT_MD = DIR / "member_apr_a0_0p3_vs_0p6_epoch_644.md"
@@ -88,7 +91,7 @@ def main() -> None:
     z0 = float(params["z0_ada"])
     r_over_t = R / T
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"], errors="coerce") / 1e6
     )
@@ -191,7 +194,7 @@ def main() -> None:
         rf"$a_0={A0_BASE}$ vs $a_0={A0_ALT}$"
         "\n"
         rf"($k={k}$, $R={R/1e6:.2f}$M, $T={T/1e9:.2f}$B; "
-        r"$f>c$; $\sigma,p,c,m$ fixed)"
+        r"Active; $f>c$; $\sigma,p,c,m$ fixed)"
         "\n"
         r"APR$=73(1-m)\max\{f-c,0\}/\sigma$",
         fontsize=FONT_SIZE,
@@ -229,8 +232,8 @@ def main() -> None:
 
     md = f"""# Member APR — $a_0={A0_BASE}$ vs $a_0={A0_ALT}$ (epoch 644)
 
-Snapshot stakes and declared pool parameters held fixed. Protocol: $k={k}$,
-$z_0={z0/1e6:.2f}$M ADA, $R={R/1e6:.2f}$M ADA, $T={T/1e9:.2f}$B ADA.
+Active pools only. Snapshot stakes and declared pool parameters held fixed.
+Protocol: $k={k}$, $z_0={z0/1e6:.2f}$M ADA, $R={R/1e6:.2f}$M ADA, $T={T/1e9:.2f}$B ADA.
 
 $$
 \\mathrm{{APR}}_i(a_0)
@@ -238,7 +241,7 @@ $$
 $$
 
 with $f=0$ when active pledge is below declared pledge. Boxplot groups are
-pledge-met pools with $f>c$ under that $a_0$.
+Active pools with $f>c$ under that $a_0$.
 
 | Case | Pools ($f>c$) | Median APR | Mean APR | Network APR | Δ network vs $a_0={A0_BASE}$ |
 |:---|---:|---:|---:|---:|---:|

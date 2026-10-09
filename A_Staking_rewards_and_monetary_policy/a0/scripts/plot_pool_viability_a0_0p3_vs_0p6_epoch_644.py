@@ -2,6 +2,9 @@
 """
 Theoretical pool viability at epoch 644: a0=0.3 vs a0=0.6.
 
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
 U_i = Pi_i - C*,  r_i = Pi_i / C*, with C* = 741.1 ADA/epoch (667 USD/month,
 six epochs, ADA at 0.15 USD). Only a0 changes; σ, p, p̂, c, m held fixed.
 
@@ -18,6 +21,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from a0_common import PARAMS_JSON, load_active_pools
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -26,8 +31,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
-PARAMS_JSON = DIR / "f_reward_params_epoch_644.json"
 OUT_PLOT = DIR / "pool_viability_a0_0p3_vs_0p6_epoch_644.png"
 OUT_TRAITS = DIR / "pool_viability_losing_vs_edge_traits_a0_0p6_epoch_644.png"
 OUT_CSV = DIR / "pool_viability_a0_0p3_vs_0p6_epoch_644.csv"
@@ -206,7 +209,7 @@ def main() -> None:
     k = int(params["k"])
     r_over_t = R / T
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"], errors="coerce") / 1e6
     )
@@ -296,7 +299,7 @@ def main() -> None:
     n_edge0 = heights0[4]
     n_edge1 = heights1[4]
 
-    # --- Elasticity metrics (pledge-met only) ---
+    # --- Elasticity metrics (Active / pledge-met) ---
     da0 = A0_ALT - A0_BASE
     share0 = n_viable0 / n_met
     share1 = n_viable1 / n_met
@@ -367,13 +370,13 @@ def main() -> None:
         rf"$a_0={A0_BASE}$ vs $a_0={A0_ALT}$"
         "\n"
         rf"($C^*={C_STAR_ADA:.1f}$ ADA/epoch, $r=\Pi_i/C^*$; "
-        r"$\sigma,p,\hat p,c,m$ fixed)",
+        r"Active; $\sigma,p,\hat p,c,m$ fixed)",
         fontsize=FONT_SIZE,
     )
     ax.text(
         0.02,
         0.97,
-        f"Pledge-met: {n_met}\n"
+        f"Active: {n_met}\n"
         rf"$a_0={A0_BASE}$: Losing={n_losing0}, Cover={n_viable0}, Edge={n_edge0}"
         "\n"
         rf"$a_0={A0_ALT}$: Losing={n_losing1}, Cover={n_viable1}, Edge={n_edge1}",
@@ -514,8 +517,9 @@ def main() -> None:
         0.0,
         0.9,
         f"Categories under $a_0={A0_ALT}$.\n"
-        f"Not included:\n"
-        f"• pledge not met: {n_unmet}",
+        f"Active pools only.\n"
+        f"Excluded Inactive: σ=0, unmet\n"
+        f"pledge, or zero blocks last 15.",
         ha="left",
         va="top",
         fontsize=FONT_SIZE,
@@ -524,7 +528,7 @@ def main() -> None:
     fig_t.suptitle(
         rf"Epoch 644 — Losing vs Edge traits under $a_0={A0_ALT}$"
         "\n"
-        rf"($C^*={C_STAR_ADA:.1f}$ ADA/epoch, $r=\Pi_i/C^*$; pledge-met pools)",
+        rf"($C^*={C_STAR_ADA:.1f}$ ADA/epoch, $r=\Pi_i/C^*$; Active pools)",
         fontsize=FONT_SIZE,
     )
     fig_t.savefig(OUT_TRAITS, dpi=160)
@@ -564,7 +568,7 @@ def main() -> None:
 - Monthly OpEx: {MONTHLY_OPEX_USD:.0f} USD
 - ADA price: {ADA_USD:.2f} USD/ADA
 - $C^*={C_STAR_ADA:.1f}$ ADA per epoch
-- Pledge-met pools: {n_met}; pledge not met: {n_unmet}
+- Active pools: {n_met} (Inactive excluded: $\\sigma=0$, unmet pledge, or zero blocks in epochs 630–644)
 - Protocol: $k={k}$, $R={R/1e6:.2f}$M, $T={T/1e9:.2f}$B
 - Only $a_0$ changes; $\\sigma,p,\\hat p,c,m$ fixed
 
@@ -574,10 +578,10 @@ $$
 
 {cat_table}
 
-Transitions (pledge-met): lose viability ($r\\ge1\\to r<1$): {n_lost};
+Transitions (Active): lose viability ($r\\ge1\\to r<1$): {n_lost};
 gain viability: {n_gained}.
 
-## Characteristics under $a_0={A0_ALT}$ (pledge-met)
+## Characteristics under $a_0={A0_ALT}$ (Active)
 
 {traits_md_1}
 
@@ -629,7 +633,7 @@ $$
 C^*=667/6/0.15={C_STAR_ADA:.1f}\\text{{ ADA per epoch}}.
 $$
 
-We report $r_i=\\Pi_i/C^*$ (equivalently $U_i=\\Pi_i-C^*$, so $r_i<1\\iff U_i<0$). Among ${n_met}$ pledge-met pools, raising $a_0$ from ${A0_BASE}$ to ${A0_ALT}$ reduces the number that cover OpEx from ${n_viable0}$ to ${n_viable1}$ (${n_viable1-n_viable0:+d}$), and increases the Losing ($r<1$) count from ${n_losing0}$ to ${n_losing1}$. ${n_lost}$ pools cross from viable to losing; ${n_gained}$ move the other way.
+We report $r_i=\\Pi_i/C^*$ (equivalently $U_i=\\Pi_i-C^*$, so $r_i<1\\iff U_i<0$). Among ${n_met}$ Active pools, raising $a_0$ from ${A0_BASE}$ to ${A0_ALT}$ reduces the number that cover OpEx from ${n_viable0}$ to ${n_viable1}$ (${n_viable1-n_viable0:+d}$), and increases the Losing ($r<1$) count from ${n_losing0}$ to ${n_losing1}$. ${n_lost}$ pools cross from viable to losing; ${n_gained}$ move the other way.
 
 <p align="center">
 <img src="plots/{OUT_PLOT.name}" alt="Pools theoretical viability a0=0.3 vs 0.6" width="72%">
@@ -658,7 +662,7 @@ $$
 s(a_0)=\\frac{{\\#\\{{i:\\,r_i(a_0)\\ge 1\\}}}}{{N}},
 $$
 
-with $N={n_met}$ pledge-met pools. Empirically $\\eta^{{\\mathrm{{ext}}}}={eta_ext:.4f}$ (about ${100*eta_ext:.2f}$ percentage points of the viable share per unit of $a_0$).
+with $N={n_met}$ Active pools. Empirically $\\eta^{{\\mathrm{{ext}}}}={eta_ext:.4f}$ (about ${100*eta_ext:.2f}$ percentage points of the viable share per unit of $a_0$).
 
 An **intensive-margin semi-elasticity** of coverage is
 
@@ -681,7 +685,7 @@ These metrics summarize how one unit of $a_0$ maps into (i) how many pools clear
     OUT_SECTION.write_text(section, encoding="utf-8")
 
     print(f"C*={C_STAR_ADA:.4f}")
-    print(f"pledge-met={n_met}, unmet={n_unmet}")
+    print(f"Active pledge-met={n_met}, unmet-within-Active={n_unmet}")
     print(f"a0={A0_BASE}: losing={n_losing0}, cover={n_viable0}, edge={n_edge0}")
     print(f"a0={A0_ALT}: losing={n_losing1}, cover={n_viable1}, edge={n_edge1}")
     print(f"lost viability={n_lost}, gained={n_gained}")
