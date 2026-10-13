@@ -2,7 +2,10 @@
 """
 Pool-split operator-reward comparison at epoch 644.
 
-For each pool with complete fields, compute theoretical operator reward Π_i,
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
+For each Active pool with complete fields, compute theoretical operator reward Π_i,
 then the sum of rewards if the pool splits into two identical halves:
 
   σ' = σ/2,  p' = p/2 (declared),  p̂' = p̂/2 (active),
@@ -20,6 +23,13 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from minpoolcost_common import (
+    PARAMS_JSON,
+    gross_pool_reward,
+    load_active_pools,
+    operator_reward,
+)
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -29,8 +39,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
-PARAMS_JSON = DIR / "f_reward_params_epoch_644.json"
 OUT_CSV = DIR / "pool_split_operator_reward_epoch_644.csv"
 OUT_MD = DIR / "pool_split_operator_reward_epoch_644.md"
 OUT_PLOT = DIR / "pool_split_operator_reward_epoch_644.png"
@@ -42,44 +50,6 @@ EPS = 1e-12
 COLOR_INC = "#2a9d8f"
 COLOR_DEC = "#e76f51"
 MEDIAN_COLOR = "#111111"
-
-
-def gross_pool_reward(
-    sigma: np.ndarray,
-    declared_pledge: np.ndarray,
-    *,
-    z0: float,
-    r_over_t: float,
-    a0: float,
-) -> np.ndarray:
-    sigma_tilde = np.minimum(sigma, z0)
-    pledge_tilde = np.minimum(declared_pledge, z0)
-    inner = sigma_tilde - pledge_tilde * (z0 - sigma_tilde) / z0
-    return (r_over_t / (1.0 + a0)) * (
-        sigma_tilde + a0 * pledge_tilde * inner / z0
-    )
-
-
-def operator_reward(
-    f: np.ndarray,
-    fixed_cost: np.ndarray,
-    margin: np.ndarray,
-    active_pledge: np.ndarray,
-    sigma: np.ndarray,
-) -> np.ndarray:
-    pledge_share = np.clip(
-        np.divide(
-            active_pledge,
-            sigma,
-            out=np.zeros_like(active_pledge),
-            where=sigma > 0,
-        ),
-        0.0,
-        1.0,
-    )
-    operator_share = margin + (1.0 - margin) * pledge_share
-    profitable = fixed_cost + (f - fixed_cost) * operator_share
-    return np.where(f > fixed_cost, profitable, f)
 
 
 def theoretical_pi(
@@ -308,7 +278,8 @@ def plot_traits_inc_vs_dec(
         fontsize=FONT_SIZE,
     )
     fig.suptitle(
-        "Epoch 644 — characteristics of pools by split outcome\n" + subtitle,
+        "Epoch 644 — characteristics of pools by split outcome (Active)\n"
+        + subtitle,
         fontsize=FONT_SIZE,
     )
     fig.savefig(out_path, dpi=160)
@@ -354,7 +325,7 @@ def main() -> None:
     r_over_t = R / T
     kw = dict(z0=z0, r_over_t=r_over_t, a0=a0)
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"], errors="coerce") / 1e6
     )
@@ -465,7 +436,7 @@ def main() -> None:
     md = rf"""# Epoch 644 — operator reward if each pool splits in two
 
 Protocol parameters: $k={k}$, $a_0={a0}$, $R={R/1e6:.2f}$M ADA, $T={T/1e9:.2f}$B ADA.
-Sample: $n={n}$ pools with complete fields ($\sigma>0$); $n={n_met}$ meet declared pledge.
+Sample: $n={n}$ Active pools with complete fields.
 
 For each pool we compute theoretical
 
@@ -488,11 +459,11 @@ We compare $\Pi_i$ to $\Pi'+\Pi'=2\Pi(\sigma',p',\hat p',c,m_i)$.
 
 ## Scenario A — original declared fixed costs
 
-| Outcome | All complete pools | Pledge-met only |
-|---|---:|---:|
-| $\Pi$ increases after split | {inc_a} ({100*inc_a/n:.1f}%) | {inc_am} ({100*inc_am/n_met:.1f}%) |
-| $\Pi$ decreases after split | {dec_a} ({100*dec_a/n:.1f}%) | {dec_am} ({100*dec_am/n_met:.1f}%) |
-| Unchanged | {same_a} ({100*same_a/n:.1f}%) | {same_am} ({100*same_am/n_met:.1f}%) |
+| Outcome | Active pools |
+|---|---:|
+| $\Pi$ increases after split | {inc_a} ({100*inc_a/n:.1f}%) |
+| $\Pi$ decreases after split | {dec_a} ({100*dec_a/n:.1f}%) |
+| Unchanged | {same_a} ({100*same_a/n:.1f}%) |
 
 Median $\Delta\Pi=\Pi_{{\mathrm{{split}}}}-\Pi_{{\mathrm{{unsplit}}}}$: {med_d_a:.2f} ADA/epoch; mean: {mean_d_a:.2f} ADA/epoch.
 
@@ -506,11 +477,11 @@ Plot: `{OUT_TRAITS_A.name}`.
 
 Both the unsplit pool and each half use $c'=c_i/2$ (no `minPoolCost` floor applied).
 
-| Outcome | All complete pools | Pledge-met only |
-|---|---:|---:|
-| $\Pi$ increases after split | {inc_b} ({100*inc_b/n:.1f}%) | {inc_bm} ({100*inc_bm/n_met:.1f}%) |
-| $\Pi$ decreases after split | {dec_b} ({100*dec_b/n:.1f}%) | {dec_bm} ({100*dec_bm/n_met:.1f}%) |
-| Unchanged | {same_b} ({100*same_b/n:.1f}%) | {same_bm} ({100*same_bm/n_met:.1f}%) |
+| Outcome | Active pools |
+|---|---:|
+| $\Pi$ increases after split | {inc_b} ({100*inc_b/n:.1f}%) |
+| $\Pi$ decreases after split | {dec_b} ({100*dec_b/n:.1f}%) |
+| Unchanged | {same_b} ({100*same_b/n:.1f}%) |
 
 Median $\Delta\Pi$: {med_d_b:.2f} ADA/epoch; mean: {mean_d_b:.2f} ADA/epoch.
 
@@ -559,7 +530,7 @@ Per-pool detail: `{OUT_CSV.name}`.
                 fontsize=FONT_SIZE - 2,
             )
     fig.suptitle(
-        r"Epoch 644: operator reward $\Pi$ after 1$\to$2 pool split"
+        r"Epoch 644: operator reward $\Pi$ after 1$\to$2 pool split (Active)"
         "\n"
         r"(same $m$, same declared $c$ per half; half $\sigma$, $p$, $\hat p$)",
         fontsize=FONT_SIZE,

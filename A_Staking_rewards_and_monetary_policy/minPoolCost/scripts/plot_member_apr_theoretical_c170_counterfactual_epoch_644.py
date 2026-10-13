@@ -2,7 +2,10 @@
 """
 Theoretical delegator APR at epoch 644: baseline vs uniform minPoolCost floors.
 
-For each pool with complete fields:
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
+For each Active pool with complete fields:
   f_i = f(σ_i, p_i) using declared pledge; f_i = 0 if active pledge < declared.
   APR_i = 73 (1-m_i) max{f_i - c_i, 0} / σ_i
 
@@ -18,6 +21,14 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from minpoolcost_common import (
+    C_STAR_ADA,
+    PARAMS_JSON,
+    gross_pool_reward,
+    load_active_pools,
+    operator_reward,
+)
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -26,8 +37,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
-PARAMS_JSON = DIR / "f_reward_params_epoch_644.json"
 OUT_CSV = DIR / "member_apr_theoretical_c170_counterfactual_epoch_644.csv"
 OUT_SUMMARY_CSV = DIR / "member_apr_theoretical_c170_counterfactual_epoch_644_summary.csv"
 OUT_MD = DIR / "member_apr_theoretical_c170_counterfactual_epoch_644.md"
@@ -36,30 +45,9 @@ OUT_PLOT = DIR / "member_apr_theoretical_c170_counterfactual_epoch_644.png"
 FONT_SIZE = 12
 EPOCHS_PER_YEAR = 73.0
 C_CASES = (170.0, 75.0, 25.0)
-# Same OpEx benchmark as pool_viability_theoretical_all_pools_epoch_644.py
-MONTHLY_OPEX_USD = 667.0
-EPOCHS_PER_MONTH = 6.0
-ADA_USD = 0.15
-C_STAR_ADA = MONTHLY_OPEX_USD / EPOCHS_PER_MONTH / ADA_USD
 BOX_FACE = "#f4c4a8"
 BOX_EDGE = "0.15"
 MEDIAN_COLOR = "#111111"
-
-
-def gross_pool_reward(
-    sigma: np.ndarray,
-    declared_pledge: np.ndarray,
-    *,
-    z0: float,
-    r_over_t: float,
-    a0: float,
-) -> np.ndarray:
-    sigma_tilde = np.minimum(sigma, z0)
-    pledge_tilde = np.minimum(declared_pledge, z0)
-    inner = sigma_tilde - pledge_tilde * (z0 - sigma_tilde) / z0
-    return (r_over_t / (1.0 + a0)) * (
-        sigma_tilde + a0 * pledge_tilde * inner / z0
-    )
 
 
 def member_apr(
@@ -72,28 +60,6 @@ def member_apr(
     return EPOCHS_PER_YEAR * np.divide(
         pot, sigma, out=np.zeros_like(pot), where=sigma > 0
     )
-
-
-def operator_reward(
-    f: np.ndarray,
-    fixed_cost: np.ndarray,
-    margin: np.ndarray,
-    active_pledge: np.ndarray,
-    sigma: np.ndarray,
-) -> np.ndarray:
-    pledge_share = np.clip(
-        np.divide(
-            active_pledge,
-            sigma,
-            out=np.zeros_like(active_pledge),
-            where=sigma > 0,
-        ),
-        0.0,
-        1.0,
-    )
-    operator_share = margin + (1.0 - margin) * pledge_share
-    profitable = fixed_cost + (f - fixed_cost) * operator_share
-    return np.where(f > fixed_cost, profitable, f)
 
 
 def network_stats(
@@ -151,7 +117,7 @@ def main() -> None:
     z0 = float(params["z0_ada"])
     k = int(params["k"])
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"], errors="coerce") / 1e6
     )
@@ -248,8 +214,8 @@ def main() -> None:
         ),
     ]
     note_lines = [
-        f"Losing counts use $r=\\Pi_i/C^*$ among pledge-met pools only "
-        f"($n={b['n_pledge_met']}$; complete pools $n={b['n_pools']}$). "
+        f"Losing counts use $r=\\Pi_i/C^*$ among Active pools "
+        f"($n={b['n_pledge_met']}$; complete Active pools $n={b['n_pools']}$). "
         f"Change (%) is relative to baseline."
     ]
     for c_val in C_CASES:
@@ -268,7 +234,7 @@ def main() -> None:
 
     md = rf"""# Epoch 644 — theoretical delegator APR: baseline vs uniform $c_i$
 
-For each pool with complete fields we compute
+For each Active pool with complete fields we compute
 
 $$
 \mathrm{{APR}}_i = 73\,(1-m_i)\,\frac{{\max\{{f(\sigma_i,p_i)-c_i,0\}}}}{{\sigma_i}},
@@ -321,7 +287,7 @@ with $f=0$ when active pledge is below declared pledge (same rule as the theoret
     ax.grid(axis="y", alpha=0.25)
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
     fig.suptitle(
-        "Epoch 644 — theoretical member APR\n"
+        "Epoch 644 — theoretical member APR (Active)\n"
         rf"($k={k}$, $a_0={a0}$; $\sigma,p,m$ fixed; "
         rf"uniform $c_i\in\{{{', '.join(f'{c:.0f}' for c in C_CASES)}\}}$)"
         "\n"

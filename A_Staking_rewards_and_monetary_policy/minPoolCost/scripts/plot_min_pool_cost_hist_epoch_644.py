@@ -2,6 +2,9 @@
 """
 Histogram of declared pool fixed cost (epoch 644).
 
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
 Column: pool_update.active.fixed_cost (lovelace)
   = each pool's declared fixed cost (must be >= protocol parameter minPoolCost).
   Not the protocol floor itself; that is minPoolCost on-chain.
@@ -14,6 +17,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from minpoolcost_common import load_active_pools
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -22,7 +27,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
 OUT_PLOT = DIR / "min_pool_cost_hist_epoch_644.png"
 COL = "pool_update.active.fixed_cost"
 
@@ -36,7 +40,7 @@ DEFAULT_COLOR = "#4c78a8"
 
 
 def main() -> None:
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     cost_lov = pd.to_numeric(df[COL], errors="coerce").dropna()
     cost_ada = (cost_lov / 1e6).to_numpy(dtype=float)
     n = len(cost_ada)
@@ -83,7 +87,7 @@ def main() -> None:
     ax.set_xlabel("Declared fixed cost (ADA)", fontsize=FONT_SIZE)
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
     ax.set_title(
-        "Epoch 644 — declared pool fixed cost (≤ 1,000 ADA)",
+        "Epoch 644 — declared pool fixed cost (≤ 1,000 ADA; Active)",
         fontsize=FONT_SIZE,
     )
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
@@ -91,7 +95,7 @@ def main() -> None:
         0.98,
         0.95,
         f"{n_tail} pools with fixed cost above 1,000 ADA\n"
-        f"(of {n} pools; column: {COL})",
+        f"(of {n} Active pools; column: {COL})",
         transform=ax.transAxes,
         ha="right",
         va="top",

@@ -3,11 +3,14 @@
 Histogram: % operator-reward loss if pools with fixed cost 340 ADA
 had declared 170 ADA instead (epoch 644).
 
-For each pool with declared fixed cost = 340 ADA and positive epoch rewards:
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
+For each Active pool with declared fixed cost = 340 ADA and positive epoch rewards:
   f = member_lovelace + leader_lovelace   (total pool rewards, held fixed)
   Π(c) = f                         if f ≤ c
        = c + (f - c) * share       if f > c
-  share = m + (1 - m) * (p / σ)    (margin + pledge share of remainder)
+  share = m + (1 - m) * (p̂ / σ)   (margin + active-pledge share of remainder)
 
   loss % = 100 * (Π(340) - Π(170)) / Π(340)
 
@@ -22,6 +25,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from minpoolcost_common import load_active_pools
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -30,7 +35,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
 OUT_PLOT = DIR / "fixed_cost_340_to_170_loss_hist_epoch_644.png"
 OUT_CSV = DIR / "fixed_cost_340_to_170_loss_epoch_644.csv"
 
@@ -47,12 +51,12 @@ def operator_reward(
 
 
 def main() -> None:
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     cost = pd.to_numeric(df["pool_update.active.fixed_cost"], errors="coerce")
     m = pd.to_numeric(df["pool_update.active.margin"], errors="coerce").fillna(0.0)
     leader = pd.to_numeric(df["epochs.0.data.reward.leader_lovelace"], errors="coerce")
     member = pd.to_numeric(df["epochs.0.data.reward.member_lovelace"], errors="coerce")
-    pledge = pd.to_numeric(df["pool_update.active.pledge"], errors="coerce").fillna(0.0)
+    pledge = pd.to_numeric(df["pledged"], errors="coerce").fillna(0.0)
     stake = pd.to_numeric(df["epochs.0.data.epoch_stake"], errors="coerce")
 
     f = leader + member
@@ -79,7 +83,7 @@ def main() -> None:
             "pool_id": sub["pool_id"].to_numpy(),
             "pool_ticker": sub["pool_name.ticker"].to_numpy(),
             "margin": m_,
-            "pledge_lovelace": p_,
+            "active_pledge_lovelace": p_,
             "epoch_stake_lovelace": s_,
             "f_lovelace": f_,
             "operator_reward_c340_lovelace": pi340,
@@ -113,8 +117,8 @@ def main() -> None:
     )
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
     ax.set_title(
-        "Epoch 644 — pools with declared fixed cost 340 ADA\n"
-        r"($f$, margin, pledge held fixed; $n=" + f"{len(out)}$"
+        "Epoch 644 — Active pools with declared fixed cost 340 ADA\n"
+        r"($f$, margin, active pledge held fixed; $n=" + f"{len(out)}$"
         r" pools with rewards)",
         fontsize=FONT_SIZE,
     )

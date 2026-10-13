@@ -2,6 +2,9 @@
 """
 Pool viability vs real OpEx (epoch 644) — category bars + losing/edge traits.
 
+Active pools only (not σ=0, not unmet pledge, not zero blocks in
+epochs 630–644). Merged snapshot (unique-owner live pledge).
+
 Assumptions
 -----------
   OpEx per epoch C* = (667 / 6) / 0.15 ≈ 741.11 ADA
@@ -20,7 +23,7 @@ Counterfactual declare c=75:
 
 Writes
   pool_viability_opex_categories_epoch_644.png   (bar chart)
-  pool_viability_losing_vs_edge_traits_epoch_644.png
+  pool_viability_opex_losing_vs_edge_traits_epoch_644.png
   pool_viability_opex_epoch_644.csv
   pool_viability_opex_summary_epoch_644.csv
 
@@ -32,6 +35,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from minpoolcost_common import C_STAR_ADA, load_active_pools
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -40,9 +45,8 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
 OUT_BARS = DIR / "pool_viability_opex_categories_epoch_644.png"
-OUT_TRAITS = DIR / "pool_viability_losing_vs_edge_traits_epoch_644.png"
+OUT_TRAITS = DIR / "pool_viability_opex_losing_vs_edge_traits_epoch_644.png"
 OUT_CSV = DIR / "pool_viability_opex_epoch_644.csv"
 OUT_SUMMARY = DIR / "pool_viability_opex_summary_epoch_644.csv"
 # keep older combined figure name updated too
@@ -51,7 +55,6 @@ OUT_COMBINED = DIR / "pool_viability_opex_epoch_644.png"
 FONT_SIZE = 12
 OPEX_EPOCH_USD = 667.0 / 6.0
 ADA_USD = 0.15
-C_STAR_ADA = OPEX_EPOCH_USD / ADA_USD
 C75 = 75.0
 
 COLOR_LOSING = "#d62828"
@@ -83,7 +86,7 @@ def classify_ratio(r: float) -> str:
 
 
 def main() -> None:
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     leader = pd.to_numeric(df["epochs.0.data.reward.leader_lovelace"], errors="coerce").fillna(0.0) / 1e6
     member = pd.to_numeric(df["epochs.0.data.reward.member_lovelace"], errors="coerce").fillna(0.0) / 1e6
     margin = pd.to_numeric(df["pool_update.active.margin"], errors="coerce").fillna(0.0)
@@ -174,7 +177,7 @@ def main() -> None:
     ax.set_xticklabels(cat_labels, fontsize=FONT_SIZE)
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
     ax.set_title(
-        "Epoch 644 — viability vs OpEx\n"
+        "Epoch 644 — viability vs OpEx (Active; observed leader rewards)\n"
         rf"($C^*={C_STAR_ADA:.1f}$ ADA/epoch, $r=\Pi_i/C^*$)",
         fontsize=FONT_SIZE,
     )
@@ -235,7 +238,7 @@ def main() -> None:
         bbox=dict(boxstyle="round,pad=0.35", facecolor="white", edgecolor="0.8", alpha=0.95),
     )
     fig2.suptitle(
-        "Epoch 644 — viability vs OpEx\n"
+        "Epoch 644 — viability vs OpEx (Active; observed leader rewards)\n"
         rf"($C^*={C_STAR_ADA:.1f}$ ADA/epoch, $r=\Pi_i/C^*$)",
         fontsize=FONT_SIZE,
     )
@@ -341,7 +344,7 @@ def main() -> None:
     axes[2, 2].axis("off")
 
     fig3.suptitle(
-        "Epoch 644 — characteristics of Losing vs Edge pools\n"
+        "Epoch 644 — characteristics of Losing vs Edge pools (Active; observed)\n"
         rf"($r=\Pi_i/C^*$, $C^*={C_STAR_ADA:.1f}$ ADA/epoch)",
         fontsize=FONT_SIZE,
     )

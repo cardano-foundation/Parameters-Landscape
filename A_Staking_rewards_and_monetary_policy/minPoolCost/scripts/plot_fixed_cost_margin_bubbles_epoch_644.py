@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
 Bubble chart: pool counts by declared fixed cost and margin.
-All pools. Epoch 644.
+Active pools. Epoch 644.
+
+Active = not σ=0, not unmet pledge, not zero blocks in epochs 630–644.
+Merged snapshot (unique-owner live pledge).
 
 Major fixed-cost values are shown separately; sparse values are
 grouped as "other".
@@ -14,6 +17,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from minpoolcost_common import load_active_pools
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -22,7 +27,6 @@ import numpy as np
 import pandas as pd
 
 DIR = Path(__file__).resolve().parent
-POOLS_CSV = DIR / "staking_pools_full_epoch_644.csv"
 OUT_PLOT = DIR / "fixed_cost_margin_bubbles_epoch_644.png"
 
 FONT_SIZE = 12
@@ -60,7 +64,7 @@ def cost_group(cost: float) -> float | str:
 
 
 def load() -> pd.DataFrame:
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     out = pd.DataFrame(
         {
             "cost_ada": pd.to_numeric(df["pool_update.active.fixed_cost"], errors="coerce")
@@ -132,7 +136,7 @@ def main() -> None:
     ax.set_ylabel("Declared margin m", fontsize=FONT_SIZE)
     ax.set_title(
         "Epoch 644 — pool counts by fixed cost and margin\n"
-        "(all pools; circle area ∝ count; sparse costs → other)",
+        "(Active; circle area ∝ count; sparse costs → other)",
         fontsize=FONT_SIZE,
     )
     ax.tick_params(axis="both", labelsize=FONT_SIZE - 1)
@@ -157,7 +161,7 @@ def main() -> None:
     ax.text(
         0.02,
         0.02,
-        f"n={len(data)} pools; other covers {len(other_vals)} distinct costs",
+        f"n={len(data)} Active pools; other covers {len(other_vals)} distinct costs",
         transform=ax.transAxes,
         ha="left",
         va="bottom",
