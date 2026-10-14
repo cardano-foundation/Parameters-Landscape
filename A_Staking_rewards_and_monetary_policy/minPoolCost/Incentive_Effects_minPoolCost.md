@@ -22,11 +22,11 @@ Reducing minPoolCost is conditionally beneficial. The net effect depends on whic
 5. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only cuts. Among cost reducers, raising margin ($22.3%$) was more common than also cutting it ($10.0%$).
 
 **Behavioral and equilibrium discussion**
-1. Cost reductions were selective and limited: only a minority of pools adjusted their declared fixed costs, and those that did were generally stronger or better positioned before the shock.
+1. Cost reductions were selective and limited: only a minority of Active pools adjusted their declared fixed costs, and those that did were smaller at the median than non-reducers.
 2. Fixed-cost reducers were more likely to gain delegation, particularly smaller pools, but the response was concentrated in a subset of operators rather than a broad network-wide effect.
-3. Combining fixed-cost reductions with margin cuts was more effective than fixed-cost reductions alone, suggesting that the competitive response involved coordinated price adjustment rather than cost changes alone.
+3. Combining fixed-cost reductions with margin cuts was more effective than fixed-cost reductions alone.
 4. The decentralization signal was mixed: there was some redistribution toward smaller pools among reducers, but whole-network concentration metrics did not clearly improve (Nakamoto $N$ from $190$ to $185$; min-agg active pledge from $1.58\text{B}$ to $1.39\text{B}$ ADA).
-7. Operator viability weakened after the cut (Cover OpEx from $827$ to $741$), showing that lower minPoolCost improved competitiveness for some pools while reducing the economic cushion for many operators.
+5. Operator viability weakened after the cut (Cover OpEx from $827$ to $741$), showing that lower minPoolCost improved competitiveness for some pools while reducing the economic cushion for many operators.
 
 **Policy interpretation**
 1. Trade-off: lower minPoolCost can improve delegator APR while reducing operator viability.
@@ -200,7 +200,7 @@ The following plot compares the baseline epoch $426$ characteristics across Acti
 </p>
 
 
-Next, we compare the baseline epoch $426$ characteristics between margin-reducing Active pools that gained total stake ("Gainers", $n=31$) and those that lost stake ("Losers", $n=25$). As with fixed-cost reducers, Gainers had lower median stake ($1.7\text{M ADA}$) than Losers ($2.2\text{M ADA}$). The gap is smaller than for cost cuts, but Losers have a longer upper tail (75th percentile $18.6\text{M}$ vs $6.4\text{M ADA}$). Median declared and active pledge are not the same: Gainers sit higher ($50\text{k}$ and $101\text{k ADA}$) than Losers ($20\text{k}$ and $57\text{k ADA}$), and Gainers also have a wider dispertion on both pledge measures. In this Active sample, margin cuts are associated with stake gains mainly among smaller-stake pools; larger pools in the upper tail still lost stake after lowering $m_i$.
+Next, we compare the baseline epoch $426$ characteristics between margin-reducing Active pools that gained total stake ("Gainers", $n=31$) and those that lost stake ("Losers", $n=25$). As with fixed-cost reducers, Gainers had lower median stake ($1.7\text{M ADA}$) than Losers ($2.2\text{M ADA}$). The gap is smaller than for cost cuts, but Losers have a longer upper tail (75th percentile $18.6\text{M}$ vs $6.4\text{M ADA}$). Median declared and active pledge are not the same: Gainers sit higher ($50\text{k}$ and $101\text{k ADA}$) than Losers ($20\text{k}$ and $57\text{k ADA}$), and Gainers also have a wider dispersion on both pledge measures. In this Active sample, margin cuts are associated with stake gains mainly among smaller-stake pools; larger pools in the upper tail still lost stake after lowering $m_i$.
 
 <p align="center">
 <img src="plots/margin_reducer_stake_outcome_characteristics_426.png" alt="Margin reducers characteristics" width="62%">
@@ -236,7 +236,7 @@ Next, we evaluate the impact of the `minPoolCost` reduction on network decentral
 
 That plot is not whole-network causal proof: it covers only cost reducers. Among the $n=1,251$ pools Active at both epochs, $75.9\%$ ($950$) did not reduce declared cost and could have absorbed outflowing stake.
 
-We next evaluate network decentralization on the Active set, using two metrics: the Nakamoto coefficient (the minimum number of pools controlling over $50\%$ of Active stake) and the aggregate pledge of that set. Ideally, this analysis should be conducted at the level of independent operators rather than individual pools. However, because the active pool count remains relatively stable between epochs 426 and 500, comparing the relative change in these coefficients across pools provides a reliable proxy for operator dynamics.
+We next evaluate network decentralization on the Active set, using two metrics: the Nakamoto coefficient (the minimum number of pools controlling over $50\%$ of Active stake) and the aggregate pledge of that set. Ideally, this analysis should be conducted at the level of independent operators rather than individual pools. However, because the active pool count remains nearly stable between epochs 426 and 500, comparing the relative change in these coefficients across pools provides a reliable proxy for operator dynamics.
 
 | Epoch | Nakamoto $N$ | Active pools | Aggregate stake of $N$ | Total Active stake | Share | Agg. declared pledge | Agg. active pledge |
 |------:|---------------:|---------------:|-------------------------:|-------------------:|------:|------------------------:|----------------------:|
@@ -247,7 +247,7 @@ Over epochs $426$ to $500$, the Nakamoto coefficient falls by $2.6\%$ ($190$ to 
 
 ### Pools viability
 
-We recompute operator rewards $\Pi_i$ for a fixed cohort of pools present in both epoch 426 and epoch 500, holding each pool’s epoch $426$ stake $\sigma_i$, declared pledge $p_i$, active pledge $\hat p_i$, and margin $m_i$ fixed. Gross pool reward $f(\sigma_i,p_i)$ is computed once under $k=500$, using $T=36.01B$ ADA, $R=21.6M$ ADA, and $a_0=0.3$ (which are the parameters value for epoch 426). We then compare viability under each pool’s declared fixed cost at epoch $426$ (when $`minPoolCost`=340$) versus its declared fixed cost at epoch $500$ (when $`minPoolCost`=170$). This allows us to compare pool viability before and after the parameter change while isolating operator fee responses. By holding delegation and other market variables constant, we focus exclusively on how the same pool cohort adjusted its declared fixed cost in response to the `minPoolCost` reduction.
+We recompute operator rewards $\Pi_i$ for a fixed cohort of pools that were Active at both epoch $426$ and epoch $500$, holding each pool’s epoch-$426$ stake $\sigma_i$, declared pledge $p_i$, active pledge $\hat p_i$, and margin $m_i$ fixed. Gross pool reward $f(\sigma_i,p_i)$ is computed once under $k=500$, using $T=36.01B$ ADA, $R=21.6M$ ADA, and $a_0=0.3$ (which are the parameters value for epoch 426). We then compare viability under each pool’s declared fixed cost at epoch $426$ (when $`minPoolCost`=340$) versus its declared fixed cost at epoch $500$ (when $`minPoolCost`=170$). This allows us to compare pool viability before and after the parameter change while isolating operator fee responses. By holding delegation and other market variables constant, we focus exclusively on how the same pool cohort adjusted its declared fixed cost in response to the `minPoolCost` reduction.
 
 With monthly OpEx of $667$ USD and ADA at $0.31$ USD,
 
@@ -267,7 +267,7 @@ After the change in `minPoolCost`, in this $1,204$-pool cohort, $307$ changed co
 | Strong ($r\ge 5$) | 96 | 96 | 0.0% |
 
 
-The plot shows a moderate reduction in operator viability from the historical cost cuts, before any redelegation or operator response.
+The plot shows a moderate reduction in operator viability from the historical cost cuts, before any redelegation.
 
 <p align="center">
 <img src="plots/pool_viability_opex_categories_minpoolcost_426_vs_500.png" alt="Pool viability versus OpEx when minPoolCost drops" width="62%">
