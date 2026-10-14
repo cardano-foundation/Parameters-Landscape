@@ -249,7 +249,7 @@ Over epochs $426$ to $500$, the Nakamoto coefficient falls by $2.6\%$ ($190$ to 
 
 We recompute operator rewards $\Pi_i$ for a fixed cohort of pools that were Active at both epoch $426$ and epoch $500$, holding each pool’s epoch-$426$ stake $\sigma_i$, declared pledge $p_i$, active pledge $\hat p_i$, and margin $m_i$ fixed. Gross pool reward $f(\sigma_i,p_i)$ is computed once under $k=500$, using $T=36.01B$ ADA, $R=21.6M$ ADA, and $a_0=0.3$ (which are the parameters value for epoch 426). We then compare viability under each pool’s declared fixed cost at epoch $426$ (when $`minPoolCost`=340$) versus its declared fixed cost at epoch $500$ (when $`minPoolCost`=170$). This allows us to compare pool viability before and after the parameter change while isolating operator fee responses. By holding delegation and other market variables constant, we focus exclusively on how the same pool cohort adjusted its declared fixed cost in response to the `minPoolCost` reduction.
 
-With monthly OpEx of $667$ USD and ADA at $0.31$ USD,
+With monthly OpEx of $667$ USD (see [Lopez de Lara (2026)](https://input-output-hk.github.io/spo-incentives/pdf-viewer.html?file=references/previous-analasys/spo-incentives-analysis_lopez-de-lara_2025.pdf))) and ADA at $0.31$ USD,
 
 $$C^*=\frac{667/6}{0.31}=358.6 \text{ ADA per epoch}.$$
 
@@ -400,7 +400,7 @@ c_i+(f_i-c_i)\left[m_i+(1-m_i)\dfrac{\hat{p}_i}{\sigma_i}\right], & f_i>c_i,
 \end{cases}
 $$
 
-using their margin, delegation, active and declared pledge, and declared fixed cost. We consider the case in which the latter is not the actual operating cost that the pools face. In particular, we assume that all pools have the same operation cost/expenditure ($C^*$) equal to $667$ USD per month (six epochs), and a token price of $0.15 USD/ADA$ giving 
+using their margin, delegation, active and declared pledge, and declared fixed cost. We consider the case in which the latter is not the actual operating cost that the pools face. In particular, we assume that all pools have the same operation cost/expenditure ($C^*$) equal to $667$ USD per month or six epochs (see [Lopez de Lara (2026)](https://input-output-hk.github.io/spo-incentives/pdf-viewer.html?file=references/previous-analasys/spo-incentives-analysis_lopez-de-lara_2025.pdf))), and a token price of $0.15 USD/ADA$ giving 
 
 $$C^*=667/6/0.15=741.1 \text{ USD per epoch}.$$
 
