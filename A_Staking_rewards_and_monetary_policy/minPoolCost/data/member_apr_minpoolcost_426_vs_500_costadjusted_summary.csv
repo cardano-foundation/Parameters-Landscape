@@ -1,0 +1,31 @@
+quantity,value
+n_baseline,1516.0
+n_survivors,1251.0
+n_exits,265.0
+n_cost_changed_survivors,307.0
+n_margin_changed_survivors,158.0
+n_340_to_170_survivors,264.0
+paired_median_delta_pp,0.0
+both_positive_median_delta_pp,0.0
+n_both_positive,969.0
+T_ada,36010000000.0
+R_ada,21600000.0
+a0,0.3
+k,500.0
+z0_ada,72020000.0
+Epoch-426 costs: Active pools::pools,1516.0
+Epoch-426 costs: Active pools::return_gt0,1067.0
+Epoch-426 costs: Active pools::median_apr_pos_pct,2.9855651915051507
+Epoch-426 costs: Active pools::mean_apr_pos_pct,2.56182939682319
+Epoch-426 costs: survivors::pools,1251.0
+Epoch-426 costs: survivors::return_gt0,970.0
+Epoch-426 costs: survivors::median_apr_pos_pct,3.0283964728520547
+Epoch-426 costs: survivors::mean_apr_pos_pct,2.597623670045678
+Epoch-500 costs: survivors (cost-adjusted)::pools,1251.0
+Epoch-500 costs: survivors (cost-adjusted)::return_gt0,997.0
+Epoch-500 costs: survivors (cost-adjusted)::median_apr_pos_pct,3.0449145117473013
+Epoch-500 costs: survivors (cost-adjusted)::mean_apr_pos_pct,2.641431602769568
+"Epoch-426 costs: Active at 426, not Active at 500::pools",265.0
+"Epoch-426 costs: Active at 426, not Active at 500::return_gt0",97.0
+"Epoch-426 costs: Active at 426, not Active at 500::median_apr_pos_pct",2.5264114239232693
+"Epoch-426 costs: Active at 426, not Active at 500::mean_apr_pos_pct",2.203886664598307
