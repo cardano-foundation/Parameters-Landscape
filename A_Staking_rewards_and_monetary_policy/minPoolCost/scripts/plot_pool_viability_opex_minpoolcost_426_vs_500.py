@@ -2,9 +2,9 @@
 """
 Theoretical operator viability around the minPoolCost reduction, 426 -> 500.
 
-Use the cohort of pools present in both snapshots. Hold epoch-426 stake,
-pledges, and margin fixed. Compute f(sigma,p) once with k=500, then compare
-operator reward using each pool's declared fixed cost in:
+Use continuing Active pools (Active at 426 and at 500). Hold epoch-426 stake,
+certificate p, unique-owner p-hat, and margin fixed. Compute f(sigma,p) once
+with k=500, then compare operator reward using each pool's declared fixed cost in:
 
   - epoch 426 (minPoolCost = 340 ADA)
   - epoch 500 (minPoolCost = 170 ADA)
@@ -12,12 +12,6 @@ operator reward using each pool's declared fixed cost in:
 Parameters:
   T = 36.01B ADA, R = 21.6M ADA, a0 = 0.3, k = 500
   C* = (667/6)/0.31 = 358.6 ADA per epoch
-
-Important data limitation:
-  The CSV pledge columns were stamped from a later pool_list and are not
-  historical epoch-426 pledges. They are used as fixed proxies in both cases,
-  so the comparison isolates the declared-cost change but levels should be
-  interpreted cautiously.
 """
 
 from __future__ import annotations
@@ -31,9 +25,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from pastreduction_common import load_active
+
 DIR = Path(__file__).resolve().parent
-E426_CSV = DIR / "staking_pools_full_epoch_426.csv"
-E500_CSV = DIR / "staking_pools_full_epoch_500.csv"
 OUT_PLOT = DIR / "pool_viability_opex_categories_minpoolcost_426_vs_500.png"
 OUT_CSV = DIR / "pool_viability_opex_minpoolcost_426_vs_500.csv"
 OUT_SUMMARY = DIR / "pool_viability_opex_minpoolcost_426_vs_500_summary.csv"
@@ -177,8 +171,8 @@ def fmt_change(value: float) -> str:
 
 
 def main() -> None:
-    e426 = pd.read_csv(E426_CSV).set_index("pool_id")
-    e500 = pd.read_csv(E500_CSV).set_index("pool_id")
+    e426 = load_active(426).set_index("pool_id")
+    e500 = load_active(500).set_index("pool_id")
     common = e426.index.intersection(e500.index)
 
     sigma = (
@@ -284,8 +278,8 @@ def main() -> None:
         {
             "pool_id": ids,
             "epoch_stake_426_ada": sigma_a,
-            "declared_pledge_proxy_ada": declared_a,
-            "active_pledge_proxy_ada": active_a,
+            "declared_pledge_ada": declared_a,
+            "active_pledge_ada": active_a,
             "margin_426": margin_a,
             "declared_cost_426_ada": cost426_a,
             "declared_cost_500_ada": cost500_a,
@@ -305,7 +299,7 @@ def main() -> None:
 
     rows: list[dict[str, float | int | str]] = [
         {"quantity": "common_pools", "value": n_common},
-        {"quantity": "complete_proxy_fields", "value": n_complete},
+        {"quantity": "complete_fields", "value": n_complete},
         {"quantity": "pledge_exceeds_stake_excluded", "value": n_infeasible},
         {"quantity": "analyzed_fixed_cohort", "value": n_analyzed},
         {"quantity": "T_ada", "value": T_ADA},
@@ -368,7 +362,7 @@ def main() -> None:
         f"Cost decreased: {int(down_analyzed.sum())}",
     )
     fig.suptitle(
-        "Theoretical operator viability after the minPoolCost reduction\n"
+        "Theoretical operator viability after the minPoolCost reduction (Active)\n"
         rf"(epoch-426 $\sigma,p,\hat p,m$ fixed; $k=500$, "
         rf"$C^*={C_STAR:.1f}$ ADA/epoch, $r=\Pi_i/C^*$)",
         fontsize=FONT_SIZE,
@@ -395,9 +389,9 @@ def main() -> None:
     }
     md = f"""# Pool viability around the minPoolCost reduction
 
-We use the {n_analyzed:,} pools in the fixed analysis cohort and hold each
-pool's epoch-426 stake $\\sigma_i$, pledge proxies $p_i$ and $\\hat p_i$, and
-margin $m_i$ fixed. We compute $f(\\sigma_i,p_i)$ with
+We use the {n_analyzed:,} continuing Active pools in the fixed analysis cohort
+and hold each pool's epoch-426 stake $\\sigma_i$, certificate $p_i$, unique-owner
+$\\hat p_i$, and margin $m_i$ fixed. We compute $f(\\sigma_i,p_i)$ with
 $T={T_ADA/1e9:.2f}$B ADA, $R={R_ADA/1e6:.1f}$M ADA, $a_0={A0}$, and $k={K}$.
 Operator reward is evaluated first with the pool's epoch-426 declared cost and
 then with its epoch-500 declared cost.
@@ -409,7 +403,7 @@ C^*=\\frac{{667/6}}{{{ADA_USD}}}={C_STAR:.1f}
 \\quad\\text{{ADA per epoch}}.
 $$
 
-Let $r=\\Pi_i/C^*$. In the common snapshot cohort, {int(changed_all.sum()):,}
+Let $r=\\Pi_i/C^*$. In the continuing Active cohort, {int(changed_all.sum()):,}
 of {n_common:,} pools changed declared cost from epoch 426 to epoch 500:
 {int(down_all.sum()):,} decreased it and {int(up_all.sum()):,} increased it;
 {int(transition_340_to_170_all.sum()):,} moved directly from 340 to 170 ADA.
@@ -427,10 +421,9 @@ changed cost ({int(down_analyzed.sum()):,} decreases and
 | Comfortable ($2\\leq r<5$) | {counts_426["comfortable"]} | {counts_500["comfortable"]} | {fmt_change(changes["Comfortable ($2\\leq r<5$)"])} |
 | Strong ($r\\geq5$) | {counts_426["strong"]} | {counts_500["strong"]} | {fmt_change(changes["Strong ($r\\geq5$)"])} |
 
-The historical CSVs contain historical stake, margin, and fixed cost, but their
-pledge columns were stamped from a later `pool_list`. The pledge values are
-therefore fixed proxies—not historical epoch-426 pledges. Of {n_common:,}
-common pools, {n_common - n_complete:,} lack complete proxy fields and
+Declared $p$ is the certificate active at epoch 426; $\\hat p$ is unique-owner
+live pledge at 426. Of {n_common:,} continuing Active pools,
+{n_common - n_complete:,} lack complete fields and
 {n_infeasible:,} additional pools have declared pledge above epoch-426 stake,
 leaving {n_analyzed:,} pools in the analysis.
 """

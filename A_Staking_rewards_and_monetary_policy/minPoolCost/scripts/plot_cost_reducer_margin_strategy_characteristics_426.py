@@ -3,8 +3,9 @@
 Among fixed-cost reducers (426→500), box-plot characteristics at epoch 426
 by combined margin strategy: margin ↓ / ↑ / same.
 
-Declared pledge = pool_update.active.pledge
-Active pledge   = pledged (epoch snapshot)
+Declared pledge = certificate active at the epoch (`pool_update.active.pledge`).
+Active pledge   = unique-owner $\\hat p$ (`pledged` = `live_pledge`).
+Universe: Active at 426 and Active at 500.
 """
 
 from __future__ import annotations
@@ -17,6 +18,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
+from pastreduction_common import load_active
 
 DIR = Path(__file__).resolve().parent
 OUT = DIR / "cost_reducer_margin_strategy_characteristics_426.png"
@@ -36,7 +39,7 @@ METRICS = [
 
 
 def load_epoch(epoch: int) -> pd.DataFrame:
-    df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    df = load_active(epoch)
     out = pd.DataFrame(
         {
             "pool_id": df["pool_id"],
@@ -124,7 +127,7 @@ def main() -> None:
         )
 
     fig.suptitle(
-        f"Among fixed-cost reducers ({E0}→{E1}): characteristics at epoch {E0}\n"
+        f"Among fixed-cost reducers ({E0}→{E1}, Active): characteristics at epoch {E0}\n"
         f"by combined margin strategy (cost reducers n={int(cost_down.sum())})",
         fontsize=FONT_SIZE + 1,
     )

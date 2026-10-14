@@ -4,6 +4,7 @@ Among fixed-cost reducers (426→500), aggregate Δσ by initial stake bin (epoc
 gains, losses, and net = gain + loss per bin.
 
 Companion to cost_reducer_gainer_agg_stake_by_bin_426_500 (gainers only).
+Universe: Active at 426 and Active at 500.
 """
 
 from __future__ import annotations
@@ -16,6 +17,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
+from pastreduction_common import load_active
 
 DIR = Path(__file__).resolve().parent
 OUT_PNG = DIR / "cost_reducer_net_stake_by_bin_426_500.png"
@@ -41,7 +44,7 @@ BINS = [
 
 
 def load_epoch(epoch: int) -> pd.DataFrame:
-    df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    df = load_active(epoch)
     return pd.DataFrame(
         {
             "pool_id": df["pool_id"],
@@ -190,7 +193,7 @@ def main() -> None:
         )
 
     fig.suptitle(
-        f"Cost reducers ({E0}→{E1}): net stake flow by initial size\n"
+        f"Cost reducers ({E0}→{E1}, Active): net stake flow by initial size\n"
         f"n={int(reducers.sum())} reducers; "
         f"net $\\sum\\Delta\\sigma$={total_net/1e6:+.0f} M ADA "
         f"({100*total_net/T0:+.2f}% of stake@{E0}, "

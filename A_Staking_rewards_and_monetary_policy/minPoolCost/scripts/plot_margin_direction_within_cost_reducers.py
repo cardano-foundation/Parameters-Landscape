@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Among fixed-cost reducers (426->500), count margin down/up/same."""
+"""Among fixed-cost reducers (426->500, Active), count margin down/up/same."""
 
 from __future__ import annotations
 
@@ -11,6 +11,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from pastreduction_common import load_active
+
 DIR = Path(__file__).resolve().parent
 OUT = DIR / "margin_direction_within_cost_reducers_426_500.png"
 
@@ -20,8 +22,8 @@ FONT_SIZE = 11
 
 
 def main() -> None:
-    a = pd.read_csv(DIR / f"staking_pools_full_epoch_{E0}.csv").set_index("pool_id")
-    b = pd.read_csv(DIR / f"staking_pools_full_epoch_{E1}.csv").set_index("pool_id")
+    a = load_active(E0).set_index("pool_id")
+    b = load_active(E1).set_index("pool_id")
 
     common = a.index.intersection(b.index)
     fa = pd.to_numeric(a.loc[common, "pool_update.active.fixed_cost"], errors="coerce")
@@ -43,7 +45,7 @@ def main() -> None:
     bars = ax.bar(labels, vals, color=cols)
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
     ax.set_title(
-        f"Margin changes among pools with fixed cost ↓ ({E0}→{E1})\n"
+        f"Margin changes among pools with fixed cost ↓ ({E0}→{E1}, Active)\n"
         f"(fixed-cost reducers n={n_cut})",
         fontsize=FONT_SIZE,
     )

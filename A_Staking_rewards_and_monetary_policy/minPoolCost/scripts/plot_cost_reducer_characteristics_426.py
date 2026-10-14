@@ -6,8 +6,9 @@ Writes two figures (three panels each):
   1. Reducers vs non-reducers: stake, declared pledge, active pledge
   2. Among reducers, stake gainers vs losers: same three metrics
 
-Declared pledge = pool_update.active.pledge
-Active pledge   = pledged (epoch snapshot)
+Declared pledge = certificate active at the epoch (`pool_update.active.pledge`).
+Active pledge   = unique-owner $\\hat p$ (`pledged` = `live_pledge`).
+Universe: Active at 426 and Active at 500.
 """
 
 from __future__ import annotations
@@ -20,6 +21,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
+from pastreduction_common import load_active
 
 DIR = Path(__file__).resolve().parent
 OUT_REDUCERS = DIR / "cost_reducer_vs_nonreducer_characteristics_426.png"
@@ -40,7 +43,7 @@ METRICS = [
 
 
 def load_epoch(epoch: int) -> pd.DataFrame:
-    df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    df = load_active(epoch)
     out = pd.DataFrame(
         {
             "pool_id": df["pool_id"],
@@ -138,7 +141,7 @@ def main() -> None:
         series_by_metric=series_by_metric,
         groups=[("Reducers", reducers), ("Non-reducers", non_reducers)],
         suptitle=(
-            f"Reducers vs non-reducers ({E0}→{E1}): "
+            f"Reducers vs non-reducers ({E0}→{E1}, Active): "
             f"characteristics at epoch {E0}"
         ),
     )
@@ -147,7 +150,7 @@ def main() -> None:
         series_by_metric=series_by_metric,
         groups=[("Gainers", gainers), ("Losers", losers)],
         suptitle=(
-            f"Among cost reducers ({E0}→{E1}): stake gainers vs losers, "
+            f"Among cost reducers ({E0}→{E1}, Active): stake gainers vs losers, "
             f"characteristics at epoch {E0}"
         ),
     )

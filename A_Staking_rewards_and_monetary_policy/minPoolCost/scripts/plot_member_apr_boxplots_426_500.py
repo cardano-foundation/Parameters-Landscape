@@ -27,9 +27,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from pastreduction_common import load_active
+
 DIR = Path(__file__).resolve().parent
-CSV_426 = DIR / "staking_pools_full_epoch_426.csv"
-CSV_500 = DIR / "staking_pools_full_epoch_500.csv"
 OUT_COHORT = DIR / "member_apr_boxplot_cohort_426_500.png"
 OUT_CUTTERS = DIR / "member_apr_boxplot_cost_reducers_426_500.png"
 
@@ -46,8 +46,8 @@ BOX_EDGE = "0.15"
 MEDIAN_COLOR = "#e76f51"
 
 
-def load_epoch(path: Path) -> pd.DataFrame:
-    df = pd.read_csv(path)
+def load_epoch(epoch: int) -> pd.DataFrame:
+    df = load_active(epoch)
     stake = pd.to_numeric(
         df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]),
         errors="coerce",
@@ -132,8 +132,8 @@ def draw_boxes(
 
 
 def main() -> None:
-    e426 = load_epoch(CSV_426)
-    e500 = load_epoch(CSV_500)
+    e426 = load_epoch(426)
+    e500 = load_epoch(500)
 
     baseline = e426[
         (e426["sigma_ada"] > 0)
@@ -172,7 +172,7 @@ def main() -> None:
     draw_boxes(
         ax1,
         [
-            ("Epoch 426 costs\n(all pools)", 100.0 * apr_all_426[apr_all_426 > 0]),
+            ("Epoch 426 costs\n(Active)", 100.0 * apr_all_426[apr_all_426 > 0]),
             ("Epoch 426 costs\n(survivors)", 100.0 * apr_surv_426[apr_surv_426 > 0]),
             (
                 "Epoch 500 costs\n(survivors, cost-adj.)",
@@ -182,7 +182,7 @@ def main() -> None:
         ylabel="Member APR (%)",
         title="",
         suptitle=(
-            "Member APR around minPoolCost reduction\n"
+            "Member APR around minPoolCost reduction (Active)\n"
             rf"($k={K}$; $\sigma,p,m$ fixed at epoch 426)"
             "\n"
             r"Calculations based on positive APR pools "

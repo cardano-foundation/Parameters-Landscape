@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stake outcomes for cost↓ pools by margin direction (426→500)."""
+"""Stake outcomes for cost↓ pools by margin direction (426→500, Active)."""
 
 from __future__ import annotations
 
@@ -11,6 +11,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+
+from pastreduction_common import load_active
 
 DIR = Path(__file__).resolve().parent
 OUT = DIR / "cost_down_margin_direction_stake_outcomes_426_500.png"
@@ -55,8 +57,8 @@ def draw_panel(ax, title: str, n: int, vals: list[int]) -> None:
 
 
 def main() -> None:
-    a = pd.read_csv(DIR / f"staking_pools_full_epoch_{E0}.csv").set_index("pool_id")
-    b = pd.read_csv(DIR / f"staking_pools_full_epoch_{E1}.csv").set_index("pool_id")
+    a = load_active(E0).set_index("pool_id")
+    b = load_active(E1).set_index("pool_id")
     common = a.index.intersection(b.index)
 
     fa = pd.to_numeric(a.loc[common, "pool_update.active.fixed_cost"], errors="coerce")
@@ -79,7 +81,7 @@ def main() -> None:
     draw_panel(axes[0], "Fixed cost ↓ and margin ↓", n_down, vals_down)
     draw_panel(axes[1], "Fixed cost ↓ and margin same", n_same, vals_same)
     draw_panel(axes[2], "Fixed cost ↓ and margin ↑", n_up, vals_up)
-    fig.suptitle(f"Stake outcomes among cost reducers ({E0}→{E1})", fontsize=FONT_SIZE + 1)
+    fig.suptitle(f"Stake outcomes among cost reducers ({E0}→{E1}, Active)", fontsize=FONT_SIZE + 1)
 
     fig.savefig(OUT, dpi=160)
     print(f"Wrote {OUT}")

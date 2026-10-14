@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fixed-cost behavior for 426->500 using root CSV files."""
+"""Fixed-cost behavior for 426->500 on continuing Active pools (merged)."""
 
 from __future__ import annotations
 
@@ -12,6 +12,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from matplotlib.patches import Patch
+
+from pastreduction_common import load_active
 
 DIR = Path(__file__).resolve().parent
 OUT = DIR / "fixed_cost_changes.png"
@@ -28,7 +30,7 @@ COLOR_FLAT = "#6b7280"
 
 
 def load_epoch(epoch: int) -> pd.DataFrame:
-    df = pd.read_csv(DIR / f"staking_pools_full_epoch_{epoch}.csv")
+    df = load_active(epoch)
     out = pd.DataFrame(
         {
             "pool_id": df["pool_id"],
@@ -98,7 +100,7 @@ def main() -> None:
     ax.text(
         0.01,
         0.98,
-        f"Continuing pools = present in both epochs: {st['common']}",
+        f"Active at 426 and 500: {st['common']}",
         transform=ax.transAxes,
         va="top",
         fontsize=9,
