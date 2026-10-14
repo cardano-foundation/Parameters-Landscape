@@ -87,15 +87,14 @@ def main() -> None:
     ax.set_xlabel("Declared fixed cost (ADA)", fontsize=FONT_SIZE)
     ax.set_ylabel("Number of pools", fontsize=FONT_SIZE)
     ax.set_title(
-        "Epoch 644 — declared pool fixed cost (≤ 1,000 ADA; Active)",
+        f"Epoch 644 — declared pool fixed cost (≤ 1,000 ADA; Active pools = {n})",
         fontsize=FONT_SIZE,
     )
     ax.tick_params(axis="both", labelsize=FONT_SIZE)
     ax.text(
         0.98,
         0.95,
-        f"{n_tail} pools with fixed cost above 1,000 ADA\n"
-        f"(of {n} Active pools; column: {COL})",
+        f"{n_tail} pools with fixed cost above 1,000 ADA",
         transform=ax.transAxes,
         ha="right",
         va="top",
