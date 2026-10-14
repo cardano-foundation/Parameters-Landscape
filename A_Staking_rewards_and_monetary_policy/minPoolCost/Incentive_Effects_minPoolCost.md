@@ -245,24 +245,25 @@ Over epochs $426$ to $500$, the Nakamoto coefficient falls by $2.6\%$ ($190$ to 
 
 ### Pools viability
 
-We recompute operator rewards $\Pi_i$ for a fixed cohort of pools present in both epoch 426 and epoch 500, holding each pool’s epoch $426$ stake $\sigma_i$, declared pledge $p_i$, active pledge $\hat p_i$, and margin $m_i$ fixed. Gross pool reward $f(\sigma_i,p_i)$ is computed once under $k=500$, using $T=36.01B$ ADA, $R=21.6M$ ADA, and $a_0=0.3$ (which are the parameters value for epoch 426). We then compare viability under each pool’s declared fixed cost at epoch $426$ (when $`minPoolCost`=340$) versus its declared fixed cost at epoch $500$ (when $\text{`minPoolCost`}=170$). This allows us to compare pool viability before and after the parameter change while isolating operator fee responses. By holding delegation and other market variables constant, we focus exclusively on how the same pool cohort adjusted its declared fixed cost in response to the `minPoolCost` reduction.
+We recompute operator rewards $\Pi_i$ for a fixed cohort of pools present in both epoch 426 and epoch 500, holding each pool’s epoch $426$ stake $\sigma_i$, declared pledge $p_i$, active pledge $\hat p_i$, and margin $m_i$ fixed. Gross pool reward $f(\sigma_i,p_i)$ is computed once under $k=500$, using $T=36.01B$ ADA, $R=21.6M$ ADA, and $a_0=0.3$ (which are the parameters value for epoch 426). We then compare viability under each pool’s declared fixed cost at epoch $426$ (when $`minPoolCost`=340$) versus its declared fixed cost at epoch $500$ (when $`minPoolCost`=170$). This allows us to compare pool viability before and after the parameter change while isolating operator fee responses. By holding delegation and other market variables constant, we focus exclusively on how the same pool cohort adjusted its declared fixed cost in response to the `minPoolCost` reduction.
 
 With monthly OpEx of $667$ USD and ADA at $0.31$ USD,
 
 $$C^*=\frac{667/6}{0.31}=358.6 \text{ ADA per epoch}.$$
 
-Let $r=\Pi_i/C^{\*}$. Among $1'991$ pools with theoretical reward (of $2'662$ continuing pools; the rest lack complete fields or have declared pledge above epoch $426$ stake), $672$ cover $C^*$ under epoch $426$ costs, of which $427$ are on the edge ($1\le r<2$). Under the same delegation but with epoch $500$ declared costs, only $588$ remain viable. The Edge group falls from $427$ to $354$, while Strong ($r\ge 5$) is unchanged at 53.
+Let $r=\Pi_i/C^\*$. Among $1,204$ pools with theoretical reward, $827$ cover $C^\*$ under epoch-$426$ costs, of which $480$ are on the edge ($1\le r<2$). Under the same delegation but with epoch $500$ declared costs, $741$ remain viable. The Edge group falls from $480$ to $403$, while Strong ($r\ge 5$) is unchanged at $96$.
 
-After the change in `minPoolCost`, in the analyzed cohort of $1'991$ pools, $312$ changed cost ($306$ decreases, $6$ increases), including $267$ direct $340\-$to$\-170$ changes.
+After the change in `minPoolCost`, in this $1,204$-pool cohort, $307$ changed cost ($301$ decreases, $6$ increases), including $264$ direct $340$-to-$170$ changes.
 
 | | Epoch-426 costs (minPoolCost 340) | Epoch-500 costs (minPoolCost 170) | Variation |
 | :--- | ---: | ---: | ---: |
-| Pools | 1,991 | 1,991 | — |
-| Cover OpEx ($r\ge 1$) | 672 | 588 | −12.5% |
-| Losing ($r<1$) | 1,319 | 1,403 | +6.4% |
-| Edge ($1\le r<2$) | 427 | 354 | −17.1% |
-| Comfortable ($2\le r<5$) | 192 | 181 | −5.7% |
-| Strong ($r\ge 5$) | 53 | 53 | 0.0% |
+| Pools | 1,204 | 1,204 | — |
+| Cover OpEx ($r\ge 1$) | 827 | 741 | −10.4% |
+| Losing ($r<1$) | 377 | 463 | +22.8% |
+| Edge ($1\le r<2$) | 480 | 403 | −16.0% |
+| Comfortable ($2\le r<5$) | 251 | 242 | −3.6% |
+| Strong ($r\ge 5$) | 96 | 96 | 0.0% |
+
 
 The plot shows a moderate reduction in operator viability from the historical cost cuts, before any redelegation or operator response.
 
@@ -274,28 +275,28 @@ The plot shows a moderate reduction in operator viability from the historical co
 
 To evaluate how the reduction in `minPoolCost` affects delegator returns, we calculate the annualized delegator yield:
 
-$$\text{APR}_i \approx 73(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}$$
+$$\text{APR}_i \approx 73(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i}$$
 
-This measures the net yield per ADA after accounting for fixed costs ($c_i$) and variable margins ($m_i$). APR summary statistics in this subsection are computed over pools with positive delegator return, that is, pools satisfying $f(\sigma_i,p_i)>c_i$. Calculations are based on the epoch $426$ snapshot with parameters $T=36.01\text{B ADA}$, $R=21.6\text{M ADA}$, $a_0=0.3$, and $k=500$. Of the $2,445$ pools with complete baseline data, $2,265$ survived through epoch $500$, while $180$ exited. 
+This measures the net yield per ADA after accounting for fixed costs ($c_i$) and variable margins ($m_i$). APR summary statistics in this subsection are computed over pools with positive delegator return, that is, pools satisfying $f(\sigma_i,p_i)>c_i$. Calculations are based on the Active epoch $426$ snapshot with parameters $T=36.01\text{B ADA}$, $R=21.6\text{M ADA}$, $a_0=0.3$, and $k=500$. Of the $1,516$ Active pools with complete baseline data, $1,251$ remain Active at epoch $500$, while $265$ leave the Active set.
 
-For the counterfactual scenario, surviving pools hold their epoch $426$ stake, pledge, and margin fixed while adopting their actual epoch $500$ declared fixed costs. This isolates operators' fixed-cost response effects over APR. Exiting pools are retained in the epoch $426$ baseline to prevent survivorship bias, but are excluded from the cost-adjusted scenario.
+For the counterfactual scenario, pools that remain Active hold their epoch $426$ stake, pledge, and margin fixed while adopting their actual epoch $500$ declared fixed costs. This isolates operators' fixed-cost response effects on APR. Pools that leave the Active set are retained in the epoch $426$ baseline to prevent survivorship bias, but are excluded from the cost-adjusted scenario.
 
-| Sample and scenario | Pools |  Median APR | Mean APR |
-| :--- | ---: | ---: | ---: | 
-| Epoch-426 costs: all pools | $2,445$ |  $2.97\\%$ | $2.58\\%$ |
-| Epoch-426 costs: pools exiting by epoch $500$ | $180$ |  $2.11\\%$ | $1.98\\%$ |
-| Epoch-426 costs: survivors | $2,265$ |  $2.99\\%$ | $2.60\\%$ |
-| Epoch-500 costs: survivors (cost-adjusted) | $2,265$ |  $3.02\\%$ | $2.64\\%$ |
+| Sample and scenario | Pools | Median APR | Mean APR |
+| :--- | ---: | ---: | ---: |
+| Epoch-426 costs: all Active pools | $1,516$ | $2.99\%$ | $2.56\%$ |
+| Epoch-426 costs: leave Active set by epoch $500$ | $265$ | $2.53\%$ | $2.20\%$ |
+| Epoch-426 costs: remain Active | $1{,}251$ | $3.03\%$ | $2.60\%$ |
+| Epoch-500 costs: remain Active (cost-adjusted) | $1,251$ | $3.04\%$ | $2.64\%$ |
 
-Fixed-cost reductions led to a slight increase in positive delegator APRs (median rising from $2.99\\%$ to $3.02\\%$). However, because only a small fraction of operators lowered their $c_i$, the median yield network improvement remains modest. Although individual pools that cut their fixed costs may have enhanced their competitive standing, these adjustments were insufficient to materially alter network-wide median attractiveness.
+Fixed-cost reductions led to a slight increase in positive delegator APRs (median rising from $3.03\%$ to $3.04\%$). Only $301$ of the $1,251$ continuing Active pools lowered $c_i$, so the network-wide median yield movement remains modest. Although individual pools that cut their fixed costs may have enhanced their competitive standing, these adjustments were insufficient to materially alter median attractiveness in the Active set.
 
-The next plot compares the APR distribution for the epoch-$426$ cohort under baseline costs versus cost-adjusted costs. It shows a mild upward shift in the distribution after cost adjustment, consistent with the small increase observed in the median and mean APR statistics.
+The next plot compares the APR distribution for the epoch $426$ Active cohort under baseline costs versus cost-adjusted costs. It shows a mild upward shift in the distribution after cost adjustment, consistent with the small increase observed in the median and mean APR statistics.
 
 <p align="center">
 <img src="plots/member_apr_boxplot_cohort_426_500.png" alt="APR change in 426 cohort" width="62%">
 </p>
 
-The following plot isolates pools that reduced their fixed costs, demonstrating the resulting increase in APR and their enhanced competitiveness.
+The following plot isolates the $301$ continuing Active pools that reduced their fixed costs, demonstrating the resulting increase in APR and their enhanced competitiveness. Median APR rises from $2.25\%$ to $2.73\%$, and the number of pools with positive return rises from $219$ to $247$.
 
 <p align="center">
 <img src="plots/member_apr_boxplot_cost_reducers_426_500.png" alt="APR change in 426 reducers cohort" width="62%">
