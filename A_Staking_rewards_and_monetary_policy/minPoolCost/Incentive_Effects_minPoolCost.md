@@ -4,33 +4,34 @@
 
 Reducing minPoolCost is conditionally beneficial. The net effect depends on which policy objective is prioritized: operator competitiveness for delegators, operator viability, Sybil resistance, or decentralization.
 
+
 **Pros**
 1. Some pools that reduce declared fixed cost show higher delegator APR, improving their attractiveness for delegators
 2. APR gains are stronger among fixed-cost reducers than in network-wide aggregates.
 
 **Risks**
-1. Operator viability can weaken after fixed-cost reductions. However, an operator can avoid reducing their fixed cost at the cost of losing competitivness.
-2. After minPoolCost was reduced, only a minority of pools reduced declared fixed cost or margin, so network-wide effects remained modest.
+1. Operator viability can weaken after fixed-cost reductions. However, an operator can avoid reducing their fixed cost at the cost of losing competitiveness.
+2. After minPoolCost was reduced, only a minority of Active pools reduced declared fixed cost or margin, so network-wide effects remained modest.
 3. Whole-network concentration metrics may not improve even when reducer ones improve.
 
 **What the evidence suggests**
-1. Operator fixed-cost reduction was partial: only about $14.0\%$ of them.
-2. Fixed-cost reducers are generally larger/better positioned than no-reducers.
-3. Among reducers, a majority gained stake ($55.1\%$).
+1. Operator fixed-cost reduction was partial: only about $24.1%$ of Active pools.
+2. Fixed-cost reducers had lower median stake than non-reducers, and higher median declared and active pledge.
+3. Among reducers, a majority gained stake ($52.5\%$).
 4. Among reducers, smaller ones are more likely to be gainers than larger reducers.
-5. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only cuts.
+5. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only cuts. Among cost reducers, raising margin ($22.3%$) was more common than also cutting it ($10.0%$).
 
 **Behavioral and equilibrium discussion**
 1. Cost reductions were selective and limited: only a minority of pools adjusted their declared fixed costs, and those that did were generally stronger or better positioned before the shock.
 2. Fixed-cost reducers were more likely to gain delegation, particularly smaller pools, but the response was concentrated in a subset of operators rather than a broad network-wide effect.
 3. Combining fixed-cost reductions with margin cuts was more effective than fixed-cost reductions alone, suggesting that the competitive response involved coordinated price adjustment rather than cost changes alone.
-4. The decentralization signal was mixed: there was some redistribution toward smaller pools among reducers, but whole-network concentration metrics did not clearly improve.
-5. Operator viability weakened after the cut, showing that lower minPoolCost improved competitiveness for some pools while reducing the economic cushion for many operators.
+4. The decentralization signal was mixed: there was some redistribution toward smaller pools among reducers, but whole-network concentration metrics did not clearly improve (Nakamoto $N$ from $190$ to $185$; min-agg active pledge from $1.58\text{B}$ to $1.39\text{B}$ ADA).
+7. Operator viability weakened after the cut (Cover OpEx from $827$ to $741$), showing that lower minPoolCost improved competitiveness for some pools while reducing the economic cushion for many operators.
 
 **Policy interpretation**
 1. Trade-off: lower minPoolCost can improve delegator APR while reducing operator viability.
 2. If the primary objective is short-run small-pool competitiveness, a lower minPoolCost can help, but with a viability trade-off. This trade-off limits the capacity of small pools to follow the reduction.
-3. If the primary objective is long-run decentralization, reducing minPoolCost in isolation is not clearly supportive due to partial participation and mixed network outcomes.
+3. If the primary objective is long-run decentralization, reducing minPoolCost in isolation is not clearly supportive.
 
 ## Parameter values at the current state
 For the numerical analysis in this section, we use the parameter values below unless stated otherwise. These values may differ from the snapshot values reported in [Parameter-Landscape.md](../../Parameter-Landscape.md), because this comparative-statics exercise is anchored to a single reference state.
@@ -137,12 +138,12 @@ On epoch $445$ there was a reduction of the `minPoolCost` from $340$ ADA to $170
 
 Key findings from this section:
 
-1. Fee adjustment was limited: about $14.0\\%$ of pools reduced declared fixed cost, and about $3.0\\%$ reduced margin.
-2. Gains were concentrated in reducers: among pools that reduced fixed cost, a majority gained stake ($55.1\\%$), and APR gains were stronger among reducers than in network-wide aggregates.
-3. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only adjustments.
-4. Decentralization signals are mixed: reducers show net redistribution toward smaller pools, but whole-network concentration metrics moved slightly in the opposite direction.
-5. Operator viability weakened after cost adjustment.
-6. Trade-off: after cost adjustment, operator viability declined while delegator APR improved modestly at the network level, with stronger APR gains among reducers.
+1. Fee adjustment was limited: about $24.1%$ of Active pools reduced declared fixed cost, and about $4.5%$ reduced margin.
+2. Gains were concentrated in reducers: among pools that reduced fixed cost, a majority gained stake ($52.5%$), and APR gains were stronger among reducers than in network-wide aggregates.
+3. Combining fixed-cost and margin cuts was associated with better delegation outcomes than fixed-cost-only adjustments. Among cost reducers, raising margin ($22.3%$) was more common than also cutting it ($10.0%$).
+4. Decentralization signals are mixed: reducers show net redistribution toward smaller pools, but whole-network concentration metrics moved in the opposite direction (Nakamoto $N$ from $190$ to $185$; Agg. active pledge from $1.58\text{B}$ to $1.39\text{B}$ ADA).
+5. Operator viability weakened after cost adjustment (Cover OpEx from $827$ to $741$ pools).
+6. Trade-off: after cost adjustment, operator viability declined while delegator APR improved modestly at the network level (median $3.03%$ to $3.04%$), with stronger APR gains among reducers (median $2.25%$ to $2.73%$).
 
 ### Aggregate system snapshot
 
@@ -171,7 +172,8 @@ $24.1\%$ of these Active pools ($301$) reduced their declared fixed cost. Among 
 <img src="plots/fixed_cost_changes.png" alt="Pools reducing fixed cost when minPoolCost changed" width="62%">
 </p>
 
-The next plot compares the baseline characteristics at epoch $426$ between pool operators who reduced their fixed costs ("Reducers") and those who did not ("Non-reducers"). Across all three metrics—epoch stake, declared pledge, and active pledge—pools that opted to lower their fixed costs exhibited systematically stronger baseline positions.
+
+The next plot compares the baseline epoch $426$ characteristics between Active pools that reduced declared fixed cost ("Reducers", $n=301$) and those that did not ("Non-reducers", $n=950$). Reducers had lower median stake ($2.4\text{M}$ vs $8.1\text{M ADA}$) and higher median declared and active pledge ($100\text{k}$ vs $50\text{k ADA}$ declared; $104\text{k}$ vs $64\text{k ADA}$ active). Cost cuts therefore concentrated among smaller-stake Active pools that were more pledged, not among the largest pools.
 
 <p align="center">
 <img src="plots/cost_reducer_vs_nonreducer_characteristics_426.png" alt="Reducers versus non-reducers" width="62%">
