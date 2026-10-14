@@ -146,24 +146,26 @@ Key findings from this section:
 
 ### Aggregate system snapshot
 
-The table summarizes the aggregate state of the pools ecosystem before the reduction in `minPoolCost` (epoch $426$), at the moment of the reduction (epoch $445$), and after it (epoch $500$). Aggregate staking remained stable, with a small reduction ($-1.6\\%$) in the number of pools.
+The table summarizes the pool ecosystem before the reduction in `minPoolCost` (epoch $426$), at the reduction (epoch $445$), and after it (epoch $500$). Aggregate stake was stable. The number of pools fell by $1.6\%$ ($2,931$ to $2,884$); the Active set fell by $5.4\%$ ($1,516$ to $1,434$). Active pools hold essentially all stake at each snapshot.
 
-| Epoch | Number of pools | Total stake (B ADA) |
-|---:|---:|---:|
-| 426 | 2,931 | 22.73 |
-| 445 | 2,886 | 23.05 |
-| 500 | 2,884 | 22.85 |
+| Epoch | Pools | Active pools | Total stake (B ADA) | Active stake (B ADA) |
+|---:|---:|---:|---:|---:|
+| 426 | 2,931 | 1,516 | 22.73 | 22.54 |
+| 445 | 2,886 | 1,469 | 23.05 | 22.99 |
+| 500 | 2,884 | 1,434 | 22.85 | 22.79 |
+
+Active pools are the complement of Inactive. A pool is Inactive if $\sigma=0$, it fails to meet its declared pledge, or it produced zero blocks in the prior 15 epochs ($\approx 3$ months).
 
 
 ### Operators and delegators responses
 
 The following plots and analysis show the response of operators and delegators to the reduction in `minPoolCost`. We have considered several epochs after the change to give players time to react.
 
-> Note: The observations identified in the following analysis provide suggestive evidence rather than causal proof. Consequently, they do not imply that all observed changes resulted directly from the reduction in `minPoolCost`. 
+> Note: The observations identified in the following analysis provide suggestive evidence rather than causal proof. Consequently, they do not imply that all observed changes resulted directly from the reduction in `minPoolCost`.
 
-The next plot illustrates pool operator behavior following the reduction in `minPoolCost` between epochs $426$ and $500$. The left panel tracks changes in declared fixed costs of $n = 2,662$ pools present in both epochs, while the right panel highlights changes in delegator count and stake dynamics among the subset of pools that lowered their fixed cost ($n = 374$).
+The next plot illustrates pool operator behavior following the reduction in `minPoolCost` between epochs $426$ and $500$. The sample is the $n = 1,251$ pools that were Active at both epochs. The left panel tracks changes in declared fixed costs; the right panel shows delegator and stake outcomes among the subset that lowered their fixed cost ($n = 301$).
 
-Data reveals that only $14.0\\%$ of pools ($374$) reduced their declared fixed cost. Among them, $61.5\\%$ ($230$) expanded their delegator base and $55.1\\%$ ($206$) increased their total stake. In summary, the vast majority of pool operators ($>85\\%$) opted for a passive, static fixed cost strategy rather than adjusting it to compete for market share. For the minority that did cut costs, the decision was predominantly associated with positive inflows of both delegators and stake.
+$24.1\%$ of these Active pools ($301$) reduced their declared fixed cost. Among them, $59.1\%$ ($178$) expanded their delegator base and $52.5\%$ ($158$) increased their total stake. $75.5\%$ ($944$) kept the same declared cost, and six raised it. Most Active operators therefore left the fixed-cost lever unchanged. Among those that cut costs, a majority gained delegators and a slight majority gained stake.
 
 <p align="center">
 <img src="plots/fixed_cost_changes.png" alt="Pools reducing fixed cost when minPoolCost changed" width="62%">
@@ -175,31 +177,35 @@ The next plot compares the baseline characteristics at epoch $426$ between pool 
 <img src="plots/cost_reducer_vs_nonreducer_characteristics_426.png" alt="Reducers versus non-reducers" width="62%">
 </p>
 
-We next compare the baseline epoch $426$ characteristics between cost-reducing pools that gained total stake ("Gainers") and those that lost stake ("Losers"). A striking divergence emerges in baseline delegation volume: Gainers were predominantly smaller pools with a median stake of approximately $0.8\text{M ADA}$, whereas Losers held substantially higher baseline stake, with a median of $3.2\text{M ADA}$. In contrast, declared and active pledge distributions are virtually identical between the two groups. This suggests that reducing fixed costs was primarily effective for smaller pools where fee cuts yield a larger relative increase in delegator returns.
+We next compare the baseline epoch $426$ characteristics between cost-reducing Active pools that gained total stake ("Gainers", $n=158$) and those that lost stake ("Losers", $n=143$). A striking divergence emerges in baseline delegation volume: Gainers were predominantly smaller pools, with a median stake of approximately $1.5\text{M ADA}$, whereas Losers held substantially higher baseline stake, with a median of $4.0\text{M ADA}$. In contrast, median declared and active pledge are similar in the two groups ($95\text{k}$ vs $100\text{k}$ ADA declared; $102\text{k}$ vs $107\text{k}$ ADA active). This suggests that reducing fixed costs was primarily effective for smaller pools where fee cuts yield a larger relative increase in delegator returns.
 
 <p align="center">
 <img src="plots/cost_reducer_stake_outcome_characteristics_426.png" alt="Reducers characteristics" width="62%">
 </p>
 
-Beyond fixed-cost adjustments, operators could also alter their variable margin ($m_i$) to respond to changing market conditions. To investigate whether the reduction in minPoolCost catalyzed broader price competition across fee levers, the following analysis examines margin adjustments during the same observation window. Results show that operator adjustments to margins were even rarer than fixed-cost adjustments: only $3.0\\%$ of pools ($80$) reduced their margin. Among the $80$ pools that lowered their variable margin, $61.3\\%$ ($49$) succeeded in expanding their total stake, while $53.8\\%$ ($43$) grew their delegator count.
+
+Beyond fixed-cost adjustments, operators could also alter their margin ($m_i$) to respond to changing market conditions. To investigate whether the reduction in `minPoolCost` catalyzed broader price competition across fee levers, the following analysis examines margin adjustments among the same $n = 1,251$ pools that were Active at both epochs $426$ and $500$. Margin cuts were rarer than fixed-cost cuts: only $4.5\%$ of these Active pools ($56$) reduced their margin, while $8.2\%$ ($102$) raised it and $87.4\%$ ($1,093$) left it unchanged. Among the $56$ pools that lowered their margin, $55.4\%$ ($31$) increased their total stake and $44.6\%$ ($25$) lost stake; the delegator count rose for $27$, fell for $27$, and was unchanged for $2$.
 
 <p align="center">
 <img src="plots/margin_changes.png" alt="Pools reducing margin when minPoolCost changed" width="62%">
 </p>
 
-The following plot compares the baseline epoch $426$ characteristics across pool operators who reduced their variable margin ("Reducers", $n=80$), increased it ("Increasers", $n=121$), or kept it unchanged ("Same", $n=2,461$). The distributions reveal that margin behavior varies substantially by pool scale. Operators who raised their margins held the highest baseline stake as well as significantly larger declared and active pledges. In contrast, margin reducers were smaller pools with modest baseline stake and lower pledge levels. These patterns suggest that margin cuts were primarily utilized as a competitive catch-up strategy by mid-sized, lower-pledged pools, whereas large, well-capitalized pools held sufficient market power to increase margins without losing dominance.
+
+The following plot compares the baseline epoch $426$ characteristics across Active pool operators who reduced their margin ("Reducers", $n=56$), increased it ("Increasers", $n=102$), or kept it unchanged ("Same", $n=1,093$). Median stake differs sharply by margin decision. Reducers were smaller pools, with a median stake of $2.1\text{M ADA}$. Increasers and Same pools were larger and similar in scale ($6.9\text{M}$ and $6.5\text{M ADA}$). Increasers also had the highest median declared and active pledge ($100\text{k}$ and $107\text{k ADA}$). Reducers had the lowest median declared pledge ($44\text{k ADA}$); their median active pledge ($76\text{k ADA}$) lies between Same ($66\text{k ADA}$) and Increasers. Margin cuts therefore concentrated among smaller-stake pools, while the pools that raised margins were large and relatively high-pledged.
 
 <p align="center">
 <img src="plots/margin_change_groups_characteristics_426.png" alt="Margin decision groups characteristics" width="62%">
 </p>
 
-Next, we compare the baseline epoch $426$ characteristics between margin-reducing pools that gained total stake ("Gainers", $n=49$) and those that lost stake ("Losers", $n=31$). Similar to fixed-cost reducers, Gainers were smaller pools with a median stake of under $0.5\text{M ADA}$, whereas Losers held higher baseline stake with a median near $2.0\text{M ADA}$. Regarding pledge levels, both Gainers and Losers shared identical median declared and active pledges. However, Gainers displayed a much wider dispersion in capital commitment. This suggests that reducing margins was primarily successful for smaller pools while larger pools continued to lose stake despite lowering their margins.
+
+Next, we compare the baseline epoch $426$ characteristics between margin-reducing Active pools that gained total stake ("Gainers", $n=31$) and those that lost stake ("Losers", $n=25$). As with fixed-cost reducers, Gainers had lower median stake ($1.7\text{M ADA}$) than Losers ($2.2\text{M ADA}$). The gap is smaller than for cost cuts, but Losers have a longer upper tail (75th percentile $18.6\text{M}$ vs $6.4\text{M ADA}$). Median declared and active pledge are not the same: Gainers sit higher ($50\text{k}$ and $101\text{k ADA}$) than Losers ($20\text{k}$ and $57\text{k ADA}$), and Gainers also have a wider dispertion on both pledge measures. In this Active sample, margin cuts are associated with stake gains mainly among smaller-stake pools; larger pools in the upper tail still lost stake after lowering $m_i$.
 
 <p align="center">
 <img src="plots/margin_reducer_stake_outcome_characteristics_426.png" alt="Margin reducers characteristics" width="62%">
 </p>
 
-Having evaluated how pools responded to isolated fee adjustments, a natural follow-up question is whether operators coordinate both fee levers simultaneously. Specifically, does a reduction in fixed cost $c_i$ serve as a complement paired with a lower margin $m_i$ to maximize competitiveness, or as a substitute where operators raise $m_i$ to offset revenue lost from a lower $c_i$? The following analysis examines this interaction among cost-reducing pools: $12.6\\%$ ($47$) also reduced their variable margin, whereas $20.1\\%$ ($75$) increased it, leaving the remaining $67.4\\%$ ($252$) with an unchanged margin. 
+
+Having evaluated how pools responded to isolated fee adjustments, a natural follow-up question is whether operators coordinate both fee levers simultaneously. Specifically, does a reduction in fixed cost $c_i$ serve as a complement paired with a lower margin $m_i$ to maximize competitiveness, or as a substitute where operators raise $m_i$ to offset revenue lost from a lower $c_i$? The following analysis examines this interaction among the $n=301$ Active pools that reduced declared fixed cost between epochs $426$ and $500$: $10.0\%$ ($30$) also reduced their variable margin, whereas $22.3\%$ ($67$) increased it, leaving the remaining $67.8\%$ ($204$) with an unchanged margin. Among cost reducers, raising $m_i$ is therefore more common than cutting it; most leave the margin unchanged.
 
 <p align="center">
 <img src="plots/margin_direction_within_cost_reducers_426_500.png" alt="Pools reducing margin and fixed cost when minPoolCost changed" width="62%">
@@ -211,33 +217,33 @@ The last plot shows that pools combining both measures are more effective at att
 <img src="plots/cost_down_margin_direction_stake_outcomes_426_500.png" alt="Effectiveness of competitive strategies when minPoolCost changed" width="62%">
 </p>
 
-The next plot analyzes pool characteristics—epoch stake, declared pledge, and active pledge—across fixed-cost reducers ($n=374$) grouped by their secondary margin strategy: those that also reduced margin ($n=47$), those that raised margin ($n=75$), and those that kept margin unchanged ($n=252$). Pools that combined fixed-cost reductions with margin increases held the highest baseline stake as well as the largest pledged capital. Conversely, operators adopting a dual-discount strategy were smaller, less-capitalized pools. These patterns suggest that smaller pools relied on double fee cuts to build market presence, whereas larger pools leveraged fixed-cost reductions as a buffer to simultaneously raise margins.
+
+The next plot analyzes epoch $426$ stake, declared pledge, and active pledge across these same fixed-cost reducers ($n=301$), grouped by secondary margin strategy: also reduced margin ($n=30$), raised margin ($n=67$), or kept margin unchanged ($n=204$). Dual discounters were the smallest and least pledged group (median stake $2.0\text{M ADA}$; declared $31\text{k ADA}$; active $54\text{k ADA}$). Pools that cut cost and raised margin had the highest median stake ($3.3\text{M ADA}$) and a long upper tail (75th percentile $22.1\text{M ADA}$). Their median declared and active pledge ($100\text{k}$ and $110\text{k ADA}$) match the unchanged-margin group ($100\text{k}$ and $108\text{k ADA}$; median stake $2.3\text{M ADA}$). These patterns suggest that smaller pools relied on double fee cuts to build market presence, whereas larger pools leveraged fixed-cost reductions as a buffer to simultaneously raise margins.
 
 <p align="center">
 <img src="plots/cost_reducer_margin_strategy_characteristics_426.png" alt="Cost and Margin reducers characteristics" width="62%">
 </p>
 
-
 ### Decentralization metrics
 
-Next, we evaluate the impact of the minPoolCost reduction on network decentralization. We begin by examining fixed-cost reducers ($n = 374$) and measuring net stake flows across different initial stake tiers. The data reveals a net redistribution toward smaller pools. This shift provides suggestive evidence of decentralization among cost reducers.
+Next, we evaluate the impact of the `minPoolCost` reduction on network decentralization. We begin with the $n=301$ Active pools that reduced declared fixed cost between epochs $426$ and $500$, and measure net stake flows by initial stake at $426$. Net inflows concentrate in the two smallest bins: $+160\text{M ADA}$ in $0$–$1\text{M}$ and $+267\text{M ADA}$ in $1$–$5\text{M}$. The $15$–$30\text{M}$ bin has a net outflow of $-115\text{M ADA}$; $5$–$15\text{M}$ is slightly negative ($-24\text{M ADA}$) and $\ge 30\text{M}$ is slightly positive ($+12\text{M ADA}$). Among cost reducers, stake therefore moved toward smaller pools.
 
- 
 <p align="center">
 <img src="plots/cost_reducer_net_stake_by_bin_426_500.png" alt="Cost reducers net flows" width="62%">
 </p>
 
-The previous plot does not constitute whole-network causal proof, as it excludes non-reducing pools ($85\\%+$ of the network) that may have absorbed outflowing stake.
+That plot is not whole-network causal proof: it covers only cost reducers. Among the $n=1,251$ pools Active at both epochs, $75.9\%$ ($950$) did not reduce declared cost and could have absorbed outflowing stake.
 
-We next evaluate network decentralization using two metrics: the Nakamoto coefficient (the minimum number of pools controlling over $50\%$ of total delegation) and the aggregate pledge of these top pools. Ideally, this analysis should be conducted at the level of independent operators rather than individual pools. However, because the total pool count remains relatively stable between epochs 426 and 500, comparing the relative change in these coefficients across pools provides a reliable proxy for operator dynamics.
+We next evaluate network decentralization on the Active set, using two metrics: the Nakamoto coefficient (the minimum number of pools controlling over $50\%$ of Active stake) and the aggregate pledge of that set. Ideally, this analysis should be conducted at the level of independent operators rather than individual pools. However, because the active pool count remains relatively stable between epochs 426 and 500, comparing the relative change in these coefficients across pools provides a reliable proxy for operator dynamics.
 
-| Epoch | Nakamoto \(N\) | Snapshot pools | Aggregate stake of \(N\) | Total active stake | Share | Min-agg declared pledge | Min-agg active pledge |
+| Epoch | Nakamoto $N$ | Active pools | Aggregate stake of $N$ | Total Active stake | Share | Agg. declared pledge | Agg. active pledge |
 |------:|---------------:|---------------:|-------------------------:|-------------------:|------:|------------------------:|----------------------:|
-| 426 | 191 | 2,931 | 11.37B ADA | 22.73B ADA | 50.02% | 1.44B ADA | 2.2B ADA |
-| 500 | 186 | 2,884 | 11.45B ADA | 22.85B ADA | 50.10% | 1.28B ADA | 1.8B ADA |
+| 426 | 190 | 1,516 | 11.28B ADA | 22.54B ADA | 50.05% | 1.44B ADA | 1.58B ADA |
+| 500 | 185 | 1,434 | 11.41B ADA | 22.79B ADA | 50.04% | 1.28B ADA | 1.39B ADA |
 
-Over the analyzed window (epochs 426 to 500), decentralization metrics shifted toward greater stake concentration across the two key dimensions. While the Nakamoto coefficient experienced a modest drop of $-2.6\\%$ (from $191$ to $186$ pools), the economic commitment securing these controlling pools eroded significantly more. Specifically, the minimum aggregate active pledge among the Nakamoto set fell by $-18.2\\%$ (from $2.20\text{B}$ to $1.80\text{B}$ ADA), accompanied by an $-11.1\\%$ decrease in declared pledge. These findings indicate that, in the time window considered, stake concentration not only consolidated into slightly fewer pools, but the controlling pools themselves operated with substantially less "skin in the game," marking an increase in network centralization. 
+Over epochs $426$ to $500$, the Nakamoto coefficient falls by $2.6\%$ ($190$ to $185$ pools). The economic commitment of that controlling set falls by more: minimum aggregate declared pledge is down $11.2\%$ ($1.44\text{B}$ to $1.28\text{B ADA}$), and minimum aggregate active pledge is down $12.2\%$ ($1.58\text{B}$ to $1.39\text{B ADA}$). These findings indicate that, in the time window considered, stake concentration not only consolidated into slightly fewer pools, but the controlling pools themselves operated with less "skin in the game," marking an increase in network centralization. 
 
+XXX
 ### Pools viability
 
 We recompute operator rewards $\Pi_i$ for a fixed cohort of pools present in both epoch 426 and epoch 500, holding each pool’s epoch $426$ stake $\sigma_i$, declared pledge $p_i$, active pledge $\hat p_i$, and margin $m_i$ fixed. Gross pool reward $f(\sigma_i,p_i)$ is computed once under $k=500$, using $T=36.01B$ ADA, $R=21.6M$ ADA, and $a_0=0.3$ (which are the parameters value for epoch 426). We then compare viability under each pool’s declared fixed cost at epoch $426$ (when $\text{`minPoolCost`}\=340$) versus its declared fixed cost at epoch $500$ (when $\text{`minPoolCost`}\=170$). This allows us to compare pool viability before and after the parameter change while isolating operator fee responses. By holding delegation and other market variables constant, we focus exclusively on how the same pool cohort adjusted its declared fixed cost in response to the `minPoolCost` reduction.
