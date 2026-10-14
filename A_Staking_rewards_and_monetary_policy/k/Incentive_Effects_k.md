@@ -6,6 +6,40 @@ Increasing $k$ can help more pools compete, but it also lowers the reward ceilin
 
 **Pros**
 1. More pools can fit below saturation, which helps smaller and newer pools compete.
+2. Delegators can shift toward smaller pools with stronger active pledge and lower margins.
+3. Some operators can compete for incoming stake by cutting margin.
+
+**Risks**
+1. Large pools lose reward capacity once they are pushed earlier into saturation.
+2. A higher $k$ can trigger a short-lived oversaturation shock and temporary yield losses.
+3. These two factors may prompt delegators to leave the ecosystem and encourage operators to open new pools, ultimately undermining potential stake redistribution.
+
+**What the evidence suggests** (based on historical change in $k$)
+1. Oversaturation was temporary and mostly faded after redelegation.
+2. Delegators moved toward smaller still-undersaturated pools, especially those with stronger active pledge.
+3. Margin reducers were more likely to retain or gain stake than pools that kept them unchanged.
+4. Within the surviving epoch-228 cohort, stake left the largest pools and the typical continuing pool grew.
+5. The network-wide APR gain was modest and partly reflected the exit of weak pools.
+6. The observations are descriptive, not causal, because new low-stake pools and new stake entered in the same period.
+
+**Behavioral and equilibrium discussion** (based on theoretical exercises given the current snapshot)
+1. Increasing $k$ shifts delegation toward smaller, still-undersaturated pools as stake leaves newly oversaturated pools.
+2. Operators may cut margins to stay competitive, but the direction of those changes is ambiguous. They may also split pools or open new ones.
+3. The redistributive effect favors smaller unsaturated pools, which fill toward the new cap, while very large pools lose relative reward capacity.
+4. The network-level APR gain is modest even under idealized redelegation.
+5. These exercises are suggestive, not a forecast, because new pools can enter and delegators may not reallocate by desirability alone.
+
+**Policy interpretation**
+1. Higher $k$ supports small-pool entry and competition.
+2. It likely improves decentralization in a broad sense, but the evidence is suggestive rather than causal.
+3. The trade-off is between more room for small pools and weaker rewards for large ones.
+
+## Summary: Trade-off from increasing k
+
+Increasing $k$ can help more pools compete, but it also lowers the reward ceiling for large pools and can create a temporary oversaturation shock.
+
+**Pros**
+1. More pools can fit below saturation, which helps smaller and newer pools compete.
 2. Delegators can shift toward smaller pools with stronger pledge and lower margins.
 3. Some operators can retain or gain delegation by cutting margin.
 
@@ -167,8 +201,8 @@ Key findings from this section:
 
 1. The jump in $k$ created a short-lived oversaturation shock: many pools briefly became saturated, but redelegation soon moved stake away.
 2. Delegators moved toward smaller, still-undersaturated pools, especially pools with stronger active pledge.
-3. Operators that cut margins showed better stake retention and gain outcomes than pools that kept fees unchanged.
-4. The distribution of stake became more balanced within the surviving cohort. This is suggestive evidence: it is not a causal estimate of the effect of the $k$ increase alone, and it coincides with a large influx of new low-stake pools and new stake into the ecosystem.
+3. Operators that cut margins were more likely to gain stake than pools that kept them unchanged (57.1% vs 43.8% gainers). This is a count of gainers, not net ADA: all three margin groups lost stake in aggregate as capital moved to new pools.
+4. Within the surviving epoch-228 cohort, stake left the largest pools and the typical continuing pool grew (median $5.37\text{M}\to 9.09\text{M}$ ADA). This is suggestive, not a causal estimate of the $k$ increase alone, and it coincides with a large influx of new low-stake pools and new stake into the ecosystem.
 5. The network-wide APR gain was modest and mainly reflected the exit of weak pools and the broader market shift, not a clean, direct causal effect of the parameter change.
 
 These are descriptive patterns rather than causal proof. Because many pools and new stake entered the ecosystem in the same window, we cannot isolate the direct effect of the increase in $k$ on the observed distributional improvement.
