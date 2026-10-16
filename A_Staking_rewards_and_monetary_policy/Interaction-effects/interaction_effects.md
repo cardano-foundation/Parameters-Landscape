@@ -31,8 +31,9 @@
 3. Higher $a_0$ reduces viability among unsaturated pools.
 
 **Policy interpretation**
-1. Higher-$k$ ranking effects are concentrated in oversaturated pools.
-2. In the epoch-$644$ snapshot, median APR falls from $1.69\%$ to $1.34\%$ when $a_0$ rises from $0.3$ to $0.6$.
+1. **$k$ with lower `minPoolCost`:** Raising $k$ and lowering declared $c_i$ together improves unsaturated-pool delegator APR, which $k$ alone does not. The same joint change reduces operator viability by more than raising $k$ alone, because a lower $c_i$ reallocates $f_i$ toward members.
+2. **$k$ with larger $a_0$:** A higher $a_0$ can reinforce a higher $k$ for well-pledged pools near the new saturation cap, but few pools have that pledge. For the snapshot as a whole, the joint change reduces viability and median APR by more than raising $k$ alone.
+3. **$a_0$ with lower `minPoolCost`:** Lowering declared $c_i$ only partly offsets the APR loss from a higher $a_0$; the joint change still leaves median APR below the current snapshot and is harsher on operator viability than either change alone.
 
 ## Parameter values at the current state
 
@@ -175,11 +176,11 @@ The next plot shows the pool viability comparison for $k=500$ and $k=1,000$ befo
 
 | Panel | Scenario | Cover | Losing |
 |:---|:---|---:|---:|
-| Baseline | $k=500$, declared $c_i$ | 274 | 1949 |
-| A | $k\to1000$, $c_i$ unchanged | 254 | 1969 |
-| B | $k\to1000$, all $c_i\to170$ | 165 | 2058 |
-| C | $k=500$, all $c_i\to75$ | 193 | 2030 |
-| D | $k\to1000$, all $c_i\to75$ | 152 | 2071 |
+| Baseline | $k=500$, declared $c_i$ | 274 | 988 |
+| A | $k\to1000$, $c_i$ unchanged | 253 | 1009 |
+| B | $k\to1000$, all $c_i\to170$ | 164 | 1098 |
+| C | $k=500$, all $c_i\to75$ | 192 | 1070 |
+| D | $k\to1000$, all $c_i\to75$ | 152 | 1110 |
 
 Lowering $c_i$ diminishes the operator's net payoff $\Pi_i$ by allocating a larger share of the total fee rewards $f_i$ to delegators, thereby reducing the number of pools capable of covering baseline operating costs $C^*$. Concurrently increasing the target pool parameter $k$ exacerbates this shortfall.
 
@@ -189,11 +190,11 @@ Isolating pools that remain unsaturated throughout isolates the parameter effect
 
 | Panel | Scenario | Covering $C^*$ | Deficit |
 |:---|:---|---:|---:|
-| Baseline | $k=500$, declared $c_i$ | 140 | 1872 |
-| A | $k\to1000$, $c_i$ unchanged | 140 | 1872 |
-| B | $k\to1000$, all $c_i\to170$ | 99 | 1913 |
-| C | $k=500$, all $c_i\to75$ | 90 | 1922 |
-| D | $k\to1000$, all $c_i\to75$ | 90 | 1922 |
+| Baseline | $k=500$, declared $c_i$ | 137 | 911 |
+| A | $k\to1000$, $c_i$ unchanged | 137 | 911 |
+| B | $k\to1000$, all $c_i\to170$ | 95 | 953 |
+| C | $k=500$, all $c_i\to75$ | 86 | 962 |
+| D | $k\to1000$, all $c_i\to75$ | 86 | 962 |
 
 #### Changes in staking participation: delegator APR
 
@@ -208,21 +209,6 @@ where $a_0=0.3$, $R=14.9\text{M}$ ADA, and $T=38.8\text{B}$ ADA. We take the epo
 </p>
 
 In Panel A, the effect on APR is negligible because most post-$k$-increase unsaturated pools sit far below the new saturation point, so shrinking $z_0$ barely moves the pledge term $a_0 \tilde p_i\cdot\frac{\tilde\sigma_i-\tilde p_i(z_0-\tilde\sigma_i)/z_0}{z_0}$, and most also have a low pledge share $p/\sigma$. Large absolute gains in $f$ are rare and concentrated in a few high-pledge pools near the new cap. Thus APR is not invariant to $k$ for unsaturated pools: it improves slightly when pledge is positive, but the improvement is too small to appear in the two-decimal median APR.
-
-
-
-
-
-<!-- ##### Pool splitting by multi-pool operators
-
-For an MPO controlling $n$ pools,
-
-$$
-\Pi^{\text{MPO}}(n)=\sum_{j=1}^{n}\Pi_j\big(k,c_{\min},\sigma_j',\hat p_j,m_j,c_j\big),
-\qquad c_j\ge c_{\min}.
-$$
-
-Splitting is attractive if $\Pi^{\text{MPO}}(n+1)-\Pi^{\text{MPO}}(n)>0$. Raising $k$ increases the pressure to split because it lowers the saturation threshold, while lowering $c_{\min}$ reduces the fixed-cost penalty of maintaining additional pools. The combined reform therefore strengthens split incentives for medium-to-large operators, especially those able to reallocate pledge across multiple pools. -->
 
 
 ## Increments in $k$ and $a_0$
@@ -243,7 +229,6 @@ f(\sigma_i,p_i)=\frac{R}{1+a_0}\left[\widetilde{\sigma}_i+a_0\widetilde{p}_i\fra
 \widetilde{\sigma}_i=\min\\{\sigma_i,z_0\\},\quad \widetilde{p}_i=\min\\{p_i,z_0\\}.
 $$
 
-<!-- With some abuse of notation, let $1/k$ denote the new saturation point under an increased value of $k$. -->
 We next want to  evaluate the interaction effect between a marginal increment in $k$ and a marginal increment in $a_0$. In particular, we want to show that, in some cases, increasing $a_0$ reinforces the effect of a larger $k$.
 
 When the pool remains below the saturation point ($p_i \le \sigma_i < 1/k$), the gross pool reward can be written as:
@@ -339,7 +324,7 @@ To assess how parameter changes affect delegator incentives before market partic
   <img src="plots/desirability_rank_k_a0_interaction_all_epoch_644.png" alt="Desirability when k and a0 increase, epoch644" width="62%">
 </p>
 
-We next isolate pools that remain unsaturated ($\sigma \le z_0(1000)$). Examining this unsaturated cohort ($n = 684$) reveals where delegators would actually find stable incentives during a transition. As shown below, once oversaturated pools are excluded, raising $k$ alone (Panel A) produces a near-perfect rank preservation. Similar for the case of increasing $a_0$, with or without $k$ (Panels B and C). This demonstrates that the severe desirability change triggered by $k$ are mainly localized in pools exceeding the new cap, while the relative attractiveness among unsaturated options remains robust.
+We next isolate pools that remain unsaturated ($\sigma \le z_0(1000)$). Examining this unsaturated cohort ($n = 670$) reveals where delegators would actually find stable incentives during a transition. As shown below, once oversaturated pools are excluded, raising $k$ alone (Panel A) produces a near-perfect rank preservation. Similar for the case of increasing $a_0$, with or without $k$ (Panels B and C). This demonstrates that the severe desirability change triggered by $k$ are mainly localized in pools exceeding the new cap, while the relative attractiveness among unsaturated options remains robust.
 
 <p align="center">
   <img src="plots/desirability_rank_k_a0_interaction_unsaturated_epoch_644.png" alt="Desirability when k and a0 increase only unsaturated pools, epoch644" width="62%">
@@ -361,7 +346,7 @@ and the (uniform) actual operational cost is
 
 $$C^* = \frac{667\text{ USD/month}}{6\text{ epochs/month} \times 0.15\text{ USD/ADA}} \approx 741.1\text{ ADA/epoch}.$$
 
-We evaluate  using actual margins, pledges, and delegations recorded in the epoch $644$ snapshot. As shown in the figure below, raising from $k=500$ to $k=1000$ in isolation (Panel A) slightly reduces the number of pools covering baseline operating expenditure ($C^* = 741.1\text{ ADA}$) from $274$ to $254$, primarily because newly oversaturated pools face capped rewards. Increasing the pledge influence parameter from $a_0 = 0.3$ to $0.6$ produces a more pronounced contraction: viable pools drop to $240$ under $k=500$ (Panel C) and further to $219$ when combined with $k=1000$ (Panel B). Therefore, in the absence of dynamic redelegation, strengthening pledge requirements (higher $a_0$) harms low-pledge pools while increasing $k$ penalizes pools that cross the lowered saturation cap.
+We evaluate using actual margins, pledges, and delegations recorded in the epoch $644$ snapshot. As shown in the figure below, raising from $k=500$ to $k=1000$ in isolation (Panel A) slightly reduces the number of pools covering baseline operating expenditure ($C^* = 741.1\text{ ADA}$) from $274$ to $253$, primarily because newly oversaturated pools face capped rewards. Increasing the pledge influence parameter from $a_0 = 0.3$ to $0.6$ produces a more pronounced contraction: viable pools drop to $239$ under $k=500$ (Panel C) and further to $218$ when combined with $k=1000$ (Panel B). Therefore, in the absence of dynamic redelegation, strengthening pledge requirements (higher $a_0$) harms low-pledge pools while increasing $k$ penalizes pools that cross the lowered saturation cap.
 
 <p align="center">
   <img src="plots/pool_viability_k_a0_interaction_all_epoch_644.png" alt="Pools viability when k and a0 increase, all pools, epoch644" width="62%">
@@ -382,7 +367,7 @@ $$\text{APR}_i \approx 73(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i},$
 
 using fixed macroeconomic network values of $R=14.9\text{M}$ ADA and $T=38.8\text{B}$ ADA. We apply these parameter shocks directly to the static distribution of margins, pledges, and delegations recorded at epoch $644$. We abstain of considering potential reallocation fo delegation and other player responses. We consider the subset of pools that remains unsaturated under the increased $k$, as these represent the viable targets that would naturally absorb migrating stake in subsequent rebalancing phases.
 
-Under the baseline pledge influence parameter ($a_0 = 0.3$), doubling the target pool parameter from $k=500$ to $k=1000$ (Panel A) produces zero change in member returns, maintaining an identical median APR of $1.69\%$. On the other hand, increasing the pledge influence factor to $a_0 = 0.6$ (Panels B and C) triggers a noticeable systemic decline in member profitability: the median APR falls from $1.69\%$ to $1.34\%$. 
+Under the baseline pledge influence parameter ($a_0 = 0.3$), doubling the target pool parameter from $k=500$ to $k=1000$ (Panel A) produces zero change in delegator returns, maintaining an identical median APR of $1.69\%$. On the other hand, increasing the pledge influence factor to $a_0 = 0.6$ (Panels B and C) triggers a noticeable systemic decline in delegators profitability: the median APR falls from $1.69\%$ to $1.34\%$. 
 
 <p align="center">
   <img src="plots/member_apr_k_a0_interaction_unsaturated_epoch_644.png" alt="Delegators APR when k and a0 increase, unsaturated pools, epoch644" width="62%">
@@ -447,9 +432,9 @@ Removing oversaturated pools does not alter the dynamic mentioned above.
 
 These four boxplots illustrate how adjusting the pledge influence factor ($a_0$) and pool fixed costs ($c_i$) affect delegator returns (APR) under fixed Cardano network parameters ($k=500$, $R=14.97\text{M}$, $T=38.76\text{B}$).
 
-Increasing the pledge influence factor from $a_0=0.3$ to $a_0=0.6$ without adjusting pool costs causes a substantial decline in overall delegator APR (Panel A). Because higher $a_0$ values shift reward distribution toward operator pledge, this drop suggests that the majority of active pools do not hold enough pledge to benefit from the change, thereby penalizing delegator returns across most pools under current configurations.
+Increasing the pledge influence factor from $a_0=0.3$ to $a_0=0.6$ without adjusting pool costs causes a substantial decline in overall delegator APR (Panel A): the median falls from $1.83\%$ to $1.46\%$. Because higher $a_0$ values shift reward distribution toward operator pledge, this drop suggests that the majority of active pools do not hold enough pledge to benefit from the change, thereby penalizing delegator returns across most pools under current configurations.
 
-Conversely, lowering pool fixed costs counteracts this decline: reducing fixed costs across all pools to $c_i=75$ under the current $a_0$ increases median APR (Panel C), while pairing low fixed costs ($c_i=170$ or $c_i=75$) with $a_0=0.6$ cushions the yield drop for delegators (Panels B and D).
+Conversely, lowering pool fixed costs counteracts this decline: reducing fixed costs across all pools to $c_i=75$ under the current $a_0$ increases median APR from $1.83\%$ to $1.96\%$ (Panel C), while pairing low fixed costs ($c_i=170$ or $c_i=75$) with $a_0=0.6$ cushions the yield drop for delegators (Panels B and D; medians $1.53\%$ and $1.58\%$).
 
 <p align="center">
   <img src="plots/member_apr_a0_c_interaction_unsaturated_epoch_644.png" alt="Delegator APR when $a_0$ increases and minPoolCost decreases, unsaturated pools, epoch 644" width="62%">
