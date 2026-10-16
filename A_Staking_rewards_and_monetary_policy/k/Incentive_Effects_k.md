@@ -14,12 +14,12 @@ Increasing $k$ can help more pools compete, but it also lowers the reward ceilin
 2. A higher $k$ can trigger a short-lived oversaturation shock and temporary yield losses.
 3. These two factors may prompt delegators to leave the ecosystem and encourage operators to open new pools, ultimately undermining potential stake redistribution.
 
-**What the evidence suggests** (based on historical change in $k$)
+**What the evidence suggests** (based on historical increase in $k$)
 1. Oversaturation was temporary and mostly faded after redelegation.
 2. Delegators moved toward smaller still-undersaturated pools, especially those with stronger active pledge.
-3. Margin reducers were more likely to retain or gain stake than pools that kept them unchanged.
+3. Margin reducers were more likely to gain stake than pools that kept fees unchanged.
 4. Within the surviving epoch-228 cohort, stake left the largest pools and the typical continuing pool grew.
-5. The network-wide APR gain was modest and partly reflected the exit of weak pools.
+5. APR among remaining undersaturated pools was essentially unchanged; the higher median among survivors reflects the exit of weak pools.
 6. The observations are descriptive, not causal, because new low-stake pools and new stake entered in the same period.
 
 **Behavioral and equilibrium discussion** (based on theoretical exercises given the current snapshot)
@@ -243,7 +243,7 @@ We will not consider Inactive pools, i.e., pools with zero stake, with active pl
 Main observations:
 
 - Before the change ($k=150$), oversaturation was effectively zero.
-- The historical $3.33\times$ jump to $k=500$ moved the system to $103$ oversaturated pools and $E(k)=5.89$B ADA ($33.95\%$ of $S$).
+- The historical $3.33\times$ jump to $k=500$ moved the system to $103$ oversaturated pools and $E(k)=5.89$B ADA ($36.34\%$ of Active $S$).
 - After enough epochs, the redelegation moved away from oversaturated pools, leaving oversaturated pools again near zero.
 - The snapshot also shows a important increment in the staking level $S$, the ratio $S/T$, and number of pools. However, this does not imply that the change in $k$ triggered that increment.
 
@@ -355,7 +355,7 @@ To evaluate how shifting $k=150 \to 500$ affects delegator returns, we calculate
 
 $$\mathrm{APR}_i\approx73(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}.$$
  
-This measures net yield per ADA after deducting fixed costs ($c_i$) and variable margins ($m_i$). When $f\le c$, member APR is zero and those pools are retained in the sample. To isolate operator pricing behavior from saturation mechanics, the baseline sample is restricted to the $616$ undersaturated Active pools at epoch $228$. Of these, $443$ survived through epoch 285, while $173$ exited. For the counterfactual $k=500$ scenario, surviving pools hold their epoch 228 stake and pledge fixed while adopting their actual epoch 285 fees, allowing us to capture strategic fee responses while holding delegation constant. This captures operators’ fee responses and APR changes due to this response and due to the $k$ change without allowing subsequent delegation changes to affect the comparison (this is a simplification since fee responses could also be a consequence of new incoming pools and delegations). Exiting pools remain in the baseline $k=150$ scenario to avoid survivorship bias, but are excluded from $k=500$ as their post-exit parameters are unobserved.
+This measures net yield per ADA after deducting fixed costs ($c_i$) and variable margins ($m_i$). When $f\le c$, member APR is zero and those pools are retained in the sample. To isolate operator pricing behavior from saturation mechanics, the baseline sample is restricted to the $491$ undersaturated Active pools at epoch $228$ ($\sigma_{228}\le z_0=64.07$M ADA). Of these, $345$ survived through epoch 285, while $146$ exited. For the counterfactual $k=500$ scenario, surviving pools hold their epoch 228 stake and pledge fixed while adopting their actual epoch 285 fees, allowing us to capture strategic fee responses while holding delegation constant. This captures operators’ fee responses and APR changes due to this response and due to the $k$ change without allowing subsequent delegation changes to affect the comparison (this is a simplification since fee responses could also be a consequence of new incoming pools and delegations). Exiting pools remain in the baseline $k=150$ scenario to avoid survivorship bias, but are excluded from $k=500$ as their post-exit parameters are unobserved.
 
 | Sample and scenario | Pools | Return $>0$ | Median APR | Mean APR |
 | --- | --- | --- | --- | --- |
@@ -369,7 +369,7 @@ This measures net yield per ADA after deducting fixed costs ($c_i$) and variable
 </p>
 
 
-The data shows that surviving pools were inherently higher-yielding at baseline, with $85.5\%$ ($295/345$) generating positive returns (median APR of $4.16\%$), whereas only $30.8\%$ ($45/146$) of exiting pools produced positive returns (median APR of $0.00\%$). The change in $k$ may be responsible in purging underperforming operators, and yielding a slight upward shift in both overall median APR (from $3.23\%$ to $4.16\%$) and mean APR (from $2.63\%$ to $3.40\%$) of the network. Notice that APR for surviving pools remain invariant under the counterfactual $k=500$ parameterization (median $4.16\%$ to $4.15\%$). This suggests that surviving operators may have adjusted their margins and fixed costs sufficiently to absorb protocol parameter changes and preserve steady yields for their delegators. That is, the increase in $k$ enhanced network-wide attractiveness by marginally lifting average delegator APR—a direct result of the exit of weak pools.
+The data shows that surviving pools were inherently higher-yielding at baseline, with $85.5\%$ ($295/345$) generating positive returns (median APR of $4.16\%$), whereas only $30.8\%$ ($45/146$) of exiting pools produced positive returns (median APR of $0.00\%$). The change in $k$ may be responsible in purging underperforming operators, yielding a higher median APR among remaining pools (from $3.23\%$ to $4.16\%$) and a higher mean (from $2.63\%$ to $3.40\%$). Notice that APR for surviving pools remains invariant under the counterfactual $k=500$ parameterization (median $4.16\%$ to $4.15\%$). This suggests that surviving operators may have adjusted their margins and fixed costs enough to absorb the parameter change. The higher median in the survivor sample is a compositional effect from the exit of weak pools, not a mechanical rise in APR from $k$.
 
 
 
@@ -507,7 +507,7 @@ $$
 
 using their margin, delegation, active and declared pledge, and declared fixed cost in epoch $644$. We do not assume truthful reporting of the cost, i.e., the declared fixed cost is not the actual operating cost that the pools face. In contrast, we assume that all pools have the same operation cost/expenditure ($C^*=\hat c_i$ for all $i$) equal to $667$ USD per month or, equivalently, six epochs (for a foundational analysis of monthly operating costs, see [Lopez de Lara (2026)](https://input-output-hk.github.io/spo-incentives/pdf-viewer.html?file=references/previous-analasys/spo-incentives-analysis_lopez-de-lara_2025.pdf)), or  
 
-$$C^*=667/6/0.15=741.1 \text{ USD per epoch},$$
+$$C^*=667/6/0.15=741.1 \text{ ADA per epoch},$$
 
 where we used a price $0.15 USD/ADA$. 
 
