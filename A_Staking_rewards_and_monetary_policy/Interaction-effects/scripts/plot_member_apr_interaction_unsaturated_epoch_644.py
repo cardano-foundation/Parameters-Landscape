@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Epoch 644 — member APR under (k, c) interaction effects.
+"""Epoch 644 (Active pools) — member APR under (k, c) interaction effects.
 
 Same as plot_member_apr_interaction_effects_epoch_644.py, but only pools that
 remain unsaturated if k rises to 1000 (sigma <= T/1000).
@@ -7,6 +7,7 @@ remain unsaturated if k rises to 1000 (sigma <= T/1000).
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import matplotlib
@@ -16,17 +17,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from interaction_common import load_active_pools
+
 DIR = Path(__file__).resolve().parent
 PARENT = DIR.parent
-POOLS_CSV = PARENT / "staking_pools_full_epoch_644.csv"
+POOLS_CSV = PARENT / "staking_pools_full_epoch_644_merged.csv"
+PARAMS_JSON = PARENT / "f_reward_params_epoch_644.json"
 OUT_PNG = DIR / "member_apr_interaction_unsaturated_epoch_644.png"
 OUT_CSV = DIR / "member_apr_interaction_unsaturated_epoch_644.csv"
 OUT_MD = DIR / "member_apr_interaction_unsaturated_epoch_644.md"
 
 FONT_SIZE = 12
 EPOCHS_PER_YEAR = 73.0
-R = 14.9e6
-T = 38.8e9
 A0 = 0.3
 K_BASE = 500
 K_NEW = 1000
@@ -106,16 +108,19 @@ def draw_pair(ax, vals_base, vals_alt, *, label_base, label_alt, title):
 
 
 def main() -> None:
+    params = json.loads(PARAMS_JSON.read_text())
+    R = float(params["R_ada"])
+    T = float(params["T_supply_ada"])
     r_over_t = R / T
     z0_500 = T / K_BASE
     z0_1000 = T / K_NEW
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce") / 1e6
     )
     declared = pd.to_numeric(df["pool_update.active.pledge"], errors="coerce") / 1e6
-    active = pd.to_numeric(df["pledged"], errors="coerce") / 1e6
+    active = pd.to_numeric(df["live_pledge"].fillna(df["pledged"]), errors="coerce") / 1e6
     cost = pd.to_numeric(df["pool_update.active.fixed_cost"], errors="coerce") / 1e6
     margin = pd.to_numeric(df["pool_update.active.margin"], errors="coerce")
 
@@ -219,7 +224,7 @@ def main() -> None:
     )
 
     fig.suptitle(
-        r"Epoch 644 — theoretical member APR (unsaturated if $k\to1000$)"
+        r"Epoch 644 — theoretical member APR, Active pools (unsaturated if $k\to1000$)"
         "\n"
         + rf"$R={R/1e6:.1f}$M ADA, $T={T/1e9:.1f}$B, $a_0={A0}$; "
         + rf"$\sigma\leq z_0(1000)$; excluded oversaturated: {n_excluded}; "

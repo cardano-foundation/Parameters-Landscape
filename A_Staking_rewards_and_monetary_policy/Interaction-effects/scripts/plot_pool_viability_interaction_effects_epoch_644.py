@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Epoch 644 — pool viability (r = Pi / C*) under interaction effects.
+"""Epoch 644 (Active pools) — pool viability (r = Pi / C*) under interaction effects.
 
 2x2 grouped bars vs baseline (k=500, declared c_i):
   A) k: 500 -> 1000, c_i unchanged
@@ -20,9 +20,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from interaction_common import load_active_pools
+
 DIR = Path(__file__).resolve().parent
 PARENT = DIR.parent
-POOLS_CSV = PARENT / "staking_pools_full_epoch_644.csv"
+POOLS_CSV = PARENT / "staking_pools_full_epoch_644_merged.csv"
 PARAMS_JSON = PARENT / "f_reward_params_epoch_644.json"
 OUT_PNG = DIR / "pool_viability_interaction_effects_epoch_644.png"
 OUT_CSV = DIR / "pool_viability_interaction_effects_epoch_644.csv"
@@ -205,12 +207,12 @@ def main() -> None:
     z0_500 = T / 500
     z0_1000 = T / 1000
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce") / 1e6
     )
     declared = pd.to_numeric(df["pool_update.active.pledge"], errors="coerce") / 1e6
-    active = pd.to_numeric(df["pledged"], errors="coerce") / 1e6
+    active = pd.to_numeric(df["live_pledge"].fillna(df["pledged"]), errors="coerce") / 1e6
     cost = pd.to_numeric(df["pool_update.active.fixed_cost"], errors="coerce") / 1e6
     margin = pd.to_numeric(df["pool_update.active.margin"], errors="coerce")
 

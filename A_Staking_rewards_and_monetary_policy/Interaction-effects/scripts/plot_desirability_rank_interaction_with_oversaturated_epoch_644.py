@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Epoch 644 — interaction effects on desirability ranking (2x2 panel).
+"""Epoch 644 (Active pools) — interaction effects on desirability ranking (2x2 panel).
 
 Same as the base interaction-effects plot but includes ALL pledge-met pools,
 with oversaturated pools (sigma > z0(1000)) shown in red.
@@ -20,9 +20,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from interaction_common import load_active_pools
+
 DIR = Path(__file__).resolve().parent
 PARENT = DIR.parent
-POOLS_CSV = PARENT / "staking_pools_full_epoch_644.csv"
+POOLS_CSV = PARENT / "staking_pools_full_epoch_644_merged.csv"
 PARAMS_JSON = PARENT / "f_reward_params_epoch_644.json"
 OUT_PNG = DIR / "desirability_rank_interaction_with_oversaturated_epoch_644.png"
 
@@ -148,7 +150,7 @@ def main() -> None:
     z0_500 = T / K_BASE
     z0_1000 = T / K_NEW
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = (
         pd.to_numeric(
             df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]),
@@ -160,7 +162,7 @@ def main() -> None:
         pd.to_numeric(df["pool_update.active.pledge"], errors="coerce").fillna(0.0) / 1e6
     ).to_numpy(dtype=float)
     active = (
-        pd.to_numeric(df["pledged"], errors="coerce").fillna(0.0) / 1e6
+        pd.to_numeric(df["live_pledge"].fillna(df["pledged"]), errors="coerce").fillna(0.0) / 1e6
     ).to_numpy(dtype=float)
     cost = (
         pd.to_numeric(df["pool_update.active.fixed_cost"], errors="coerce").fillna(0.0) / 1e6

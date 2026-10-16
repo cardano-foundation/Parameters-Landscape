@@ -23,9 +23,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from interaction_common import load_active_pools
+
 DIR = Path(__file__).resolve().parent
 PARENT = DIR.parent
-POOLS_CSV = PARENT / "staking_pools_full_epoch_644.csv"
+POOLS_CSV = PARENT / "staking_pools_full_epoch_644_merged.csv"
 PARAMS_JSON = PARENT / "f_reward_params_epoch_644.json"
 OUT_ALL = DIR / "desirability_rank_a0_c_interaction_all_epoch_644.png"
 OUT_UNSAT = DIR / "desirability_rank_a0_c_interaction_unsaturated_epoch_644.png"
@@ -136,7 +138,7 @@ def make_figure(d0, dA, dB, dC, dD, include_mask, oversat, show_over, out_path, 
         title=r"D: $a_0\!:\,0.3\to0.6$, all $c_i\to75$",
     )
     fig.suptitle(
-        r"Epoch 644 — desirability ranking under $a_0$–$c$ interaction ($k=500$)"
+        r"Epoch 644 — desirability ranking, Active pools, under $a_0$–$c$ interaction ($k=500$)"
         "\n" + subtitle,
         fontsize=FONT_SIZE,
     )
@@ -152,12 +154,12 @@ def main() -> None:
     r_over_t = R / T
     z0 = T / K
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = (
         pd.to_numeric(df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce").fillna(0.0) / 1e6
     ).to_numpy(dtype=float)
     declared = (pd.to_numeric(df["pool_update.active.pledge"], errors="coerce").fillna(0.0) / 1e6).to_numpy(dtype=float)
-    active = (pd.to_numeric(df["pledged"], errors="coerce").fillna(0.0) / 1e6).to_numpy(dtype=float)
+    active = (pd.to_numeric(df["live_pledge"].fillna(df["pledged"]), errors="coerce").fillna(0.0) / 1e6).to_numpy(dtype=float)
     cost = (pd.to_numeric(df["pool_update.active.fixed_cost"], errors="coerce").fillna(0.0) / 1e6).to_numpy(dtype=float)
     margin = pd.to_numeric(df["pool_update.active.margin"], errors="coerce").fillna(0.0).to_numpy(dtype=float)
 

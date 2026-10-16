@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 """
 Difference in pool operator rewards (%) when (k, c) move from
-(k=500, c=170) to (k=1000, c=75), epoch-644 R and T.
+(k=500, c=170) to (k=1000, c=75), theoretical R=14.9M, T=38.8B.
 
 Pi = c + (f - c) * [m + (1-m) p/sigma]  if f > c, else f.
 """
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import matplotlib
@@ -19,11 +18,12 @@ import numpy as np
 from matplotlib.colors import LinearSegmentedColormap
 
 DIR = Path(__file__).resolve().parent
-PARENT = DIR.parent
-PARAMS_JSON = PARENT / "f_reward_params_epoch_644.json"
 OUT_PNG = DIR / "heatmap_operator_reward_pct_k1000_c75_epoch_644.png"
 
 FONT_SIZE = 12
+R = 14.9e6
+T = 38.8e9
+A0 = 0.3
 K0 = 500
 K1 = 1000
 C0 = 170.0
@@ -64,10 +64,7 @@ def operator_grid(
 
 
 def main() -> None:
-    params = json.loads(PARAMS_JSON.read_text())
-    a0 = float(params["a0"])
-    R = float(params["R_ada"])
-    T = float(params["T_supply_ada"])
+    a0 = A0
     r_over_t = R / T
     z0_500 = T / K0
     z0_1000 = T / K1

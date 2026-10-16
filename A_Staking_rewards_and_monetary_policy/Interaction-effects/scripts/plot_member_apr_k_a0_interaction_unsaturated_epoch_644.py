@@ -19,9 +19,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from interaction_common import load_active_pools
+
 DIR = Path(__file__).resolve().parent
 PARENT = DIR.parent
-POOLS_CSV = PARENT / "staking_pools_full_epoch_644.csv"
+POOLS_CSV = PARENT / "staking_pools_full_epoch_644_merged.csv"
 PARAMS_JSON = PARENT / "f_reward_params_epoch_644.json"
 OUT_PNG = DIR / "member_apr_k_a0_interaction_unsaturated_epoch_644.png"
 OUT_CSV = DIR / "member_apr_k_a0_interaction_unsaturated_epoch_644.csv"
@@ -98,10 +100,10 @@ def main() -> None:
     z0_500 = T / K0
     z0_1000 = T / K1
 
-    df = pd.read_csv(POOLS_CSV)
+    df = load_active_pools()
     sigma = pd.to_numeric(df["epochs.0.data.epoch_stake"].fillna(df["active_stake"]), errors="coerce") / 1e6
     declared = pd.to_numeric(df["pool_update.active.pledge"], errors="coerce") / 1e6
-    active = pd.to_numeric(df["pledged"], errors="coerce") / 1e6
+    active = pd.to_numeric(df["live_pledge"].fillna(df["pledged"]), errors="coerce") / 1e6
     cost = pd.to_numeric(df["pool_update.active.fixed_cost"], errors="coerce") / 1e6
     margin = pd.to_numeric(df["pool_update.active.margin"], errors="coerce")
     complete = sigma.notna() & (sigma > 0) & declared.notna() & active.notna() & cost.notna() & margin.notna()
@@ -169,7 +171,7 @@ def main() -> None:
         title=r"C: $k=500$, $a_0\!:\,0.3\to0.6$",
     )
     fig.suptitle(
-        r"Epoch 644 — member APR under $k$–$a_0$ interaction (unsaturated if $k\to1000$)"
+        r"Epoch 644 — member APR, Active pools, under $k$–$a_0$ interaction (unsaturated if $k\to1000$)"
         "\n"
         + rf"$R={R/1e6:.2f}$M, $T={T/1e9:.2f}$B; excluded oversaturated: {n_ex}; "
         + r"APR$=73(1-m)\max\{f-c,0\}/\sigma$",
