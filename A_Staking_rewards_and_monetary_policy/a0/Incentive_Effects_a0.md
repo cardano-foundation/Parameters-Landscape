@@ -18,7 +18,7 @@ Increasing $a_0$ strengthens the pledge incentive and improves Sybil resistance,
 1. Higher $a_0$ does not strongly induce operators to lower fees or declared fixed costs; the relationship between pledge and pricing is weak.
 2. Pool viability worsens after the shock: fewer pools cover operating costs, and the losing groups expand.
 3. Splitting becomes slightly less attractive when $a_0$ rises, suggesting only a modest deterrent to Sybil-like pool expansion.
-4. The increase in $a_0$ reduces network APR, but the effect is moderate and concentrated among low-pledge pools rather than a broad collapse in competitiveness.
+4. A $2x$ increase in $a_0$ reduces network APR by about $19\%$. 
 
 **Policy interpretation**
 1. Higher $a_0$ improves pledge discipline and Sybil resistance.
@@ -341,7 +341,7 @@ We then compare the unsplit reward $\Pi_i$ with the split outcome $\Pi'+\Pi'=2\P
 
 Median $\Delta\Pi=\Pi_{\mathrm{split}}-\Pi_{\mathrm{unsplit}}$: 162.74 ADA/epoch; mean: 79.71 ADA/epoch.
 
-Under this scenario with $a_0=0.3$, a $1\to 2$ split increases operator reward for a majority of Active pools ($66.6\%$ increase vs $30.3\%$ decrease). The next plot shows that gainers are much larger and more pledged.
+Under this scenario with $a_0=0.3$, a $1\to 2$ split increases operator reward for a majority of Active pools ($66.6\%$ increase vs $30.3\%$ decrease). The next plot shows that gainers are much larger (median stake $10.45\text{M}$ vs $0.40\text{M}$ ADA), but not more pledged.
 
 <p align="center">
 <img src="plots/pool_split_traits_increase_vs_decrease_a0_0p3_epoch_644.png" alt="Operators incentives to split when a0=0.3" width="62%">
@@ -359,7 +359,7 @@ Declared fixed costs and margins are unchanged; only $a_0$ in $f(\cdot)$ is rais
 
 Median $\Delta\Pi$: 159.33 ADA/epoch; mean: 18.30 ADA/epoch.
 
-When $a_0$ rises from $0.3$ to $0.6$, the fraction of Active pools that gain from splitting is $63.2\%$ (vs $66.6\%$ under $a_0=0.3$), and the fraction that lose is $33.5\%$ (vs $30.3\%$). Mean $\Delta\Pi$ moves from $79.71$ to $18.30$ ADA/epoch. Gainers remain larger and more pledged than losers.
+When $a_0$ rises from $0.3$ to $0.6$, the fraction of Active pools that gain from splitting is $63.2\%$ (vs $66.6\%$ under $a_0=0.3$), and the fraction that lose is $33.5\%$ (vs $30.3\%$). Mean $\Delta\Pi$ moves from $79.71$ to $18.30$ ADA/epoch. Gainers remain larger than losers (median stake $11.58\text{M}$ vs $0.46\text{M}$ ADA), but not more pledged.
 
 <p align="center">
 <img src="plots/pool_split_traits_increase_vs_decrease_a0_0p6_epoch_644.png" alt="Operators incentives to split when a0=0.6" width="62%">
@@ -391,8 +391,8 @@ Using $k=500$, $R\approx 14.97M$ ADA, $T\approx 38.76B$ ADA:
 
 | Case | Pools (\(f>c\)) | Median APR | Network APR |
 |---|---:|---:|---:|
-| \(a_0=0.3\) | $941$ | $1.82\\%$ | $1.66\\%$ |
-| \(a_0=0.6\) | $895$ ($−4.9\\%$)| $1.46\\%$ ($−19.8\\%$)| $1.34\\%$ ($−19.3\\%$) |
+| \(a_0=0.3\) | $927$ | $1.83\\%$ | $1.66\\%$ |
+| \(a_0=0.6\) | $884$ ($−4.6\\%$)| $1.46\\%$ ($−20.2\\%$)| $1.34\\%$ ($−19.1\\%$) |
 
 <p align="center">
   <img src="plots/member_apr_a0_0p3_vs_0p6_epoch_644.png" alt="a0 APR change with a0 increment" width="62%">
@@ -416,5 +416,4 @@ We can group the pools into different declared pledge:
 <p align="center">
   <img src="plots/member_apr_a0_by_declared_pledge_epoch_644.png" alt="a0 APR change with a0 increment in groups of declared pledge" width="62%">
 </p>
-
-Notice that the group with the largest declared pledge shows a lower APR. In this group, $(f-c)/\sigma_i$ is higher. However, many pools of that subset, controlling near $50\\%%$ of the stake of the subset, set $m_i=1$. This result in a lower median APR compare with the other sets.
+Notice that the group with the largest declared pledge shows a lower APR. In this group, $(f-c)/\sigma_i$ is higher. However, many pools of that subset, controlling about $55\%$ of the stake of the subset, set $m_i=1$. This results in a lower median APR compared with the other sets.
