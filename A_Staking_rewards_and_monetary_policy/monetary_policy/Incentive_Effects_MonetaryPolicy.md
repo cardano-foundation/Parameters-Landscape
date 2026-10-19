@@ -76,7 +76,7 @@ $$f(\tilde{\sigma}_i, \tilde{p}_i) = \frac{R}{1 + a_0} \left[ \tilde{\sigma}_i +
 Rewards are only distributed on active, staked ADA. If less than $100\\%$ of the circulating supply is staked, unearned rewards return directly to the reserves.
 
 
-## Direct mechanical effects
+## Parameter Mechanics: A Design Perspective
 
 In this section we consider the direct effects of changing $\rho$ and $\tau$ while holding everything else equal (ceteris paribus). The key point is that these two parameters act on the reward pot and therefore on the aggregate level of rewards available to pools, rather than on the shape of the reward-sharing function itself.
 
@@ -298,7 +298,7 @@ Hence, maintaining APR can require a very large increase in fees if the reserve 
   <img src="plots/fee_path_constant_apr.png" alt="Necessary fee increment to keep APR" width="62%">
 </p>
 
-## Behavioral and equilibrium effects of changing $\rho$ and $\tau$
+## Effects of changing $\rho$ and $\tau$ given the current state
 
 This section studies the second-order effects of changing the reward-pot parameters on delegator and operator decisions, given the current state of the system. Unlike $k$ or $a_0$, these parameters do not change the geometry of the reward function directly. Instead, they alter the size of the reward budget, the share that reaches the pool layer, and therefore the viability and relative attractiveness of pools.
 
@@ -310,7 +310,7 @@ $$APR_i \approx 73(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i},$$
 
 not through the raw parameter value itself. If the reward pot shrinks, a pool's relative position improves only if it can preserve net yield through lower margins, lower declared costs, or a stronger pledge-based competitive position.
 
-#### Delegators moving stake
+### Delegators moving stake
 
 Delegators allocate stake based on expected net return. A negative shock to the reward budget should therefore shift delegation away from low-yield pools and toward pools that preserve higher net return per unit of stake. This mechanism is strongest for marginal pools whose reward margin is already thin. In practice, the response is likely gradual because stake is persistent and because delegators face search and inertia costs, but the direction of the response is straightforward: lower expected APR should reduce the attractiveness of weak or high-cost pools.
 
@@ -334,7 +334,7 @@ Pools that gain desirability rank are those with low margins and meaningful pled
 
 
 
-#### Entry or exit of pools. Pools viability.
+### Entry or exit of pools. Pools viability.
 
 Entry or exit decisions are governed by whether expected pool utility exceeds the outside option. In reduced-reward environments, pools near the viability threshold are most exposed to exit, especially if they cannot cut margin or maintain enough delegation to cover fixed costs. The relevant condition is
 
@@ -381,7 +381,7 @@ The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and 
 
 Price and opex still set the count $r\ge 1$: at $58.5$ USD/month the count is already high at every price in the grid. At the paper cell ($667$ USD/month, $0.15$ USD/ADA), the count rises from $274$ to $333$. Raising $\rho$ scales $R=(1-\tau)\rho Q$, so $f_i$ and $\Pi_i$ rise for pools that already have some stake. That lifts pools already close to $r=1$ over the threshold, but it does not rescue tiny pools whose $\Pi_i$ remains far below $C^\*$. The gain is largest in the middle of the $C^\*$ range (for example $+70$ at $667$ USD/month and $0.25$ USD/ADA). Unlike the $k$ and $c_i=75$ shocks, the $\rho$ gap does not vanish at cheap opex: even at $58.5$ USD/month and $0.15$ USD/ADA, $38$ more pools have $r\ge 1$. When $C^\*$ is very low ($58.5$ USD/month and high ADA prices), most Active pools already have $r\ge 1$, so the $\rho$ gain shrinks. When $C^\*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody covers either way, so the $\rho$ gap shrinks again. Across the grid the increment stays in the tens of pools, which is why increasing $\rho$ is an ineffective lever for small-pool viability even though it is a first-order level shock to $R$.
 
-#### Changes in staking participation
+### Changes in staking participation
 
 The following figure illustrates the impact of a $40\\%$ increase in $\rho$ on delegator APR, defined as:
 
