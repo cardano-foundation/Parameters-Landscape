@@ -196,6 +196,14 @@ Isolating pools that remain unsaturated throughout isolates the parameter effect
 | C | $k=500$, all $c_i\to75$ | 86 | 962 |
 | D | $k\to1000$, all $c_i\to75$ | 86 | 962 |
 
+The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and one ADA price ($0.15$). We next consider different ADA prices and operational costs. In particular, the following heatmap uses $P\in\{0.10,0.15,0.25,0.30,0.50\}$ and four monthly opex levels: $58.5$ USD, $256.5$ USD, $667$ USD (our previous baseline), and $1,479$ USD. Cells indicate the number of Active pools with $r=\Pi_i/C^\*(P)\ge 1$; the right panel is the change when $k$ goes from $500$ to $1,000$ and every pool is forced to $c_i=75$.
+
+<p align="center">
+<img src="plots/pool_viability_price_cost_heatmap_cover_k_c_epoch_644.png" alt="Active pools with r>=1 vs ADA price and USD opex, k=1000 and c_i=75" width="100%">
+</p>
+
+The joint shock is dominated by the $c_i=75$ channel: a lower declared fixed cost reallocates $f_i$ toward members and cuts $\Pi_i$ for every pool with $f_i>c_i$, while raising $k$ only caps newly oversaturated pools. At $58.5$ USD/month and ADA at $0.15$ or higher, the gap vanishes. At $667$ USD/month and $0.15$ USD/ADA, the count falls from $274$ to $152$, more than either shock alone ($-21$ for $k$, $-82$ for $c_i=75$). The loss is largest in the middle of the $C^\\*$ range (for example $-452$ at $256.5$ USD/month and $0.25$ USD/ADA). When $C^*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody has $r\ge 1$ either way, so the joint gap shrinks again.
+
 #### Changes in staking participation: delegator APR
 
 We measure the effect of an increase in $k$ together with a reduction in `minPoolCost` on delegators' APR using
@@ -358,6 +366,14 @@ When restricting the analysis exclusively to the set of pools that remain unsatu
   <img src="plots/pool_viability_k_a0_interaction_unsaturated_epoch_644.png" alt="Pools viability when k and a0 increase, unsaturated pools, epoch644" width="62%">
 </p>
 
+The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and one ADA price ($0.15$). We could also consider a grid of different ADA prices and operational costs. The following heatmap varies $P\in\{0.10,0.15,0.25,0.30,0.50\}$ and four monthly opex levels: $58.5$ USD, $256.5$ USD, $667$ USD (our previous baseline), and $1,479$ USD. Cells indicate the number of Active pools with $r=\Pi_i/C^*(P)\ge 1$; the right panel is the change when $k$ goes from $500$ to $1,000$ and $a_0$ goes from $0.3$ to $0.6$.
+
+<p align="center">
+<img src="plots/pool_viability_price_cost_heatmap_cover_k_a0_epoch_644.png" alt="Active pools with r>=1 vs ADA price and USD opex, k=1000 and a0=0.6" width="100%">
+</p>
+
+At the cost $667$ USD per month and ADA price $0.15$, the count falls from $274$ to $218$ ($\Delta=-56$), which is the sum of the isolated $k$ and $a_0$ gaps ($-21$ and $-35$). The two channels do different things: raising $a_0$ compresses $f_i$ for low-pledge pools through $1/(1+a_0)$, and that tax does not vanish at cheap opex (still $-30$ at $58.5$ USD/month and $0.15$ USD/ADA, as with $a_0$ alone). Raising $k$ is second-order and shows up when $C^\*$ is more demanding, because newly oversaturated pools then drop below a higher ADA coverage threshold. When $C^\*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody covers either way, so the joint gap shrinks again.
+
 
 #### Changes in staking participation. Delegators APR.
 
@@ -427,6 +443,14 @@ Removing oversaturated pools does not alter the dynamic mentioned above.
 <p align="center">
   <img src="plots/pool_viability_a0_c_interaction_unsaturated_epoch_644.png" alt="Pool viability under $a_0$ increase and minPoolCost reduction, unsaturated pools, epoch 644" width="62%">
 </p>
+
+As before we now consider the viability question under different ADA prices and operational costs:$P\in\{0.10,0.15,0.25,0.30,0.50\}$, $C^\*\in\{58.5,256.5, 667, 1,470\}$ USD.
+
+<p align="center">
+<img src="plots/pool_viability_price_cost_heatmap_cover_a0_c_epoch_644.png" alt="Active pools with r>=1 vs ADA price and USD opex, a0=0.6 and c_i=75" width="100%">
+</p>
+
+This joint shock is again dominated by $c_i=75$, with $a_0$ adding a smaller widespread tax on low-pledge $f_i$. At $58.5$ USD/month and ADA at $0.15$ or higher, the $c_i$ gap vanishes and only the $a_0$ gap remains ($-30$ at $0.15$ USD/ADA). The loss is largest in the middle of the $C^\*$ range (for example $-490$ at $256.5$ USD/month and $0.30$ USD/ADA). When $C^*$ is very high, almost nobody covers either way, so the joint gap shrinks again.
 
 #### Changes in staking participation: delegator APR
 
