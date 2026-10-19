@@ -430,6 +430,14 @@ Note that the low ADA price has a direct implication in the previous results. Ho
 
 Pools with $r<0.5$ have median stake $\approx 0.82$M ADA and median operator reward $\approx 179$ ADA, whereas those with $0.5\leq r<1$ already look like mid-sized pools (median stake $\approx 14.4$M ADA)—still well below Edge on stake, but often with higher active and declared pledge than Edge. Across all groups, the median declared fixed cost remains anchored at $340$ ADA despite `minPoolCost` $=170$ ADA. Lower margins $m_i$ among losing pools do not close the gap: desirability is driven more by existing delegation volume than by $m_i$ cuts alone.
 
+The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and one ADA price ($0.15$). We could also consider a grid of different ADA prices and operational costs. The following heatmap varies $P\in\{0.10,0.15,0.25,0.30,0.50\}$ and four monthly opex levels: $58.5$ USD, $256.5$ USD, $667$ USD (our previous baseline), and $1,479$ USD. Cells indicate the number of Active pools with $r=\Pi_i/C^\*(P)\ge 1$; the right panel is the change when every pool is forced to $c_i=75$.
+
+<p align="center">
+  <img src="plots/pool_viability_price_cost_heatmap_cover_minpoolcost_epoch_644.png" alt="Cover vs ADA price and USD opex, declared c_i vs all c_i=75, epoch 644" width="90%">
+</p>
+
+Price and opex still set the *level* of the count $r\ge 1$: at $58.5$ USD/month and ADA at $0.15$ or higher, $r\ge 1$ is already high, and forcing $c_i=75$ does not change it. At the paper cell ($667$ USD/month, $0.15$ USD/ADA), the count falls from $274$ to $192$. The $c_i=75$ penalty is much larger than the $k$ shock at the same cell, because a lower declared fixed cost reallocates $f_i$ toward members and cuts $\Pi_i$ for every pool with $f_i>c_i$. That "penalty" is largest in the middle of the $C^\*$ range (for example $256.5$ USD/month, or $667$ USD/month at high ADA prices), where many operators were covering on the fixed-fee slice of $\Pi_i$ and fall below the new threshold. When $C^\*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody covers either way, so the $c_i$ gap shrinks again. 
+
 #### Pool splitting by multi-pool operators
 
 A reduction in $c_{min}$ can affect the incentive to split one pool into multiple pools through opposing channels. On one side, splitting can increase operator revenue when fixed cost is collected per pool. On the other side, splitting also fragments stake and pledge across child pools, which can reduce their desirability and make delegation harder to retain.
