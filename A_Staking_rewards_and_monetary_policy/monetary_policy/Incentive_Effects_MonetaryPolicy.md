@@ -18,7 +18,7 @@ Increasing $\rho$ raises the reserve draw and can expand the reward pot, while i
 3. Aggregate APR falls over time unless fees rise enough to offset the reserve draw and treasury extraction.
 
 
-**Behavioral and equilibrium conclusions**
+**Theoretical exercises given the current state**
 1. An increment in $\rho$ does not affect strongly the desirability rank of pools. Hence, it should not induce a strong redelegation.
 2. Increasing $\rho$ is an ineffective lever for improving viability of currently small pools. Most of them hold such low stake that even a $40\\%$ reward expansion fails to generate enough operator revenue to cover operational expenditures.
 3. On the other hand, an increment in $\rho$ induces a slightly larger increment in delegators APR. This is because the marginal gains are magnified for pools operating near the break-even threshold ($f_i \approx c_i$). 
