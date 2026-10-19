@@ -67,7 +67,7 @@ The appropriate level of $c_{min}$ therefore balances operator viability and Syb
 
 Next, this effect and trade-off are explained in more detail.
 
-## Parameter Mechanics: A Design Perspective 
+## Parameter mechanics: A design perspective 
 In this section we consider the direct effects of **reducing** `minPoolCost` while holding everything else equal (ceteris paribus). 
 
 ### Gross pool rewards
