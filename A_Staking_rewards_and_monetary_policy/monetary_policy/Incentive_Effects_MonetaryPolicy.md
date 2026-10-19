@@ -334,7 +334,7 @@ Pools that gain desirability rank are those with low margins and meaningful pled
 
 
 
-#### Entry or exit of pools
+#### Entry or exit of pools. Pools viability.
 
 Entry or exit decisions are governed by whether expected pool utility exceeds the outside option. In reduced-reward environments, pools near the viability threshold are most exposed to exit, especially if they cannot cut margin or maintain enough delegation to cover fixed costs. The relevant condition is
 
@@ -373,11 +373,13 @@ The following plot shows the characteristics of those pools that improved their 
 <img src="plots/pool_viability_improvers_traits_rho_epoch_644.png" alt="Pools theoretical viability per characteristic when rho increases" width="62%">
 </p>
 
+The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and one ADA price ($0.15$). We next consider a grid of different ADA prices and operational costs. The following heatmap varies $P\in\{0.10,0.15,0.25,0.30,0.50\}$ and four monthly opex levels: $58.5$ USD, $256.5$ USD, $667$ USD (our previous baseline), and $1,479$ USD. Cells indicate the number of Active pools with $r=\Pi_i/C^*(P)\ge 1$; the right panel is the change when $\rho$ goes from $0.003$ to $0.0042$ (a $40\%$ expansion of $R$, with $\tau$ held at $20\%$ and fees ignored).
 
+<p align="center">
+<img src="plots/pool_viability_price_cost_heatmap_cover_rho_epoch_644.png" alt="Active pools with r>=1 vs ADA price and USD opex, rho=0.003 vs 0.0042" width="100%">
+</p>
 
-<!-- #### Pool splitting by multi-pool operators
-
-An increase in the monetary expansion rate ($\rho$) expands the total reward pot, strengthening the economic incentive to operate multiple pools rather than a single consolidated entity. With a larger gross reward budget, pool operators can capture greater fixed cost fees and avoid saturation caps by splitting delegation across multiple nodes while amortizing actual operational costs. -->
+Price and opex still set the count $r\ge 1$: at $58.5$ USD/month the count is already high at every price in the grid. At the paper cell ($667$ USD/month, $0.15$ USD/ADA), the count rises from $274$ to $333$. Raising $\rho$ scales $R=(1-\tau)\rho Q$, so $f_i$ and $\Pi_i$ rise for pools that already have some stake. That lifts pools already close to $r=1$ over the threshold, but it does not rescue tiny pools whose $\Pi_i$ remains far below $C^\*$. The gain is largest in the middle of the $C^\*$ range (for example $+70$ at $667$ USD/month and $0.25$ USD/ADA). Unlike the $k$ and $c_i=75$ shocks, the $\rho$ gap does not vanish at cheap opex: even at $58.5$ USD/month and $0.15$ USD/ADA, $38$ more pools have $r\ge 1$. When $C^\*$ is very low ($58.5$ USD/month and high ADA prices), most Active pools already have $r\ge 1$, so the $\rho$ gain shrinks. When $C^\*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody covers either way, so the $\rho$ gap shrinks again. Across the grid the increment stays in the tens of pools, which is why increasing $\rho$ is an ineffective lever for small-pool viability even though it is a first-order level shock to $R$.
 
 #### Changes in staking participation
 
