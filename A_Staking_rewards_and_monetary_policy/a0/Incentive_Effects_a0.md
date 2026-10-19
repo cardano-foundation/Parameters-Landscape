@@ -14,7 +14,7 @@ Increasing $a_0$ strengthens the pledge incentive and improves Sybil resistance,
 2. Small or under-capitalized operators face a steeper entry barrier.
 3. A higher $a_0$ can favor wealthier operators and reduce accessibility for new entrants.
 
-**Behavioral and equilibrium discussion**
+**Theoretical exercises given the current state**
 1. Higher $a_0$ does not strongly induce operators to lower fees or declared fixed costs; the relationship between pledge and pricing is weak.
 2. Pool viability worsens after the shock: fewer pools cover operating costs, and the losing groups expand.
 3. Splitting becomes slightly less attractive when $a_0$ rises, suggesting only a modest deterrent to Sybil-like pool expansion.
@@ -45,7 +45,7 @@ The parameter $a_0$ plays a central role in the reward scheme by determining how
 
 Without the $a_0$ pledge incentive, an operator with little capital may attract large amounts of delegation or spin up multiple pools while committing negligible stake of their own. A higher $a_0$ makes these strategies costly: an operator attempting to split their pool into multiple ones while keeping them attractive for delegators, must also divide their declared pledge. However, the latter precisely reduces the reward potential—and thus the attractiveness to delegators—of each pool. Ultimately, setting $a_0$ involves a fundamental trade-off between Sybil resistance and accessibility: A higher $a_0$ strengthens Sybil resistance and discourages heavily leveraged or multi-pool strategies, but it inherently favors wealthy operators, raising barriers to entry for those with limited capital. A lower $a_0$ lowers barriers to entry and allows pools to compete more on performance, fees, and operational efficiency, but it provides weaker protection against operators controlling large amounts of delegated stake with little declared pledge.
 
-## Parameter Mechanics: A Design Perspective
+## Parameter mechanics: A design perspective
 In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus). 
 
 The gross reward of pool $i$ is given by:
