@@ -23,7 +23,7 @@ Reducing minPoolCost is conditionally beneficial. The net effect depends on whic
 6. Whole-network concentration did not clearly improve (Nakamoto $N$ from $190$ to $185$; Agg. active pledge from $1.58\text{B}$ to $1.39\text{B}$ ADA).
 7. Operator viability weakened after the cut (Cover OpEx from $827$ to $741$).
 
-**Behavioral and equilibrium discussion** (theoretical exercises given the current snapshot)
+**Theoretical exercises given the current state**
 1. Reducing `minPoolCost` raises desirability for pools that cut declared cost, which can shift stake toward those pools.
 2. Many operators would not follow: they already declare above the floor, and cutting $340\to 170$ would reduce operator reward for most pools that currently earn it.
 3. Pools already at the floor tend to be smaller and to post lower margins, so the competitive channel is concentrated among smaller pools.
@@ -67,7 +67,7 @@ The appropriate level of $c_{min}$ therefore balances operator viability and Syb
 
 Next, this effect and trade-off are explained in more detail.
 
-## Direct mechanical effects 
+## Parameter Mechanics: A Design Perspective 
 In this section we consider the direct effects of **reducing** `minPoolCost` while holding everything else equal (ceteris paribus). 
 
 ### Gross pool rewards
@@ -306,9 +306,9 @@ The following plot isolates the $301$ continuing Active pools that reduced their
 <img src="plots/member_apr_boxplot_cost_reducers_426_500.png" alt="APR change in 426 reducers cohort" width="62%">
 </p>
 
-## Behavioral and equilibrium effects
+## Effects given the current state
 
-This section outlines potential behavioral and second-order effects—focusing on delegator and operator decisions based on data through epoch 644.
+This section analyses the effects of the shock in the parameter given the state at epoch 644.
 
 Changing $c_{min}$ does not modify gross rewards $f(\sigma_i,p_i)$ directly, but it changes feasible declared costs $c_i$, which feed into pool desirability, operator revenue, and participation constraints. 
 
@@ -319,7 +319,7 @@ In [Brünjes et al. (2020)](https://arxiv.org/pdf/1807.11218), `minPoolCost` ($c
 If operators declare their true costs whenever permitted, and otherwise declare the minimum allowed cost, lowering `minPoolCost` would allow all pools with $\hat c_i<c_{\min}^{original}$ to reduce their declarations to $\max(\hat c_i,c_{\min}^{new})$. Other pools could also be affected if operators adjust their margins or delegators move their stake in response. Given $k$, the paper describes an idealized equilibrium with $k$ pools of equal size, each holding $1/k$ of the total stake. This suggests that lowering the minimum cost could change which operators run the pools and the margins they charge, without necessarily changing the number or size of pools. However, because the paper does not directly examine `minPoolCost`, this remains a possible outcome rather than a firm prediction.
 
 
-#### Delegators moving stake
+### Delegators moving stake
 
 Consider delegators that allocate by expected net return per unit stake, ranking pools based on their desirability. Suppose $f(\sigma_i, p_i)>c_i$, where $c_i$ is the declared fixed cost (when $f(\sigma_i, p_i)<c_i$, the protocol does not distribute rewards to delegators). The operator declares their actual cost whenever it is greater than or equal to $c_{min}$. Otherwise, the operator declares $c_{min}$. That is, $c_i = \max \\{ \hat{c}\_i, c_{min}\\}$. Then
 
@@ -339,7 +339,7 @@ A reduction in $c_{min}$ allows certain pools to declare their actual costs rath
 
 <!-- Can we here see what happens with the desirability using actual data? We could have a plot of current desirability versus stake, and see how desirability changes if all pools change their declared cost -->
 
-#### Operators changing pledge, margin, or declared fixed cost
+### Operators changing pledge, margin, or declared fixed cost
 
 The operator utility is
 
@@ -371,7 +371,7 @@ Theoretically, a lower $c_{min}$ leads to lower equilibrium margins $m_i$, inten
 </p>
 
 
-#### Entry or exit of pools
+### Entry or exit of pools
 
 Entry or exit can be analyzed with the participation constraint, which needs to take into account the actual fixed costs $\hat c_i$ and opportunity costs (or outside options). Let
 
@@ -438,7 +438,7 @@ The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and 
 
 Price and opex still set the *level* of the count $r\ge 1$: at $58.5$ USD/month and ADA at $0.15$ or higher, $r\ge 1$ is already high, and forcing $c_i=75$ does not change it. At the paper cell ($667$ USD/month, $0.15$ USD/ADA), the count falls from $274$ to $192$. The $c_i=75$ penalty is much larger than the $k$ shock at the same cell, because a lower declared fixed cost reallocates $f_i$ toward members and cuts $\Pi_i$ for every pool with $f_i>c_i$. That "penalty" is largest in the middle of the $C^\*$ range (for example $256.5$ USD/month, or $667$ USD/month at high ADA prices), where many operators were covering on the fixed-fee slice of $\Pi_i$ and fall below the new threshold. When $C^\*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody covers either way, so the $c_i$ gap shrinks again. 
 
-#### Pool splitting by multi-pool operators
+### Pool splitting by multi-pool operators
 
 A reduction in $c_{min}$ can affect the incentive to split one pool into multiple pools through opposing channels. On one side, splitting can increase operator revenue when fixed cost is collected per pool. On the other side, splitting also fragments stake and pledge across child pools, which can reduce their desirability and make delegation harder to retain.
 
@@ -511,7 +511,7 @@ When declared fixed cost is cut by half, both before and after the split, the fr
 
 
 
-#### Changes in staking participation
+### Changes in staking participation
 
 Changes in staking participation are closely tied to shifts in delegator APR, although external factors such as market sentiment and alternative investment opportunities also matter. Past data from the previous minPoolCost reduction shows that pools, particularly smaller ones, that lowered declared fixed costs tended to improve both APR and stake. However, neither network-wide median APR nor total aggregate stake changed materially. This pattern is consistent with limited fee adjustment by operators and with redelegation across existing pools rather than large net new inflows into staking.
 
