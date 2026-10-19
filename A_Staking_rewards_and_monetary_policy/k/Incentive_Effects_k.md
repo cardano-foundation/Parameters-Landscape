@@ -521,6 +521,14 @@ Following the increase in $k$, several pool groups experienced subtle compositio
   <img src="plots/pool_viability_k1000_bin_movers_traits_epoch_644.png" alt="Pool viability characteristics bin movers when k goes to 1000" width="62%">
 </p>
 
+The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and one ADA price ($0.15$). We could also consider a grid of different ADA prices and operational costs. The following heatmap varies $P\in\{0.10,0.15,0.25,0.30,0.50\}$ and four monthly opex levels: $58.5$ USD, $256.5$ USD, $667$ USD (our previous baseline), and $1,479$ USD. Cells indicate the number of Active pools with $r=\Pi_i/C^*(P)\ge 1$; the right panel is the change when $k$ goes from $500$ to $1,000$.
+
+<p align="center">
+  <img src="plots/pool_viability_price_cost_heatmap_cover_k_epoch_644.png" alt="Cover vs ADA price and USD opex, k=500 vs k=1000, epoch 644" width="90%">
+</p>
+
+Price and opex move the count $r\ge 1$ far more than $k$ does. When monthly opex is $58.5$ USD, $r\ge 1$ is already high at every price in the grid, and raising $k$ does not change it. At $667$ USD/month and $0.15$ USD/ADA, $r\ge 1$ falls from $274$ to $253$. The $k$ penalty is largest when $C^\*$ is high in ADA terms (low ADA price or high USD opex), because newly oversaturated pools then drop below a more demanding coverage threshold. At high ADA prices the same $k$ shock is small or zero. Thus the $k=500$ vs $k=1000$ viability comparison is not an artifact of $C^\*=741.1$, but the *size* of that comparison is: $k$ is a second-order viability shock relative to the USD cost of running a pool and the ADA price.
+
 ### Pool splitting incentives
 
 An operator may divide an existing pool into two or more pools, but doing so dilutes the pledge benefit. To illustrate this, consider the initial gross reward
