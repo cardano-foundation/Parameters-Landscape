@@ -22,7 +22,7 @@ Increasing $k$ can help more pools compete, but it also lowers the reward ceilin
 5. APR among remaining undersaturated pools was essentially unchanged; the higher median among survivors reflects the exit of weak pools.
 6. The observations are descriptive, not causal, because new low-stake pools and new stake entered in the same period.
 
-**Behavioral and equilibrium discussion** (based on theoretical exercises given the current snapshot)
+**Theoretical exercises given the current state** 
 1. Increasing $k$ shifts delegation toward smaller, still-undersaturated pools as stake leaves newly oversaturated pools.
 2. Operators may cut margins to stay competitive, but the direction of those changes is ambiguous. They may also split pools or open new ones.
 3. The redistributive effect favors smaller unsaturated pools, which fill toward the new cap, while very large pools lose relative reward capacity.
@@ -67,7 +67,7 @@ Choosing $k$ therefore trades off decentralization and economic viability. A hig
 
 
 
-## Parameter Mechanics: A Design Perspective 
+## Parameter mechanics: A design perspective 
 In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus).
 
 The parameter change considered here is an increase in $k$, which lowers the saturation threshold and therefore changes the reward profile before any behavioral response occurs.
