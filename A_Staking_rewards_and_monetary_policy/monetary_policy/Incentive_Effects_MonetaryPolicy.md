@@ -76,7 +76,7 @@ $$f(\tilde{\sigma}_i, \tilde{p}_i) = \frac{R}{1 + a_0} \left[ \tilde{\sigma}_i +
 Rewards are only distributed on active, staked ADA. If less than $100\\%$ of the circulating supply is staked, unearned rewards return directly to the reserves.
 
 
-## Parameter Mechanics: A Design Perspective
+## Parameter mechanics: A design perspective
 
 In this section we consider the direct effects of changing $\rho$ and $\tau$ while holding everything else equal (ceteris paribus). The key point is that these two parameters act on the reward pot and therefore on the aggregate level of rewards available to pools, rather than on the shape of the reward-sharing function itself.
 
