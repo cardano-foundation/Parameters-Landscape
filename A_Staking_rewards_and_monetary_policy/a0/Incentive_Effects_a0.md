@@ -282,6 +282,14 @@ The next chart shows characteristics of Losing and Edge pools under $a_0=0.6$.
 
 Relative to $a_0=0.3$, the qualitative split between deep-losing ($r<0.5$) and near-edge losing ($0.5\le r<1$) remains: smaller pools dominate the bottom of the distribution, while mid-sized pools populate $0.5\le r<1$. Raising $a_0$ compresses operator rewards through $1/(1+a_0)$ for typical low-pledge pools, so more mass shifts into deeper Losing bins even though pledge intensity can cushion high-pledge pools.
 
+The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and one ADA price ($0.15$). We could also consider a grid of different ADA prices and operational costs. The following heatmap varies $P\in\{0.10,0.15,0.25,0.30,0.50\}$ and four monthly opex levels: $58.5$ USD, $256.5$ USD, $667$ USD (our previous baseline), and $1,479$ USD. Cells indicate the number of Active pools with $r=\Pi_i/C^\*(P)\ge 1$; the right panel is the change when $a_0$ goes from $0.3$ to $0.6$.
+
+<p align="center">
+  <img src="plots/pool_viability_price_cost_heatmap_cover_a0_epoch_644.png" alt="r≥1 vs ADA price and USD opex, a0=0.3 vs 0.6, epoch 644" width="90%">
+</p>
+
+Price and opex still set the level of the count $r\ge 1$: at $58.5$ USD/month the count is already high at every price in the grid. At the paper cell ($667$ USD/month, $0.15$ USD/ADA), the count falls from $274$ to $239$. Raising $a_0$ reduces $f_i$ for low-pledge pools, because the factor $1/(1+a_0)$ shrinks the stake term while most Active pools do not have enough pledge to offset that through the $a_0$ channel. Operator revenue $\Pi_i$ therefore falls for those pools, and some that were just above $C^\*$ drop below $r=1$. The gap is smaller than forcing $c_i=75$ at the same cell, and it never vanishes the way the $c_i$ gap does at cheap opex: even at $58.5$ USD/month and $0.15$ USD/ADA, the count still falls by $30$ pools. When $C^\*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody has $r\ge 1$ either way, so the $a_0$ gap shrinks again.
+
 ##### Elasticity of viability with respect to $a_0$
 
 Let $\Delta a_0=0.6-0.3=0.3$. A simple extensive-margin semi-elasticity of viability (extensive-marign measures the change in the share of pools that cover OpEx; semi-elasticity = $ds/da_0 = relative change in $s$ per unit of $a_0$)
