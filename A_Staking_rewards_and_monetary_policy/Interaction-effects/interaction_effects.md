@@ -25,7 +25,7 @@
    1. Higher $a_0$ with lower fixed costs reduces operator viability.
    2. These operators would benefit only if they can attract new delegations.
 
-**Behavioral and equilibrium discussion**
+**Theoretical exercises given the current state**
 1. Fixed-cost changes reorder unsaturated-pool rankings more than $a_0$ changes.
 2. Higher $k$ alone does not change viability among unsaturated pools.
 3. Higher $a_0$ reduces viability among unsaturated pools.
@@ -55,7 +55,7 @@ For the numerical analysis in this section, we use the parameter values below un
 
 The individual effects can be found in the corresponding files for [parameter $k$](../k/Incentive_Effects_k.md) and [`minPoolCost`](../minPoolCost/Incentive_Effects_minPoolCost.md).
 
-### Direct combined mechanical effects
+### Joint parameter mechanics: A design perspective
 
 This section combines a lower minimum fixed cost, $c_{\min}$, with a higher pool target, $k$. In the reward-sharing model, the two parameters act on different margins: $k$ changes the saturation threshold $z_0(k)=1/k$, while $c_{\min}$ changes the feasible declared fixed cost $c_i$.
 
@@ -131,7 +131,7 @@ The following heatmap illustrates the previous discussion for different combinat
   <img src="plots/heatmap_operator_reward_pct_k1000_c75_epoch_644.png" alt="Heatmap of the combined effect of minPoolCost and high $k$ in epoch 644" width="62%">
 </p>
 
-### Behavioral and equilibrium effects
+### Effects given the current state
 
 #### Delegators moving stake
 
@@ -225,7 +225,7 @@ In this part, the discussion combines a higher $a_0$ (to induce more skin in the
 
 The individual effects can be found in the corresponding files for the [parameter k](../k/Incentive_Effects_k.md) and for the [parameter a0](../a0/Incentive_Effects_a0.md).
 
-### Direct combined mechanical effects
+### Joint parameter mechanics: A design perspective
 
 #### Gross pool rewards $f(\sigma_i,p_i)$
 
@@ -320,7 +320,7 @@ For pools crossing the saturation threshold, $I_i > 0$. Increasing $a_0$ mitigat
   <img src="plots/heatmap_f_k1000_a0_0p6_interaction.png" alt="Heatmap f when k and a0 increase" width="62%">
 </p>
 
-### Behavioral and equilibrium effects
+### Effects given the current state
 
 As we did for the case with $k$ and `minPoolCost`, we here study the combined effects of $k$ and $a_0$ given the pools snapshot of epoch 644.
 
@@ -394,7 +394,7 @@ Under the baseline pledge influence parameter ($a_0 = 0.3$), doubling the target
 
 The individual effects can be found in the corresponding files for [parameter $a_0$](../a0/Incentive_Effects_a0.md) and [`minPoolCost`](../minPoolCost/Incentive_Effects_minPoolCost.md).
 
-### Direct combined mechanical effects
+### Joint parameter mechanics: A design perspective
 
 #### Gross pool rewards $f(\sigma_i,p_i)$
 
@@ -412,7 +412,7 @@ we plot
   <img src="plots/heatmap_f_a0_0p6_c75_interaction.png" alt="Heatmap when $a_0$ increases and minPoolCost decreases" width="62%">
 </p>
 
-### Behavioral and equilibrium effects
+### Effects given the current state
 
 As we did for the case with $k$ and `minPoolCost`, we here study the combined effects of increasing $a_0$ and reducing `minPoolCost` given the pool snapshot from epoch $644$.
 
