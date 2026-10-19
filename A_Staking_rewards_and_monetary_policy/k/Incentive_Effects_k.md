@@ -529,6 +529,31 @@ The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and 
 
 Price and opex move the count $r\ge 1$ far more than $k$ does. When monthly opex is $58.5$ USD, $r\ge 1$ is already high at every price in the grid, and raising $k$ does not change it. At $667$ USD/month and $0.15$ USD/ADA, $r\ge 1$ falls from $274$ to $253$. The $k$ penalty is largest when $C^\*$ is high in ADA terms (low ADA price or high USD opex), because newly oversaturated pools then drop below a more demanding coverage threshold. At high ADA prices the same $k$ shock is small or zero. Thus the $k=500$ vs $k=1000$ viability comparison is not an artifact of $C^\*=741.1$, but the *size* of that comparison is: $k$ is a second-order viability shock relative to the USD cost of running a pool and the ADA price.
 
+### Operator and delegator shares of $\Delta f$
+
+The viability exercise above asks whether $\Pi_i$ covers OpEx. Here we split the same snapshot $\Delta f_i$ into operator reward $\Pi_i$ and delegator rewards $f_i-\Pi_i$, using each pool's declared $c_i$ and $m_i$. Let $q_i=\hat p_i/\sigma_i$ and $s_i=m_i+(1-m_i)q_i$. Then $\Delta f_i=\Delta\Pi_i+\Delta(f_i-\Pi_i)$. When $f>c$ on both sides, $\Delta\Pi_i=s_i\Delta f_i$: raising $k$ does not change the sharing rule, only $f$. Among Active pledge-met pools ($n=1,262$), $k:500\to 1,000$ changes aggregate $f$ by $-1,463,591$ ADA/epoch. Operators receive $-453,971$ of that ($31.0\%$); delegators receive $-1,009,619$ ($69.0\%$). No pool crosses $f=c$.
+
+<p align="center">
+<img src="plots/delta_f_split_operator_delegator_k_epoch_644.png" alt="Split of delta f into operator Pi and delegator rewards, k=500 to 1000" width="100%">
+</p>
+
+Almost all of the movement is the newly oversaturated group ($z_0(1000)<\sigma\le z_0(500)$, $n=207$): $\sum\Delta f=-1,384,907$ ADA/epoch. Pools that remain unsaturated ($n=1,048$) have median $\Delta f=0.02$ ADA/epoch; their aggregate $\sum\Delta f$ is only $+1,906$. The seven pools already oversaturated at $k=500$ lose another $-80,589$. On this snapshot, raising $k$ is a saturation cut on large pools, not a network-wide reshuffle of $f$.
+
+That cut is not shared evenly. Newly oversaturated pools with $q<0.01$ ($n=160$) are typically public (median $m=3.0\%$, median $s=0.031$): operators take $10.9\%$ of their $\Delta f$, delegators $89.1\%$. In the tail $q\ge 0.25$ ($n=31$), median $m=100\%$ and operators take $96.9\%$ of $\Delta f$. The typical newly oversaturated pool (median, not mean) loses $6,530$ ADA/epoch of $f$, of which $205$ is $\Pi$ and $4,124$ is $f-\Pi$. A delegator in a large low-$s$ pool therefore bears most of the immediate $f$ loss; a delegator in an $m=1$ pool already receives $0$, so the operator absorbs the whole cut. This is the split before any redelegation: once stake leaves the new cap, that lost $f$ is no longer sitting in those pools.
+
+| Group | $n$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ | $\sum\Delta\Pi/\sum\Delta f$ | median $\Delta f$ | median $q$ | median $m$ | median $s$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| All Active | 1262 | $-1,463,591$ | $-453,971$ | $-1,009,619$ | $31.0\%$ | $0.01$ | $0.010$ | $2.0\%$ | $0.050$ |
+| Remain unsaturated | 1048 | $1,906$ | $708$ | $1,198$ | $37.1\%$ | $0.02$ | $0.015$ | $1.8\%$ | $0.053$ |
+| Newly oversaturated | 207 | $-1,384,907$ | $-449,600$ | $-935,307$ | $32.5\%$ | $-6,530$ | $0.001$ | $3.9\%$ | $0.040$ |
+| Already oversaturated | 7 | $-80,589$ | $-5,079$ | $-75,510$ | $6.3\%$ | $-11,513$ | $0.000$ | $6.0\%$ | $0.060$ |
+
+| Newly oversaturated | $n$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ | $\sum\Delta\Pi/\sum\Delta f$ | median $q$ | median $m$ | median $s$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|
+| $q<0.01$ | 160 | $-945,819$ | $-103,000$ | $-842,820$ | $10.9\%$ | $0.000$ | $3.0\%$ | $0.031$ |
+| $0.01\le q<0.25$ | 16 | $-85,195$ | $-3,525$ | $-81,670$ | $4.1\%$ | $0.018$ | $1.0\%$ | $0.031$ |
+| $q\ge 0.25$ | 31 | $-353,893$ | $-343,075$ | $-10,818$ | $96.9\%$ | $1.000$ | $100.0\%$ | $1.000$ |
+
 ### Pool splitting incentives
 
 An operator may divide an existing pool into two or more pools, but doing so dilutes the pledge benefit. To illustrate this, consider the initial gross reward
