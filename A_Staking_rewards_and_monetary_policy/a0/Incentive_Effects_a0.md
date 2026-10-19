@@ -45,7 +45,7 @@ The parameter $a_0$ plays a central role in the reward scheme by determining how
 
 Without the $a_0$ pledge incentive, an operator with little capital may attract large amounts of delegation or spin up multiple pools while committing negligible stake of their own. A higher $a_0$ makes these strategies costly: an operator attempting to split their pool into multiple ones while keeping them attractive for delegators, must also divide their declared pledge. However, the latter precisely reduces the reward potential—and thus the attractiveness to delegators—of each pool. Ultimately, setting $a_0$ involves a fundamental trade-off between Sybil resistance and accessibility: A higher $a_0$ strengthens Sybil resistance and discourages heavily leveraged or multi-pool strategies, but it inherently favors wealthy operators, raising barriers to entry for those with limited capital. A lower $a_0$ lowers barriers to entry and allows pools to compete more on performance, fees, and operational efficiency, but it provides weaker protection against operators controlling large amounts of delegated stake with little declared pledge.
 
-## Direct mechanical effects 
+## Parameter Mechanics: A Design Perspective
 In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus). 
 
 The gross reward of pool $i$ is given by:
@@ -163,7 +163,7 @@ An analysis of epoch 644 demonstrates how varying $a_0$ influences reserve rewar
 
 
 
-## Behavioral and equilibrium effects
+## Effects given the current state
 
 This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions **given the current state**.
 
@@ -192,7 +192,7 @@ $$
 Hence, increasing $a_0$ lowers gross pool rewards $f()$, but less so for high-pledge pools. As a consequence, a change in $a_0$ may change the rank of pools, induce redelegation, and operators responses. 
 
 
-#### Operators changing pledge, margin or declared fixed costs
+### Operators changing pledge, margin or declared fixed costs
 
 Since the parameter $a_0$ favours those pools with more declared pledge, we could ask whether those pools with high declared pledge choose lower fees (margin and declared fixed cost) to increase their attractiveness for delegators. The following plots show that this correlation is very weak. On the other hand, the data do not support “high pledge → higher fees” (because high pledge makes the pool competitive, opening the door to keep higher fees without losing stake). The sign goes (weakly) against that.
 
@@ -220,7 +220,7 @@ $$
 
 which captures that pricing and pledge choices are made jointly with their induced stake response. Low-pledge operators are pushed to increase pledged capital and/or reduce margins to retain delegation.-->
 
-#### Entry or exit of pools. Pools viability.
+### Entry or exit of pools. Pools viability.
 
 To study entry or exit, we use the participation constraint, which takes into account the actual fixed costs $\hat c_i$ and opportunity costs (or outside options). Let
 
@@ -290,7 +290,7 @@ The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and 
 
 Price and opex still set the level of the count $r\ge 1$: at $58.5$ USD/month the count is already high at every price in the grid. At the paper cell ($667$ USD/month, $0.15$ USD/ADA), the count falls from $274$ to $239$. Raising $a_0$ reduces $f_i$ for low-pledge pools, because the factor $1/(1+a_0)$ shrinks the stake term while most Active pools do not have enough pledge to offset that through the $a_0$ channel. Operator revenue $\Pi_i$ therefore falls for those pools, and some that were just above $C^\*$ drop below $r=1$. The gap is smaller than forcing $c_i=75$ at the same cell, and it never vanishes the way the $c_i$ gap does at cheap opex: even at $58.5$ USD/month and $0.15$ USD/ADA, the count still falls by $30$ pools. When $C^\*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody has $r\ge 1$ either way, so the $a_0$ gap shrinks again.
 
-##### Elasticity of viability with respect to $a_0$
+#### Elasticity of viability with respect to $a_0$
 
 Let $\Delta a_0=0.6-0.3=0.3$. A simple extensive-margin semi-elasticity of viability (extensive-marign measures the change in the share of pools that cover OpEx; semi-elasticity = $ds/da_0 = relative change in $s$ per unit of $a_0$)
 
@@ -306,7 +306,7 @@ implying that the median $r$ falls by about $0.032$ ((0.6-0.3)\cdot -0.105 \appr
 
 These two numbers answer: (i) how many more or fewer pools cover operating costs, and (ii) how much a typical pool’s coverage $r=\Pi/C^*$ falls, when $a_0$ rises.
 
-#### Incentives to pool splitting
+### Incentives to pool splitting
 
 An increase in $a_0$ can affect the incentive to split one pool into multiple pools through opposing channels. On one side, splitting still collects declared fixed cost $c_i$ in each child pool, so the mechanical duplication gain from fixed cost remains. On the other side, $a_0$ governs how strongly pledge enters the gross reward $f(\sigma_i,p_i)$. Raising $a_0$ intensifies the pledge channel while also shrinking rewards through the factor $1/(1+a_0)$. Because a $1\to 2$ split halves both stake and pledge in each half, a higher $a_0$ changes how costly that pledge fragmentation is for operator rewards.
 
@@ -374,7 +374,7 @@ When $a_0$ rises from $0.3$ to $0.6$, the fraction of Active pools that gain fro
 </p>
 
 
-#### Changes in staking participation.
+### Changes in staking participation.
 
 We first study the relationship between the level of skin-in-the-game (declared pledge) and external delegation (this is, that delegation that is not active pledge). This helps us to understand whether incentivizing more declared pledge could boost the staking level.
 
