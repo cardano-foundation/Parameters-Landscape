@@ -67,7 +67,7 @@ Choosing $k$ therefore trades off decentralization and economic viability. A hig
 
 
 
-## Direct mechanical effects 
+## Parameter Mechanics: A Design Perspective 
 In this section we consider the direct effects of changing the parameter while holding everything else equal (ceteris paribus).
 
 The parameter change considered here is an increase in $k$, which lowers the saturation threshold and therefore changes the reward profile before any behavioral response occurs.
@@ -340,9 +340,9 @@ The data shows that surviving pools were inherently higher-yielding at baseline,
 
 
 
-## Behavioral and equilibrium effects
+## Effects given the current state
 
-This section identifies potential behavioral (or second-order) effects—primarily concerning delegator and operator decisions **given the state** at epoch 644. The following table summarizes it.
+This section analyses the effects of the shock in the parameter **given the state** at epoch 644. The following table gives a brief summary of that state.
 
 
 | epoch 644 | Number | Stake (B ADA) | Declared pledge (B ADA) | Active pledge (B ADA) |
