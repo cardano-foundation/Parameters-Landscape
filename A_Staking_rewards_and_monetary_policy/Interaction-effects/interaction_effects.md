@@ -204,6 +204,21 @@ The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and 
 
 The joint shock is dominated by the $c_i=75$ channel: a lower declared fixed cost reallocates $f_i$ toward members and cuts $\Pi_i$ for every pool with $f_i>c_i$, while raising $k$ only caps newly oversaturated pools. At $58.5$ USD/month and ADA at $0.15$ or higher, the gap vanishes. At $667$ USD/month and $0.15$ USD/ADA, the count falls from $274$ to $152$, more than either shock alone ($-21$ for $k$, $-82$ for $c_i=75$). The loss is largest in the middle of the $C^\\*$ range (for example $-452$ at $256.5$ USD/month and $0.25$ USD/ADA). When $C^*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody has $r\ge 1$ either way, so the joint gap shrinks again.
 
+### Operator and delegator shares when $k=1000$ and $c_i=75$
+
+Declared $c_i$ does not enter $f(\sigma,p)$, so $\sum\Delta f=$-1,463,591$ ADA/epoch is the $k=500\to 1000$ cap. What the lower fee changes is how that $f$ is split. With all $c_i=75$, $\sum\Delta\Pi=$-634,909$ ($43.4\%$ of $\Delta f$) and $\sum\Delta(f-\Pi)=$-828,681$. Pools that remain unsaturated ($n=$1,048$) show the fee channel almost on its own: $\sum\Delta f=$1,906$, while $\sum\Delta\Pi=$-142,618$ and $\sum\Delta(f-\Pi)=$144,523$. Newly oversaturated pools ($n=$207$) still carry the $k$ cut ($\sum\Delta f=$-1,384,907$). At $q<0.01$, most of the loss sits in $f-\Pi$; at $q\geq 0.25$, operators absorb $98.5\%$ of $\Delta f$. The typical Active pool has median $\Delta f=$0.01$ but median $\Delta\Pi=$-163$ and median $\Delta(f-\Pi)=$88$. $191$ pools newly have $f>c$; $144$ still have $f\le 75$.
+
+<p align="center">
+<img src="plots/delta_f_split_operator_delegator_k_c_epoch_644.png" alt="Delta f split into operator and delegator rewards, k=1000 and c_i=75" width="90%">
+</p>
+
+| Group | $n$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ | $\sum\Delta\Pi/\sum\Delta f$ | median $\Delta f$ | median $\Delta\Pi$ | median $\Delta(f-\Pi)$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|
+| All Active | $1,262$ | $-1,463,591$ | $-634,909$ | $-828,681$ | $43.4\%$ | $0.01$ | $-163$ | $88$ |
+| Remain unsaturated | $1,048$ | $1,906$ | $-142,618$ | $144,523$ | — | $0.02$ | $-93$ | $94$ |
+| Newly oversaturated | $207$ | $-1,384,907$ | $-485,947$ | $-898,960$ | $35.1\%$ | $-6,530$ | $-442$ | $-3,918$ |
+| Already oversaturated | $7$ | $-80,589$ | $-6,344$ | $-74,245$ | $7.9\%$ | $-11,513$ | $-780$ | $-10,733$ |
+
 #### Changes in staking participation: delegator APR
 
 We measure the effect of an increase in $k$ together with a reduction in `minPoolCost` on delegators' APR using
@@ -374,6 +389,21 @@ The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and 
 
 At the cost $667$ USD per month and ADA price $0.15$, the count falls from $274$ to $218$ ($\Delta=-56$), which is the sum of the isolated $k$ and $a_0$ gaps ($-21$ and $-35$). The two channels do different things: raising $a_0$ compresses $f_i$ for low-pledge pools through $1/(1+a_0)$, and that tax does not vanish at cheap opex (still $-30$ at $58.5$ USD/month and $0.15$ USD/ADA, as with $a_0$ alone). Raising $k$ is second-order and shows up when $C^\*$ is more demanding, because newly oversaturated pools then drop below a higher ADA coverage threshold. When $C^\*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody covers either way, so the joint gap shrinks again.
 
+### Operator and delegator shares when $k=1000$ and $a_0=0.6$
+
+The two instruments both enter $f$, so unsaturated pools are no longer approximately silent. Among Active pledge-met pools, $\sum\Delta f=$-2,321,080$ ADA/epoch, of which operators take $25.7\%$ ($\sum\Delta\Pi=$-596,496$) and delegators $\sum\Delta(f-\Pi)=$-1,724,584$. Pools that remain unsaturated ($n=$1,048$) now lose $\sum\Delta f=$-452,799$ through $1/(1+a_0)$. Newly oversaturated pools ($n=$207$) still dominate the total ($\sum\Delta f=$-1,772,582$). Low pledge intensity carries most of the cut: $q<0.01$ has $\sum\Delta f=$-1,700,515$, and operators absorb only $10.7\%$ of it; at $q\geq 0.25$, operators absorb $96.4\%$. $\Delta f<0$ for $1,261$ of $1,262$ Active pools. Median $\Delta f=$-253$, median $\Delta\Pi=$-24$, median $\Delta(f-\Pi)=$-126$. $43$ pools cross from $f>c$ to $f\le c$. The joint $\sum\Delta f$ is smaller in magnitude than adding the two isolated $f$ cuts, because $a_0$ and $z_0$ enter $f$ together.
+
+<p align="center">
+<img src="plots/delta_f_split_operator_delegator_k_a0_epoch_644.png" alt="Delta f split into operator and delegator rewards, k=1000 and a0=0.6" width="90%">
+</p>
+
+| Group | $n$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ | $\sum\Delta\Pi/\sum\Delta f$ | median $\Delta f$ | median $\Delta\Pi$ | median $\Delta(f-\Pi)$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|
+| All Active | $1,262$ | $-2,321,080$ | $-596,496$ | $-1,724,584$ | $25.7\%$ | $-253$ | $-24$ | $-126$ |
+| Remain unsaturated | $1,048$ | $-452,799$ | $-92,168$ | $-360,631$ | $20.4\%$ | $-141$ | $-18$ | $-82$ |
+| Newly oversaturated | $207$ | $-1,772,582$ | $-498,298$ | $-1,274,284$ | $28.1\%$ | $-8,610$ | $-307$ | $-6,214$ |
+| Already oversaturated | $7$ | $-95,699$ | $-6,031$ | $-89,668$ | $6.3\%$ | $-13,671$ | $-820$ | $-12,851$ |
+
 
 #### Changes in staking participation. Delegators APR.
 
@@ -451,6 +481,24 @@ As before we now consider the viability question under different ADA prices and 
 </p>
 
 This joint shock is again dominated by $c_i=75$, with $a_0$ adding a smaller widespread tax on low-pledge $f_i$. At $58.5$ USD/month and ADA at $0.15$ or higher, the $c_i$ gap vanishes and only the $a_0$ gap remains ($-30$ at $0.15$ USD/ADA). The loss is largest in the middle of the $C^\*$ range (for example $-490$ at $256.5$ USD/month and $0.30$ USD/ADA). When $C^*$ is very high, almost nobody covers either way, so the joint gap shrinks again.
+
+### Operator and delegator shares when $a_0=0.6$ and $c_i=75$
+
+$k$ is unchanged, so there is no saturation regrouping. $\sum\Delta f=$-1,085,986$ ADA/epoch is the $a_0=0.3\to 0.6$ compression of $f$; every Active pledge-met pool has $\Delta f<0$. Setting all $c_i=75$ then reallocates what remains: $\sum\Delta\Pi=$-355,704$ ($32.8\%$ of $\Delta f$) and $\sum\Delta(f-\Pi)=$-730,282$. For the typical pool, median $\Delta f=$-230$ and median $\Delta\Pi=$-247$, while median $\Delta(f-\Pi)=$0$, because the lower fee offsets the delegator share of the $a_0$ tax in many pools. Most of the $f$ cut is still at $q<0.01$ ($\sum\Delta f=$-866,964$, $\sum\Delta\Pi=$-214,389$). Pools that already declare $c_i=340$ ($n=$744$) account for $\sum\Delta f=$-719,462$ and $\sum\Delta\Pi=$-264,818$. $169$ pools newly have $f>c$; $166$ still have $f\le 75$.
+
+<p align="center">
+<img src="plots/delta_f_split_operator_delegator_a0_c_epoch_644.png" alt="Delta f split into operator and delegator rewards, a0=0.6 and c_i=75" width="90%">
+</p>
+
+| Group | $n$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ | $\sum\Delta\Pi/\sum\Delta f$ | median $\Delta f$ | median $\Delta\Pi$ | median $\Delta(f-\Pi)$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|
+| All Active | $1,262$ | $-1,085,986$ | $-355,704$ | $-730,282$ | $32.8\%$ | $-230$ | $-247$ | $0.00$ |
+| $q<0.01$ | $638$ | $-866,964$ | $-214,389$ | $-652,575$ | $24.7\%$ | $-858$ | $-272$ | $-454$ |
+| $0.01\leq q<0.25$ | $433$ | $-141,893$ | $-66,579$ | $-75,314$ | $46.9\%$ | $-82$ | $-105$ | $0.00$ |
+| $q\geq 0.25$ | $191$ | $-77,129$ | $-74,736$ | $-2,393$ | $96.9\%$ | $-42$ | $-72$ | $0.00$ |
+| $c_i=340$ | $744$ | $-719,462$ | $-264,818$ | $-454,644$ | $36.8\%$ | $-379$ | $-267$ | $0.00$ |
+| $c_i=170$ | $382$ | $-246,463$ | $-45,088$ | $-201,376$ | $18.3\%$ | $-91$ | $-95$ | $0.00$ |
+| other $c_i>75$ | $136$ | $-120,061$ | $-45,799$ | $-74,262$ | $38.1\%$ | $-396$ | $-322$ | $0.00$ |
 
 #### Changes in staking participation: delegator APR
 
