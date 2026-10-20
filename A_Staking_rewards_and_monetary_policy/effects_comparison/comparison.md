@@ -2,19 +2,18 @@ In this section, we compare the relative impacts of shocks across different para
 
 # Comparison of effects given the current state
 
-This note puts the epoch-$644$ parameter shocks on **one sample** and **one cost cell**. The sample is the Active, pledge-met pools ($n=1,262$). Active is the complement of Inactive; Inactive is $\sigma=0$, unmet pledge, or zero blocks in the prior $15$ epochs. Declared pledge is the certificate active at the epoch ($p$); active pledge is $\hat p$, clipped to $\sigma$. The cost cell is $C^*=741.1$ ADA/epoch ($667$ USD/month at $0.15$ USD/ADA). Gross rewards use the snapshot $R=14,966,501.84$ ADA and $T=38,763,957,566.43$ ADA, except the $\rho$ column, which scales $R$ by $0.0042/0.003=1.4$. Stake, declared pledge, active pledge, and margins are held at the snapshot except in the last column.
-
+In this subsection we compare the effects observed in the corresponding files. We use the epoch $644$ parameter shocks on **one sample** and **one operational cost**. The sample is the Active set of pools($n=1,262$), where and Inactive pool is one with $\sigma=0$ at epoch $644$, unmet pledge (active pledge below declared pledge) at epoch $644$, or zero blocks in the prior $15$ epochs. We consider $C^*=741.1$ ADA/epoch ($667$ USD/month at $0.15$ USD/ADA) as the operational cost (see XX), a reward pot $R=14,966,501.84$ ADA (except the $\rho$ column, which scales $R$ by $0.0042/0.003=1.4$), and a total supply $T=38,763,957,566.43$ ADA. 
 The columns are:
 
 - baseline: $k=500$, $a_0=0.3$, each pool's own declared $c_i$, $\rho=0.003$;
 - $k=1000$;
 - $a_0=0.6$;
-- every declared $c_i$ set to $75$ ADA/epoch (this is **not** a move in $c_{\min}$; it forces the declared cost of every Active pool);
+- every declared $c_i$ set to $75$ ADA/epoch (this is **not** only a move in $c_{\min}$; it forces the declared cost of every Active pool);
 - $\rho=0.0042$;
 - the three two-way joints $k{+}c$, $k{+}a_0$, and $a_0{+}c$;
 - $k=1000$ after the idealized $D_i$ reallocation used in the $k$ note (empty pools with $\sigma>40$ million ADA into higher-$D_i$ receivers, cap $40$ million ADA, $\lambda=1$, no ecosystem exit).
 
-The last column is the only one in which $\sigma$ moves. Frozen $\sigma$ does not change the pool-stake Nakamoto coefficient $N$; $c_i$ does not enter $f$, so $\sum\Delta f=0$ under $c_i=75$ and the change is a transfer between $\Pi$ and $f-\Pi$. A pool is counted as $r\ge 1$ when operator reward $\Pi$ covers $C^*$. Member APR is reported among pledge-met pools with $f>c$.
+> The last column is the only one in which $\sigma$ moves. Frozen $\sigma$ does not change the pool-stake Nakamoto coefficient $N$; $c_i$ does not enter $f$, so $\sum\Delta f=0$ under $c_i=75$ and the change is a transfer between $\Pi$ and $f-\Pi$. A pool is counted as $r\ge 1$ when operator reward $\Pi$ covers $C^*$. Member APR is reported among pledge-met pools with $f>c$.
 
 <p align="center">
 <img src="plots/scoreboard_levels_epoch_644.png" alt="Scoreboard levels: n with r at least 1, median APR, Nakamoto N" width="95%">
@@ -51,9 +50,8 @@ The last column is the only one in which $\sigma$ moves. Frozen $\sigma$ does no
 <img src="plots/scoreboard_delta_f_split_epoch_644.png" alt="Delta f split into operator and delegator shares" width="88%">
 </p>
 
-The $\Delta f$ figure omits the after-$D_i$ column because $\sigma$ is not frozen there; that row is in the table.
 
-### Frozen $\sigma$
+### Description of results
 
 Among the four single-parameter columns, **only** $\rho=0.0042$ raises both the count with $r\ge 1$ ($274\to 333$) and member APRs (median $1.83\%\to 2.63\%$, network $1.66\%\to 2.35\%$). It is also the only single shock with $\sum\Delta f>0$ ($\sum\Delta f=2,585,033$). Operators receive $24.6\%$ of that extra ADA ($\sum\Delta\Pi=637,038$); the rest is $f-\Pi$. The expansion in $n$ with $f>c$ is modest ($927\to 975$): most of the extra $f$ lands in pools that already cleared $c$.
 
