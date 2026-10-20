@@ -438,6 +438,31 @@ The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and 
 
 Price and opex still set the *level* of the count $r\ge 1$: at $58.5$ USD/month and ADA at $0.15$ or higher, $r\ge 1$ is already high, and forcing $c_i=75$ does not change it. At the paper cell ($667$ USD/month, $0.15$ USD/ADA), the count falls from $274$ to $192$. The $c_i=75$ penalty is much larger than the $k$ shock at the same cell, because a lower declared fixed cost reallocates $f_i$ toward members and cuts $\Pi_i$ for every pool with $f_i>c_i$. That "penalty" is largest in the middle of the $C^\*$ range (for example $256.5$ USD/month, or $667$ USD/month at high ADA prices), where many operators were covering on the fixed-fee slice of $\Pi_i$ and fall below the new threshold. When $C^\*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody covers either way, so the $c_i$ gap shrinks again. 
 
+### Transfer from $\Pi$ to $f-\Pi$ when $c_i=75$
+
+Declared fixed cost is not an argument of $f(\sigma_i,p_i)$. Setting every Active pool to $c_i=75$ therefore leaves gross rewards unchanged and only rewrites how that pie is divided. With $\Delta f_i=0$, the accounting identity collapses to $\Delta\Pi_i=-\Delta(f_i-\Pi_i)$. On the epoch-644 Active sample ($n=1,262$), that transfer is $180,935$ ADA/epoch out of operator reward and into the delegator residual. No Active pool already sits at or below $c_i=75$, so the counterfactual is a cut for everyone who currently declares a higher $c_i$. Operators lose $\Pi$ in $1,033$ pools; $\Pi$ is unchanged in $229$ (either $f\le 75$ still, or $s_i=1$).
+
+<p align="center">
+<img src="plots/delta_f_split_operator_delegator_minpoolcost_epoch_644.png" alt="Transfer from operator Pi to delegator rewards when all c_i=75" width="100%">
+</p>
+
+When $f>c$ on both sides, the operator keeps only the share $s_i=m_i+(1-m_i)q_i$ of $(f-c)$, so a lower $c$ is a gift to members in proportion to $1-s_i$. That is why the left panel is almost a public-pool story: $q<0.01$ ($n=638$, median $s=0.030$) moves $121,044$ ADA/epoch, while $q\ge 0.25$ ($n=191$) moves only $5,067$ and the median pool in that tail has $\Delta\Pi=0$. One hundred ninety-one pools that had $f\le c_i$ become $f>75$, which is when members first receive a residual ($12,755$ ADA/epoch of the transfer). One hundred forty-four pools remain with $f\le 75$; cutting declared cost cannot create a member residual if $f$ never clears $75$.
+
+The right panel locates the same transfer in the fee clusters. Pools declaring $c_i=340$ ($n=744$) account for $129,247$ ADA/epoch. The $c_i=170$ cluster ($n=382$) contributes $24,021$, a smaller cut both in total and at the median ($-86$ vs $-251$ ADA/epoch). The remaining $136$ pools with other $c_i>75$ add $27,667$. For a typical Active pool the move is $94$ ADA/epoch from $\Pi$ to $f-\Pi$.
+
+| Group | $n$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ | median $\Delta\Pi$ | median $\Delta(f-\Pi)$ | median $q$ | median $m$ | median $s$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| All Active | $1,262$ | $0$ | $-180,935$ | $180,935$ | $-94$ | $94$ | $0.010$ | $2.0\%$ | $0.050$ |
+| $q<0.01$ | $638$ | $0$ | $-121,044$ | $121,044$ | $-252$ | $252$ | $0.001$ | $3.0\%$ | $0.030$ |
+| $0.01\le q<0.25$ | $433$ | $0$ | $-54,824$ | $54,824$ | $-92$ | $92$ | $0.042$ | $1.0\%$ | $0.064$ |
+| $q\ge 0.25$ | $191$ | $0$ | $-5,067$ | $5,067$ | $0$ | $0$ | $0.580$ | $2.0\%$ | $0.590$ |
+
+| Declared $c_i$ | $n$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ | median $\Delta\Pi$ | median $\Delta(f-\Pi)$ | median $q$ | median $m$ | median $s$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| $c_i=340$ | $744$ | $0$ | $-129,247$ | $129,247$ | $-251$ | $251$ | $0.008$ | $2.0\%$ | $0.050$ |
+| $c_i=170$ | $382$ | $0$ | $-24,021$ | $24,021$ | $-86$ | $86$ | $0.020$ | $1.0\%$ | $0.054$ |
+| other $c_i>75$ | $136$ | $0$ | $-27,667$ | $27,667$ | $-236$ | $236$ | $0.003$ | $4.0\%$ | $0.061$ |
+
 ### Pool splitting by multi-pool operators
 
 A reduction in $c_{min}$ can affect the incentive to split one pool into multiple pools through opposing channels. On one side, splitting can increase operator revenue when fixed cost is collected per pool. On the other side, splitting also fragments stake and pledge across child pools, which can reduce their desirability and make delegation harder to retain.
