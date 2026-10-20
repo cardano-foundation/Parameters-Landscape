@@ -51,7 +51,7 @@ The columns are:
 </p>
 
 
-### Description of results
+#### Description of results
 
 Individually, most of results are intuitive. Most interesting is the comparison among the different shocks. However, these comparisons must be take carefully since the shocks may not be equivalent. We will go back to this point later in another subsection. We now bring a description of the previous plots.
 
@@ -139,4 +139,77 @@ Among the **scalar protocol parameters** $\{k,a_0,\rho\}$, the strongest driver 
 - **Reward pie.** $\varepsilon_{\sum f,\rho}=1$ by construction. $k$ compresses $\sum f$ more than $a_0$ ($-22.6\%$ vs $-16.8\%$). $c_i$ does not enter $f$.
 
 Joints are omitted from the elasticities: two coordinates move, so there is no single $x$. Their finite differences remain in the scoreboard. The after-$D_i$ column is omitted for the same reason $\sigma$ is not a protocol parameter.
+
+#### Without moving $\rho$
+
+Because $\rho$ scales the pie, it is the strongest driver of viability, APR, and $\sum f$. The comparison below holds $\rho=0.003$ and ranks $\{k,a_0\}$ by elasticity and $c_i=75$ by finite difference. $k$ and $a_0$ both double, so their elasticities equal their percent changes.
+
+<p align="center">
+<img src="plots/elasticities_heatmap_norho_epoch_644.png" alt="Elasticities of k and a0 without rho" width="58%">
+</p>
+
+| Objective | $\varepsilon_{\cdot,k}$ | $\varepsilon_{\cdot,a_0}$ | $c_i=75$ (finite $\Delta$) |
+|:---|---:|---:|---:|
+| $n$ with $r\ge 1$ | $-0.08$ | $-0.13$ | $-82$ ($-29.9\%$) |
+| network APR | $-0.22$ | $-0.19$ | $+0.05$ pp |
+| median APR | $-0.16$ | $-0.20$ | $+0.14$ pp |
+| $N$ (stake) | $0$ | $0$ | $0$ |
+| $N(f)$ | $+0.35$ | $-0.03$ | $0$ |
+| $\sum f$ | $-0.23$ | $-0.17$ | $0$ |
+| $N(\sigma\mid r\ge 1)$ | $-0.11$ | $-0.10$ | $-23$ ($81\to 58$) |
+
+The $k$ vs $a_0$ ranking on APR, $N(f)$, and $\sum f$ is the same as above; dropping $\rho$ does not change it. What the first table does not show is the ranking **among** $\{k,a_0,c_i\}$ once $\rho$ is held fixed: $c_i=75$ is the largest viability cut; $a_0$ is the stronger scalar viability cut; $N(\sigma\mid r\ge 1)$ falls under all three, most under $c_i=75$.
+
+#### Viability by stake bin
+
+The $5$ million ADA bins are the same as in the $k$ note. $z_0(k=1000)=T/1000\approx 38.8$ million ADA, so a frozen-$\sigma$ increase in $k$ can change $r$ only for pools already near or above that cap. $a_0$ and $c_i$ have no such size threshold.
+
+<p align="center">
+<img src="plots/viability_mix_by_bin_shocks_epoch_644.png" alt="Viability mix by stake bin under baseline, k, a0, and c" width="95%">
+</p>
+
+<p align="center">
+<img src="plots/delta_rge1_share_by_bin_epoch_644.png" alt="Change in share of pools with r at least 1 by stake bin" width="90%">
+</p>
+
+| Band | $n$ | Baseline $r\ge 1$ | $k=1000$ | $a_0=0.6$ | $c_i=75$ |
+|:---|---:|---:|---:|---:|---:|
+| $<10$M | $757$ | $32$ | $32$ ($0$) | $25$ ($-7$) | $28$ ($-4$) |
+| $10$–$40$M | $295$ | $107$ | $107$ ($0$) | $89$ ($-18$) | $59$ ($-48$) |
+| $\ge 40$M | $210$ | $135$ | $114$ ($-21$) | $125$ ($-10$) | $105$ ($-30$) |
+
+Without $\rho$, the more effective lever **depends on size**.
+
+- **Small pools** ($<10$ million ADA). Almost none cover $C^*$ at the paper cell ($32$ of $757$). $k$ does not move this band. $a_0$ is the only scalar cut ($-7$). $c_i=75$ removes $4$.
+- **Mid-size** ($10$–$40$ million). $k$ is again $0$: these pools are below the new cap. $c_i=75$ is the large cut ($-48$), concentrated in $30$–$40$ million ADA. $a_0$ removes $18$.
+- **Large** ($\ge 40$ million). This is the only band $k$ hits ($-21$). $c_i=75$ still removes more in counts ($-30$). $a_0$ removes $10$.
+
+So $k$ is a **large-pool** viability shock; $a_0$ is the one that reaches **small** pools; $c_i=75$ is strongest in the **$30$–$40$ million** band.
+
+#### Conditional Nakamoto
+
+Unconditional $N$ (stake) cannot move at frozen $\sigma$. Two restrictions do move, because they change **who is in the set**.
+
+- $N(\sigma\mid r\ge 1)$: Nakamoto coefficient of stake **among pools with** $r\ge 1$ (majority of that subset's stake). Membership depends on $C^*=\mathrm{opex}/(6P)$, hence on ADA price and USD opex.
+- $N(\sigma\mid \sigma\ge 5\mathrm{M})$: the same coefficient among pools with at least $5$ million ADA. At frozen $\sigma$ this object **does not move** ($623$ pools, $N=152$).
+- $N$ of total via $r\ge 1$: how many $r\ge 1$ pools are needed to reach $50\%$ of **network** stake. This is undefined (—) when those pools hold less than half of Active stake.
+- $N(f\mid \sigma\ge 5\mathrm{M})$: reward Nakamoto among the $\ge 5$ million ADA pools. $k$ can move this at frozen $\sigma$; $c_i$ cannot.
+
+<p align="center">
+<img src="plots/conditional_nakamoto_price_cost_epoch_644.png" alt="Conditional Nakamoto versus ADA price and USD opex" width="95%">
+</p>
+
+At the paper cell ($667$ USD/month, $0.15$ USD/ADA, $C^*=741.1$):
+
+| Shock | $n$ with $r\ge 1$ | $N$ (stake) | $N(\sigma\mid r\ge 1)$ | stake share $r\ge 1$ | $N$ of total via $r\ge 1$ | $N(\sigma\mid\sigma\ge 5\mathrm{M})$ | $N(f)$ | $N(f\mid\sigma\ge 5\mathrm{M})$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Baseline | $274$ | $159$ | $81$ | $55.9\%$ | $191$ | $152$ | $155$ | $147$ |
+| $k=1000$ | $253$ | $159$ | $72$ | $49.6\%$ | — | $152$ | $209$ | $199$ |
+| $a_0=0.6$ | $239$ | $159$ | $73$ | $50.7\%$ | $213$ | $152$ | $151$ | $143$ |
+| $c_i=75$ | $192$ | $159$ | $58$ | $41.1\%$ | — | $152$ | $155$ | $147$ |
+| $\rho=0.0042$ | $333$ | $159$ | $96$ | $64.4\%$ | $178$ | $152$ | $155$ | $147$ |
+
+$N(\sigma\mid r\ge 1)$ **falls** under $k$, $a_0$, and $c_i=75$: dropping pools from the $r\ge 1$ set leaves a more concentrated viable group. $c_i=75$ is the largest drop ($81\to 58$), and viable pools then hold only $41.1\%$ of Active stake, so they cannot form a majority of the network (—). $k$ puts the viable share just under one half ($49.6\%$), so that majority is also undefined. $\rho$ raises $N(\sigma\mid r\ge 1)$ to $96$ and the viable share to $64.4\%$.
+
+Across the price–opex grid, $N(\sigma\mid r\ge 1)$ approaches the unconditional $N=159$ when $C^*$ is easy (high price, low opex): almost every Active pool has $r\ge 1$, so the restriction does not bind. $k$'s $\Delta$ is near $0$ in that region and becomes large only when $C^*$ is tight (for example $-19$ at $0.10$ USD/ADA and $667$ USD/month). $c_i=75$ cuts $N(\sigma\mid r\ge 1)$ over a much wider band of $C^*$, including the $256.5$ USD/month row. $a_0$ is smaller throughout.\sigma$ is not a protocol parameter.
 
