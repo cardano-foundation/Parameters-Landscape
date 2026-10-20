@@ -237,7 +237,7 @@ def grouped_panel(ax, rows, keys, labels, title):
     ax.set_ylabel(r"ADA/epoch (thousands)", fontsize=FONT_SIZE)
     ax.set_title(title, fontsize=FONT_SIZE)
     ax.tick_params(axis="y", labelsize=FONT_SIZE - 1)
-    ax.legend(fontsize=FONT_SIZE - 1, loc="lower left")
+    ax.legend(fontsize=FONT_SIZE - 1, loc="lower right")
     ax.grid(alpha=0.2, axis="y")
     ax.set_ylim(-900, 50)
     annotate_bars(ax, list(b1) + list(b2))
