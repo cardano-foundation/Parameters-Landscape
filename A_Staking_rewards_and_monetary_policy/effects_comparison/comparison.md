@@ -75,29 +75,27 @@ Regarding the result after redelegation following desirability rank ($D_i$ after
 
 ### Relative impacts: finite differences and elasticities
 
-The scoreboard shocks are not the same size. $k$ and $a_0$ double ($500\to 1000$, $0.3\to 0.6$), $\rho$ rises $40\%$ ($0.003\to 0.0042$), and $c_i=75$ is a **vector** shock: every declared cost is forced to $75$ ADA/epoch (median declared $c_i$ is $340$; every Active pool has $c_i>75$). It is not a move in $c_{\min}$, so there is no scalar $x$ and no elasticity for that column.
+The previous shocks are not the same size and hence, not comparable to measure what shock is most efficient in achieving a certain goal. We aim to facilitate that comparison in this subsection. We first define the key objectives to measure the effectivenes of the shocks. The objectives used are:
 
-The objectives used here are:
+- **Pool viability:** number of pools $n$ with $r\ge 1$ (operator reward covers $C^*$).
+- **Delegator APR:** network APR (stake-weighted among active pools with $f>c$), and median APR as the typical such pool.
+- **Decentralization of stake:** Nakamoto coefficient $N$ computed. Notice however, that if we do not assume a redelgation, this object does not move. We keep it for completness.
+- **Decentralization of rewards:** Nakamoto coefficient $N(f)$ computed from gross pool rewards. This can move when $f$ is reshaped even if stakes do not change.
+- **Size of the reward pie:** $\sum f$.
 
-- **Pool viability:** $n$ with $r\ge 1$ (operator reward covers $C^*$).
-- **Delegator APR:** network APR (stake-weighted among pledge-met pools with $f>c$), and median APR as the typical such pool.
-- **Decentralization of stake:** Nakamoto $N$ computed from pool $\sigma$. At frozen $\sigma$ this object cannot move.
-- **Decentralization of rewards:** Nakamoto $N(f)$ computed from gross pool rewards. This can move when $f$ is reshaped even if $\sigma$ is frozen. $\rho$ scales $f$ and therefore leaves $N(f)$ unchanged; $c_i$ does not enter $f$.
-- **Size of the reward pie:** $\sum f$. Holding $\tau$ and $Q$, $f$ is linear in $\rho$, so $\varepsilon_{\sum f,\rho}=1$ exactly.
-
-Operator surplus $\sum\Pi$ is incidence (already in the $\Delta f$ split), not a separate headline objective. Treasury is a $\tau$ object. Splitting is a different exercise.
-
-Finite differences $\Delta y$ answer what the paper shock does. Percent changes $\Delta y/y$ put those shocks in the units of the objective. Elasticities put the scalar levers in a common "% per %" unit:
+We next study finite differences $\Delta y$, answering what the shock does, percent changes $\Delta y/y$ that put those shocks in the units of the objective, and elasticities put the scalar levers in a common "% per %" unit:
 
 $$
 \varepsilon_{y,x}=\frac{(y'-y)/y}{(x'-x)/x},
 $$
 
-evaluated from the snapshot along the paper's discrete move $x\to x'$. This is not a derivative.
+evaluated with epoch 644 data.
 
 <p align="center">
 <img src="plots/relative_pct_epoch_644.png" alt="Percent change versus baseline on viability, APR, reward Nakamoto, and sum f" width="90%">
 </p>
+
+Percent change versus baseline ($\Delta y/y$):
 
 | Objective | $k=1000$ | $a_0=0.6$ | $c_i=75$ | $\rho=0.0042$ |
 |:---|---:|---:|---:|---:|
@@ -107,6 +105,8 @@ evaluated from the snapshot along the paper's discrete move $x\to x'$. This is n
 | $N$ (stake) | $0$ | $0$ | $0$ | $0$ |
 | $N(f)$ | $+34.8\%$ | $-2.6\%$ | $0$ | $0$ |
 | $\sum f$ | $-22.6\%$ | $-16.8\%$ | $0$ | $+40.0\%$ |
+
+Finite difference versus baseline ($\Delta y$):
 
 | Objective | $k=1000$ | $a_0=0.6$ | $c_i=75$ | $\rho=0.0042$ |
 |:---|---:|---:|---:|---:|
@@ -121,6 +121,8 @@ evaluated from the snapshot along the paper's discrete move $x\to x'$. This is n
 <img src="plots/elasticities_heatmap_epoch_644.png" alt="Elasticities of objectives with respect to k, a0, and rho" width="72%">
 </p>
 
+Elasticity ($\varepsilon_{y,x}$): 
+
 | Objective | $\varepsilon_{\cdot,k}$ | $\varepsilon_{\cdot,a_0}$ | $\varepsilon_{\cdot,\rho}$ |
 |:---|---:|---:|---:|
 | $n$ with $r\ge 1$ | $-0.08$ | $-0.13$ | $+0.54$ |
@@ -130,15 +132,14 @@ evaluated from the snapshot along the paper's discrete move $x\to x'$. This is n
 | $N(f)$ | $+0.35$ | $-0.03$ | $0$ |
 | $\sum f$ | $-0.23$ | $-0.17$ | $+1.00$ |
 
-Among the **scalar protocol parameters** $\{k,a_0,\rho\}$, the strongest driver depends on the objective.
+Among the **protocol parameters** $\{k,a_0,\rho\}$, the strongest driver depends on the objective.
 
-- **Viability.** $\rho$ is the strongest ($\varepsilon=+0.54$). $a_0$ is next ($\varepsilon=-0.13$), then $k$ ($\varepsilon=-0.08$). In finite differences, however, $c_i=75$ is the largest cut ($-82$ pools, $-29.9\%$). That ranking cannot be turned into an elasticity: the shock is not a percent move in a protocol parameter.
-- **Delegator APR.** $\rho$ again dominates ($\varepsilon=+1.04$ network, $+1.10$ median). The extra $f$ raises $\max\{f-c,0\}$ more than one-for-one when $c>0$, so the APR elasticities exceed $1$. $k$ and $a_0$ are similar in magnitude and both negative. $k$ is the stronger cut in **network** APR ($-22.1\%$ vs $-19.1\%$): it hits large, newly oversaturated pools. $a_0$ is the stronger cut in **median** APR ($-20.1\%$ vs $-15.9\%$): it compresses $f$ across the sample. $c_i=75$ raises APR slightly ($+2.8\%$ network) by a transfer and by changing who is in the $f>c$ set, not by enlarging $f$.
-- **Stake decentralization.** All three elasticities of $N$ (stake) are $0$. Frozen $\sigma$ cannot change a stake-based Nakamoto coefficient. The only scoreboard movement in $N$ is the after-$D_i$ column ($159\to 267$).
-- **Reward decentralization.** $k$ is the only material driver: $N(f)$ rises from $155$ to $209$ ($\varepsilon=+0.35$) because newly oversaturated pools lose $f$ and the reward pie is less concentrated. $a_0$ slightly *lowers* $N(f)$ ($-4$, $\varepsilon=-0.03$). $\rho$ and $c_i$ leave $N(f)$ unchanged. Operator-reward Nakamoto $N(\Pi)$ is much more concentrated than $N(f)$ (baseline $38$ vs $155$); $k$ raises it as well ($38\to 54$).
-- **Reward pie.** $\varepsilon_{\sum f,\rho}=1$ by construction. $k$ compresses $\sum f$ more than $a_0$ ($-22.6\%$ vs $-16.8\%$). $c_i$ does not enter $f$.
+- **Viability.** $\rho$ is the only scalar lever that raises $n$ with $r\ge 1$ ($\varepsilon=+0.54$). Among the other parameters, $k$ and $a_0$ both cut it; $k$ is less harmful ($\varepsilon=-0.08$) than $a_0$ ($\varepsilon=-0.13$). In finite differences, however, $c_i=75$ is the largest cut ($-82$ pools, $-29.9\%$).
+- **Delegator APR.** Again, $\rho$ is the only scalar lever that raises member APR ($\varepsilon=+1.04$ network, $+1.10$ median). The extra $f$ raises $\max\{f-c,0\}$ more than one-for-one when $c>0$, so those elasticities exceed $1$. Among the other parameters, $k$ and $a_0$ both cut APR. For **network** APR, $a_0$ is less harmful ($\varepsilon=-0.19$) than $k$ ($\varepsilon=-0.22$): $k$ hits large, newly oversaturated pools. For **median** APR, $k$ is less harmful ($\varepsilon=-0.16$) than $a_0$ ($\varepsilon=-0.20$): $a_0$ compresses $f$ across the sample. In finite differences, $c_i=75$ raises APR slightly ($+2.8\%$ network) by a transfer and by changing who is in the $f>c$ set, not by enlarging $f$.
+- **Stake decentralization.** None of the scalar levers moves $N$ (stake): all three elasticities are $0$. 
+- **Reward decentralization.** $k$ is the only scalar lever that raises $N(f)$ ($155\to 209$, $\varepsilon=+0.35$): newly oversaturated pools lose $f$ and the reward pie is less concentrated. $a_0$ cuts it slightly ($\varepsilon=-0.03$); $\rho$ leaves $N(f)$ unchanged (it scales $f$). In finite differences, $c_i=75$ also leaves $N(f)$ unchanged: $c$ does not enter $f$. Operator-reward Nakamoto $N(\Pi)$ is much more concentrated than $N(f)$ (baseline $38$ vs $155$); $k$ raises it as well ($38\to 54$).
+- **Reward pie.** $\rho$ is the only scalar lever that raises $\sum f$ ($\varepsilon=+1$ by construction). Among the other parameters, $k$ and $a_0$ both compress it; $a_0$ is less harmful ($\varepsilon=-0.17$) than $k$ ($\varepsilon=-0.23$). In finite differences, $c_i=75$ does not move $\sum f$: $c$ does not enter $f$.
 
-Joints are omitted from the elasticities: two coordinates move, so there is no single $x$. Their finite differences remain in the scoreboard. The after-$D_i$ column is omitted for the same reason $\sigma$ is not a protocol parameter.
 
 #### Without moving $\rho$
 
