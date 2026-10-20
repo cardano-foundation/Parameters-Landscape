@@ -53,6 +53,8 @@ The columns are:
 
 ### Description of results
 
+Individually, most of results are intuitive. Most interesting is the comparison among the different shocks. However, these comparisons must be take carefully since the shocks may not be equivalent. We will go back to this point later in another subsection. We now bring a description of the previous plots.
+
 Among the four single-parameter columns, **only** $\rho=0.0042$ raises both the count with $r\ge 1$ ($274\to 333$) and member APRs (median $1.83\%\to 2.63\%$, network $1.66\%\to 2.35\%$). It is also the only single shock with $\sum\Delta f>0$ ($\sum\Delta f=2,585,033$). Operators receive $24.6\%$ of that extra ADA ($\sum\Delta\Pi=637,038$); the rest is $f-\Pi$. The expansion in $n$ with $f>c$ is modest ($927\to 975$): most of the extra $f$ lands in pools that already cleared $c$.
 
 The other three singles cut the count with $r\ge 1$, but they do not do the same thing.
@@ -67,8 +69,7 @@ The joints are not sums of the singles.
 - $k{+}a_0$ is the worst frozen-$\sigma$ column for APRs (median $1.25\%$, network $1.04\%$) and for $|\sum\Delta f|$ ($\sum\Delta f=-2,321,080$). That joint cut is **smaller** than the sum of the isolated $k$ and $a_0$ cuts ($1,463,591+1,085,986=2,549,577$): the two $f$-shocks overlap on the same pools. Operators receive $25.7\%$ of the joint $\Delta f$.
 - $a_0{+}c$ inherits $\sum\Delta f$ from $a_0$ ($-1,085,986$). $\sum\Delta\Pi=-355,704$ is more negative than $a_0$ alone by about the $c$ transfer. The count with $r\ge 1$ is $173$.
 
-### After $D_i$ ($k=1000$ only)
+Regarding the result after redelegation following desirability rank ($D_i$ after $k=1000$).
 
-The last column is not a frozen-$\sigma$ parameter shock. It takes $k=1000$ and moves snapshot stake under the $D_i$ rule of the $k$ note. Two hundred ten donors are emptied, so $n$ with $\sigma>0$ is $1,052$. Median APR among remaining $f>c$ is $1.97\%$ and network APR is $1.88\%$ — both **above** the $k=500$ baseline. Nakamoto $N$ rises from $159$ to $267$. The count with $r\ge 1$ is $227$, still below $274$: covering large pools are among the emptied donors, and receivers are filled only to $40$ million ADA.
+- The last column is not a frozen-$\sigma$ parameter shock. It takes $k=1000$ and moves snapshot stake under the $D_i$ rule of the $k$ note. Two hundred ten donors are emptied, so $n$ with $\sigma>0$ is $1,052$. Median APR among remaining $f>c$ is $1.97\%$ and network APR is $1.88\%$ — both **above** the $k=500$ baseline. Nakamoto $N$ rises from $159$ to $267$. The count with $r\ge 1$ is $227$, still below $274$: covering large pools are among the emptied donors, and receivers are filled only to $40$ million ADA. Relative to baseline, $\sum\Delta f=-306,075$: most of the frozen $k=1000$ cut of $1,463,591$ is recovered once stake leaves the cap. Operators as a group still lose ($\sum\Delta\Pi=-1,049,789$) because emptied pools take $\Pi$ to zero; remaining $f-\Pi$ rises ($\sum\Delta(f-\Pi)=743,714$). 
 
-Relative to baseline, $\sum\Delta f=-306,075$: most of the frozen $k=1000$ cut of $1,463,591$ is recovered once stake leaves the cap. Operators as a group still lose ($\sum\Delta\Pi=-1,049,789$) because emptied pools take $\Pi$ to zero; remaining $f-\Pi$ rises ($\sum\Delta(f-\Pi)=743,714$). This column is the only one in which $N$ moves. The same $D_i$ rule is **not** applied here to $a_0$, $c_i$, or $\rho$: those levers do not create a new saturation cap, so there is no analogous emptying of $\sigma>40$ million ADA.
