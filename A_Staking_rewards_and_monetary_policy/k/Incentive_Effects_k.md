@@ -634,19 +634,25 @@ Another way of understanding the effect of the change in $k$ is whether it induc
 
 $$\mathrm{APR}_i = 73\,(1-m_i)\,\frac{\max\\{f(\sigma_i,p_i)-c_i,\,0\\}}{\sigma_i}.$$
 
-The following table reports the median theoretical delegator APR at the current snapshot and after redelegation when $k=1000$, across active pools with $f_i>c_i$. Notice that we do not assume that operators of oversaturated pools open a new pool. All oversaturated stake migrate to existing pools. We also abstain of considering potential coordination effects among delegators
+The following table reports the median theoretical delegator APR at the current snapshot and after redelegation when $k=1000$ (and based on the desirability rank mentioned above), across active pools with $f_i>c_i$. Notice that we do not assume that operators of oversaturated pools open a new pool. All oversaturated stake migrate to existing pools. We also abstain of considering potential coordination effects among delegators
 
-| Quantity | Current ($k=500$) | After redelegation ($k=1000$) |
-|:---|---:|---:|
-| Active pools | 1,262 | 1,052 |
-| Donors ($\sigma>40$M) | 210 | 0 |
-| Receivers ($0<\sigma\le 40$M) | 1,052 | 1,052 |
-| Pools at cap $40$M | 28 | 492 |
-| Median pool stake | 4.72M ADA | 16.88M ADA |
-| **Median APR ($f>c$)** | **1.83%** | **1.97%** |
-| Pools with $f>c$ (APR sample) | 927 | 717 |
-| Nakamoto $N$ | 159 | 267 |
-| Total stake | 21.31B ADA | 21.31B ADA |
+| Quantity | Current ($k=500$) | $k=1000$, $\sigma$ frozen | After redelegation ($k=1000$) |
+|:---|---:|---:|---:|
+| Active pools | $1,262$ | $1,262$ | $1,052$ |
+| Donors ($\sigma>40$M) | $210$ | $210$ | $0$ |
+| Receivers ($0<\sigma\le 40$M) | $1,052$ | $1,052$ | $1,052$ |
+| Pools at cap $40$M | $28$ | $28$ | $492$ |
+| Median pool stake | $4.72$M ADA | $4.72$M ADA | $16.88$M ADA |
+| Oversaturated pools ($\sigma>z_0(k)$) | $7$ | $214$ | $0$ above $40$M |
+| $E(k)$ (B ADA) | $0.07$ | $4.81$ | $0$ above $40$M |
+| **Median APR ($f>c$)** | **$1.83\%$** | **$1.54\%$** | **$1.97\%$** |
+| Mean APR ($f>c$) | $1.47\%$ | $1.34\%$ | $1.52\%$ |
+| Network APR ($f>c$) | $1.66\%$ | $1.29\%$ | $1.88\%$ |
+| Pools with $f>c$ (APR sample) | $927$ | $927$ | $717$ |
+| Nakamoto $N$ | $159$ | $159$ | $267$ |
+| Total stake | $21.31$B ADA | $21.31$B ADA | $21.31$B ADA |
+
+The middle column is the impact: $k=1000$ with the epoch-$644$ stake vector held fixed. The last column is the idealized redelegation already used above, in which pools with $\sigma>40$M are emptied toward higher-$D_i$ pools, filling each receiver up to $40$M. Since the Nakamoto coefficient is computed from pool stake, it does not change at impact ($159$), because $\sigma$ has not moved. The rise to $267$ is the redelegation step. Median APR among pools with $f>c$ falls from $1.83\%$ to $1.54\%$ at impact (network APR $1.66\%$ to $1.29\%$). The $\Delta f$ split above is this impact. After the $D_i$ exercise, median APR is $1.97\%$.
 
 <p align="center">
   <img src="plots/member_apr_redelegation_current_vs_after_epoch_644.png" alt="APR distribution current vs after k increment e644" width="62%">
