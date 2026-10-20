@@ -381,6 +381,24 @@ The previous exercise with $C^\*=741.1$ ADA uses one USD opex ($667$/month) and 
 
 Price and opex still set the count $r\ge 1$: at $58.5$ USD/month the count is already high at every price in the grid. At the paper cell ($667$ USD/month, $0.15$ USD/ADA), the count rises from $274$ to $333$. Raising $\rho$ scales $R=(1-\tau)\rho Q$, so $f_i$ and $\Pi_i$ rise for pools that already have some stake. That lifts pools already close to $r=1$ over the threshold, but it does not rescue tiny pools whose $\Pi_i$ remains far below $C^\*$. The gain is largest in the middle of the $C^\*$ range (for example $+70$ at $667$ USD/month and $0.25$ USD/ADA). Unlike the $k$ and $c_i=75$ shocks, the $\rho$ gap does not vanish at cheap opex: even at $58.5$ USD/month and $0.15$ USD/ADA, $38$ more pools have $r\ge 1$. When $C^\*$ is very low ($58.5$ USD/month and high ADA prices), most Active pools already have $r\ge 1$, so the $\rho$ gain shrinks. When $C^\*$ is very high (cheap ADA and $1,479$ USD/month), almost nobody covers either way, so the $\rho$ gap shrinks again. Across the grid the increment stays in the tens of pools, which is why increasing $\rho$ is an ineffective lever for small-pool viability even though it is a first-order level shock to $R$.
 
+### Operator and delegator shares of $\Delta f$ when $\rho=0.0042$
+
+Raising $\rho=0.003\to 0.0042$ scales $R$, and therefore $f$, by $1.4$. On the Active pledge-met snapshot ($n=$1,262$, $k=500$), $\sum\Delta f=$2,585,033$ ADA/epoch, all positive. Operators receive $24.6\%$ of that increment ($\sum\Delta\Pi=$637,038$); delegators receive $\sum\Delta(f-\Pi)=$1,947,995$. When $f>c$ already holds, $\Delta\Pi=s\Delta f$. That identity covers $927$ pools and $98.8\%$ of $\sum\Delta f$ ($\sum\Delta\Pi=$607,007$, $23.8\%$ of their $\Delta f$). Pools still at $f\le c$ ($n=$287$) pocket the whole increment, but that is only $\sum\Delta f=$27,851$. Another $48$ pools newly satisfy $f>c$. By pledge intensity, $q<0.01$ accounts for $\sum\Delta f=$1,850,851$, of which operators take $10.8\%$; at $q\geq 0.25$, operators take $95.1\%$ of $\sum\Delta f=$427,577$. Median $\Delta f=$562$, median $\Delta\Pi=$42$, median $\Delta(f-\Pi)=$269$. A larger pot therefore shows up mainly as $\Delta(f-\Pi)$, because most of the extra $f$ sits in low-$q$ pools.
+
+<p align="center">
+<img src="plots/delta_f_split_operator_delegator_rho_epoch_644.png" alt="Delta f split into operator and delegator rewards, rho=0.0042" width="90%">
+</p>
+
+| Group | $n$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ | $\sum\Delta\Pi/\sum\Delta f$ | median $\Delta f$ | median $\Delta\Pi$ | median $\Delta(f-\Pi)$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|
+| All Active | $1,262$ | $2,585,033$ | $637,038$ | $1,947,995$ | $24.6\%$ | $562$ | $42$ | $269$ |
+| Still $f\le c$ | $287$ | $27,851$ | $27,851$ | $0$ | $100.0\%$ | $30$ | $30$ | $0.00$ |
+| Newly $f>c$ | $48$ | $4,036$ | $2,179$ | $1,857$ | $54.0\%$ | $66$ | $43$ | $36$ |
+| Already $f>c$ | $927$ | $2,553,145$ | $607,007$ | $1,946,138$ | $23.8\%$ | $1,441$ | $57$ | $860$ |
+| $q<0.01$ | $638$ | $1,850,851$ | $200,645$ | $1,650,206$ | $10.8\%$ | $1,833$ | $58$ | $1,466$ |
+| $0.01\leq q<0.25$ | $433$ | $306,604$ | $29,980$ | $276,624$ | $9.8\%$ | $175$ | $26$ | $145$ |
+| $q\geq 0.25$ | $191$ | $427,577$ | $406,412$ | $21,165$ | $95.1\%$ | $90$ | $73$ | $0.00$ |
+
 ### Changes in staking participation
 
 The following figure illustrates the impact of a $40\\%$ increase in $\rho$ on delegator APR, defined as:
