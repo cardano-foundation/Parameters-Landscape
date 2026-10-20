@@ -306,6 +306,29 @@ implying that the median $r$ falls by about $0.032$ ((0.6-0.3)\cdot -0.105 \appr
 
 These two numbers answer: (i) how many more or fewer pools cover operating costs, and (ii) how much a typical pool’s coverage $r=\Pi/C^*$ falls, when $a_0$ rises.
 
+### Operator and delegator shares of $\Delta f$
+
+The viability exercise above asks whether $\Pi_i$ covers OpEx. Here we split the same snapshot $\Delta f_i$ into operator reward $\Pi_i$ and delegator rewards $f_i-\Pi_i$, using each pool's declared $c_i$ and $m_i$. Let $q_i=\hat p_i/\sigma_i$ and $s_i=m_i+(1-m_i)q_i$. Then $\Delta f_i=\Delta\Pi_i+\Delta(f_i-\Pi_i)$. Raising $a_0$ changes $f$ through $1/(1+a_0)$ and the pledge channel; it does not change the sharing rule. Among Active pledge-met pools ($n=1,262$), $a_0:0.3\to 0.6$ changes aggregate $f$ by $-1,085,986$ ADA/epoch. Operators receive $-180,128$ of that ($16.6\%$); delegators receive $-905,858$ ($83.4\%$). Every Active pool has $\Delta f<0$. Forty-three pools cross from $f>c$ to $f\le c$, so their delegators lose the entire residual.
+
+<p align="center">
+<img src="plots/delta_f_split_operator_delegator_a0_epoch_644.png" alt="Split of delta f into operator Pi and delegator rewards, a0=0.3 to 0.6" width="100%">
+</p>
+
+Unlike the $k$ shock, this is not a saturation cut on a few large pools. The $1/(1+a_0)$ compression hits the whole set of pools; most of the lost $f$ sits in low-$q$ pools. Those with $q<0.01$ ($n=638$) account for $-866,964$ ADA/epoch of $\Delta f$, and operators take only $10.9\%$ of it. In the tail $q\ge 0.25$ ($n=191$), $\Delta f$ is much smaller ($-77,129$) and operators take $91.2\%$. The typical Active pool (median, not mean) loses $230$ ADA/epoch of $f$, of which $23$ is $\Pi$ and $126$ is $f-\Pi$. A delegator in a low-$s$ pool therefore bears most of the immediate $f$ loss. Declared pledge $p$ sorts the size of $\Delta f$ more than the split: even pools with $p\ge 1$M ADA lose $f$ in aggregate ($-73,078$), and operators still take only $32.3\%$ of that cut.
+
+| Group | $n$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ | $\sum\Delta\Pi/\sum\Delta f$ | median $\Delta f$ | median $q$ | median $m$ | median $s$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| All Active | 1262 | $-1,085,986$ | $-180,128$ | $-905,858$ | $16.6\%$ | $-230$ | $0.010$ | $2.0\%$ | $0.050$ |
+| $q<0.01$ | 638 | $-866,964$ | $-94,859$ | $-772,105$ | $10.9\%$ | $-858$ | $0.001$ | $3.0\%$ | $0.030$ |
+| $0.01\le q<0.25$ | 433 | $-141,893$ | $-14,915$ | $-126,978$ | $10.5\%$ | $-82$ | $0.042$ | $1.0\%$ | $0.064$ |
+| $q\ge 0.25$ | 191 | $-77,129$ | $-70,353$ | $-6,775$ | $91.2\%$ | $-42$ | $0.580$ | $2.0\%$ | $0.590$ |
+
+| Declared pledge | $n$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ | $\sum\Delta\Pi/\sum\Delta f$ | median $\Delta f$ | median $q$ | median $m$ | median $s$ |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| $p<100$k | 943 | $-745,697$ | $-111,289$ | $-634,408$ | $14.9\%$ | $-185$ | $0.004$ | $2.0\%$ | $0.044$ |
+| $100$k$\le p<1$M | 254 | $-267,212$ | $-45,212$ | $-222,000$ | $16.9\%$ | $-448$ | $0.061$ | $1.5\%$ | $0.077$ |
+| $p\ge 1$M | 65 | $-73,078$ | $-23,627$ | $-49,450$ | $32.3\%$ | $-729$ | $0.743$ | $4.0\%$ | $0.750$ |
+
 ### Incentives to pool splitting
 
 An increase in $a_0$ can affect the incentive to split one pool into multiple pools through opposing channels. On one side, splitting still collects declared fixed cost $c_i$ in each child pool, so the mechanical duplication gain from fixed cost remains. On the other side, $a_0$ governs how strongly pledge enters the gross reward $f(\sigma_i,p_i)$. Raising $a_0$ intensifies the pledge channel while also shrinking rewards through the factor $1/(1+a_0)$. Because a $1\to 2$ split halves both stake and pledge in each half, a higher $a_0$ changes how costly that pledge fragmentation is for operator rewards.
