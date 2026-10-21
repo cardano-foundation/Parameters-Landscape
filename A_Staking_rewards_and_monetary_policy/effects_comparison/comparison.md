@@ -218,7 +218,7 @@ Let $V=\{i:r_i\ge 1\}$ and $L=\{i:\sigma_i\ge 5\times 10^{6}\}$. Then, we check 
 
 Using $C^\*=741.1$ ADA/epoch:
 
-| Shock | $n$ with $r\ge 1$ | $N$ (stake) | $N(\sigma\mid r\ge 1)$ | stake share $r\ge 1$ | $N$ of total via $r\ge 1$ | $N(\sigma\mid\sigma\ge 5\mathrm{M})$ | $N(f)$ | $N(f\mid\sigma\ge 5\mathrm{M})$ |
+| Shock | $n$ with $r\ge 1$ | $N$ (Nakamoto Coefficient) | $N(\sigma\mid r\ge 1)$ | stake share $r\ge 1$ | $N$ of total via $r\ge 1$ | $N(\sigma\mid\sigma\ge 5\mathrm{M})$ | $N(f)$ | $N(f\mid\sigma\ge 5\mathrm{M})$ |
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|
 | Baseline | $274$ | $159$ | $81$ | $55.9\%$ | $191$ | $152$ | $155$ | $147$ |
 | $k=1000$ | $253$ | $159$ | $72$ | $49.6\%$ | — | $152$ | $209$ | $199$ |
