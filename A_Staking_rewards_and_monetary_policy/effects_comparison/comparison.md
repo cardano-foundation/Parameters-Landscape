@@ -2,7 +2,7 @@ In this section, we compare the relative impacts of shocks across different para
 
 # Comparison of effects given the current state
 
-In this subsection we compare the effects observed in the corresponding files. We use the epoch $644$ parameter shocks on **one sample** and **one operational cost**. The sample is the Active set of pools($n=1,262$), where and Inactive pool is one with $\sigma=0$ at epoch $644$, unmet pledge (active pledge below declared pledge) at epoch $644$, or zero blocks in the prior $15$ epochs. We consider $C^\*=741.1$ ADA/epoch ($667$ USD/month at $0.15$ USD/ADA) as the operational cost (see XX), a reward pot $R=14,966,501.84$ ADA (except the $\rho$ column, which scales $R$ by $0.0042/0.003=1.4$), and a total supply $T=38,763,957,566.43$ ADA. 
+In this subsection we compare the effects observed in the corresponding files. We use the epoch $644$ parameter shocks on **one sample** and **one operational cost**. The sample is the Active set of pools($n=1,262$), where and Inactive pool is one with $\sigma=0$ at epoch $644$, unmet pledge (active pledge below declared pledge) at epoch $644$, or zero blocks in the prior $15$ epochs. We consider $C^\*=741.1$ ADA/epoch ($667$ USD/month at $0.15$ USD/ADA) as the operational cost (see [Lopez de Lara (2026)](https://input-output-hk.github.io/spo-incentives/pdf-viewer.html?file=references/previous-analasys/spo-incentives-analysis_lopez-de-lara_2025.pdf))), a reward pot $R=14,966,501.84$ ADA (except the $\rho$ column, which scales $R$ by $0.0042/0.003=1.4$), and a total supply $T=38,763,957,566.43$ ADA. 
 The columns are:
 
 - baseline: $k=500$, $a_0=0.3$, each pool's own declared $c_i$, $\rho=0.003$;
