@@ -433,15 +433,15 @@ Delegators in pools that become oversaturated following the increase in $k$ are 
   <em>Figure 1: Stake distribution by bin (Epoch 644).</em>
 </p>
 
+Suppose that, after an increment in $k$ from $500$ to $1,000$ (which, using epoch-644 parameters, implies $z_0=T/k\approx 38.8$ M ADA since $T=38.8$ B ADA), only the stake above $40$ M ADA leaves the newly large pools and redelegates to smaller ones (that is, we assume no delegation leaves the ecosystem, and we use $40$M and not $38.8$M for simplicity). Each of those pools keeps $40$ M ADA. We rank pools receiving delegation using
 
-Suppose that, after an increment in $k$ from $500$ to $1,000$ (which, using epoch-644 parameters, implies $`z_0 = T/k \approx 38.8`$ M ADA since $`T=38.8`$ B ADA), all delegation in pools with more than $40$ M ADA redelegate to smaller pools (that is, we assume no delegation leaves the ecosystem while we use $40M$ and not $38.8M$ for simplicity). We rank pools receiving delegation using 
+$$D_i=(1-m_i)\frac{\max\{f(\sigma_i,p_i)-c_i,0\}}{\sigma_i}.$$
 
-$$D_i=(1-m_i)\frac{\max\\{f(\sigma_i,p_i)-c_i,0\\}}{\sigma_i}.$$
+If all delegators were rational and there were not market frictions, that excess should be redelegated in that rank order, filling each pool up to the $40$M cap before moving to the next. The next plot shows this idealized result. Under this exercise, $210$ Active pools hold $12.95$ B ADA, of which $4.55$ B ADA sits above $40$ M and must move. That excess is fully absorbed by $673$ receivers with $D_i>0$ and about $19.73$ B ADA of free capacity (this is, nothing left unredelegated). There are another $379$ pools with $D_i=0$ and $13.99$ B ADA of spare capacity, but they were not receivers. $250$ of the $D_i>0$ receivers fill to $40$ M ADA. The $0$–$5$ M pool count stays at $639$: none of those pools receive inflow. 
 
-If all delegators were rational and there were not market frictions, stake should be redelegated in that rank order, filling each pool up to the \(40\)M cap before moving to the next. The next plot shows this idealized result. Under this exercise, $210$ pools hold $12.95$ B ADA that must move.  That stake is fully absorbed by $673$ receivers with $D_i>0$ and about $19.73$ B ADA of free capacity (this is, nothing left unredelegated). There are another $379$ pools with $D_i=0$ and $13.99$ B ADA of spare capacity, but they were not receivers. Interestingly, the $0–5$ M pool count falls because some of these small pools were well-ranked receivers that started below $5$M ADA, absorb inflows and jump to $40$ M ADA.
 
 <p align="center">
-  <img src="plots/stake_distribution_by_bin_k1000_redelegation_epoch_644.png" alt="Stake distribution by bin e644 after redelegation" width="62%">
+  <img src="plots/stake_distribution_by_bin_k1000_redelegation_excess_epoch_644.png" alt="Stake distribution by bin e644 after redelegation" width="62%">
 </p>
 
 The preceding analysis relies on stylized assumptions regarding both delegator and operator behavior. In practice, delegators do not select pools based solely on the desirability metric $D_i$; they are also influenced by brand reputation, pool loyalty, and/or herding behavior, or they may decide to complete withdrawal from the ecosystem. Similarly, operators—particularly centralized exchanges or multi-pool entities—can launch new pools and actively migrate their existing stake.
@@ -634,32 +634,31 @@ Another way of understanding the effect of the change in $k$ is whether it induc
 
 $$\mathrm{APR}_i = 73\,(1-m_i)\,\frac{\max\\{f(\sigma_i,p_i)-c_i,\,0\\}}{\sigma_i}.$$
 
-The following table reports the median theoretical delegator APR at the current snapshot and after redelegation when $k=1000$ (and based on the desirability rank mentioned above), across active pools with $f_i>c_i$. Notice that we do not assume that operators of oversaturated pools open a new pool. All oversaturated stake migrate to existing pools. We also abstain of considering potential coordination effects among delegators
+The following table reports the median theoretical delegator APR at the current snapshot and after redelegation when $k=1000$ (and based on the desirability rank mentioned above), across Active pools with $f_i>c_i$. Notice that we do not assume that operators of oversaturated pools open a new pool. Only the excess above $40$ M ADA migrates to existing pools; the $210$ donors remain at $40$ M ADA. We also abstain of considering potential coordination effects among delegators
 
 | Quantity | Current ($k=500$) | $k=1000$, $\sigma$ frozen | After redelegation ($k=1000$) |
 |:---|---:|---:|---:|
-| Active pools | $1,262$ | $1,262$ | $1,052$ |
+| Active pools | $1,262$ | $1,262$ | $1,262$ |
 | Donors ($\sigma>40$M) | $210$ | $210$ | $0$ |
-| Receivers ($0<\sigma\le 40$M) | $1,052$ | $1,052$ | $1,052$ |
-| Pools at cap $40$M | $28$ | $28$ | $492$ |
-| Median pool stake | $4.72$M ADA | $4.72$M ADA | $16.88$M ADA |
+| Receivers ($0<\sigma\le 40$M) | $1,052$ | $1,052$ | $1,262$ |
+| Pools at cap $40$M | $28$ | $28$ | $460$ |
+| Median pool stake | $4.72$M ADA | $4.72$M ADA | $4.72$M ADA |
 | Oversaturated pools ($\sigma>z_0(k)$) | $7$ | $214$ | $0$ above $40$M |
 | $E(k)$ (B ADA) | $0.07$ | $4.81$ | $0$ above $40$M |
-| **Median APR ($f>c$)** | **$1.83\%$** | **$1.54\%$** | **$1.97\%$** |
-| Mean APR ($f>c$) | $1.47\%$ | $1.34\%$ | $1.52\%$ |
-| Network APR ($f>c$) | $1.66\%$ | $1.29\%$ | $1.88\%$ |
-| Pools with $f>c$ (APR sample) | $927$ | $927$ | $717$ |
+| **Median APR ($f>c$)** | **$1.83\%$** | **$1.54\%$** | **$1.83\%$** |
+| Mean APR ($f>c$) | $1.47\%$ | $1.34\%$ | $1.46\%$ |
+| Network APR ($f>c$) | $1.66\%$ | $1.29\%$ | $1.72\%$ |
+| Pools with $f>c$ (APR sample) | $927$ | $927$ | $927$ |
 | Nakamoto $N$ | $159$ | $159$ | $267$ |
 | Total stake | $21.31$B ADA | $21.31$B ADA | $21.31$B ADA |
 
-The middle column is the impact: $k=1000$ with the epoch-$644$ stake vector held fixed. The last column is the idealized redelegation already used above, in which pools with $\sigma>40$M are emptied toward higher-$D_i$ pools, filling each receiver up to $40$M. Since the Nakamoto coefficient is computed from pool stake, it does not change at impact ($159$), because $\sigma$ has not moved. The rise to $267$ is the redelegation step. Median APR among pools with $f>c$ falls from $1.83\%$ to $1.54\%$ at impact (network APR $1.66\%$ to $1.29\%$). The $\Delta f$ split above is this impact. After the $D_i$ exercise, median APR is $1.97\%$.
+The middle column is the impact: $k=1000$ with the epoch-$644$ stake vector held fixed. The last column is the idealized redelegation already used above: only $\sigma_i-40$M leaves the $210$ donors, and that excess is poured into higher-$D_i$ receivers up to $40$M. Since the Nakamoto coefficient is computed from pool stake, it does not change at impact ($159$), because $\sigma$ has not moved. The rise to $267$ is the redelegation step. Median APR among pools with $f>c$ falls from $1.83\%$ to $1.54\%$ at impact (network APR $1.66\%$ to $1.29\%$). The $\Delta f$ split above is this impact. After the $D_i$ exercise, median APR is $1.83\%$ (the $f>c$ sample is still $n=927$) and network APR is $1.72\%$.
 
 <p align="center">
-  <img src="plots/member_apr_redelegation_current_vs_after_epoch_644.png" alt="APR distribution current vs after k increment e644" width="62%">
+  <img src="plots/member_apr_redelegation_current_vs_after_excess_epoch_644.png" alt="APR distribution current vs after k increment e644" width="62%">
 </p>
 
-Even under a best-case redelegation scenario—where stake from newly saturated pools is optimally reallocated following the increase in $k$—the median APR rises by only an $8\\%$ relative gain. Such a marginal increase is unlikely to incentivize new capital inflow; furthermore, because this model assumes optimal delegator behavior, it represents an upper bound on potential yield improvement.
-
+Even under a best-case redelegation scenario—where the excess above $40$ M ADA is reallocated by $D_i$ after the increase in $k$—median APR among pools with $f>c$ is unchanged at $1.83\%$, and network APR rises from $1.66\%$ to $1.72\%$. Because this model assumes optimal delegator behavior, it represents an upper bound on potential yield improvement.
 
 ## Interaction effects
 
