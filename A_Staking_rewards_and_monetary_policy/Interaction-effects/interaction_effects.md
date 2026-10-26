@@ -5,7 +5,7 @@
 **Pros**
 1. **$k$ with lower `minPoolCost`:**
    1. Delegator APR improves, particularly for small pools.
-   2. The interaction induces redelegation from initially large pools toward smaller ones.
+   2. The interaction changes incentives to redelegate from initially large pools toward smaller ones.
    3. Higher $k$ leaves unsaturated-pool viability largely unchanged.
 2. **$k$ with larger $a_0$:**
    1. Higher $k$ tends to favor mid-sized, highly pledged pools near the new saturation point.
