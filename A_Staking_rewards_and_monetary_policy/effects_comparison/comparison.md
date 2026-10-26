@@ -11,7 +11,7 @@ The columns are:
 - every declared $c_i$ set to $75$ ADA/epoch (this is **not** only a move in $c_{\min}$; it forces the declared cost of every Active pool);
 - $\rho=0.0042$;
 - the three two-way joints $k{+}c$, $k{+}a_0$, and $a_0{+}c$;
-- $k=1000$ after the idealized $D_i$ reallocation used in the $k$ note (empty pools with $\sigma>40$ million ADA into higher-$D_i$ receivers, cap $40$ million ADA, $\lambda=1$, no ecosystem exit).
+- $k=1000$ after the idealized $D_i$ reallocation used in the $k$ note (only $\sigma-40$ million ADA leaves pools with $\sigma>40$ million ADA into higher-$D_i$ receivers; donors keep $40$ million ADA; $\lambda=1$, no ecosystem exit).
 
 > The last column is the only one in which $\sigma$ moves. Frozen $\sigma$ does not change the pool-stake Nakamoto coefficient $N$; $c_i$ does not enter $f$, so $\sum\Delta f=0$ under $c_i=75$ and the change is a transfer between $\Pi$ and $f-\Pi$. A pool is counted as $r\ge 1$ when operator reward $\Pi$ covers $C^*$. Member APR is reported among pledge-met pools with $f>c$.
 
@@ -33,7 +33,7 @@ The columns are:
 | $k=1000$, $c_i=75$ | $1,262$ | $152$ | $106$ | $0.170$ | $6.02$ | $1.80\%$ | $1.34\%$ | $1,118$ | $159$ |
 | $k=1000$, $a_0=0.6$ | $1,262$ | $218$ | $100$ | $0.468$ | $9.39$ | $1.25\%$ | $1.04\%$ | $884$ | $159$ |
 | $a_0=0.6$, $c_i=75$ | $1,262$ | $173$ | $104$ | $0.156$ | $7.93$ | $1.58\%$ | $1.39\%$ | $1,096$ | $159$ |
-| $k=1000$ after $D_i$ | $1,052$ | $227$ | $68$ | $0.472$ | $7.45$ | $1.97\%$ | $1.88\%$ | $717$ | $267$ |
+| $k=1000$ after $D_i$ | $1,262$ | $292$ | $111$ | $0.487$ | $9.81$ | $1.83\%$ | $1.72\%$ | $927$ | $267$ |
 
 | Shock | $\Delta(n$ with $r\ge 1)$ | $\Delta(n$ with $r\ge 2)$ | $\Delta$ median APR (pp) | $\Delta$ network APR (pp) | $\Delta N$ | $\sum\Delta f$ | $\sum\Delta\Pi$ | $\sum\Delta(f-\Pi)$ |
 |:---|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -44,7 +44,7 @@ The columns are:
 | $k=1000$, $c_i=75$ | $-122$ | $-19$ | $-0.03$ | $-0.32$ | $0$ | $-1,463,591$ | $-634,909$ | $-828,681$ |
 | $k=1000$, $a_0=0.6$ | $-56$ | $-25$ | $-0.58$ | $-0.62$ | $0$ | $-2,321,080$ | $-596,496$ | $-1,724,584$ |
 | $a_0=0.6$, $c_i=75$ | $-101$ | $-21$ | $-0.25$ | $-0.27$ | $0$ | $-1,085,986$ | $-355,704$ | $-730,282$ |
-| $k=1000$ after $D_i$ | $-47$ | $-57$ | $+0.15$ | $+0.22$ | $+108$ | $-306,075$ | $-1,049,789$ | $743,714$ |
+| $k=1000$ after $D_i$ | $+18$ | $-14$ | $+0.00$ | $+0.06$ | $+108$ | $-201,743$ | $-407,352$ | $205,609$ |
 
 <p align="center">
 <img src="plots/scoreboard_delta_f_split_epoch_644.png" alt="Delta f split into operator and delegator shares" width="88%">
@@ -71,7 +71,7 @@ The joints are not sums of the singles.
 
 Regarding the result after redelegation following desirability rank ($D_i$ after $k=1000$).
 
-- The last column is not a frozen-$\sigma$ parameter shock. It takes $k=1000$ and moves snapshot stake under the $D_i$ rule of the $k$ note. Two hundred ten donors are emptied, so $n$ with $\sigma>0$ is $1,052$. Median APR among remaining $f>c$ is $1.97\%$ and network APR is $1.88\%$ — both **above** the $k=500$ baseline. Nakamoto $N$ rises from $159$ to $267$. The count with $r\ge 1$ is $227$, still below $274$: covering large pools are among the emptied donors, and receivers are filled only to $40$ million ADA. Relative to baseline, $\sum\Delta f=-306,075$: most of the frozen $k=1000$ cut of $1,463,591$ is recovered once stake leaves the cap. Operators as a group still lose ($\sum\Delta\Pi=-1,049,789$) because emptied pools take $\Pi$ to zero; remaining $f-\Pi$ rises ($\sum\Delta(f-\Pi)=743,714$).
+- The last column is not a frozen-$\sigma$ parameter shock. It takes $k=1000$ and moves only the excess above $40$ million ADA under the $D_i$ rule of the $k$ note. The $210$ donors remain at $40$ million ADA, so $n$ with $\sigma>0$ stays $1,262$. Median APR among pools with $f>c$ is $1.83\%$ — the same as baseline — and network APR is $1.72\%$, slightly above $1.66\%$. Nakamoto $N$ rises from $159$ to $267$. The count with $r\ge 1$ is $292$, above $274$: donors keep enough stake to cover $C^\*$, and some receivers grow into $r\ge 1$. Relative to baseline, $\sum\Delta f=-201,743$: most of the frozen $k=1000$ cut of $1,463,591$ is recovered once the excess leaves the cap. Operators as a group still lose ($\sum\Delta\Pi=-407,352$); $f-\Pi$ rises ($\sum\Delta(f-\Pi)=205,609$).
 
 ### Relative impacts: finite differences and elasticities
 
